@@ -2164,9 +2164,9 @@
     </div>
 
     <nav class="nav">
-        <div class="logo">
+        <a href="https://arvihealth.com" target="_blank" class="logo">
             <img src="arvi logo.avif" alt="Arvi Health">
-        </div>
+        </a>
         <div class="nav-center">
             <div class="nav-dot active" data-slide="0"></div>
             <div class="nav-dot" data-slide="1"></div>
@@ -2182,7 +2182,7 @@
             <div class="nav-dot" data-slide="11"></div>
             <div class="nav-dot" data-slide="12"></div>
         </div>
-        <a href="mailto:invest@arvihealth.com" class="nav-cta">Contact Us</a>
+        <a href="https://arvihealth.com/contact-us" target="_blank" class="nav-cta">Contact Us</a>
     </nav>
 
     <div class="slides-container" id="slidesContainer">
@@ -3033,11 +3033,123 @@
             threshold: 0.5
         };
 
+        // Function to reset animations on a slide
+        function resetSlideAnimations(slide) {
+            // Reset elements with delay
+            slide.querySelectorAll('[data-delay]').forEach(el => {
+                el.classList.remove('visible');
+            });
+
+            // Reset counters
+            slide.querySelectorAll('[data-count]').forEach(counter => {
+                delete counter.dataset.animated;
+            });
+
+            // Reset progress bars
+            slide.querySelectorAll('.progress-bar-fill').forEach(bar => {
+                bar.classList.remove('animate');
+            });
+
+            // Reset chart bars
+            slide.querySelectorAll('.chart-bar').forEach(bar => {
+                bar.classList.remove('animate');
+            });
+
+            // Reset line charts
+            slide.querySelectorAll('.line-chart-path').forEach(path => {
+                path.classList.remove('animate');
+            });
+            slide.querySelectorAll('.line-chart-area').forEach(area => {
+                area.classList.remove('animate');
+            });
+            slide.querySelectorAll('.chart-dot').forEach(dot => {
+                dot.classList.remove('animate');
+            });
+
+            // Reset progress rings
+            slide.querySelectorAll('.progress-ring-fill').forEach(ring => {
+                ring.classList.remove('animate');
+            });
+
+            // Reset GTM timeline
+            slide.querySelectorAll('.gtm-timeline-progress').forEach(progress => {
+                progress.classList.remove('animate');
+            });
+            slide.querySelectorAll('.gtm-timeline-dot').forEach(dot => {
+                dot.classList.remove('active');
+                dot.classList.remove('animate');
+            });
+
+            // Reset growth bars
+            slide.querySelectorAll('.growth-bar-fill').forEach(bar => {
+                bar.style.height = '0';
+            });
+        }
+
+        // Function to trigger animations on a slide
+        function triggerSlideAnimations(slide) {
+            // Animate elements with delay
+            slide.querySelectorAll('[data-delay]').forEach(el => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, parseInt(el.dataset.delay) || 0);
+            });
+
+            // Animate counters
+            slide.querySelectorAll('[data-count]').forEach(counter => {
+                animateCounter(counter);
+            });
+
+            // Animate progress bars
+            slide.querySelectorAll('.progress-bar-fill').forEach(bar => {
+                setTimeout(() => bar.classList.add('animate'), 300);
+            });
+
+            // Animate chart bars
+            slide.querySelectorAll('.chart-bar').forEach((bar, i) => {
+                setTimeout(() => bar.classList.add('animate'), 200 + i * 150);
+            });
+
+            // Animate line charts
+            slide.querySelectorAll('.line-chart-path').forEach(path => {
+                setTimeout(() => path.classList.add('animate'), 300);
+            });
+            slide.querySelectorAll('.line-chart-area').forEach(area => {
+                setTimeout(() => area.classList.add('animate'), 300);
+            });
+            slide.querySelectorAll('.chart-dot').forEach((dot, i) => {
+                setTimeout(() => dot.classList.add('animate'), 500 + i * 300);
+            });
+
+            // Animate progress rings
+            slide.querySelectorAll('.progress-ring-fill').forEach(ring => {
+                setTimeout(() => ring.classList.add('animate'), 500);
+            });
+
+            // Animate GTM timeline
+            slide.querySelectorAll('.gtm-timeline-progress').forEach(progress => {
+                setTimeout(() => progress.classList.add('animate'), 500);
+            });
+            slide.querySelectorAll('.gtm-timeline-dot').forEach((dot, i) => {
+                setTimeout(() => {
+                    dot.classList.add('active');
+                    dot.classList.add('animate');
+                }, 500 + i * 400);
+            });
+
+            // Animate growth bars
+            slide.querySelectorAll('.growth-bar-fill').forEach((bar, i) => {
+                setTimeout(() => {
+                    bar.style.height = bar.dataset.height;
+                }, 300 + i * 300);
+            });
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const slideIndex = Array.from(slides).indexOf(entry.target);
+                
                 if (entry.isIntersecting) {
-                    const slideIndex = Array.from(slides).indexOf(entry.target);
-                    
                     // Update nav dots
                     navDots.forEach((dot, i) => {
                         dot.classList.toggle('active', i === slideIndex);
@@ -3046,61 +3158,11 @@
                     // Update counter
                     slideCounter.textContent = slideIndex + 1;
 
-                    // Animate elements with delay
-                    entry.target.querySelectorAll('[data-delay]').forEach(el => {
-                        setTimeout(() => {
-                            el.classList.add('visible');
-                        }, parseInt(el.dataset.delay) || 0);
-                    });
-
-                    // Animate counters
-                    entry.target.querySelectorAll('[data-count]').forEach(counter => {
-                        animateCounter(counter);
-                    });
-
-                    // Animate progress bars
-                    entry.target.querySelectorAll('.progress-bar-fill').forEach(bar => {
-                        setTimeout(() => bar.classList.add('animate'), 300);
-                    });
-
-                    // Animate chart bars
-                    entry.target.querySelectorAll('.chart-bar').forEach((bar, i) => {
-                        setTimeout(() => bar.classList.add('animate'), 200 + i * 150);
-                    });
-
-                    // Animate line charts
-                    entry.target.querySelectorAll('.line-chart-path').forEach(path => {
-                        setTimeout(() => path.classList.add('animate'), 300);
-                    });
-                    entry.target.querySelectorAll('.line-chart-area').forEach(area => {
-                        setTimeout(() => area.classList.add('animate'), 300);
-                    });
-                    entry.target.querySelectorAll('.chart-dot').forEach((dot, i) => {
-                        setTimeout(() => dot.classList.add('animate'), 500 + i * 300);
-                    });
-
-                    // Animate progress rings
-                    entry.target.querySelectorAll('.progress-ring-fill').forEach(ring => {
-                        setTimeout(() => ring.classList.add('animate'), 500);
-                    });
-
-                    // Animate GTM timeline
-                    entry.target.querySelectorAll('.gtm-timeline-progress').forEach(progress => {
-                        setTimeout(() => progress.classList.add('animate'), 500);
-                    });
-                    entry.target.querySelectorAll('.gtm-timeline-dot').forEach((dot, i) => {
-                        setTimeout(() => {
-                            dot.classList.add('active');
-                            dot.classList.add('animate');
-                        }, 500 + i * 400);
-                    });
-
-                    // Animate growth bars
-                    entry.target.querySelectorAll('.growth-bar-fill').forEach((bar, i) => {
-                        setTimeout(() => {
-                            bar.style.height = bar.dataset.height;
-                        }, 300 + i * 300);
-                    });
+                    // Trigger animations
+                    triggerSlideAnimations(entry.target);
+                } else {
+                    // Reset animations when leaving slide
+                    resetSlideAnimations(entry.target);
                 }
             });
         }, observerOptions);
