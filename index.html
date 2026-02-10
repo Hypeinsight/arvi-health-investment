@@ -200,7 +200,8 @@
             width: 100%;
             z-index: 2;
             padding: 5rem 4rem 3rem;
-            transform: scale(0.78);
+            transform-origin: center center;
+            /* Scale will be set dynamically by JavaScript */
         }
 
 
@@ -1877,6 +1878,7 @@
             max-width: 1400px;
             padding: 0 4rem;
             width: 100%;
+            transform-origin: center center;
         }
 
         .intro-text {
@@ -2428,7 +2430,7 @@
 
         <!-- Slide 2: Problem -->
         <section class="slide" id="slide-2">
-            <div class="slide-content">
+            <div class="slide-content" data-scale-adjust="0.85">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> The Problem</div>
                 <h2 class="title">Clinicians Are Drowning<br>in Documentation</h2>
                 <p class="subtitle">Australian GPs spend nearly half their workday on admin instead of patient care, leading to unprecedented burnout.</p>
@@ -2860,7 +2862,7 @@
 
         <!-- Slide 8: Traction -->
         <section class="slide" id="slide-8">
-            <div class="slide-content">
+            <div class="slide-content" data-scale-adjust="0.85">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Traction & Validation</div>
                 <h2 class="title">Proven in Real<br>Clinical Settings</h2>
                 
@@ -2936,7 +2938,7 @@
 
         <!-- Slide 9: GTM -->
         <section class="slide" id="slide-9">
-            <div class="slide-content">
+            <div class="slide-content" data-scale-adjust="0.77">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Go-to-Market Strategy</div>
                 <h2 class="title">Focused Growth to<br>Enterprise Scale</h2>
                 
@@ -3063,7 +3065,7 @@
         <section class="slide" id="slide-10">
             <div class="slide-content">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Financial Projections</div>
-                <h2 class="title">Path to $10M+ ARR</h2>
+                <h2 class="title">Path to $12.8M ARR</h2>
                 
                 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-top: 1.5rem; align-items: start;">
                     <!-- Left Column: Chart + Table -->
@@ -3327,6 +3329,46 @@
         const slides = document.querySelectorAll('.slide');
         const navDots = document.querySelectorAll('.nav-dot');
         const slideCounter = document.getElementById('currentSlide');
+
+        // Dynamic scaling based on viewport
+        const DESIGN_WIDTH = 1920;
+        const DESIGN_HEIGHT = 1080;
+        const MIN_SCALE = 0.5;
+        const MAX_SCALE = 1.0;
+
+        function updateSlideScale() {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            
+            // Calculate scale based on both width and height
+            const scaleX = vw / DESIGN_WIDTH;
+            const scaleY = vh / DESIGN_HEIGHT;
+            
+            // Use the smaller scale to ensure content fits
+            let baseScale = Math.min(scaleX, scaleY);
+            
+            // Clamp the scale between min and max
+            baseScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, baseScale));
+            
+            // Apply scale to all slide content
+            document.querySelectorAll('.slide-content').forEach(content => {
+                // Check for per-slide scale adjustment
+                const scaleAdjust = parseFloat(content.dataset.scaleAdjust) || 1;
+                const finalScale = baseScale * scaleAdjust;
+                content.style.transform = `scale(${finalScale})`;
+            });
+            
+            // Also scale intro content if it exists
+            const introContent = document.querySelector('.intro-content');
+            if (introContent) {
+                introContent.style.transform = `scale(${baseScale})`;
+                introContent.style.transformOrigin = 'center center';
+            }
+        }
+
+        // Run on load and resize
+        updateSlideScale();
+        window.addEventListener('resize', updateSlideScale);
 
         // Generate waveform bars (if waveform element exists)
         const waveform = document.getElementById('waveform');
