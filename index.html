@@ -488,6 +488,11 @@
             opacity: 0;
             transform: scale(0.9);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px;
         }
 
         .stat-card.visible {
@@ -2153,6 +2158,214 @@
                 font-size: 1.1rem;
             }
         }
+
+        /* TAM/SAM/SOM Circle Interactivity */
+        .tam-circle, .sam-circle, .som-circle {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .tam-circle:hover {
+            transform: scale(1.02);
+            border-color: rgba(4, 55, 98, 0.5) !important;
+        }
+
+        .sam-circle:hover {
+            transform: scale(1.03);
+            background: rgba(200, 232, 255, 0.7) !important;
+            border-color: rgba(4, 85, 163, 0.5) !important;
+        }
+
+        .som-circle:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(105, 26, 106, 0.4);
+        }
+
+        .som-circle {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(105, 26, 106, 0.3); }
+            50% { box-shadow: 0 0 20px 5px rgba(105, 26, 106, 0.2); }
+        }
+
+        /* Enhanced stat card interactivity */
+        .stat-card {
+            cursor: pointer;
+        }
+
+        .stat-card:hover .stat-value {
+            transform: scale(1.1);
+        }
+
+        .stat-value {
+            transition: transform 0.3s ease;
+        }
+
+        /* Interactive funding cards */
+        .funding-card {
+            cursor: pointer;
+        }
+
+        .funding-card:hover .funding-amount {
+            transform: scale(1.05);
+        }
+
+        .funding-amount {
+            transition: transform 0.3s ease;
+        }
+
+        /* Feature card enhanced hover */
+        .feature-card {
+            cursor: pointer;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .feature-icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Interactive pricing table */
+        .pricing-table > div:not(:first-child) {
+            transition: all 0.3s ease;
+        }
+
+        .pricing-table > div:not(:first-child):hover {
+            background: rgba(200, 232, 255, 0.3);
+        }
+
+        /* Deliverable item animations */
+        .deliverable-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .deliverable-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .deliverable-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(4, 55, 98, 0.1);
+        }
+
+        /* Feature card visibility animations */
+        .feature-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(4, 55, 98, 0.12);
+        }
+
+        /* Pricing table visibility */
+        .pricing-table {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pricing-table.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Comparison table visibility */
+        .comparison-table {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .comparison-table.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero metrics animation */
+        .hero-metric {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-metric.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-metric:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(4, 55, 98, 0.1);
+        }
+
+        /* Pulse animation for important elements */
+        .interactive-pulse {
+            animation: interactive-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes interactive-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Consistent typography */
+        .slide h2.title {
+            font-size: 3.5rem;
+        }
+
+        .slide h3 {
+            font-size: 1.1rem;
+        }
+
+        .slide p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Interactive table cells */
+        .comparison-table td, .comparison-table th {
+            transition: background-color 0.3s ease;
+        }
+
+        .comparison-table tr:hover td {
+            background-color: rgba(200, 232, 255, 0.15);
+        }
+
+        /* Hover tooltip effect for badges */
+        .hospital-badge {
+            position: relative;
+            cursor: help;
+        }
+
+        .hospital-badge:hover::after {
+            content: 'Hospital-ready feature';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-dark);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -2181,6 +2394,8 @@
             <div class="nav-dot" data-slide="10"></div>
             <div class="nav-dot" data-slide="11"></div>
             <div class="nav-dot" data-slide="12"></div>
+            <div class="nav-dot" data-slide="13"></div>
+            <div class="nav-dot" data-slide="14"></div>
         </div>
         <a href="https://arvihealth.com/contact-us" target="_blank" class="nav-cta">Contact Us</a>
     </nav>
@@ -2223,20 +2438,6 @@
                         </div>
                     </div>
                     
-                    <div class="intro-stats">
-                        <div class="intro-stat">
-                            <div class="intro-stat-value">$28.6B</div>
-                            <div class="intro-stat-label">Market Size</div>
-                        </div>
-                        <div class="intro-stat">
-                            <div class="intro-stat-value">~$30</div>
-                            <div class="intro-stat-label">Per User/Month</div>
-                        </div>
-                        <div class="intro-stat">
-                            <div class="intro-stat-value">Live</div>
-                            <div class="intro-stat-label">In Production</div>
-                        </div>
-                    </div>
                 </div>
                 
                 <div class="intro-video-container">
@@ -2267,15 +2468,15 @@
                         <h1 class="title"><img src="arvi logo.avif" alt="Arvi Health" style="height: 4rem; margin-bottom: 0.5rem;"></h1>
                         <p class="subtitle">Transforming Clinical Documentation with AI.<br>Reducing administrative burden, restoring focus on patient care.</p>
                         <div class="hero-metrics">
-                            <div class="hero-metric glass">
+                            <div class="hero-metric glass" data-delay="0">
                                 <div class="hero-metric-label">Investment Ask</div>
                                 <div class="hero-metric-value">$2,000,000</div>
                             </div>
-                            <div class="hero-metric glass">
+                            <div class="hero-metric glass" data-delay="100">
                                 <div class="hero-metric-label">Product Launch</div>
                                 <div class="hero-metric-value">1 March 2026</div>
                             </div>
-                            <div class="hero-metric glass">
+                            <div class="hero-metric glass" data-delay="200">
                                 <div class="hero-metric-label">Website</div>
                                 <div class="hero-metric-value">arvihealth.com</div>
                             </div>
@@ -2443,122 +2644,217 @@
             </div>
         </section>
 
-        <!-- Slide 4: Solution -->
+        <!-- Slide 4: Market Opportunity -->
         <section class="slide" id="slide-4">
             <div class="slide-content">
-                <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg> The Solution</div>
-                <h2 class="title">One Platform.<br>Complete Documentation.</h2>
-                <p class="subtitle">AI-powered transcription, patient notes, and documentation tools in one seamless platform.</p>
+                <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Market Opportunity</div>
+                <h2 class="title">Bottom-Up Australian<br>Market Sizing</h2>
                 
-                <div class="solution-grid" style="margin-top: 2.5rem;">
-                    <div class="feature-list">
-                        <div class="feature-card glass" data-delay="0">
-                            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2.5rem; align-items: center;">
+                    <!-- TAM/SAM/SOM Funnel Bars -->
+                    <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 500px; margin: 0 auto;">
+                        <!-- TAM Bar -->
+                        <div class="feature-card" style="background: rgba(240,248,255,0.6); border: 2px dashed rgba(4, 55, 98, 0.3); border-radius: 12px; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;" data-delay="0">
                             <div>
-                                <h3>AI Medical Transcription</h3>
-                                <p>Intelligent transcription that understands medical terminology in real-time.</p>
+                                <div style="font-size: 0.7rem; font-weight: 700; color: #555; letter-spacing: 0.1em; margin-bottom: 0.25rem;">TAM</div>
+                                <div style="font-size: 0.75rem; color: #666;">Total Addressable Market</div>
+                                <div style="font-size: 0.65rem; color: #888;">(100% of 70k Clinicians)</div>
                             </div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary-dark);">$63.8M</div>
                         </div>
-                        <div class="feature-card glass" data-delay="150">
-                            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                        
+                        <!-- SAM Bar -->
+                        <div class="feature-card" style="background: rgba(200, 232, 255, 0.7); border: 2px solid rgba(4, 85, 163, 0.3); border-radius: 12px; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; margin-left: 2rem; margin-right: 2rem;" data-delay="150">
                             <div>
-                                <h3>Patient Profiles</h3>
-                                <p>Access complete, up-to-date patient records in seconds.</p>
+                                <div style="font-size: 0.7rem; font-weight: 700; color: #333; letter-spacing: 0.1em; margin-bottom: 0.25rem;">SAM</div>
+                                <div style="font-size: 0.75rem; color: #444;">Serviceable Addressable Market</div>
+                                <div style="font-size: 0.65rem; color: #666;">(Metro GPs + Specialists)</div>
                             </div>
+                            <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark);">$36.5M</div>
                         </div>
-                        <div class="feature-card glass" data-delay="300">
-                            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+                        
+                        <!-- SOM Bar -->
+                        <div class="feature-card glass-dark" style="border-radius: 12px; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; margin-left: 4rem; margin-right: 4rem;" data-delay="300">
                             <div>
-                                <h3>Automated Letters</h3>
-                                <p>Generate referral letters and correspondence with one click.</p>
+                                <div style="font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: 0.1em; margin-bottom: 0.25rem;">YEAR 3 TARGET</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.8);">Serviceable Obtainable Market</div>
+                                <div style="font-size: 0.65rem; color: rgba(255,255,255,0.6);">(18,000 Users)</div>
                             </div>
-                        </div>
-                        <div class="feature-card glass" data-delay="450">
-                            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                            <div>
-                                <h3>Privacy Compliant</h3>
-                                <p>Australian privacy certified. Secure, centralised data.</p>
-                            </div>
+                            <div style="font-size: 1.8rem; font-weight: 800; color: white;">$16.9M</div>
                         </div>
                     </div>
+                    
+                    <!-- Right side info -->
                     <div>
-                        <div class="phone-mockup">
-                            <div class="phone-screen">
-                                <div class="phone-notch"></div>
-                                <div class="phone-recording">
-                                <div class="record-btn"><svg viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke: white; stroke-width: 2; fill: none;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div>
-                                    <div style="font-weight: 600; color: var(--primary-dark);">Recording Consultation</div>
-                                    <div style="color: #94a3b8; font-size: 0.9rem;">00:03:24</div>
-                                </div>
-                                <div class="phone-transcript">
-                                    Patient presents with persistent epigastric pain. History of GERD, currently on omeprazole 20mg daily...
-                                </div>
-                            </div>
+                        <div class="glass" style="padding: 1.5rem; margin-bottom: 1.25rem;" data-delay="0">
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.75rem;">Methodology</h4>
+                            <p style="font-size: 0.85rem; color: #666; line-height: 1.6;">Calculated based on blended ARPU of $76/month (Base + Usage) across the AHPRA workforce.</p>
+                        </div>
+                        
+                        <div class="glass" style="padding: 1.5rem; margin-bottom: 1.25rem;" data-delay="150">
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.75rem;">The Specialist Upside</h4>
+                            <p style="font-size: 0.85rem; color: #666; line-height: 1.6;">Includes 30,000+ specialists who generate higher revenue per consult and are underserved by current GP-focused tools.</p>
+                        </div>
+                        
+                        <div class="glass" style="padding: 1.5rem; margin-bottom: 1.25rem;" data-delay="300">
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.75rem;">Usage Revenue Layer</h4>
+                            <p style="font-size: 0.85rem; color: #666; line-height: 1.6;">Our $30 base price removes friction, while usage top-ups drive ARPU to ~$76 as adoption scales.</p>
+                        </div>
+                        
+                        <div style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem; background: linear-gradient(135deg, var(--accent), #8a2b8b); border-radius: 8px; color: white;" data-delay="450">
+                            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none;"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="font-size: 0.8rem; font-weight: 600;">Validated Unit Economics</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 5: Business Model -->
+        <!-- Slide 5: Solution -->
         <section class="slide" id="slide-5">
+            <div class="slide-content">
+                <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg> The Solution</div>
+                <h2 class="title">Enterprise-Grade<br>Clinical Intelligence</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 2rem;">
+                    <div class="glass feature-card" style="padding: 1.25rem; border-top: 3px solid var(--primary-dark); display: flex; flex-direction: column;" data-delay="0">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <div style="width: 40px; height: 40px; background: var(--primary-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                            </div>
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark);">Ambient Scribe</h4>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #666; line-height: 1.5;">Passive listening technology captures the consult naturally, distinguishing between multiple speakers without wake words.</p>
+                    </div>
+                    <div class="glass feature-card" style="padding: 1.25rem; border-top: 3px solid var(--primary-dark); display: flex; flex-direction: column;" data-delay="100">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <div style="width: 40px; height: 40px; background: var(--primary-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            </div>
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark);">Smart Structuring</h4>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #666; line-height: 1.5;">Automatically converts dialogue into structured clinical notes (SOAP), letters, and summaries instantly.</p>
+                    </div>
+                    <div class="glass feature-card" style="padding: 1.25rem; border-top: 3px solid var(--primary-dark); display: flex; flex-direction: column;" data-delay="200">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <div style="width: 40px; height: 40px; background: var(--primary-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </div>
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark);">Interoperability</h4>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #666; line-height: 1.5; flex-grow: 1;">Built on HL7/FHIR standards for seamless integration with Practice Management Systems and Hospital EMRs.</p>
+                        <div style="display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; padding: 0.3rem 0.6rem; background: rgba(105, 26, 106, 0.1); border-radius: 16px; width: fit-content;">
+                            <svg viewBox="0 0 24 24" style="width: 10px; height: 10px; stroke: var(--accent); stroke-width: 2.5; fill: none;"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="font-size: 0.65rem; font-weight: 600; color: var(--accent);">Hospital Ready</span>
+                        </div>
+                    </div>
+                    <div class="glass feature-card" style="padding: 1.25rem; border-top: 3px solid var(--primary-dark); display: flex; flex-direction: column;" data-delay="300">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <div style="width: 40px; height: 40px; background: var(--primary-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            </div>
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark);">Discharge Automation</h4>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #666; line-height: 1.5; flex-grow: 1;">Generates immediate discharge summaries and operation notes, reducing bed block and admin delays.</p>
+                        <div style="display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; padding: 0.3rem 0.6rem; background: rgba(105, 26, 106, 0.1); border-radius: 16px; width: fit-content;">
+                            <svg viewBox="0 0 24 24" style="width: 10px; height: 10px; stroke: var(--accent); stroke-width: 2.5; fill: none;"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="font-size: 0.65rem; font-weight: 600; color: var(--accent);">Hospital Ready</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Workflow Steps -->
+                <div class="glass-dark" style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; margin-top: 2rem; border-radius: 12px;" data-delay="400">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-weight: 700; color: white;">1. Consult</span>
+                    </div>
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: rgba(255,255,255,0.5); stroke-width: 2; fill: none;"><polyline points="9 18 15 12 9 6"/></svg>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-weight: 700; color: white;">2. Transcribe</span>
+                    </div>
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: rgba(255,255,255,0.5); stroke-width: 2; fill: none;"><polyline points="9 18 15 12 9 6"/></svg>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-weight: 700; color: white;">3. Structure</span>
+                    </div>
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: rgba(255,255,255,0.5); stroke-width: 2; fill: none;"><polyline points="9 18 15 12 9 6"/></svg>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-weight: 700; color: white;">4. Integrate (PMS/EMR)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Business Model -->
+        <section class="slide" id="slide-6">
             <div class="slide-content">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Business Model</div>
                 <h2 class="title">Disruptive Per-User Pricing</h2>
-                <p class="subtitle">Accessible pricing that enables rapid adoption while maintaining strong unit economics.</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; margin-top: 2.5rem; align-items: start;">
                     <div>
-                        <div class="glass" style="padding: 2rem; margin-bottom: 1.5rem;" data-delay="0">
+                        <div class="glass feature-card" style="padding: 2rem; margin-bottom: 1.5rem;" data-delay="0">
                             <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1.25rem;">Low Barrier to Entry</h4>
                             <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6;">At <strong style="color: var(--accent);">~$30/user</strong>, we are significantly cheaper than competitors ($100+), enabling rapid bottom-up adoption by individual doctors.</p>
                         </div>
                         
-                        <div class="glass" style="padding: 2rem; margin-bottom: 1.5rem;" data-delay="150">
+                        <div class="glass feature-card" style="padding: 2rem; margin-bottom: 1.5rem;" data-delay="150">
                             <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1.25rem;">Usage Upside</h4>
                             <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6;">Base plan covers standard usage. Heavy users buy <strong style="color: var(--accent);">"Token Top-ups"</strong>, increasing ARPU without penalising light users.</p>
                         </div>
                         
-                        <div class="glass" style="padding: 2rem;" data-delay="300">
+                        <div class="glass feature-card" style="padding: 2rem;" data-delay="300">
                             <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1.25rem;">Annual Lock-in</h4>
                             <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6;"><strong style="color: var(--accent);">17% discount</strong> for annual upfront payment improves cash flow and reduces churn.</p>
                         </div>
                     </div>
                     
-                    <div class="glass-dark" style="padding: 2.5rem; border-radius: 24px;">
-                        <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 0.5rem;">Unit Economics (Projected)</h4>
-                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">Strong Margins at Scale</h3>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                            <div style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 16px;">
-                                <div style="font-size: 2.5rem; font-weight: 800; color: white;" data-count="366" data-prefix="$">$0</div>
-                                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Avg Annual Revenue/User</div>
+                    <div>
+                        <!-- Pricing Table -->
+                        <div class="glass pricing-table" style="padding: 0; overflow: hidden; border-radius: 16px;" data-delay="100">
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; background: #f8f9fa; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 700; color: #666;">
+                                <div>Plan</div>
+                                <div>Includes</div>
+                                <div>Monthly Price</div>
+                                <div>Effective / User</div>
                             </div>
-                            <div style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 16px;">
-                                <div style="font-size: 2.5rem; font-weight: 800; color: white;" data-count="80" data-suffix="%">0%</div>
-                                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Gross Margin Target</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
+                                <div style="font-weight: 700; color: var(--primary-dark);">Pro</div>
+                                <div style="color: #666;">1 Clinician + Admin</div>
+                                <div style="font-weight: 700; color: var(--accent);">$29.99</div>
+                                <div style="color: #666;">$29.99</div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
+                                <div style="font-weight: 700; color: var(--primary-dark);">Team 3</div>
+                                <div style="color: #666;">3 Clinicians + Admin</div>
+                                <div style="font-weight: 700; color: var(--accent);">$87.00</div>
+                                <div style="color: #666;">$29.00</div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
+                                <div style="font-weight: 700; color: var(--primary-dark);">Team 5</div>
+                                <div style="color: #666;">5 Clinicians + Admin</div>
+                                <div style="font-weight: 700; color: var(--accent);">$144.99</div>
+                                <div style="color: #666;">$29.00</div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; align-items: center;">
+                                <div style="font-weight: 700; color: var(--primary-dark);">Enterprise</div>
+                                <div style="color: #666;">Unlimited + API</div>
+                                <div style="font-style: italic; color: #666;">Custom Volume Pricing</div>
+                                <div></div>
                             </div>
                         </div>
                         
-                        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15);">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                                <span style="opacity: 0.8; font-size: 0.9rem;">LTV (3-year)</span>
-                                <span style="font-weight: 700; font-size: 0.9rem;">$950+</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                                <span style="opacity: 0.8; font-size: 0.9rem;">Target CAC</span>
-                                <span style="font-weight: 700; font-size: 0.9rem;">$150-200</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span style="opacity: 0.8; font-size: 0.9rem;">LTV:CAC Ratio</span>
-                                <span style="font-weight: 700; font-size: 0.9rem; color: #22c55e;">5-6x</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 2rem; text-align: center;">
-                            <div style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--accent), #8a2b8b); border-radius: 30px;">
-                                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: white; stroke-width: 2; fill: none;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                                <span style="font-weight: 600;">90%+ Gross Margin at Scale</span>
+                        <!-- Unit Economics -->
+                        <div class="glass-dark" style="padding: 1.25rem; margin-top: 1rem; border-radius: 12px;" data-delay="200">
+                            <div style="font-size: 0.7rem; opacity: 0.6; margin-bottom: 0.5rem;">Unit Economics (Projected)</div>
+                            <div style="display: flex; gap: 2rem;">
+                                <div>
+                                    <div style="font-size: 1.75rem; font-weight: 800; color: white;">$366</div>
+                                    <div style="font-size: 0.7rem; opacity: 0.7;">Annual Contract Value</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.75rem; font-weight: 800; color: white;">>3:1</div>
+                                    <div style="font-size: 0.7rem; opacity: 0.7;">LTV:CAC Ratio</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2566,8 +2862,84 @@
             </div>
         </section>
 
-        <!-- Slide 6: Traction -->
-        <section class="slide" id="slide-6">
+        <!-- Slide 7: Competitive Landscape -->
+        <section class="slide" id="slide-7">
+            <div class="slide-content">
+                <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Competitive Landscape</div>
+                <h2 class="title">Superior Quality &<br>Accessible Pricing</h2>
+                
+                <div style="margin-top: 2rem;">
+                    <!-- Comparison Table -->
+                    <div class="glass comparison-table" style="padding: 0; border-radius: 16px; margin-top: 1rem;" data-delay="0">
+                        <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; background: var(--primary-dark); color: white; font-weight: 600; font-size: 0.85rem; border-radius: 16px 16px 0 0; overflow: hidden;">
+                            <div style="padding: 1rem 1.25rem;">Feature</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;">Nuance DAX</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;">Lyrebird Health</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; background: linear-gradient(135deg, var(--accent), #8a2b8b); position: relative;">
+                                Arvi Health
+                                <span style="position: absolute; top: 4px; right: 4px; background: #FF3B30; color: white; font-size: 0.5rem; padding: 2px 5px; border-radius: 8px; font-weight: 700;">BEST VALUE</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb;">
+                            <div style="padding: 1rem 1.25rem; font-weight: 600; color: var(--primary-dark);">Pricing Model</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; color: #64748b;">$300+/mo Enterprise</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; color: #64748b;">$99+/mo per user</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; background: rgba(200, 232, 255, 0.3); font-weight: 700; color: var(--accent);">~$30/mo per user</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb;">
+                            <div style="padding: 1rem 1.25rem; font-weight: 600; color: var(--primary-dark);">Target Market</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; color: #64748b;">Large Hospitals</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; color: #64748b;">GPs Only</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; background: rgba(200, 232, 255, 0.3); font-weight: 600; color: var(--primary-dark);">GPs + Specialists</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb;">
+                            <div style="padding: 1rem 1.25rem; font-weight: 600; color: var(--primary-dark);">Clinical Validation</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #22c55e; stroke-width: 2.5; fill: none;"><polyline points="20 6 9 17 4 12"/></svg></div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #f59e0b; stroke-width: 2.5; fill: none;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; background: rgba(200, 232, 255, 0.3);"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #22c55e; stroke-width: 2.5; fill: none;"><polyline points="20 6 9 17 4 12"/></svg></div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb;">
+                            <div style="padding: 1rem 1.25rem; font-weight: 600; color: var(--primary-dark);">Healthlink Integration</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #ef4444; stroke-width: 2.5; fill: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #ef4444; stroke-width: 2.5; fill: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; background: rgba(200, 232, 255, 0.3);"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #22c55e; stroke-width: 2.5; fill: none;"><polyline points="20 6 9 17 4 12"/></svg></div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb;">
+                            <div style="padding: 1rem 1.25rem; font-weight: 600; color: var(--primary-dark);">Australian Compliance</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #f59e0b; stroke-width: 2.5; fill: none;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                            <div style="padding: 1rem 1.25rem; text-align: center;"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #22c55e; stroke-width: 2.5; fill: none;"><polyline points="20 6 9 17 4 12"/></svg></div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; background: rgba(200, 232, 255, 0.3);"><svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #22c55e; stroke-width: 2.5; fill: none;"><polyline points="20 6 9 17 4 12"/></svg></div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; font-size: 0.8rem;">
+                            <div style="padding: 1rem 1.25rem; font-weight: 600; color: var(--primary-dark);">Entry Barrier</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; color: #ef4444; font-weight: 600;">Very High</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; color: #f59e0b; font-weight: 600;">Moderate</div>
+                            <div style="padding: 1rem 1.25rem; text-align: center; background: rgba(200, 232, 255, 0.3); color: #22c55e; font-weight: 700;">Lowest</div>
+                        </div>
+                    </div>
+                    
+                    <!-- The Quality Advantage -->
+                    <div class="glass-dark" style="padding: 1.5rem 2rem; margin-top: 1.5rem; border-radius: 16px; display: flex; align-items: flex-start; gap: 1.5rem;" data-delay="150">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #FF3B30, #ff6b5b); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <svg viewBox="0 0 24 24" style="width: 26px; height: 26px; stroke: white; stroke-width: 2; fill: none;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">The Quality Advantage</h4>
+                            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.85); line-height: 1.6;">Unlike generalist competitors, Arvi's transcription engine is being trained and validated daily in a specialist gastroenterology setting, ensuring superior handling of complex medical terminology.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Traction -->
+        <section class="slide" id="slide-8">
             <div class="slide-content">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Traction & Validation</div>
                 <h2 class="title">Proven in Real<br>Clinical Settings</h2>
@@ -2642,8 +3014,8 @@
             </div>
         </section>
 
-        <!-- Slide 7: GTM -->
-        <section class="slide" id="slide-7">
+        <!-- Slide 9: GTM -->
+        <section class="slide" id="slide-9">
             <div class="slide-content">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Go-to-Market Strategy</div>
                 <h2 class="title">Focused Growth to<br>Enterprise Scale</h2>
@@ -2767,52 +3139,8 @@
             </div>
         </section>
 
-        <!-- Slide 8: Team -->
-        <section class="slide" id="slide-8">
-            <div class="slide-content">
-                <div class="label" style="text-align: center; justify-content: center;"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> The Team</div>
-                <h2 class="title" style="text-align: center;">Clinical Expertise Meets<br>Tech Excellence</h2>
-                
-                <div class="team-grid">
-                    <div class="team-card glass" data-delay="0">
-                        <div class="team-avatar"><img src="ari.jpeg" alt="Ari Vivekanandarajah"></div>
-                        <h3>Ari Vivekanandarajah</h3>
-                        <div class="team-role">Co-Founder</div>
-                        <div class="team-highlights">
-                            <span class="team-highlight-tag">Successful SaaS Exit</span>
-                            <span class="team-highlight-tag">Agency Owner</span>
-                        </div>
-                        <ul class="team-bio-list">
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>20+ years experience in B2B marketing & growth</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Specialist in healthcare and health services marketing</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Expertise in scaling technology companies</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads strategy, sales, and operations</li>
-                        </ul>
-                    </div>
-                    <div class="team-card glass" data-delay="150">
-                        <div class="team-avatar"><img src="dr suhirdan.jpg" alt="Dr Suhirdan Vivekanandarajah"></div>
-                        <h3>Dr Suhirdan Vivekanandarajah</h3>
-                        <div class="team-role">Co-Founder</div>
-                        <div class="team-highlights">
-                            <span class="team-highlight-tag">Gastroenterologist</span>
-                            <span class="team-highlight-tag">Clinic Owner</span>
-                        </div>
-                        <ul class="team-bio-list">
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Practising Gastroenterologist & Clinic Owner</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Provides deep clinical workflow validation</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Direct access to medical specialist networks</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads product vision and medical partnerships</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="team-tagline">
-                    <p>A 50-50 partnership combining <span>proven SaaS scaling</span> with <span>deep medical authority</span>.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 9: Financial Projections -->
-        <section class="slide" id="slide-9">
+        <!-- Slide 10: Financial Projections -->
+        <section class="slide" id="slide-10">
             <div class="slide-content">
                 <div class="label"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Financial Projections</div>
                 <h2 class="title">Path to $10M+ ARR</h2>
@@ -2882,8 +3210,52 @@
             </div>
         </section>
 
-        <!-- Slide 10: Investment Highlights -->
-        <section class="slide" id="slide-10">
+        <!-- Slide 11: Team -->
+        <section class="slide" id="slide-11">
+            <div class="slide-content">
+                <div class="label" style="text-align: center; justify-content: center;"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> The Team</div>
+                <h2 class="title" style="text-align: center;">Clinical Expertise Meets<br>Tech Excellence</h2>
+                
+                <div class="team-grid">
+                    <div class="team-card glass" data-delay="0">
+                        <div class="team-avatar"><img src="ari.jpeg" alt="Ari Vivekanandarajah"></div>
+                        <h3>Ari Vivekanandarajah</h3>
+                        <div class="team-role">Co-Founder</div>
+                        <div class="team-highlights">
+                            <span class="team-highlight-tag">Successful SaaS Exit</span>
+                            <span class="team-highlight-tag">Agency Owner</span>
+                        </div>
+                        <ul class="team-bio-list">
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>20+ years experience in B2B marketing & growth</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Specialist in healthcare and health services marketing</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Expertise in scaling technology companies</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads strategy, sales, and operations</li>
+                        </ul>
+                    </div>
+                    <div class="team-card glass" data-delay="150">
+                        <div class="team-avatar"><img src="dr suhirdan.jpg" alt="Dr Suhirdan Vivekanandarajah"></div>
+                        <h3>Dr Suhirdan Vivekanandarajah</h3>
+                        <div class="team-role">Co-Founder</div>
+                        <div class="team-highlights">
+                            <span class="team-highlight-tag">Gastroenterologist</span>
+                            <span class="team-highlight-tag">Clinic Owner</span>
+                        </div>
+                        <ul class="team-bio-list">
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Practising Gastroenterologist & Clinic Owner</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Provides deep clinical workflow validation</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Direct access to medical specialist networks</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads product vision and medical partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="team-tagline">
+                    <p>A partnership combining <span>proven SaaS scaling</span> with <span>deep medical authority</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Investment Highlights -->
+        <section class="slide" id="slide-12">
             <div class="slide-content">
                 <div class="label" style="text-align: center; justify-content: center;"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> Why Invest Now</div>
                 <h2 class="title" style="text-align: center;">Investment Highlights</h2>
@@ -2895,7 +3267,7 @@
                         <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Global medical transcription market with $150M+ VC raises validating the space.</p>
                     </div>
                     <div class="glass" style="padding: 2rem; border-left: 4px solid var(--primary);" data-delay="100">
-                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem;">50/50</div>
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem;"><svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: white; stroke-width: 2; fill: none;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                         <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.5rem;">Exceptional Team</h4>
                         <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Perfect blend of SaaS scaling expertise and practising specialist credibility.</p>
                     </div>
@@ -2923,15 +3295,15 @@
             </div>
         </section>
 
-        <!-- Slide 11: The Ask -->
-        <section class="slide ask" id="slide-11">
+        <!-- Slide 13: The Ask -->
+        <section class="slide ask" id="slide-13">
             <div class="slide-content ask-content">
                 <div class="label" style="justify-content: center;"><svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--accent); stroke-width: 2; fill: none;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> The Ask</div>
                 <h2 class="title">Seed Round</h2>
                 <div class="ask-amount" data-count="2000000" data-prefix="$" data-separator=",">$0</div>
                 
                 <!-- Use of Funds -->
-                <div style="max-width: 700px; margin: 2rem auto;">
+                <div style="max-width: 700px; margin: 2rem auto;" data-delay="0">
                     <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem; text-align: left;">Use of Funds</h4>
                     <div class="funds-breakdown">
                         <div class="funds-segment funds-segment-1" title="Sales & Marketing 50%"></div>
@@ -2950,32 +3322,28 @@
                 <!-- 12-Month Deliverables -->
                 <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem;">12-Month Deliverables</h4>
                 <div class="deliverables-grid">
-                    <div class="deliverable-item">
+                    <div class="deliverable-item" data-delay="100">
                         <h5>Market Leadership</h5>
                         <p>2,500+ active users across Australia</p>
                     </div>
-                    <div class="deliverable-item">
+                    <div class="deliverable-item" data-delay="200">
                         <h5>Revenue Growth</h5>
                         <p>Achieve $3M ARR run-rate</p>
                     </div>
-                    <div class="deliverable-item">
+                    <div class="deliverable-item" data-delay="300">
                         <h5>Product Scale</h5>
                         <p>Healthlink & Enterprise ready</p>
                     </div>
-                    <div class="deliverable-item">
+                    <div class="deliverable-item" data-delay="400">
                         <h5>Series A Ready</h5>
                         <p>Positioned at $5M+ ARR (Year 2)</p>
                     </div>
                 </div>
-                
-                <a href="#" class="ask-cta" onclick="return false;" style="margin-top: 2rem;">
-                    Let's see it in action <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </a>
             </div>
         </section>
 
-        <!-- Slide 12: Closing -->
-        <section class="slide" id="slide-12">
+        <!-- Slide 14: Closing -->
+        <section class="slide" id="slide-14">
             <div class="slide-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                 <img src="arvi logo.avif" alt="Arvi Health" style="height: 80px; margin-bottom: 3rem;">
                 
@@ -2988,11 +3356,12 @@
                     </p>
                 </div>
                 
-                <div style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-                    <a href="https://platform.arvihealth.com/" target="_blank" class="ask-cta">
-                        Let's see it in action <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    </a>
-                    <div style="font-size: 1rem; color: #64748b; margin-top: 1rem;">
+                <a href="https://arvihealth.com" target="_blank" class="ask-cta" style="margin-top: 2rem;">
+                    See Arvi in Action <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </a>
+                
+                <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                    <div style="font-size: 1rem; color: #64748b;">
                         <strong style="color: var(--primary-dark);">arvihealth.com</strong> &nbsp;|&nbsp; info@arvihealth.com
                     </div>
                 </div>
@@ -3001,7 +3370,7 @@
     </div>
 
     <div class="slide-counter">
-        <span id="currentSlide">1</span> / 13
+        <span id="currentSlide">1</span> / 15
     </div>
 
     <script>
