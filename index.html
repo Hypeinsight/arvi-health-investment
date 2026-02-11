@@ -2315,9 +2315,183 @@
             z-index: 10;
         }
 
+        /* ===== LARGE SCREEN SCALING (Desktop Only) ===== */
+        @media (min-width: 1200px) {
+            /* Fluid typography for desktop */
+            .slide-content {
+                max-width: 92vw;
+                padding: clamp(5.5rem, 8vh, 7rem) clamp(2rem, 3vw, 4rem) clamp(2rem, 3vh, 4rem);
+            }
+            
+            .title {
+                font-size: clamp(2.5rem, 3.5vw, 4.5rem);
+            }
+            
+            .hero .title {
+                font-size: clamp(3.5rem, 4.5vw, 6rem);
+            }
+            
+            .slide h2.title {
+                font-size: clamp(2.5rem, 3.5vw, 4.5rem);
+            }
+            
+            .subtitle {
+                font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+                max-width: clamp(500px, 40vw, 700px);
+            }
+            
+            .label {
+                font-size: clamp(0.7rem, 0.85vw, 1rem);
+            }
+            
+            .slide h3 {
+                font-size: clamp(1rem, 1.2vw, 1.4rem);
+            }
+            
+            .slide p {
+                font-size: clamp(0.85rem, 1vw, 1.15rem);
+            }
+        }
+        
+        /* Extra large screens (1600px+) */
+        @media (min-width: 1600px) {
+            .slide-content {
+                max-width: 92vw;
+            }
+            
+            .glass, .glass-dark {
+                border-radius: 28px;
+            }
+            
+            .hero-metrics {
+                gap: 2rem;
+            }
+            
+            .hero-metric {
+                padding: 2rem;
+            }
+            
+            .hero-metric-value {
+                font-size: 1.75rem;
+            }
+            
+            .feature-card {
+                padding: 2rem;
+            }
+        }
+        
+        /* Very large screens (1920px+) */
+        @media (min-width: 1920px) {
+            .slide-content {
+                max-width: 90vw;
+            }
+            
+            .title {
+                font-size: 4.25rem;
+            }
+            
+            .hero .title {
+                font-size: 5.5rem;
+            }
+            
+            .slide h2.title {
+                font-size: 4.25rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .hero-grid {
+                gap: 5rem;
+            }
+            
+            .hero-metric-value {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                padding: 1.5rem 4rem;
+            }
+            
+            .logo img {
+                height: 55px;
+            }
+        }
+        
+        /* Ultra-wide / 4K screens (2560px+) */
+        @media (min-width: 2560px) {
+            .slide-content {
+                max-width: 88vw;
+            }
+            
+            .title {
+                font-size: 5rem;
+            }
+            
+            .hero .title {
+                font-size: 6.5rem;
+            }
+            
+            .slide h2.title {
+                font-size: 5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.6rem;
+                max-width: 800px;
+            }
+            
+            .label {
+                font-size: 1rem;
+            }
+            
+            .slide h3 {
+                font-size: 1.5rem;
+            }
+            
+            .slide p {
+                font-size: 1.2rem;
+            }
+            
+            .glass, .glass-dark {
+                border-radius: 32px;
+            }
+            
+            .hero-metrics {
+                gap: 2.5rem;
+            }
+            
+            .hero-metric {
+                padding: 2.5rem;
+                border-radius: 24px;
+            }
+            
+            .hero-metric-value {
+                font-size: 2.25rem;
+            }
+            
+            .hero-metric-label {
+                font-size: 0.85rem;
+            }
+            
+            .nav {
+                padding: 2rem 5rem;
+            }
+            
+            .logo img {
+                height: 65px;
+            }
+            
+            .nav-cta {
+                padding: 1rem 2.25rem;
+                font-size: 1rem;
+            }
+        }
+
         /* ===== MOBILE SLIDE STYLES ===== */
         .mobile-slide-content {
-            padding: 5rem 1.25rem 2rem;
+            padding: 5.5rem 1.25rem 2rem;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -2970,19 +3144,61 @@
                 gap: 0.5rem;
             }
 
-            /* Intro slide */
+            /* Intro slide - Mobile Optimized */
+            .intro-slide {
+                padding-top: 4rem;
+            }
+
             .intro-content {
                 grid-template-columns: 1fr;
-                padding: 5rem 1.5rem 2rem;
+                padding: 0 1.25rem 3rem;
                 gap: 1.5rem;
+                text-align: center;
+                justify-items: center;
+                align-content: center;
+                min-height: calc(100vh - 4rem);
+            }
+
+            .intro-text {
+                order: 1;
+                max-width: 100%;
             }
 
             .intro-text h1 {
                 font-size: 1.75rem;
+                line-height: 1.2;
+                margin-bottom: 0.5rem;
+            }
+
+            .intro-text h1 span {
+                display: block;
+                margin-top: 0.25rem;
             }
 
             .intro-text p {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            .intro-video-container {
+                order: 2;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .intro-video-wrapper {
+                border-radius: 12px;
+                box-shadow: 0 15px 40px rgba(4, 55, 98, 0.15);
+            }
+
+            .intro-video {
+                max-height: 45vh;
+                width: 100%;
+                object-fit: contain;
+            }
+
+            .intro-video-glow {
+                display: none;
             }
 
             .intro-features {
@@ -3009,12 +3225,15 @@
                 gap: 1rem;
             }
 
-            .intro-video-wrapper {
-                border-radius: 16px;
+            .intro-scroll-hint {
+                bottom: 0.75rem;
+                font-size: 0.7rem;
+                opacity: 0.7;
             }
 
-            .intro-scroll-hint {
-                bottom: 1rem;
+            .intro-scroll-hint svg {
+                width: 16px;
+                height: 16px;
             }
 
             /* Phone mockup */
@@ -3093,6 +3312,24 @@
                 font-size: 1.75rem;
             }
 
+            /* Intro slide - Small Mobile */
+            .intro-content {
+                padding: 0 1rem 2.5rem;
+                gap: 1.25rem;
+            }
+
+            .intro-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .intro-video {
+                max-height: 40vh;
+            }
+
+            .intro-scroll-hint {
+                display: none;
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -3147,6 +3384,31 @@
 
             .logo img {
                 height: 28px;
+            }
+
+            /* Intro slide - Landscape */
+            .intro-slide {
+                overflow-y: auto;
+            }
+
+            .intro-content {
+                grid-template-columns: 1fr 1.2fr;
+                padding: 3.5rem 1.5rem 1.5rem;
+                gap: 1.5rem;
+                text-align: left;
+                min-height: auto;
+            }
+
+            .intro-text h1 {
+                font-size: 1.25rem;
+            }
+
+            .intro-video {
+                max-height: 60vh;
+            }
+
+            .intro-scroll-hint {
+                display: none;
             }
         }
     </style>
@@ -3752,30 +4014,25 @@
                 
                 <!-- Pricing Table -->
                 <div class="mobile-card" style="padding: 0; overflow: hidden;">
-                    <div style="background: #f8f9fa; padding: 0.5rem 0.75rem; font-size: 0.7rem; font-weight: 700; color: #666; display: grid; grid-template-columns: 1.2fr 1fr 1fr;">
+                    <div style="background: #f8f9fa; padding: 0.5rem 0.75rem; font-size: 0.7rem; font-weight: 700; color: #666; display: grid; grid-template-columns: 1.5fr 1fr;">
                         <div>Plan</div>
                         <div>Monthly</div>
-                        <div>Per User</div>
                     </div>
-                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb; display: grid; grid-template-columns: 1.2fr 1fr 1fr; align-items: center;">
+                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb; display: grid; grid-template-columns: 1.5fr 1fr; align-items: center;">
                         <div><strong style="color: var(--primary-dark);">Pro</strong><br><span style="font-size: 0.7rem; color: #666;">1 Clinician + Admin</span></div>
                         <div style="font-weight: 700; color: var(--accent);">$29.99</div>
-                        <div style="color: #666;">$29.99</div>
                     </div>
-                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb; display: grid; grid-template-columns: 1.2fr 1fr 1fr; align-items: center;">
+                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb; display: grid; grid-template-columns: 1.5fr 1fr; align-items: center;">
                         <div><strong style="color: var(--primary-dark);">Team 3</strong><br><span style="font-size: 0.7rem; color: #666;">3 Clinicians + Admin</span></div>
                         <div style="font-weight: 700; color: var(--accent);">$87.00</div>
-                        <div style="color: #666;">$29.00</div>
                     </div>
-                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb; display: grid; grid-template-columns: 1.2fr 1fr 1fr; align-items: center;">
+                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; border-bottom: 1px solid #e5e7eb; display: grid; grid-template-columns: 1.5fr 1fr; align-items: center;">
                         <div><strong style="color: var(--primary-dark);">Team 5</strong><br><span style="font-size: 0.7rem; color: #666;">5 Clinicians + Admin</span></div>
                         <div style="font-weight: 700; color: var(--accent);">$144.99</div>
-                        <div style="color: #666;">$29.00</div>
                     </div>
-                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; display: grid; grid-template-columns: 1.2fr 1fr 1fr; align-items: center;">
+                    <div style="padding: 0.6rem 0.75rem; font-size: 0.8rem; display: grid; grid-template-columns: 1.5fr 1fr; align-items: center;">
                         <div><strong style="color: var(--primary-dark);">Enterprise</strong><br><span style="font-size: 0.7rem; color: #666;">Unlimited + API</span></div>
                         <div style="font-style: italic; color: #666; font-size: 0.75rem;">Custom</div>
-                        <div></div>
                     </div>
                 </div>
                 
@@ -3821,35 +4078,30 @@
                     <div>
                         <!-- Pricing Table -->
                         <div class="glass pricing-table" style="padding: 0; overflow: hidden; border-radius: 16px;" data-delay="100">
-                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; background: #f8f9fa; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 700; color: #666;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr; background: #f8f9fa; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 700; color: #666;">
                                 <div>Plan</div>
                                 <div>Includes</div>
                                 <div>Monthly Price</div>
-                                <div>Effective / User</div>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
                                 <div style="font-weight: 700; color: var(--primary-dark);">Pro</div>
                                 <div style="color: #666;">1 Clinician + Admin</div>
                                 <div style="font-weight: 700; color: var(--accent);">$29.99</div>
-                                <div style="color: #666;">$29.99</div>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
                                 <div style="font-weight: 700; color: var(--primary-dark);">Team 3</div>
                                 <div style="color: #666;">3 Clinicians + Admin</div>
                                 <div style="font-weight: 700; color: var(--accent);">$87.00</div>
-                                <div style="color: #666;">$29.00</div>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb; align-items: center;">
                                 <div style="font-weight: 700; color: var(--primary-dark);">Team 5</div>
                                 <div style="color: #666;">5 Clinicians + Admin</div>
                                 <div style="font-weight: 700; color: var(--accent);">$144.99</div>
-                                <div style="color: #666;">$29.00</div>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; align-items: center;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr; padding: 0.85rem 1rem; font-size: 0.85rem; align-items: center;">
                                 <div style="font-weight: 700; color: var(--primary-dark);">Enterprise</div>
                                 <div style="color: #666;">Unlimited + API</div>
                                 <div style="font-style: italic; color: #666;">Custom Volume Pricing</div>
-                                <div></div>
                             </div>
                         </div>
                         
@@ -4495,7 +4747,7 @@
                     <div class="mobile-card mobile-card-dark" style="border-left: 3px solid var(--accent);">
                         <div style="font-size: 0.65rem; opacity: 0.7;">Series A Goal</div>
                         <div style="font-size: 1.25rem; font-weight: 800;">Q1 Year 2</div>
-                        <div style="font-size: 0.6rem; color: var(--accent);">@ $5M+ ARR</div>
+                        <div style="font-size: 0.6rem; color: #c8e8ff;">@ $5M+ ARR</div>
                     </div>
                 </div>
             </div>
@@ -4591,7 +4843,7 @@
                         <div class="glass-dark feature-card" style="padding: 1.25rem; border-left: 4px solid var(--accent);" data-delay="400">
                             <div style="font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.7); margin-bottom: 0.25rem;">Series A Goal</div>
                             <div style="font-size: 1.75rem; font-weight: 800; color: white;">Q1 Year 2</div>
-                            <div style="font-size: 0.7rem; color: var(--accent);">@ $5M+ ARR</div>
+                            <div style="font-size: 0.7rem; color: #c8e8ff;">@ $5M+ ARR</div>
                         </div>
                     </div>
                 </div>
