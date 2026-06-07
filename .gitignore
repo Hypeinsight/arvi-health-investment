@@ -1,0 +1,8 @@
+# Local tooling / editor
+.claude/
+
+# Windows / OS junk
+desktop.ini
+**/desktop.ini
+Thumbs.db
+~$*
