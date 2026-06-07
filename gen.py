@@ -232,31 +232,31 @@ FEATURES = [
   "A clinician records a single consultation and Arvi generates a structured clinical note, formatted, accurate and ready to review in seconds.",
   [("mic","Record &amp; structure","Ambient capture becomes a clean, sectioned note, no typing."),
    ("check","Review, don't author","The clinician edits a draft instead of writing from scratch.")],
-  "1 -letter generation.mp4","app.arvihealth.com &middot; New note"),
+  "01-letter-generation.mp4","app.arvihealth.com &middot; New note"),
 
  ("Core Documentation","Organisation &amp; Team Notes",
   "Documentation under a clinic or team account, with multiple clinicians working together and admin oversight across everyone's work.",
   [("users","Shared team workspace","Clinicians document under one organisation, not siloed accounts."),
    ("eye","Admin visibility","Administrators can access and manage notes across the team.")],
-  "2-admin access-.mp4","app.arvihealth.com &middot; Organisation"),
+  "02-admin-access.mp4","app.arvihealth.com &middot; Organisation"),
 
  ("Core Documentation","Quick Record for Emergencies",
   "A fast-capture mode for urgent situations, minimal steps between hitting record and having a usable note. Built for the pace of an emergency department.",
   [("zap","One tap to capture","No setup overhead when seconds matter."),
    ("check","Structured after the fact","The note is generated once the moment has passed.")],
-  "03-quick record.mp4","Arvi &middot; Quick Record"),
+  "03-quick-record.mp4","Arvi &middot; Quick Record"),
 
  ("Core Documentation","Operating Theatre on Mobile",
   "The clinician uses the mobile app right in theatre, capturing the operation note even when connectivity is low, then syncing when back online.",
   [("phone","In-theatre capture","The note is created at the point of care, not reconstructed later."),
    ("wifi","Low-connectivity ready","Works where hospital Wi-Fi is weak; syncs when reconnected.")],
-  "04-mobile recording-android.mp4","Arvi mobile &middot; Operating theatre"),
+  "04-mobile-recording.mp4","Arvi mobile &middot; Operating theatre"),
 
  ("Core Documentation","Upload an Existing Recording",
   "No live capture required, the user uploads an existing audio file and Arvi generates the structured note from it.",
   [("upload","Bring your own audio","Drop in a file recorded anywhere; Arvi does the rest."),
    ("file","Same structured output","Uploaded audio produces the same clean clinical note.")],
-  "05--upload record.mp4","app.arvihealth.com &middot; Upload"),
+  "05-upload-recording.mp4","app.arvihealth.com &middot; Upload"),
 
  ("Core Documentation","AI Regeneration",
   "Any note or letter can be regenerated or refined with AI, tune the tone, length or detail until it's exactly right.",
@@ -268,13 +268,13 @@ FEATURES = [
   "Arvi produces the GP or referral letter from the recording, then lets you review, edit and format it on a dedicated preview page before it goes out.",
   [("file","Letter from a recording","A ready-to-send GP or referral letter, generated automatically."),
    ("edit","Preview &amp; formatting","The final review page, edit and format before sending.")],
-  "07-edit letter.mp4","app.arvihealth.com &middot; Preview &amp; formatting"),
+  "07-edit-letter.mp4","app.arvihealth.com &middot; Preview &amp; formatting"),
 
  ("Letters &amp; Templates","Custom Letter Templates",
   "Users create their own templates and adjust the formatting to suit their practice, so every letter matches their house style.",
   [("sliders","Build your own","Create reusable templates for any letter type."),
    ("edit","Tune the formatting","Adjust layout and styling to match your practice.")],
-  "08- custom letter template.mp4","app.arvihealth.com &middot; Templates"),
+  "08-custom-template.mp4","app.arvihealth.com &middot; Templates"),
 
  ("Letters &amp; Templates","Approve, Send &amp; Resend",
   "Email the finished letter to the recipient directly from Arvi, with the option to resend whenever needed.",
@@ -286,13 +286,13 @@ FEATURES = [
   "Manage patients, appointments and the calendar in one place, the day's schedule sits alongside the documentation.",
   [("calendar","Appointments &amp; calendar","See the day's schedule and book in patients."),
    ("users","Patient records","Keep patient details organised next to their notes.")],
-  "10-upload patient -schedule management.mp4","app.arvihealth.com &middot; Patients"),
+  "10-patient-management.mp4","app.arvihealth.com &middot; Patients"),
 
  ("Patient &amp; Workflow","Task Management",
   "Track outstanding work to completion, nothing slips between the consult and the follow-up.",
   [("tasks","Track outstanding work","A clear list of what still needs doing."),
    ("check","Close the loop","Mark tasks complete as the work gets done.")],
-  "11-12-task management.mp4","app.arvihealth.com &middot; Tasks"),
+  "11-task-management.mp4","app.arvihealth.com &middot; Tasks"),
 
  ("Patient &amp; Workflow","Telehealth Consultations",
   "Run remote consultations inside Arvi, and document them with the same AI workflow as in-person visits.",
@@ -304,13 +304,13 @@ FEATURES = [
   "Stay on top of what matters with in-app alerts and push notifications on mobile.",
   [("bell","In-app &amp; push alerts","Get notified across web and mobile."),
    ("phone","Never miss an action","Time-sensitive items reach the clinician promptly.")],
-  "14-mobile notification.mp4","Arvi mobile &middot; Notifications"),
+  "14-notifications.mp4","Arvi mobile &middot; Notifications"),
 
  ("Organisation &amp; Users","Organisation Switcher",
   "One user can belong to several organisations and switch between them instantly, ideal for clinicians working across sites.",
   [("switch","Belong to many orgs","Hold membership in multiple organisations at once."),
    ("check","Switch in one tap","Move between organisations without logging out.")],
-  "15-organization switcher.mp4","app.arvihealth.com &middot; Switch organisation"),
+  "15-org-switcher.mp4","app.arvihealth.com &middot; Switch organisation"),
 
  ("Organisation &amp; Users","Roles &amp; Permissions",
   "Role-based access and restrictions govern who can see and do what, the access model hospitals require.",
@@ -322,13 +322,13 @@ FEATURES = [
   "Bring new clinicians into an organisation quickly with a simple invite flow.",
   [("userplus","Invite in seconds","Add new users to the organisation with an invite."),
    ("users","Onboard the team","Grow the organisation without admin friction.")],
-  "17-user invite.mp4","app.arvihealth.com &middot; Invite users"),
+  "17-user-invite.mp4","app.arvihealth.com &middot; Invite users"),
 
  ("Organisation &amp; Users","Free Admin User",
   "Every organisation includes an admin seat at no cost, oversight without an extra licence.",
   [("user","Admin at no cost","A free administrator seat comes with the organisation."),
    ("eye","Oversight built in","Manage the team without paying for the privilege.")],
-  "18-free admin availability.mp4","app.arvihealth.com &middot; Admin"),
+  "18-free-admin.mp4","app.arvihealth.com &middot; Admin"),
 
  ("Billing","Stripe Subscriptions (Web)",
   "Arvi bills customers today via Stripe, subscriptions and payments on the web app, in production now.",
@@ -340,7 +340,7 @@ FEATURES = [
   "On iOS, Arvi bills natively through Apple's in-app purchase, a frictionless path for mobile users.",
   [("smartphone","Native Apple billing","Purchase and subscribe directly inside the iOS app."),
    ("check","Platform-appropriate","Meets Apple's requirements for mobile monetisation.")],
-  "20-iOS billing.mp4","Arvi mobile &middot; iOS billing"),
+  "20-ios-billing.mp4","Arvi mobile &middot; iOS billing"),
 ]
 
 def feat_slide(idx, sid, section, title, subtitle, points, clip, url, reverse):
