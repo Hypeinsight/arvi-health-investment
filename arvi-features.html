@@ -162,6 +162,19 @@
         .cta:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(105,26,106,.44)}
         .cta svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
 
+        /* Infomedix brand marks (white-bg logo blended via multiply) */
+        .imx-logo{mix-blend-mode:multiply;width:auto;display:block}
+        .imx-bar .imx-logo{height:clamp(28px,4vh,44px);align-self:center;padding-right:clamp(.7rem,1.6vw,1.3rem);border-right:1px solid var(--line)}
+        .imx-side{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1rem);min-width:0}
+        .imx-side-head{display:flex;align-items:center;gap:.6rem}
+        .imx-side-head .imx-logo{height:clamp(20px,2.6vh,30px)}
+        .imx-side-head span{font-size:clamp(.72rem,.9vw,.84rem);color:var(--muted);font-weight:600}
+        .lockup{display:flex;align-items:center;justify-content:center;gap:clamp(1.1rem,3vw,2.4rem);flex-wrap:wrap}
+        .lockup img{width:auto}
+        .lockup .lk-arvi{height:clamp(40px,6vh,62px)}
+        .lockup .lk-imx{height:clamp(30px,4.6vh,48px);mix-blend-mode:multiply}
+        .lockup .x{font-size:clamp(1.3rem,2.6vw,1.9rem);color:#94a3b8;font-weight:300}
+
         .counter{position:fixed;bottom:clamp(.8rem,2vh,1.5rem);right:clamp(1rem,3vw,2.4rem);font-size:clamp(.72rem,.95vw,.84rem);color:var(--muted);z-index:100;display:flex;gap:.6rem;align-items:center}
         .counter b{color:var(--primary);font-weight:700}
         .counter .sec{padding-left:.6rem;border-left:1px solid var(--line);text-transform:uppercase;letter-spacing:.1em;font-size:.72em;font-weight:700;color:#94a3b8}
@@ -667,6 +680,7 @@
                     <p class="subtitle reveal" data-delay="2">Infomedix runs the digital record for Australia's busiest hospitals, acute, emergency and surgical settings. Arvi's capture features were designed for exactly those environments.</p>
                 </div>
                 <div class="imx-bar glass reveal" data-delay="2">
+                    <img src="InfoMedix-logo-png.webp" alt="InfoMedix" class="imx-logo">
                     <div class="imx-stat"><div class="v">250+</div><div class="l">hospitals on Infomedix</div></div>
                     <div class="imx-stat"><div class="v">46k+</div><div class="l">daily active users</div></div>
                     <div class="imx-stat"><div class="v">2B+</div><div class="l">clinical documents managed</div></div>
@@ -704,12 +718,15 @@
                         <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         <div class="pl sub">structured documents</div>
                     </div>
-                    <div class="imx-prods">
-                        <div class="imx-prod glass reveal" data-delay="3"><h4>Digital Patient Chart</h4><p>Arvi notes could file into the chart, complete and on time.</p></div>
-                        <div class="imx-prod glass reveal" data-delay="4"><h4>Referrals Manager</h4><p>Auto-generated referral letters could feed the HL7 referral pipeline.</p></div>
-                        <div class="imx-prod glass reveal" data-delay="4"><h4>Discharge Manager</h4><p>Discharge summaries authored from the recording instead of retyped.</p></div>
-                        <div class="imx-prod glass reveal" data-delay="5"><h4>Coding Manager</h4><p>Richer structured notes could lift coding accuracy &amp; speed.</p></div>
-                        <div class="imx-prod glass span reveal" data-delay="5"><h4>Clinivid</h4><p>Arvi notes &amp; letters could be shared through Infomedix's clinician collaboration layer.</p></div>
+                    <div class="imx-side">
+                        <div class="imx-side-head reveal" data-delay="2"><img src="InfoMedix-logo-png.webp" alt="InfoMedix" class="imx-logo"><span>the InfoMedix suite</span></div>
+                        <div class="imx-prods">
+                            <div class="imx-prod glass reveal" data-delay="3"><h4>Digital Patient Chart</h4><p>Arvi notes could file into the chart, complete and on time.</p></div>
+                            <div class="imx-prod glass reveal" data-delay="4"><h4>Referrals Manager</h4><p>Auto-generated referral letters could feed the HL7 referral pipeline.</p></div>
+                            <div class="imx-prod glass reveal" data-delay="4"><h4>Discharge Manager</h4><p>Discharge summaries authored from the recording instead of retyped.</p></div>
+                            <div class="imx-prod glass reveal" data-delay="5"><h4>Coding Manager</h4><p>Richer structured notes could lift coding accuracy &amp; speed.</p></div>
+                            <div class="imx-prod glass span reveal" data-delay="5"><h4>Clinivid</h4><p>Arvi notes &amp; letters could be shared through Infomedix's clinician collaboration layer.</p></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -736,7 +753,7 @@
         <section class="slide" id="s-close" data-sec="Infomedix">
             <div class="inner">
                 <div class="close">
-                    <img class="reveal" src="arvi logo.avif" alt="Arvi Health">
+                    <div class="lockup reveal"><img class="lk-arvi" src="arvi logo.avif" alt="Arvi Health"><span class="x">&times;</span><img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix"></div>
                     <h2 class="title reveal" data-delay="1">A Documentation Layer for Infomedix's Hospitals</h2>
                     <p class="subtitle reveal" data-delay="2">Arvi captures and authors at the point of care; Infomedix records, routes and codes. Together, that is a pathway to complete clinical documentation, end to end, with Arvi live today on web and mobile.</p>
                     <div class="tags reveal" data-delay="3" style="justify-content:center"><span class="tag">20 features in production</span><span class="tag">HL7 / FHIR-ready</span><span class="tag">Built for acute care</span></div>
