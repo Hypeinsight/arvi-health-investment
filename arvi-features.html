@@ -339,6 +339,26 @@
         .econ-foot .ef b{color:var(--primary-dark)}
         .econ-foot .ef .efv{font-size:clamp(1.3rem,2vw,1.7rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:.3rem}
         @media (max-width:900px){.econ{grid-template-columns:1fr}.econ-arrow svg{transform:rotate(90deg)}.econ-foot .ef{min-width:0}}
+        /* --- vision (today -> tomorrow) --- */
+        .vis{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(1rem,2.5vw,2rem);align-items:stretch;margin-top:clamp(1rem,2.4vh,1.9rem)}
+        .vis-card{padding:clamp(1.3rem,2.2vw,2rem);border-radius:var(--r-lg);display:flex;flex-direction:column;gap:.6rem;position:relative;overflow:hidden}
+        .vis-card.now{background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--s-sm)}
+        .vis-card.future{background:linear-gradient(150deg,var(--primary-dark),var(--primary) 58%,var(--accent));color:#fff;box-shadow:var(--s-lg)}
+        .vis-card.future::after{content:"";position:absolute;top:-45%;right:-35%;width:75%;height:75%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);pointer-events:none}
+        .vis-card>*{position:relative;z-index:1}
+        .vis-tag{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+        .vis-card.now .vis-tag{color:var(--accent)}
+        .vis-card.future .vis-tag{color:#c8e8ff}
+        .vis-card h3{font-size:clamp(1.1rem,1.7vw,1.55rem);line-height:1.15;color:var(--primary-dark)}
+        .vis-card.future h3{color:#fff}
+        .vis-card p{font-size:clamp(.86rem,1.05vw,1rem);line-height:1.5;color:var(--muted)}
+        .vis-card.future p{color:rgba(255,255,255,.9)}
+        .vis-pill{margin-top:auto;align-self:flex-start;font-size:.74rem;font-weight:700;padding:.35rem .85rem;border-radius:20px}
+        .vis-card.now .vis-pill{background:linear-gradient(135deg,rgba(4,55,98,.08),rgba(105,26,106,.08));color:var(--primary-dark)}
+        .vis-card.future .vis-pill{background:rgba(255,255,255,.16);color:#fff}
+        .vis-arrow{display:flex;align-items:center;justify-content:center}
+        .vis-arrow svg{width:clamp(28px,3.5vw,48px);height:auto;stroke:var(--accent);stroke-width:1.5;fill:none}
+        @media (max-width:900px){.vis{grid-template-columns:1fr}.vis-arrow svg{transform:rotate(90deg)}}
         @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
         @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
@@ -453,17 +473,27 @@
                 </div>
             </div>
         </section>
-        <!-- Vision -->
+        <!-- Vision (today -> tomorrow) -->
         <section class="slide" id="s-vision" data-sec="Vision">
             <div class="inner">
-                <div class="divider">
+                <div class="slide-head" style="text-align:center">
                     <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Our Vision</div>
-                    <div class="big reveal" data-delay="1">Beyond the Scribe: the AI That Runs the Clinic</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:820px;margin:0 auto">Arvi listens across the whole practice, remembers every conversation, referral and result, and acts on it: booking follow-ups, drafting referrals, ordering tests, coordinating care. The clinician approves; Arvi does the admin. Not a documentation tool, an autonomous healthcare operating system.</p>
-                    <div class="menu reveal" data-delay="3">
-                        <span class="mi">Listen</span>
-                        <span class="mi">Reason</span>
-                        <span class="mi">Act</span>
+                    <h2 class="title reveal" data-delay="1">From the Documentation Crisis to the Autonomous Clinic</h2>
+                    <p class="subtitle reveal" data-delay="2" style="margin-left:auto;margin-right:auto;text-align:center">Solve clinicians' biggest daily burden now, and build the intelligence to run the practice itself.</p>
+                </div>
+                <div class="vis">
+                    <div class="vis-card now reveal" data-delay="2">
+                        <div class="vis-tag">Today</div>
+                        <h3>Free clinicians from the paperwork</h3>
+                        <p>Clinicians lose up to half their day to notes, letters and admin. Arvi captures every consultation, in any setting, and hands the time straight back, with a clean, structured record every time.</p>
+                        <span class="vis-pill">The problem, solved</span>
+                    </div>
+                    <div class="vis-arrow reveal" data-delay="3"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                    <div class="vis-card future reveal" data-delay="3">
+                        <div class="vis-tag">Where we're heading</div>
+                        <h3>An autonomous clinical operating system</h3>
+                        <p>Arvi listens across the whole practice, remembers every conversation and result, and acts on it: booking, referring, coding-ready, coordinating care. The clinician approves; the clinic increasingly runs itself.</p>
+                        <span class="vis-pill">Listen &middot; Reason &middot; Act</span>
                     </div>
                 </div>
             </div>
@@ -567,7 +597,7 @@
                     <div class="calc-outputs">
                         <div class="calc-out glass reveal" data-delay="3"><div class="co-v" id="co-hours">0</div><div class="co-l">clinician-hours saved / year</div></div>
                         <div class="calc-out glass reveal" data-delay="3"><div class="co-v" id="co-value">0</div><div class="co-l">value of time returned / year</div></div>
-                        <div class="calc-out glass reveal" data-delay="4"><div class="co-v" id="co-fte">0</div><div class="co-l">full-time admin equivalent saved</div></div>
+                        <div class="calc-out glass reveal" data-delay="4"><div class="co-v" id="co-week">0</div><div class="co-l">hours back per clinician / week</div></div>
                         <div class="calc-out glass reveal" data-delay="4"><div class="co-v">5&times;</div><div class="co-l">faster documentation</div></div>
                     </div>
                 </div>
@@ -1380,7 +1410,7 @@
                     var hoursYear=Math.round(c*h*SAVE*WEEKS);
                     document.getElementById('co-hours').textContent=hoursYear.toLocaleString('en-AU');
                     document.getElementById('co-value').textContent=money(hoursYear*r);
-                    document.getElementById('co-fte').textContent=(hoursYear/FTE).toFixed(1);
+                    document.getElementById('co-week').textContent=Math.round(h*SAVE);
                 }
                 [clin,hrs,rate].forEach(function(el){ el.addEventListener('input',calc); });
                 calc();
