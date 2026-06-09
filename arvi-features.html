@@ -95,6 +95,7 @@
         .chrome i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.32)}
         .chrome .url{margin-left:.7rem;font-size:clamp(.62rem,.85vw,.74rem);color:rgba(255,255,255,.8);background:rgba(255,255,255,.13);padding:.22rem .85rem;border-radius:20px;max-width:72%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
         .clip-frame video{width:100%;height:auto;max-height:75dvh;display:block;background:#000;object-fit:contain}
+        .clip-frame img{width:100%;height:auto;max-height:60dvh;display:block;background:#06182c;object-fit:contain}
         figcaption{font-size:clamp(.74rem,.95vw,.88rem);color:var(--muted);margin-top:.85rem;text-align:center}
         figcaption b{color:var(--primary-dark)}
 
@@ -162,7 +163,7 @@
         .cta:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(105,26,106,.44)}
         .cta svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
 
-        /* Infomedix brand marks (white-bg logo blended via multiply) */
+        /* InfoMedix brand marks (white-bg logo blended via multiply) */
         .imx-logo{mix-blend-mode:multiply;width:auto;display:block}
         .imx-bar .imx-logo{height:clamp(28px,4vh,44px);align-self:center;padding-right:clamp(.7rem,1.6vw,1.3rem);border-right:1px solid var(--line)}
         .imx-side{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1rem);min-width:0}
@@ -355,7 +356,7 @@
     <nav class="nav">
         <a href="https://arvihealth.com" target="_blank" rel="noopener" class="logo"><img src="arvi logo.avif" alt="Arvi Health"></a>
         <div class="dots" id="dots"></div>
-        <div class="nav-tag">Prepared for <b>Infomedix</b></div>
+        <div class="nav-tag">Prepared for <b>InfoMedix</b></div>
     </nav>
 
     <main class="deck" id="deck">
@@ -487,23 +488,25 @@
             <div class="inner">
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Traction &amp; Validation</div>
-                    <h2 class="title reveal" data-delay="1">Proven in a Real Clinical Setting</h2>
+                    <h2 class="title reveal" data-delay="1">Proven in Production, Giving Clinicians Their Time Back</h2>
                 </div>
-                <div class="cards" style="grid-template-columns:1.1fr 1fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:stretch">
-                    <div style="display:flex;flex-direction:column;gap:clamp(.8rem,1.6vh,1.2rem)">
-                        <div class="tr-live reveal" data-delay="2"><div class="ic" style="background:rgba(255,255,255,.18)"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><line x1="10" y1="9" x2="10" y2="9"/></svg></div><div><strong>Live: Sydney Gut Clinic</strong><p style="font-size:.88rem;color:rgba(255,255,255,.85);margin-top:.3rem;line-height:1.5">In production and validated daily by specialists in complex gastroenterology, the clinic owned by co-founder Dr Suhirdan.</p><span class="badge2">Production ready</span></div></div>
-                        <div class="card glass reveal" data-delay="3"><h3>Shipped &amp; certified</h3><ul class="checklist" style="margin-top:.6rem"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>AI transcription engine in production</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Patient records &amp; referral letters live</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Australian privacy compliance certified</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Web, iOS &amp; Android, billing live</li></ul></div>
-                    </div>
-                    <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column;justify-content:center">
-                        <h3>12-month targets</h3>
-                        <div class="imx-bar" style="margin:.9rem 0;padding:0;gap:clamp(1rem,2.5vw,2rem);flex-wrap:wrap">
-                            <div class="imx-stat"><div class="v">500</div><div class="l">practices</div></div>
-                            <div class="imx-stat"><div class="v">$3M</div><div class="l">ARR</div></div>
-                            <div class="imx-stat"><div class="v">1,800</div><div class="l">active users</div></div>
-                            <div class="imx-stat"><div class="v">&gt;50</div><div class="l">NPS</div></div>
+                <div class="cards" style="grid-template-columns:0.92fr 1.08fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:stretch">
+                    <div style="display:flex;flex-direction:column;gap:clamp(.7rem,1.5vh,1.1rem)">
+                        <div class="tr-live reveal" data-delay="2"><div class="ic" style="background:rgba(255,255,255,.18)"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg></div><div><strong>Live &middot; Sydney Gut Clinic</strong><p style="font-size:.85rem;color:rgba(255,255,255,.85);margin-top:.3rem;line-height:1.5">In production daily, validated by specialists in complex gastroenterology. The clinic owned by co-founder Dr Suhirdan.</p><span class="badge2">Production ready</span></div></div>
+                        <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column;gap:.55rem">
+                            <div style="display:flex;align-items:baseline;gap:.65rem"><div style="font-size:clamp(2.2rem,4.2vw,3.1rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">80%</div><div style="font-size:clamp(.92rem,1.2vw,1.12rem);font-weight:700;color:var(--primary-dark)">less time on documentation</div></div>
+                            <p style="font-size:.84rem;color:var(--muted);line-height:1.45">Dr Suhirdan: Arvi now does in about <b style="color:var(--primary-dark)">a fifth of the time</b> what his documentation used to take.</p>
+                            <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.2rem">
+                                <li style="display:flex;gap:.55rem;align-items:flex-start;font-size:.84rem;color:#475569;line-height:1.4"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--primary);stroke-width:2;fill:none;flex-shrink:0;margin-top:.12rem"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><b style="color:var(--primary-dark)">Time back:</b> ~80% of admin time returned to patient care.</span></li>
+                                <li style="display:flex;gap:.55rem;align-items:flex-start;font-size:.84rem;color:#475569;line-height:1.4"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--primary);stroke-width:2;fill:none;flex-shrink:0;margin-top:.12rem"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span><b style="color:var(--primary-dark)">Cost saved:</b> scribe-level output without the $35-50k/yr scribe.</span></li>
+                                <li style="display:flex;gap:.55rem;align-items:flex-start;font-size:.84rem;color:#475569;line-height:1.4"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--primary);stroke-width:2;fill:none;flex-shrink:0;margin-top:.12rem"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span><b style="color:var(--primary-dark)">Revenue unlocked:</b> reclaimed hours become capacity for more consults &amp; billings.</span></li>
+                            </ul>
                         </div>
-                        <p style="font-size:.82rem;color:var(--muted);line-height:1.5">Commercial launch 1 March 2026. Figures above are 12-month post-launch goals.</p>
                     </div>
+                    <figure class="clip reveal" data-delay="3" style="align-self:center;min-width:0">
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Letter statistics</span></div><img src="screenshot.png" alt="Arvi letter statistics dashboard at Sydney Gut Clinic"></div>
+                        <figcaption><b>Live usage at Sydney Gut Clinic:</b> 4,611 letters generated &middot; 3,413 approved (74%) &middot; 1,638 sent</figcaption>
+                    </figure>
                 </div>
             </div>
         </section>
@@ -538,17 +541,17 @@
                 </div>
             </div>
         </section>
-        <!-- Infomedix world -->
-        <section class="slide" id="s-imx1" data-sec="Infomedix">
+        <!-- InfoMedix world -->
+        <section class="slide" id="s-imx1" data-sec="InfoMedix">
             <div class="inner">
                 <div class="slide-head">
-                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg> The Opportunity &middot; Infomedix</div>
-                    <h2 class="title reveal" data-delay="1">Built for the World Infomedix Serves</h2>
-                    <p class="subtitle reveal" data-delay="2">Infomedix runs the digital record for Australia's busiest hospitals, acute, emergency and surgical settings. Arvi's capture features were designed for exactly those environments.</p>
+                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg> The Opportunity &middot; InfoMedix</div>
+                    <h2 class="title reveal" data-delay="1">Built for the World InfoMedix Serves</h2>
+                    <p class="subtitle reveal" data-delay="2">InfoMedix runs the digital record for Australia's busiest hospitals, acute, emergency and surgical settings. Arvi's capture features were designed for exactly those environments.</p>
                 </div>
                 <div class="imx-bar glass reveal" data-delay="2">
                     <img src="InfoMedix-logo-png.webp" alt="InfoMedix" class="imx-logo">
-                    <div class="imx-stat"><div class="v">250+</div><div class="l">hospitals on Infomedix</div></div>
+                    <div class="imx-stat"><div class="v">250+</div><div class="l">hospitals on InfoMedix</div></div>
                     <div class="imx-stat"><div class="v">46k+</div><div class="l">daily active users</div></div>
                     <div class="imx-stat"><div class="v">2B+</div><div class="l">clinical documents managed</div></div>
                     <div class="imx-stat"><div class="v">30+</div><div class="l">systems integrated</div></div>
@@ -561,7 +564,7 @@
             </div>
         </section>
         <!-- Integration (our-path framing) -->
-        <section class="slide" id="s-imx2b" data-sec="Infomedix">
+        <section class="slide" id="s-imx2b" data-sec="InfoMedix">
             <div class="inner">
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Our Path</div>
@@ -596,7 +599,7 @@
             </div>
         </section>
         <!-- Value -->
-        <section class="slide" id="s-imx3" data-sec="Infomedix">
+        <section class="slide" id="s-imx3" data-sec="InfoMedix">
             <div class="inner fill">
                 <div class="slide-head">
                     <div class="label imx reveal"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> Potential Value</div>
@@ -607,9 +610,9 @@
                     <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h3>Fills the AI gap</h3><p>Would add ambient AI documentation, the one capability the suite doesn't have today, in the hottest category in health IT.</p></div>
                     <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>More, better documents</h3><p>Could feed the chart with complete, structured, on-time notes created at the point of care.</p></div>
                     <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Lifts coding outcomes</h3><p>Richer source documentation could improve Coding Manager accuracy, speed and revenue capture.</p></div>
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><h3>Automates referrals &amp; discharge</h3><p>Letters and summaries could be generated, not retyped, accelerating the workflows Infomedix sells.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><h3>Automates referrals &amp; discharge</h3><p>Letters and summaries could be generated, not retyped, accelerating the workflows InfoMedix sells.</p></div>
                     <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Deeper stickiness</h3><p>Capture, chart, code and send in one loop could raise switching costs across the whole suite.</p></div>
-                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Ready distribution</h3><p>Infomedix's 250+ hospitals and 46k daily users would be a natural channel for Arvi.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Ready distribution</h3><p>InfoMedix's 250+ hospitals and 46k daily users would be a natural channel for Arvi.</p></div>
                 </div>
             </div>
         </section>
@@ -737,12 +740,12 @@
             </div>
         </section>
         <!-- Close -->
-        <section class="slide" id="s-close" data-sec="Infomedix">
+        <section class="slide" id="s-close" data-sec="InfoMedix">
             <div class="inner">
                 <div class="close">
                     <div class="lockup reveal"><img class="lk-arvi" src="arvi logo.avif" alt="Arvi Health"><span class="x">&times;</span><img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix"></div>
-                    <h2 class="title reveal" data-delay="1">A Documentation Layer for Infomedix's Hospitals</h2>
-                    <p class="subtitle reveal" data-delay="2">Arvi captures and authors at the point of care; Infomedix records, routes and codes. Together, that is a pathway to complete clinical documentation, end to end, with Arvi live today on web and mobile.</p>
+                    <h2 class="title reveal" data-delay="1">A Documentation Layer for InfoMedix's Hospitals</h2>
+                    <p class="subtitle reveal" data-delay="2">Arvi captures and authors at the point of care; InfoMedix records, routes and codes. Together, that is a pathway to complete clinical documentation, end to end, with Arvi live today on web and mobile.</p>
                     <div class="tags reveal" data-delay="3" style="justify-content:center"><span class="tag">20 features in production</span><span class="tag">HL7 / FHIR-ready</span><span class="tag">Built for acute care</span></div>
                     <a class="cta reveal" data-delay="4" href="https://arvihealth.com" target="_blank" rel="noopener">Visit arvihealth.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                     <div class="dl reveal" data-delay="5">
