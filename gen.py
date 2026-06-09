@@ -48,7 +48,7 @@ CSS = r"""
             display:flex;flex-direction:column;justify-content:center;
             padding:clamp(4.4rem,9vh,6.4rem) clamp(1.25rem,5vw,4.6rem) clamp(2rem,5vh,3.4rem);overflow:hidden}
         .inner{width:100%;max-width:1660px;margin:0 auto}
-        .inner.fill{display:flex;flex-direction:column;height:100%;min-height:0}
+        .inner.fill{display:flex;flex-direction:column;justify-content:center;height:100%;min-height:0}
 
         /* type */
         .kicker{display:inline-flex;align-items:center;gap:.65rem;margin-bottom:clamp(.7rem,1.6vh,1.1rem)}
@@ -98,7 +98,7 @@ CSS = r"""
         .app svg{width:24px;height:24px;stroke:var(--primary);stroke-width:1.8;fill:none;flex-shrink:0}
         .app strong{color:var(--primary-dark);font-size:.92rem;display:block}
         .app span{font-size:.76rem;color:var(--muted)}
-        .pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.7rem,1.4vw,1.2rem);flex:1;min-height:0;margin-top:clamp(.8rem,2vh,1.5rem)}
+        .pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.7rem,1.4vw,1.2rem);align-items:stretch;margin-top:clamp(.8rem,2vh,1.5rem)}
         .pillar{padding:clamp(1rem,1.6vw,1.5rem);display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
         .pillar:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
         .pillar .num{font-size:clamp(.66rem,.9vw,.78rem);font-weight:800;color:var(--accent);letter-spacing:.12em}
@@ -889,6 +889,22 @@ SCRIPT = r"""
             slides.forEach(function(s){io.observe(s);});
 
             document.querySelectorAll('.slide:not(#s-intro) video').forEach(function(v){try{v.pause();}catch(_){}});
+
+            // Deterministic playback: always play the slide currently in view, pause the rest.
+            function syncVideos(){
+                var idx=Math.round(deck.scrollLeft/innerWidth);
+                slides.forEach(function(s,k){
+                    var vs=s.querySelectorAll('video');
+                    [].forEach.call(vs,function(v){
+                        if(k===idx){ if(v.paused){ var p=v.play(); if(p)p.catch(function(){}); } }
+                        else if(!v.paused){ try{v.pause();}catch(_){} }
+                    });
+                });
+            }
+            var vsync;
+            deck.addEventListener('scroll',function(){clearTimeout(vsync);vsync=setTimeout(syncVideos,120);});
+            window.addEventListener('load',syncVideos);
+            syncVideos();
 
             function updateProgress(){
                 var max=deck.scrollWidth-deck.clientWidth;
