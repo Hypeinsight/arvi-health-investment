@@ -948,9 +948,8 @@ ROADMAP = '''        <!-- Roadmap -->
         </section>
 '''
 
-IMX_INTEG_ALT = '''        <!-- Integration, reframed alternative (Framing B) for review -->
-        <section class="slide" id="s-imx2b" data-sec="Roadmap">
-            <span class="reviewflag">Framing B &middot; roadmap-led &middot; for review</span>
+IMX_INTEG_ALT = '''        <!-- Integration (our-path framing) -->
+        <section class="slide" id="s-imx2b" data-sec="Infomedix">
             <div class="inner">
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Our Path</div>
@@ -1022,7 +1021,7 @@ PRODUCT_ROADMAP = '''        <!-- Product roadmap -->
 # Main narrative first; the 19 feature demos live in an Appendix at the end.
 BODY = (INTRO + AGENDA + PROBLEM + PLATFORM + HOWITWORKS
         + COMPETITIVE + MARKET + TRACTION + TEAM + SECURITY
-        + IMX_WORLD + IMX_INTEG + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE
+        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE
         + WALK + FEAT)
 
 SCRIPT = r"""
