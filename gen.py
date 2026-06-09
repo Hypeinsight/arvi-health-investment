@@ -294,6 +294,15 @@ CSS = r"""
         .rm-live .dot{width:7px;height:7px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2s infinite}
         .rm-cap{text-align:center;color:var(--muted);margin-top:clamp(.9rem,2vh,1.4rem);font-size:clamp(.82rem,1vw,.96rem)}
         .rm-cap b{color:var(--primary-dark)}
+        /* --- A/B review flag (temporary marker for Dr Suhirdan to choose) --- */
+        .reviewflag{position:absolute;top:clamp(4.2rem,8.5vh,5.6rem);left:50%;transform:translateX(-50%);z-index:6;background:#b45309;color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:.32rem .85rem;border-radius:20px;box-shadow:0 6px 16px rgba(180,83,9,.32);white-space:nowrap}
+        /* --- app download QR --- */
+        .dl{display:flex;justify-content:center;gap:clamp(1rem,2.6vw,2rem);flex-wrap:wrap;margin-top:clamp(1rem,2.2vh,1.5rem)}
+        .dlcard{display:flex;align-items:center;gap:.85rem;padding:clamp(.7rem,1.2vw,1rem) clamp(.9rem,1.4vw,1.2rem)}
+        .dlcard img{width:clamp(60px,6.5vw,84px);height:auto;border-radius:8px;display:block}
+        .dlcard .dt{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+        .dlcard .dn{font-size:clamp(.92rem,1.2vw,1.08rem);font-weight:700;color:var(--primary-dark)}
+        .dlcard .ds{font-size:.74rem;color:var(--muted)}
         @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
         @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
@@ -603,6 +612,7 @@ IMX_WORLD = '''        <!-- Infomedix world -->
 
 IMX_INTEG = '''        <!-- Integration -->
         <section class="slide" id="s-imx2" data-sec="Infomedix">
+            <span class="reviewflag">Framing A &middot; integration-led &middot; for review</span>
             <div class="inner">
                 <div class="slide-head">
                     <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> A Possible Pathway</div>
@@ -670,6 +680,10 @@ CLOSE = '''        <!-- Close -->
                     <p class="subtitle reveal" data-delay="2">Arvi captures and authors at the point of care; Infomedix records, routes and codes. Together, that is a pathway to complete clinical documentation, end to end, with Arvi live today on web and mobile.</p>
                     <div class="tags reveal" data-delay="3" style="justify-content:center"><span class="tag">20 features in production</span><span class="tag">HL7 / FHIR-ready</span><span class="tag">Built for acute care</span></div>
                     <a class="cta reveal" data-delay="4" href="https://arvihealth.com" target="_blank" rel="noopener">Visit arvihealth.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <div class="dl reveal" data-delay="5">
+                        <a class="dlcard glass" href="https://arvihealth.com" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on iOS"><div><div class="dt">Scan to download</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
+                        <a class="dlcard glass" href="https://arvihealth.com" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Android"><div><div class="dt">Scan to download</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -933,10 +947,48 @@ ROADMAP = '''        <!-- Roadmap -->
         </section>
 '''
 
+IMX_INTEG_ALT = '''        <!-- Integration, reframed alternative (Framing B) for review -->
+        <section class="slide" id="s-imx2b" data-sec="Roadmap">
+            <span class="reviewflag">Framing B &middot; roadmap-led &middot; for review</span>
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Our Path</div>
+                    <h2 class="title reveal" data-delay="1">An Interoperable Documentation Layer</h2>
+                    <p class="subtitle reveal" data-delay="2">Arvi is built to hand structured notes, letters and summaries to whatever records, workflow and coding systems sit downstream, over HL7 / FHIR. Where that lines up with your roadmap, there is a natural fit, and we would shape it together.</p>
+                </div>
+                <div class="integ">
+                    <div class="integ-arvi reveal" data-delay="2">
+                        <div class="il">Capture &amp; authoring</div>
+                        <h3>Arvi</h3>
+                        <p>Voice &rarr; structured note, letter &amp; referral</p>
+                        <ul>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Clinical notes</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> GP &amp; referral letters</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Theatre &amp; discharge notes</li>
+                        </ul>
+                    </div>
+                    <div class="pipe reveal" data-delay="3">
+                        <div class="pl">HL7 / FHIR<br>secure messaging</div>
+                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <div class="pl sub">structured documents</div>
+                    </div>
+                    <div class="imx-prods">
+                        <div class="imx-prod glass reveal" data-delay="3"><h4>The patient record</h4><p>Complete, on-time notes filed where they belong.</p></div>
+                        <div class="imx-prod glass reveal" data-delay="4"><h4>Referral workflows</h4><p>Auto-generated letters into the referral pipeline.</p></div>
+                        <div class="imx-prod glass reveal" data-delay="4"><h4>Discharge</h4><p>Summaries authored from the recording, ready to file.</p></div>
+                        <div class="imx-prod glass reveal" data-delay="5"><h4>Coding</h4><p>Richer source notes lift coding accuracy &amp; speed.</p></div>
+                        <div class="imx-prod glass span reveal" data-delay="5"><h4>Clinician collaboration</h4><p>Notes &amp; letters shared across the care team.</p></div>
+                    </div>
+                </div>
+                <p class="rm-cap reveal" data-delay="6" style="margin-top:clamp(.7rem,1.6vh,1.1rem)">This is our path. If you are thinking differently, we are happy to adapt.</p>
+            </div>
+        </section>
+'''
+
 # Main narrative first; the 19 feature demos live in an Appendix at the end.
 BODY = (INTRO + AGENDA + PROBLEM + PLATFORM + HOWITWORKS
         + COMPETITIVE + MARKET + TRACTION + TEAM + SECURITY
-        + IMX_WORLD + IMX_INTEG + IMX_VALUE + ROADMAP + FINANCIALS + ASK + CLOSE
+        + IMX_WORLD + IMX_INTEG + IMX_INTEG_ALT + IMX_VALUE + ROADMAP + FINANCIALS + ASK + CLOSE
         + WALK + FEAT)
 
 SCRIPT = r"""
