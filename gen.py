@@ -739,13 +739,13 @@ HOWITWORKS = '''        <!-- How it works -->
         </section>
 '''
 
-WALK = '''        <!-- Live demo divider -->
+WALK = '''        <!-- Demo cue: live demo starts now -->
         <section class="slide" id="s-walk" data-sec="Live Demo">
             <div class="inner">
                 <div class="divider">
                     <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Live Demo</div>
-                    <div class="big reveal" data-delay="1">Let's See It in Action</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">A live walk through Arvi, from voice to a sent letter, across the five areas. Recorded walkthroughs follow for reference.</p>
+                    <div class="big reveal" data-delay="1">Let's See Arvi in Action</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:720px;margin:0 auto">We'll switch to a live demo now, from voice to a sent letter, across the five areas below. Recorded walkthroughs of every feature are in the appendix.</p>
                     <div class="menu reveal" data-delay="3">
                         <span class="mi"><b>01</b> Core Documentation</span>
                         <span class="mi"><b>02</b> Letters &amp; Templates</span>
@@ -1104,10 +1104,29 @@ VISION = '''        <!-- Vision -->
         </section>
 '''
 
-BODY = (INTRO + TEAM + AGENDA + PROBLEM + VISION
-        + WALK + FEAT
+APPENDIX = '''        <!-- Appendix divider -->
+        <section class="slide" id="s-appendix" data-sec="Appendix">
+            <div class="inner">
+                <div class="divider">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Appendix</div>
+                    <div class="big reveal" data-delay="1">Feature Walkthrough</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:720px;margin:0 auto">Recorded demos of all twenty features, across the five areas, for reference. Jump to any feature on request.</p>
+                    <div class="menu reveal" data-delay="3">
+                        <span class="mi"><b>01</b> Core Documentation</span>
+                        <span class="mi"><b>02</b> Letters &amp; Templates</span>
+                        <span class="mi"><b>03</b> Patient &amp; Workflow</span>
+                        <span class="mi"><b>04</b> Organisation &amp; Users</span>
+                        <span class="mi"><b>05</b> Billing</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+'''
+
+BODY = (INTRO + TEAM + AGENDA + PROBLEM + VISION + WALK
         + PLATFORM + TRACTION + CALCULATOR + COMPETITIVE + MARKET + SECURITY
-        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE)
+        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE
+        + APPENDIX + FEAT)
 
 SCRIPT = r"""
         (function(){
