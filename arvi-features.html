@@ -254,8 +254,54 @@
         .ask-eq{font-size:clamp(1rem,1.6vw,1.4rem);font-weight:600;color:var(--primary-dark);margin-top:.3rem}
         .fundbar{display:flex;height:clamp(22px,2.6vh,30px);border-radius:8px;overflow:hidden;margin-top:.5rem}
         .fundbar span{display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;font-weight:700;white-space:nowrap}
-        @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}}
-        @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}}
+        /* --- roadmap (showpiece) --- */
+        .rm-wrap{margin-top:clamp(1rem,2.2vh,1.6rem)}
+        .rmline{display:flex;justify-content:space-between;position:relative;margin:0 7% clamp(1.4rem,3vh,2.2rem)}
+        .rmline::before{content:"";position:absolute;left:10px;right:10px;top:9px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--primary),var(--accent))}
+        .rmpt{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center}
+        .rmpt .d{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 0 0 4px rgba(4,85,163,.12)}
+        .rmpt:first-child .d{background:var(--primary)}
+        .rmpt:last-child .d{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 4px rgba(105,26,106,.16)}
+        .rmpt .l{font-size:clamp(.72rem,.95vw,.86rem);font-weight:700;color:var(--primary-dark)}
+        .rmpt .v{font-size:clamp(.64rem,.82vw,.74rem);color:var(--muted)}
+        .rm{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.6rem);align-items:stretch}
+        .rmcard{position:relative;padding:clamp(1.2rem,1.9vw,1.7rem);border-radius:var(--r-lg);display:flex;flex-direction:column;overflow:hidden;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+        .rmcard:hover{transform:translateY(-6px)}
+        .rmcard .ph{display:flex;align-items:center;gap:.65rem;margin-bottom:.7rem}
+        .rmcard .pn{width:clamp(34px,2.6vw,42px);height:clamp(34px,2.6vw,42px);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:clamp(.95rem,1.2vw,1.15rem);flex-shrink:0}
+        .rmcard .pt{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.26rem .62rem;border-radius:20px}
+        .rmcard h3{font-size:clamp(1.05rem,1.4vw,1.35rem);line-height:1.15;margin-bottom:.65rem}
+        .rmcard ul{list-style:none;display:flex;flex-direction:column;gap:.42rem;flex:1}
+        .rmcard li{font-size:clamp(.8rem,.98vw,.94rem);display:flex;gap:.5rem;align-items:flex-start;line-height:1.38}
+        .rmcard li::before{content:"";width:6px;height:6px;border-radius:50%;margin-top:.46rem;flex-shrink:0}
+        .rmcard .tgt{margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:.45rem}
+        .rmcard .tgt b{font-size:clamp(1.3rem,1.9vw,1.7rem);font-weight:800}
+        .rmcard .tgt span{font-size:.72rem}
+        .rmcard.lite{background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--s-sm)}
+        .rmcard.lite .pn{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 6px 16px rgba(4,85,163,.25)}
+        .rmcard.lite .pt{background:rgba(4,85,163,.1);color:var(--primary)}
+        .rmcard.lite h3{color:var(--primary-dark)}
+        .rmcard.lite li{color:var(--muted)}
+        .rmcard.lite li::before{background:linear-gradient(135deg,var(--primary),var(--accent))}
+        .rmcard.lite .tgt b{color:var(--primary-dark)}.rmcard.lite .tgt span{color:var(--muted)}
+        .rmcard.climax{background:linear-gradient(150deg,var(--primary-dark),var(--primary) 58%,var(--accent));color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 72px -22px rgba(105,26,106,.62),0 12px 30px rgba(4,55,98,.22)}
+        .rmcard.climax::after{content:"";position:absolute;top:-45%;right:-35%;width:75%;height:75%;background:radial-gradient(circle,rgba(255,255,255,.2),transparent 70%);pointer-events:none}
+        .rmcard.climax>*{position:relative;z-index:1}
+        .rmcard.climax .pn{background:rgba(255,255,255,.2);color:#fff}
+        .rmcard.climax .pt{background:rgba(255,255,255,.16);color:#fff}
+        .rmcard.climax h3{color:#fff}
+        .rmcard.climax li{color:rgba(255,255,255,.92)}
+        .rmcard.climax li::before{background:#c8e8ff}
+        .rmcard.climax .tgt{border-top-color:rgba(255,255,255,.22)}
+        .rmcard.climax .tgt b{color:#fff}.rmcard.climax .tgt span{color:rgba(255,255,255,.78)}
+        .rmcard .flag{position:absolute;top:clamp(.9rem,1.4vw,1.3rem);right:clamp(.9rem,1.4vw,1.3rem);display:inline-flex;align-items:center;gap:.34rem;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.16);padding:.28rem .6rem;border-radius:20px;z-index:2}
+        .rmcard .flag svg{width:11px;height:11px;stroke:#c8e8ff;fill:none;stroke-width:2}
+        .rm-live{display:inline-flex;align-items:center;gap:.38rem;font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#16a34a;margin-left:auto}
+        .rm-live .dot{width:7px;height:7px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2s infinite}
+        .rm-cap{text-align:center;color:var(--muted);margin-top:clamp(.9rem,2vh,1.4rem);font-size:clamp(.82rem,1vw,.96rem)}
+        .rm-cap b{color:var(--primary-dark)}
+        @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
+        @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
         .counter{position:fixed;bottom:clamp(.8rem,2vh,1.5rem);right:clamp(1rem,3vw,2.4rem);font-size:clamp(.72rem,.95vw,.84rem);color:var(--muted);z-index:100;display:flex;gap:.6rem;align-items:center}
         .counter b{color:var(--primary);font-weight:700}
@@ -320,6 +366,22 @@
                 </div>
             </div>
         </section>
+        <!-- Agenda -->
+        <section class="slide" id="s-agenda" data-sec="Overview">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Agenda</div>
+                    <h2 class="title reveal" data-delay="1">How We'll Spend the Time</h2>
+                </div>
+                <div class="agenda">
+                    <div class="agenda-item glass reveal" data-delay="2"><div class="an">1</div><div><h3>The problem &amp; the product</h3><p>What Arvi is, and how it turns a consult into a clinical document.</p></div><div class="ad">~5 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="3"><div class="an">2</div><div><h3>Why it wins</h3><p>Differentiation, market and the traction that proves it's real.</p></div><div class="ad">~8 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="4"><div class="an">3</div><div><h3>Where Arvi fits with InfoMedix</h3><p>A proposed integration pathway, the value it adds, and our roadmap.</p></div><div class="ad">~10 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="5"><div class="an">4</div><div><h3>The opportunity</h3><p>The team behind Arvi, and the raise.</p></div><div class="ad">~7 min</div></div>
+                </div>
+                <p class="rm-cap reveal" data-delay="6" style="text-align:left;margin-top:clamp(.8rem,1.6vh,1.2rem)">A full product walkthrough, all nineteen features in action, is in the <b>appendix</b>.</p>
+            </div>
+        </section>
         <!-- Problem -->
         <section class="slide" id="s-problem" data-sec="Overview">
             <div class="inner">
@@ -332,21 +394,6 @@
                     <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Time poverty</h3><p>Clinicians spend up to half their day documenting, much of it after hours.</p></div>
                     <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div><h3>Late, inconsistent records</h3><p>Notes typed from memory hours later, quality and timeliness both suffer.</p></div>
                     <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Costly downstream</h3><p>Poor source documentation slows coding, referrals and discharge, the exact workflows hospitals depend on.</p></div>
-                </div>
-            </div>
-        </section>
-        <!-- Agenda -->
-        <section class="slide" id="s-agenda" data-sec="Overview">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Agenda</div>
-                    <h2 class="title reveal" data-delay="1">How We'll Spend the Time</h2>
-                </div>
-                <div class="agenda">
-                    <div class="agenda-item glass reveal" data-delay="2"><div class="an">1</div><div><h3>The problem</h3><p>Why clinical documentation is the bottleneck, in 60 seconds.</p></div><div class="ad">~2 min</div></div>
-                    <div class="agenda-item glass reveal" data-delay="3"><div class="an">2</div><div><h3>Live product walkthrough</h3><p>A guided demo of Arvi across five areas, the heart of today.</p></div><div class="ad">~20 min</div></div>
-                    <div class="agenda-item glass reveal" data-delay="4"><div class="an">3</div><div><h3>Where Arvi could fit with InfoMedix</h3><p>A proposed integration pathway and the value it could add.</p></div><div class="ad">~10 min</div></div>
-                    <div class="agenda-item glass reveal" data-delay="5"><div class="an">4</div><div><h3>Traction, team &amp; the opportunity</h3><p>The proof, the people, and the raise.</p></div><div class="ad">~8 min</div></div>
                 </div>
             </div>
         </section>
@@ -386,13 +433,290 @@
                 </div>
             </div>
         </section>
-        <!-- Demo divider -->
-        <section class="slide" id="s-walk" data-sec="Live Demo">
+        <!-- Competitive -->
+        <section class="slide" id="s-comp" data-sec="Differentiation">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Competitive Landscape</div>
+                    <h2 class="title reveal" data-delay="1">Superior Quality, Accessible Pricing</h2>
+                    <p class="subtitle reveal" data-delay="2">Specialist-led validation and a price built for adoption, against the generalist incumbents.</p>
+                </div>
+                <div class="cmp glass reveal" data-delay="2">
+                    <div class="cmp-row cmp-head"><div>Feature</div><div>Nuance DAX</div><div>Lyrebird</div><div>Heidi</div><div class="arvi">Arvi<span class="cmp-best">BEST</span></div></div>
+                    <div class="cmp-row"><div>Pricing</div><div>$300+/mo</div><div>$300+/mo</div><div>$1,320/yr</div><div class="arvi">~$30/mo</div></div>
+                    <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs + specialists</div></div>
+                    <div class="cmp-row"><div>Clinical validation</div><div>Standard</div><div>Standard</div><div>Standard</div><div class="arvi">Specialist-led</div></div>
+                    <div class="cmp-row"><div>Australian compliance</div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                    <div class="cmp-row"><div>Entry barrier</div><div>Very high</div><div>Moderate</div><div>Med-high</div><div class="arvi">Lowest</div></div>
+                </div>
+                <p class="subtitle reveal" data-delay="3" style="max-width:none;margin-top:clamp(.8rem,1.6vh,1.2rem)"><b style="color:var(--primary-dark)">The quality edge:</b> Arvi's engine is trained and validated daily in a specialist gastroenterology practice, built for complex medical terminology, not just GP visits.</p>
+            </div>
+        </section>
+        <!-- Market -->
+        <section class="slide" id="s-market" data-sec="Opportunity">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Market Opportunity</div>
+                    <h2 class="title reveal" data-delay="1">Bottom-Up Australian Market Sizing</h2>
+                </div>
+                <div class="cards" style="grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(1.2rem,3vw,2.5rem)">
+                    <div class="funnel">
+                        <div class="fbar tam reveal" data-delay="2"><div><div class="fl">TAM</div><div class="fd">Total addressable &middot; 70k clinicians</div></div><div class="fv">$63.8M</div></div>
+                        <div class="fbar sam reveal" data-delay="3"><div><div class="fl">SAM</div><div class="fd">Metro GPs + specialists</div></div><div class="fv">$36.5M</div></div>
+                        <div class="fbar som reveal" data-delay="4"><div><div class="fl">YEAR 3 TARGET</div><div class="fd">Serviceable obtainable &middot; 18k users</div></div><div class="fv">$16.9M</div></div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1rem)">
+                        <div class="card glass reveal" data-delay="3"><h3>The specialist upside</h3><p>30,000+ specialists generate higher revenue per consult and are underserved by GP-focused tools.</p></div>
+                        <div class="card glass reveal" data-delay="4"><h3>Usage revenue layer</h3><p>A $30 base removes friction; usage top-ups drive blended ARPU to ~$76 as adoption scales.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Traction -->
+        <section class="slide" id="s-traction" data-sec="Traction">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Traction &amp; Validation</div>
+                    <h2 class="title reveal" data-delay="1">Proven in a Real Clinical Setting</h2>
+                </div>
+                <div class="cards" style="grid-template-columns:1.1fr 1fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:stretch">
+                    <div style="display:flex;flex-direction:column;gap:clamp(.8rem,1.6vh,1.2rem)">
+                        <div class="tr-live reveal" data-delay="2"><div class="ic" style="background:rgba(255,255,255,.18)"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><line x1="10" y1="9" x2="10" y2="9"/></svg></div><div><strong>Live: Sydney Gut Clinic</strong><p style="font-size:.88rem;color:rgba(255,255,255,.85);margin-top:.3rem;line-height:1.5">In production and validated daily by specialists in complex gastroenterology, the clinic owned by co-founder Dr Suhirdan.</p><span class="badge2">Production ready</span></div></div>
+                        <div class="card glass reveal" data-delay="3"><h3>Shipped &amp; certified</h3><ul class="checklist" style="margin-top:.6rem"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>AI transcription engine in production</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Patient records &amp; referral letters live</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Australian privacy compliance certified</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Web, iOS &amp; Android, billing live</li></ul></div>
+                    </div>
+                    <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column;justify-content:center">
+                        <h3>12-month targets</h3>
+                        <div class="imx-bar" style="margin:.9rem 0;padding:0;gap:clamp(1rem,2.5vw,2rem);flex-wrap:wrap">
+                            <div class="imx-stat"><div class="v">500</div><div class="l">practices</div></div>
+                            <div class="imx-stat"><div class="v">$3M</div><div class="l">ARR</div></div>
+                            <div class="imx-stat"><div class="v">1,800</div><div class="l">active users</div></div>
+                            <div class="imx-stat"><div class="v">&gt;50</div><div class="l">NPS</div></div>
+                        </div>
+                        <p style="font-size:.82rem;color:var(--muted);line-height:1.5">Commercial launch 1 March 2026. Figures above are 12-month post-launch goals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Team -->
+        <section class="slide" id="s-team" data-sec="Team">
+            <div class="inner">
+                <div class="slide-head" style="text-align:center">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> The Team</div>
+                    <h2 class="title reveal" data-delay="1">Clinical Authority Meets Proven SaaS Scaling</h2>
+                </div>
+                <div class="team">
+                    <div class="tcard glass reveal" data-delay="2"><img src="ari.png" alt="Ari Vivekanandarajah"><h3>Ari Vivekanandarajah</h3><div class="trole">Co-Founder</div><div class="tchips"><span>Successful SaaS exit</span><span>Agency owner</span></div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>20+ years in B2B &amp; SaaS marketing and growth</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Specialist in healthcare &amp; SaaS go-to-market</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads strategy, sales and operations</li></ul></div>
+                    <div class="tcard glass reveal" data-delay="3"><img src="dr%20suhirdan.jpg" alt="Dr Suhirdan Vivekanandarajah"><h3>Dr Suhirdan Vivekanandarajah</h3><div class="trole">Co-Founder</div><div class="tchips"><span>Gastroenterologist</span><span>Clinic owner</span></div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Practising gastroenterologist &amp; clinic owner</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Deep clinical workflow validation</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads product vision &amp; medical partnerships</li></ul></div>
+                </div>
+            </div>
+        </section>
+        <!-- Security & interoperability -->
+        <section class="slide" id="s-security" data-sec="Trust">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security &amp; Interoperability</div>
+                    <h2 class="title reveal" data-delay="1">Built to Sit Inside a Hospital's Stack</h2>
+                    <p class="subtitle reveal" data-delay="2">The questions a CTO and CMO ask first, answered up front.</p>
+                </div>
+                <div class="cards c3">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Australian data residency</h3><p>Patient data handled under Australian privacy compliance, certified.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Encrypted &amp; access-controlled</h3><p>Role-based permissions and organisation-level isolation across the platform.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>HL7 / FHIR-ready</h3><p>Designed to exchange structured documents over standard interfaces.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></div><h3>Clinician in the loop</h3><p>AI drafts; the clinician reviews and approves every note and letter.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><h3>Specialist-validated</h3><p>Accuracy proven daily in a live specialist practice, not just GP visits.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><h3>Complements, not replaces</h3><p>Arvi feeds your system of record, it does not try to be it.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- Infomedix world -->
+        <section class="slide" id="s-imx1" data-sec="Infomedix">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg> The Opportunity &middot; Infomedix</div>
+                    <h2 class="title reveal" data-delay="1">Built for the World Infomedix Serves</h2>
+                    <p class="subtitle reveal" data-delay="2">Infomedix runs the digital record for Australia's busiest hospitals, acute, emergency and surgical settings. Arvi's capture features were designed for exactly those environments.</p>
+                </div>
+                <div class="imx-bar glass reveal" data-delay="2">
+                    <img src="InfoMedix-logo-png.webp" alt="InfoMedix" class="imx-logo">
+                    <div class="imx-stat"><div class="v">250+</div><div class="l">hospitals on Infomedix</div></div>
+                    <div class="imx-stat"><div class="v">46k+</div><div class="l">daily active users</div></div>
+                    <div class="imx-stat"><div class="v">2B+</div><div class="l">clinical documents managed</div></div>
+                    <div class="imx-stat"><div class="v">30+</div><div class="l">systems integrated</div></div>
+                </div>
+                <div class="cards c3">
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Emergency departments</h3><p>Quick Record matches the tempo of ED, exactly where their hospitals operate.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></div><h3>Operating theatres</h3><p>Mobile, low-connectivity theatre capture fits surgical workflows out of the box.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>Teams &amp; departments</h3><p>Org/team accounts, roles and admin oversight mirror hospital structures.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- Integration -->
+        <section class="slide" id="s-imx2" data-sec="Infomedix">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> A Possible Pathway</div>
+                    <h2 class="title reveal" data-delay="1">How Arvi Could Fit with Infomedix</h2>
+                    <p class="subtitle reveal" data-delay="2">One pathway we see: Arvi as the AI capture &amp; authoring front end to the Infomedix record, workflow and coding backbone. Structured output could flow in over HL7 / FHIR, the interoperability layer Infomedix already runs.</p>
+                    <div class="tags reveal" data-delay="2"><span class="tag">Proposed integration &middot; for discussion</span></div>
+                </div>
+                <div class="integ">
+                    <div class="integ-arvi reveal" data-delay="2">
+                        <div class="il">Capture &amp; authoring</div>
+                        <h3>Arvi</h3>
+                        <p>Voice &rarr; structured note, letter &amp; referral</p>
+                        <ul>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Clinical notes</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> GP &amp; referral letters</li>
+                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Theatre &amp; discharge notes</li>
+                        </ul>
+                    </div>
+                    <div class="pipe reveal" data-delay="3">
+                        <div class="pl">HL7 / FHIR<br>secure messaging</div>
+                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <div class="pl sub">structured documents</div>
+                    </div>
+                    <div class="imx-side">
+                        <div class="imx-side-head reveal" data-delay="2"><img src="InfoMedix-logo-png.webp" alt="InfoMedix" class="imx-logo"><span>the InfoMedix suite</span></div>
+                        <div class="imx-prods">
+                            <div class="imx-prod glass reveal" data-delay="3"><h4>Digital Patient Chart</h4><p>Arvi notes could file into the chart, complete and on time.</p></div>
+                            <div class="imx-prod glass reveal" data-delay="4"><h4>Referrals Manager</h4><p>Auto-generated referral letters could feed the HL7 referral pipeline.</p></div>
+                            <div class="imx-prod glass reveal" data-delay="4"><h4>Discharge Manager</h4><p>Discharge summaries authored from the recording instead of retyped.</p></div>
+                            <div class="imx-prod glass reveal" data-delay="5"><h4>Coding Manager</h4><p>Richer structured notes could lift coding accuracy &amp; speed.</p></div>
+                            <div class="imx-prod glass span reveal" data-delay="5"><h4>Clinivid</h4><p>Arvi notes &amp; letters could be shared through Infomedix's clinician collaboration layer.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Value -->
+        <section class="slide" id="s-imx3" data-sec="Infomedix">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> Potential Value</div>
+                    <h2 class="title reveal" data-delay="1">Where Arvi Could Add Value</h2>
+                    <p class="subtitle reveal" data-delay="2">A complementary capability, not a competing one. Here is where Arvi could make the existing suite more valuable and stickier.</p>
+                </div>
+                <div class="cards c3">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h3>Fills the AI gap</h3><p>Would add ambient AI documentation, the one capability the suite doesn't have today, in the hottest category in health IT.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>More, better documents</h3><p>Could feed the chart with complete, structured, on-time notes created at the point of care.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Lifts coding outcomes</h3><p>Richer source documentation could improve Coding Manager accuracy, speed and revenue capture.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><h3>Automates referrals &amp; discharge</h3><p>Letters and summaries could be generated, not retyped, accelerating the workflows Infomedix sells.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Deeper stickiness</h3><p>Capture, chart, code and send in one loop could raise switching costs across the whole suite.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Ready distribution</h3><p>Infomedix's 250+ hospitals and 46k daily users would be a natural channel for Arvi.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- Roadmap -->
+        <section class="slide" id="s-roadmap" data-sec="Roadmap">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Roadmap</div>
+                    <h2 class="title reveal" data-delay="1">From Specialist Clinics to the Hospital Ecosystem</h2>
+                    <p class="subtitle reveal" data-delay="2">Arvi's path runs from individual clinicians today toward enterprise and hospital-wide documentation, where notes, coding and interoperability converge.</p>
+                </div>
+                <div class="rm-wrap">
+                    <div class="rmline reveal" data-delay="2">
+                        <div class="rmpt"><span class="d"></span><span class="l">Launch</span><span class="v">Mar 2026</span></div>
+                        <div class="rmpt"><span class="d"></span><span class="l">100 practices</span><span class="v">Month 6</span></div>
+                        <div class="rmpt"><span class="d"></span><span class="l">500 practices</span><span class="v">Month 12</span></div>
+                        <div class="rmpt"><span class="d"></span><span class="l">$12.8M ARR</span><span class="v">Year 3</span></div>
+                    </div>
+                    <div class="rm">
+                        <div class="rmcard lite reveal" data-delay="3">
+                            <div class="ph"><div class="pn">1</div><div class="pt">Months 1-6</div><span class="rm-live"><span class="dot"></span>Live</span></div>
+                            <h3>Launch &amp; Adoption</h3>
+                            <ul><li>Sydney Gut Clinic as reference site</li><li>Metro GP &amp; specialist practices</li><li>Direct sales + 30-day free trial</li></ul>
+                            <div class="tgt"><b>100</b><span>practices</span></div>
+                        </div>
+                        <div class="rmcard lite reveal" data-delay="4">
+                            <div class="ph"><div class="pn">2</div><div class="pt">Months 7-12</div></div>
+                            <h3>Market Expansion</h3>
+                            <ul><li>National rollout across capital cities</li><li>Healthlink &amp; practice-system integrations</li><li>Specialist vertical expansion</li></ul>
+                            <div class="tgt"><b>500</b><span>practices</span></div>
+                        </div>
+                        <div class="rmcard climax reveal" data-delay="5">
+                            <span class="flag"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>Where it converges</span>
+                            <div class="ph"><div class="pn">3</div><div class="pt">Year 2+</div></div>
+                            <h3>Enterprise &amp; Hospital</h3>
+                            <ul><li>Hospital network pilots</li><li>Discharge summaries &amp; coding support</li><li>Deep EMR / system integrations</li><li>Enterprise-wide licensing</li></ul>
+                            <div class="tgt"><b>$12.8M</b><span>ARR</span></div>
+                        </div>
+                    </div>
+                    <p class="rm-cap reveal" data-delay="6">Phase 3 is where ambient documentation meets the systems that run hospitals, <b>discharge, coding and the patient record</b>.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Financials -->
+        <section class="slide" id="s-fin" data-sec="The Raise">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Financial Projections</div>
+                    <h2 class="title reveal" data-delay="1">Path to $12.8M ARR</h2>
+                </div>
+                <div class="fin">
+                    <div class="card glass reveal" data-delay="2">
+                        <h3 style="text-align:center;color:var(--muted);font-weight:600;font-size:.9rem">Projected ARR</h3>
+                        <div class="bars">
+                            <div class="bar"><div class="bv">$2.3M</div><div class="bcol" data-h="34%"></div><div class="bl">Year 1</div></div>
+                            <div class="bar"><div class="bv">$5.5M</div><div class="bcol" data-h="62%"></div><div class="bl">Year 2</div></div>
+                            <div class="bar"><div class="bv">$12.8M</div><div class="bcol" data-h="100%"></div><div class="bl">Year 3</div></div>
+                        </div>
+                    </div>
+                    <div class="fin-cards">
+                        <div class="fin-card glass reveal" data-delay="3"><div class="fcl">Blended ARPU</div><div class="fcv">~$76</div><div class="fcs">$30 base + $46 usage</div></div>
+                        <div class="fin-card glass reveal" data-delay="4"><div class="fcl">LTV : CAC target</div><div class="fcv">5.1 : 1</div><div class="fcs">Efficient growth</div></div>
+                        <div class="fin-card glass reveal" data-delay="5"><div class="fcl">Series A</div><div class="fcv">Q1 Year 2</div><div class="fcs">at $5M+ ARR</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Ask -->
+        <section class="slide" id="s-ask" data-sec="The Raise">
+            <div class="inner">
+                <div class="slide-head" style="text-align:center">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> The Ask</div>
+                    <h2 class="title reveal" data-delay="1" style="text-align:center">Seed Round</h2>
+                </div>
+                <div style="text-align:center">
+                    <div class="ask-amt reveal" data-delay="2">$2M</div>
+                    <div class="ask-eq reveal" data-delay="2">for 10% equity</div>
+                </div>
+                <div style="max-width:780px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
+                    <div class="reveal" data-delay="3" style="font-size:.8rem;font-weight:700;color:var(--primary-dark);margin-bottom:.4rem">Use of funds</div>
+                    <div class="fundbar reveal" data-delay="3">
+                        <span style="width:50%;background:var(--primary-dark)">S&amp;M 50%</span>
+                        <span style="width:25%;background:var(--primary)">Product 25%</span>
+                        <span style="width:20%;background:var(--accent)">Ops 20%</span>
+                        <span style="width:5%;background:var(--accent-2)">5%</span>
+                    </div>
+                </div>
+                <div class="cards c2" style="max-width:920px;margin:clamp(1rem,2.4vh,1.6rem) auto 0">
+                    <div class="card glass reveal" data-delay="4"><h3>2,500+ active users</h3><p>Market leadership across Australia within 12 months.</p></div>
+                    <div class="card glass reveal" data-delay="4"><h3>$2.3M ARR run-rate</h3><p>Revenue growth to a Series A-ready position.</p></div>
+                    <div class="card glass reveal" data-delay="5"><h3>Enterprise ready</h3><p>Healthlink &amp; enterprise integrations delivered.</p></div>
+                    <div class="card glass reveal" data-delay="5"><h3>Series A at $5.5M ARR</h3><p>Positioned for the next round in Year 2.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- Close -->
+        <section class="slide" id="s-close" data-sec="Infomedix">
+            <div class="inner">
+                <div class="close">
+                    <div class="lockup reveal"><img class="lk-arvi" src="arvi logo.avif" alt="Arvi Health"><span class="x">&times;</span><img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix"></div>
+                    <h2 class="title reveal" data-delay="1">A Documentation Layer for Infomedix's Hospitals</h2>
+                    <p class="subtitle reveal" data-delay="2">Arvi captures and authors at the point of care; Infomedix records, routes and codes. Together, that is a pathway to complete clinical documentation, end to end, with Arvi live today on web and mobile.</p>
+                    <div class="tags reveal" data-delay="3" style="justify-content:center"><span class="tag">20 features in production</span><span class="tag">HL7 / FHIR-ready</span><span class="tag">Built for acute care</span></div>
+                    <a class="cta reveal" data-delay="4" href="https://arvihealth.com" target="_blank" rel="noopener">Visit arvihealth.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+        </section>
+        <!-- Appendix divider -->
+        <section class="slide" id="s-walk" data-sec="Appendix">
             <div class="inner">
                 <div class="divider">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Live Demo</div>
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Appendix</div>
                     <div class="big reveal" data-delay="1">Product Walkthrough</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:680px;margin:0 auto">Five areas, twenty features, all in production today. Let's open the app.</p>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">The full feature set in action, nineteen live demos across the five areas. Jump to any feature on request.</p>
                     <div class="menu reveal" data-delay="3">
                         <span class="mi"><b>01</b> Core Documentation</span>
                         <span class="mi"><b>02</b> Letters &amp; Templates</span>
@@ -801,243 +1125,6 @@
                 </div>
             </div>
         </section>
-        <!-- Competitive -->
-        <section class="slide" id="s-comp" data-sec="Differentiation">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Competitive Landscape</div>
-                    <h2 class="title reveal" data-delay="1">Superior Quality, Accessible Pricing</h2>
-                    <p class="subtitle reveal" data-delay="2">Specialist-led validation and a price built for adoption, against the generalist incumbents.</p>
-                </div>
-                <div class="cmp glass reveal" data-delay="2">
-                    <div class="cmp-row cmp-head"><div>Feature</div><div>Nuance DAX</div><div>Lyrebird</div><div>Heidi</div><div class="arvi">Arvi<span class="cmp-best">BEST</span></div></div>
-                    <div class="cmp-row"><div>Pricing</div><div>$300+/mo</div><div>$300+/mo</div><div>$1,320/yr</div><div class="arvi">~$30/mo</div></div>
-                    <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs + specialists</div></div>
-                    <div class="cmp-row"><div>Clinical validation</div><div>Standard</div><div>Standard</div><div>Standard</div><div class="arvi">Specialist-led</div></div>
-                    <div class="cmp-row"><div>Australian compliance</div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
-                    <div class="cmp-row"><div>Entry barrier</div><div>Very high</div><div>Moderate</div><div>Med-high</div><div class="arvi">Lowest</div></div>
-                </div>
-                <p class="subtitle reveal" data-delay="3" style="max-width:none;margin-top:clamp(.8rem,1.6vh,1.2rem)"><b style="color:var(--primary-dark)">The quality edge:</b> Arvi's engine is trained and validated daily in a specialist gastroenterology practice, built for complex medical terminology, not just GP visits.</p>
-            </div>
-        </section>
-        <!-- Market -->
-        <section class="slide" id="s-market" data-sec="Opportunity">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Market Opportunity</div>
-                    <h2 class="title reveal" data-delay="1">Bottom-Up Australian Market Sizing</h2>
-                </div>
-                <div class="cards" style="grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(1.2rem,3vw,2.5rem)">
-                    <div class="funnel">
-                        <div class="fbar tam reveal" data-delay="2"><div><div class="fl">TAM</div><div class="fd">Total addressable &middot; 70k clinicians</div></div><div class="fv">$63.8M</div></div>
-                        <div class="fbar sam reveal" data-delay="3"><div><div class="fl">SAM</div><div class="fd">Metro GPs + specialists</div></div><div class="fv">$36.5M</div></div>
-                        <div class="fbar som reveal" data-delay="4"><div><div class="fl">YEAR 3 TARGET</div><div class="fd">Serviceable obtainable &middot; 18k users</div></div><div class="fv">$16.9M</div></div>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1rem)">
-                        <div class="card glass reveal" data-delay="3"><h3>The specialist upside</h3><p>30,000+ specialists generate higher revenue per consult and are underserved by GP-focused tools.</p></div>
-                        <div class="card glass reveal" data-delay="4"><h3>Usage revenue layer</h3><p>A $30 base removes friction; usage top-ups drive blended ARPU to ~$76 as adoption scales.</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Traction -->
-        <section class="slide" id="s-traction" data-sec="Traction">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Traction &amp; Validation</div>
-                    <h2 class="title reveal" data-delay="1">Proven in a Real Clinical Setting</h2>
-                </div>
-                <div class="cards" style="grid-template-columns:1.1fr 1fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:stretch">
-                    <div style="display:flex;flex-direction:column;gap:clamp(.8rem,1.6vh,1.2rem)">
-                        <div class="tr-live reveal" data-delay="2"><div class="ic" style="background:rgba(255,255,255,.18)"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><line x1="10" y1="9" x2="10" y2="9"/></svg></div><div><strong>Live: Sydney Gut Clinic</strong><p style="font-size:.88rem;color:rgba(255,255,255,.85);margin-top:.3rem;line-height:1.5">In production and validated daily by specialists in complex gastroenterology, the clinic owned by co-founder Dr Suhirdan.</p><span class="badge2">Production ready</span></div></div>
-                        <div class="card glass reveal" data-delay="3"><h3>Shipped &amp; certified</h3><ul class="checklist" style="margin-top:.6rem"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>AI transcription engine in production</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Patient records &amp; referral letters live</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Australian privacy compliance certified</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Web, iOS &amp; Android, billing live</li></ul></div>
-                    </div>
-                    <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column;justify-content:center">
-                        <h3>12-month targets</h3>
-                        <div class="imx-bar" style="margin:.9rem 0;padding:0;gap:clamp(1rem,2.5vw,2rem);flex-wrap:wrap">
-                            <div class="imx-stat"><div class="v">500</div><div class="l">practices</div></div>
-                            <div class="imx-stat"><div class="v">$3M</div><div class="l">ARR</div></div>
-                            <div class="imx-stat"><div class="v">1,800</div><div class="l">active users</div></div>
-                            <div class="imx-stat"><div class="v">&gt;50</div><div class="l">NPS</div></div>
-                        </div>
-                        <p style="font-size:.82rem;color:var(--muted);line-height:1.5">Commercial launch 1 March 2026. Figures above are 12-month post-launch goals.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Team -->
-        <section class="slide" id="s-team" data-sec="Team">
-            <div class="inner">
-                <div class="slide-head" style="text-align:center">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> The Team</div>
-                    <h2 class="title reveal" data-delay="1">Clinical Authority Meets Proven SaaS Scaling</h2>
-                </div>
-                <div class="team">
-                    <div class="tcard glass reveal" data-delay="2"><img src="ari.png" alt="Ari Vivekanandarajah"><h3>Ari Vivekanandarajah</h3><div class="trole">Co-Founder</div><div class="tchips"><span>Successful SaaS exit</span><span>Agency owner</span></div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>20+ years in B2B &amp; SaaS marketing and growth</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Specialist in healthcare &amp; SaaS go-to-market</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads strategy, sales and operations</li></ul></div>
-                    <div class="tcard glass reveal" data-delay="3"><img src="dr%20suhirdan.jpg" alt="Dr Suhirdan Vivekanandarajah"><h3>Dr Suhirdan Vivekanandarajah</h3><div class="trole">Co-Founder</div><div class="tchips"><span>Gastroenterologist</span><span>Clinic owner</span></div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Practising gastroenterologist &amp; clinic owner</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Deep clinical workflow validation</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads product vision &amp; medical partnerships</li></ul></div>
-                </div>
-            </div>
-        </section>
-        <!-- Security & interoperability -->
-        <section class="slide" id="s-security" data-sec="Trust">
-            <div class="inner fill">
-                <div class="slide-head">
-                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security &amp; Interoperability</div>
-                    <h2 class="title reveal" data-delay="1">Built to Sit Inside a Hospital's Stack</h2>
-                    <p class="subtitle reveal" data-delay="2">The questions a CTO and CMO ask first, answered up front.</p>
-                </div>
-                <div class="cards c3">
-                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Australian data residency</h3><p>Patient data handled under Australian privacy compliance, certified.</p></div>
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Encrypted &amp; access-controlled</h3><p>Role-based permissions and organisation-level isolation across the platform.</p></div>
-                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>HL7 / FHIR-ready</h3><p>Designed to exchange structured documents over standard interfaces.</p></div>
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></div><h3>Clinician in the loop</h3><p>AI drafts; the clinician reviews and approves every note and letter.</p></div>
-                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><h3>Specialist-validated</h3><p>Accuracy proven daily in a live specialist practice, not just GP visits.</p></div>
-                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><h3>Complements, not replaces</h3><p>Arvi feeds your system of record, it does not try to be it.</p></div>
-                </div>
-            </div>
-        </section>
-        <!-- Infomedix world -->
-        <section class="slide" id="s-imx1" data-sec="Infomedix">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg> The Opportunity &middot; Infomedix</div>
-                    <h2 class="title reveal" data-delay="1">Built for the World Infomedix Serves</h2>
-                    <p class="subtitle reveal" data-delay="2">Infomedix runs the digital record for Australia's busiest hospitals, acute, emergency and surgical settings. Arvi's capture features were designed for exactly those environments.</p>
-                </div>
-                <div class="imx-bar glass reveal" data-delay="2">
-                    <img src="InfoMedix-logo-png.webp" alt="InfoMedix" class="imx-logo">
-                    <div class="imx-stat"><div class="v">250+</div><div class="l">hospitals on Infomedix</div></div>
-                    <div class="imx-stat"><div class="v">46k+</div><div class="l">daily active users</div></div>
-                    <div class="imx-stat"><div class="v">2B+</div><div class="l">clinical documents managed</div></div>
-                    <div class="imx-stat"><div class="v">30+</div><div class="l">systems integrated</div></div>
-                </div>
-                <div class="cards c3">
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Emergency departments</h3><p>Quick Record matches the tempo of ED, exactly where their hospitals operate.</p></div>
-                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></div><h3>Operating theatres</h3><p>Mobile, low-connectivity theatre capture fits surgical workflows out of the box.</p></div>
-                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>Teams &amp; departments</h3><p>Org/team accounts, roles and admin oversight mirror hospital structures.</p></div>
-                </div>
-            </div>
-        </section>
-        <!-- Integration -->
-        <section class="slide" id="s-imx2" data-sec="Infomedix">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> A Possible Pathway</div>
-                    <h2 class="title reveal" data-delay="1">How Arvi Could Fit with Infomedix</h2>
-                    <p class="subtitle reveal" data-delay="2">One pathway we see: Arvi as the AI capture &amp; authoring front end to the Infomedix record, workflow and coding backbone. Structured output could flow in over HL7 / FHIR, the interoperability layer Infomedix already runs.</p>
-                    <div class="tags reveal" data-delay="2"><span class="tag">Proposed integration &middot; for discussion</span></div>
-                </div>
-                <div class="integ">
-                    <div class="integ-arvi reveal" data-delay="2">
-                        <div class="il">Capture &amp; authoring</div>
-                        <h3>Arvi</h3>
-                        <p>Voice &rarr; structured note, letter &amp; referral</p>
-                        <ul>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Clinical notes</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> GP &amp; referral letters</li>
-                            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Theatre &amp; discharge notes</li>
-                        </ul>
-                    </div>
-                    <div class="pipe reveal" data-delay="3">
-                        <div class="pl">HL7 / FHIR<br>secure messaging</div>
-                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                        <div class="pl sub">structured documents</div>
-                    </div>
-                    <div class="imx-side">
-                        <div class="imx-side-head reveal" data-delay="2"><img src="InfoMedix-logo-png.webp" alt="InfoMedix" class="imx-logo"><span>the InfoMedix suite</span></div>
-                        <div class="imx-prods">
-                            <div class="imx-prod glass reveal" data-delay="3"><h4>Digital Patient Chart</h4><p>Arvi notes could file into the chart, complete and on time.</p></div>
-                            <div class="imx-prod glass reveal" data-delay="4"><h4>Referrals Manager</h4><p>Auto-generated referral letters could feed the HL7 referral pipeline.</p></div>
-                            <div class="imx-prod glass reveal" data-delay="4"><h4>Discharge Manager</h4><p>Discharge summaries authored from the recording instead of retyped.</p></div>
-                            <div class="imx-prod glass reveal" data-delay="5"><h4>Coding Manager</h4><p>Richer structured notes could lift coding accuracy &amp; speed.</p></div>
-                            <div class="imx-prod glass span reveal" data-delay="5"><h4>Clinivid</h4><p>Arvi notes &amp; letters could be shared through Infomedix's clinician collaboration layer.</p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Value -->
-        <section class="slide" id="s-imx3" data-sec="Infomedix">
-            <div class="inner fill">
-                <div class="slide-head">
-                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> Potential Value</div>
-                    <h2 class="title reveal" data-delay="1">Where Arvi Could Add Value</h2>
-                    <p class="subtitle reveal" data-delay="2">A complementary capability, not a competing one. Here is where Arvi could make the existing suite more valuable and stickier.</p>
-                </div>
-                <div class="cards c3">
-                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h3>Fills the AI gap</h3><p>Would add ambient AI documentation, the one capability the suite doesn't have today, in the hottest category in health IT.</p></div>
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>More, better documents</h3><p>Could feed the chart with complete, structured, on-time notes created at the point of care.</p></div>
-                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Lifts coding outcomes</h3><p>Richer source documentation could improve Coding Manager accuracy, speed and revenue capture.</p></div>
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><h3>Automates referrals &amp; discharge</h3><p>Letters and summaries could be generated, not retyped, accelerating the workflows Infomedix sells.</p></div>
-                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Deeper stickiness</h3><p>Capture, chart, code and send in one loop could raise switching costs across the whole suite.</p></div>
-                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Ready distribution</h3><p>Infomedix's 250+ hospitals and 46k daily users would be a natural channel for Arvi.</p></div>
-                </div>
-            </div>
-        </section>
-        <!-- Financials -->
-        <section class="slide" id="s-fin" data-sec="The Raise">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Financial Projections</div>
-                    <h2 class="title reveal" data-delay="1">Path to $12.8M ARR</h2>
-                </div>
-                <div class="fin">
-                    <div class="card glass reveal" data-delay="2">
-                        <h3 style="text-align:center;color:var(--muted);font-weight:600;font-size:.9rem">Projected ARR</h3>
-                        <div class="bars">
-                            <div class="bar"><div class="bv">$2.3M</div><div class="bcol" data-h="34%"></div><div class="bl">Year 1</div></div>
-                            <div class="bar"><div class="bv">$5.5M</div><div class="bcol" data-h="62%"></div><div class="bl">Year 2</div></div>
-                            <div class="bar"><div class="bv">$12.8M</div><div class="bcol" data-h="100%"></div><div class="bl">Year 3</div></div>
-                        </div>
-                    </div>
-                    <div class="fin-cards">
-                        <div class="fin-card glass reveal" data-delay="3"><div class="fcl">Blended ARPU</div><div class="fcv">~$76</div><div class="fcs">$30 base + $46 usage</div></div>
-                        <div class="fin-card glass reveal" data-delay="4"><div class="fcl">LTV : CAC target</div><div class="fcv">5.1 : 1</div><div class="fcs">Efficient growth</div></div>
-                        <div class="fin-card glass reveal" data-delay="5"><div class="fcl">Series A</div><div class="fcv">Q1 Year 2</div><div class="fcs">at $5M+ ARR</div></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Ask -->
-        <section class="slide" id="s-ask" data-sec="The Raise">
-            <div class="inner">
-                <div class="slide-head" style="text-align:center">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> The Ask</div>
-                    <h2 class="title reveal" data-delay="1" style="text-align:center">Seed Round</h2>
-                </div>
-                <div style="text-align:center">
-                    <div class="ask-amt reveal" data-delay="2">$2M</div>
-                    <div class="ask-eq reveal" data-delay="2">for 10% equity</div>
-                </div>
-                <div style="max-width:780px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
-                    <div class="reveal" data-delay="3" style="font-size:.8rem;font-weight:700;color:var(--primary-dark);margin-bottom:.4rem">Use of funds</div>
-                    <div class="fundbar reveal" data-delay="3">
-                        <span style="width:50%;background:var(--primary-dark)">S&amp;M 50%</span>
-                        <span style="width:25%;background:var(--primary)">Product 25%</span>
-                        <span style="width:20%;background:var(--accent)">Ops 20%</span>
-                        <span style="width:5%;background:var(--accent-2)">5%</span>
-                    </div>
-                </div>
-                <div class="cards c2" style="max-width:920px;margin:clamp(1rem,2.4vh,1.6rem) auto 0">
-                    <div class="card glass reveal" data-delay="4"><h3>2,500+ active users</h3><p>Market leadership across Australia within 12 months.</p></div>
-                    <div class="card glass reveal" data-delay="4"><h3>$2.3M ARR run-rate</h3><p>Revenue growth to a Series A-ready position.</p></div>
-                    <div class="card glass reveal" data-delay="5"><h3>Enterprise ready</h3><p>Healthlink &amp; enterprise integrations delivered.</p></div>
-                    <div class="card glass reveal" data-delay="5"><h3>Series A at $5.5M ARR</h3><p>Positioned for the next round in Year 2.</p></div>
-                </div>
-            </div>
-        </section>
-        <!-- Close -->
-        <section class="slide" id="s-close" data-sec="Infomedix">
-            <div class="inner">
-                <div class="close">
-                    <div class="lockup reveal"><img class="lk-arvi" src="arvi logo.avif" alt="Arvi Health"><span class="x">&times;</span><img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix"></div>
-                    <h2 class="title reveal" data-delay="1">A Documentation Layer for Infomedix's Hospitals</h2>
-                    <p class="subtitle reveal" data-delay="2">Arvi captures and authors at the point of care; Infomedix records, routes and codes. Together, that is a pathway to complete clinical documentation, end to end, with Arvi live today on web and mobile.</p>
-                    <div class="tags reveal" data-delay="3" style="justify-content:center"><span class="tag">20 features in production</span><span class="tag">HL7 / FHIR-ready</span><span class="tag">Built for acute care</span></div>
-                    <a class="cta reveal" data-delay="4" href="https://arvihealth.com" target="_blank" rel="noopener">Visit arvihealth.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <div class="counter"><span><b id="cur">1</b> / <span id="total">0</span></span><span class="sec" id="sec">Overview</span></div>
@@ -1117,6 +1204,12 @@
                 else if(ev.key==='End'){ev.preventDefault();slides[slides.length-1].scrollIntoView({behavior:'smooth',inline:'start'});}
             });
             slides[0].classList.add('active');
+
+            // Deep-link: jump to #slide-id on load (e.g. .../arvi-features.html#s-roadmap)
+            if(location.hash){
+                var target=document.getElementById(location.hash.slice(1));
+                if(target){ target.scrollIntoView({inline:'start'}); setTimeout(function(){target.scrollIntoView({inline:'start'});syncVideos();},250); }
+            }
         })();
 </script>
 </body>

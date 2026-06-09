@@ -248,8 +248,54 @@ CSS = r"""
         .ask-eq{font-size:clamp(1rem,1.6vw,1.4rem);font-weight:600;color:var(--primary-dark);margin-top:.3rem}
         .fundbar{display:flex;height:clamp(22px,2.6vh,30px);border-radius:8px;overflow:hidden;margin-top:.5rem}
         .fundbar span{display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;font-weight:700;white-space:nowrap}
-        @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}}
-        @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}}
+        /* --- roadmap (showpiece) --- */
+        .rm-wrap{margin-top:clamp(1rem,2.2vh,1.6rem)}
+        .rmline{display:flex;justify-content:space-between;position:relative;margin:0 7% clamp(1.4rem,3vh,2.2rem)}
+        .rmline::before{content:"";position:absolute;left:10px;right:10px;top:9px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--primary),var(--accent))}
+        .rmpt{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center}
+        .rmpt .d{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 0 0 4px rgba(4,85,163,.12)}
+        .rmpt:first-child .d{background:var(--primary)}
+        .rmpt:last-child .d{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 4px rgba(105,26,106,.16)}
+        .rmpt .l{font-size:clamp(.72rem,.95vw,.86rem);font-weight:700;color:var(--primary-dark)}
+        .rmpt .v{font-size:clamp(.64rem,.82vw,.74rem);color:var(--muted)}
+        .rm{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.6rem);align-items:stretch}
+        .rmcard{position:relative;padding:clamp(1.2rem,1.9vw,1.7rem);border-radius:var(--r-lg);display:flex;flex-direction:column;overflow:hidden;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+        .rmcard:hover{transform:translateY(-6px)}
+        .rmcard .ph{display:flex;align-items:center;gap:.65rem;margin-bottom:.7rem}
+        .rmcard .pn{width:clamp(34px,2.6vw,42px);height:clamp(34px,2.6vw,42px);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:clamp(.95rem,1.2vw,1.15rem);flex-shrink:0}
+        .rmcard .pt{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.26rem .62rem;border-radius:20px}
+        .rmcard h3{font-size:clamp(1.05rem,1.4vw,1.35rem);line-height:1.15;margin-bottom:.65rem}
+        .rmcard ul{list-style:none;display:flex;flex-direction:column;gap:.42rem;flex:1}
+        .rmcard li{font-size:clamp(.8rem,.98vw,.94rem);display:flex;gap:.5rem;align-items:flex-start;line-height:1.38}
+        .rmcard li::before{content:"";width:6px;height:6px;border-radius:50%;margin-top:.46rem;flex-shrink:0}
+        .rmcard .tgt{margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:.45rem}
+        .rmcard .tgt b{font-size:clamp(1.3rem,1.9vw,1.7rem);font-weight:800}
+        .rmcard .tgt span{font-size:.72rem}
+        .rmcard.lite{background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--s-sm)}
+        .rmcard.lite .pn{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 6px 16px rgba(4,85,163,.25)}
+        .rmcard.lite .pt{background:rgba(4,85,163,.1);color:var(--primary)}
+        .rmcard.lite h3{color:var(--primary-dark)}
+        .rmcard.lite li{color:var(--muted)}
+        .rmcard.lite li::before{background:linear-gradient(135deg,var(--primary),var(--accent))}
+        .rmcard.lite .tgt b{color:var(--primary-dark)}.rmcard.lite .tgt span{color:var(--muted)}
+        .rmcard.climax{background:linear-gradient(150deg,var(--primary-dark),var(--primary) 58%,var(--accent));color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 72px -22px rgba(105,26,106,.62),0 12px 30px rgba(4,55,98,.22)}
+        .rmcard.climax::after{content:"";position:absolute;top:-45%;right:-35%;width:75%;height:75%;background:radial-gradient(circle,rgba(255,255,255,.2),transparent 70%);pointer-events:none}
+        .rmcard.climax>*{position:relative;z-index:1}
+        .rmcard.climax .pn{background:rgba(255,255,255,.2);color:#fff}
+        .rmcard.climax .pt{background:rgba(255,255,255,.16);color:#fff}
+        .rmcard.climax h3{color:#fff}
+        .rmcard.climax li{color:rgba(255,255,255,.92)}
+        .rmcard.climax li::before{background:#c8e8ff}
+        .rmcard.climax .tgt{border-top-color:rgba(255,255,255,.22)}
+        .rmcard.climax .tgt b{color:#fff}.rmcard.climax .tgt span{color:rgba(255,255,255,.78)}
+        .rmcard .flag{position:absolute;top:clamp(.9rem,1.4vw,1.3rem);right:clamp(.9rem,1.4vw,1.3rem);display:inline-flex;align-items:center;gap:.34rem;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.16);padding:.28rem .6rem;border-radius:20px;z-index:2}
+        .rmcard .flag svg{width:11px;height:11px;stroke:#c8e8ff;fill:none;stroke-width:2}
+        .rm-live{display:inline-flex;align-items:center;gap:.38rem;font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#16a34a;margin-left:auto}
+        .rm-live .dot{width:7px;height:7px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2s infinite}
+        .rm-cap{text-align:center;color:var(--muted);margin-top:clamp(.9rem,2vh,1.4rem);font-size:clamp(.82rem,1vw,.96rem)}
+        .rm-cap b{color:var(--primary-dark)}
+        @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
+        @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
         .counter{position:fixed;bottom:clamp(.8rem,2vh,1.5rem);right:clamp(1rem,3vw,2.4rem);font-size:clamp(.72rem,.95vw,.84rem);color:var(--muted);z-index:100;display:flex;gap:.6rem;align-items:center}
         .counter b{color:var(--primary);font-weight:700}
@@ -637,11 +683,12 @@ AGENDA = '''        <!-- Agenda -->
                     <h2 class="title reveal" data-delay="1">How We'll Spend the Time</h2>
                 </div>
                 <div class="agenda">
-                    <div class="agenda-item glass reveal" data-delay="2"><div class="an">1</div><div><h3>The problem</h3><p>Why clinical documentation is the bottleneck, in 60 seconds.</p></div><div class="ad">~2 min</div></div>
-                    <div class="agenda-item glass reveal" data-delay="3"><div class="an">2</div><div><h3>Live product walkthrough</h3><p>A guided demo of Arvi across five areas, the heart of today.</p></div><div class="ad">~20 min</div></div>
-                    <div class="agenda-item glass reveal" data-delay="4"><div class="an">3</div><div><h3>Where Arvi could fit with InfoMedix</h3><p>A proposed integration pathway and the value it could add.</p></div><div class="ad">~10 min</div></div>
-                    <div class="agenda-item glass reveal" data-delay="5"><div class="an">4</div><div><h3>Traction, team &amp; the opportunity</h3><p>The proof, the people, and the raise.</p></div><div class="ad">~8 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="2"><div class="an">1</div><div><h3>The problem &amp; the product</h3><p>What Arvi is, and how it turns a consult into a clinical document.</p></div><div class="ad">~5 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="3"><div class="an">2</div><div><h3>Why it wins</h3><p>Differentiation, market and the traction that proves it's real.</p></div><div class="ad">~8 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="4"><div class="an">3</div><div><h3>Where Arvi fits with InfoMedix</h3><p>A proposed integration pathway, the value it adds, and our roadmap.</p></div><div class="ad">~10 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="5"><div class="an">4</div><div><h3>The opportunity</h3><p>The team behind Arvi, and the raise.</p></div><div class="ad">~7 min</div></div>
                 </div>
+                <p class="rm-cap reveal" data-delay="6" style="text-align:left;margin-top:clamp(.8rem,1.6vh,1.2rem)">A full product walkthrough, all nineteen features in action, is in the <b>appendix</b>.</p>
             </div>
         </section>
 '''
@@ -664,13 +711,13 @@ HOWITWORKS = '''        <!-- How it works -->
         </section>
 '''
 
-WALK = '''        <!-- Demo divider -->
-        <section class="slide" id="s-walk" data-sec="Live Demo">
+WALK = '''        <!-- Appendix divider -->
+        <section class="slide" id="s-walk" data-sec="Appendix">
             <div class="inner">
                 <div class="divider">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Live Demo</div>
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Appendix</div>
                     <div class="big reveal" data-delay="1">Product Walkthrough</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:680px;margin:0 auto">Five areas, twenty features, all in production today. Let's open the app.</p>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">The full feature set in action, nineteen live demos across the five areas. Jump to any feature on request.</p>
                     <div class="menu reveal" data-delay="3">
                         <span class="mi"><b>01</b> Core Documentation</span>
                         <span class="mi"><b>02</b> Letters &amp; Templates</span>
@@ -844,9 +891,53 @@ ASK = '''        <!-- Ask -->
         </section>
 '''
 
-BODY = (INTRO + PROBLEM + AGENDA + PLATFORM + HOWITWORKS + WALK + FEAT
+ROADMAP = '''        <!-- Roadmap -->
+        <section class="slide" id="s-roadmap" data-sec="Roadmap">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Roadmap</div>
+                    <h2 class="title reveal" data-delay="1">From Specialist Clinics to the Hospital Ecosystem</h2>
+                    <p class="subtitle reveal" data-delay="2">Arvi's path runs from individual clinicians today toward enterprise and hospital-wide documentation, where notes, coding and interoperability converge.</p>
+                </div>
+                <div class="rm-wrap">
+                    <div class="rmline reveal" data-delay="2">
+                        <div class="rmpt"><span class="d"></span><span class="l">Launch</span><span class="v">Mar 2026</span></div>
+                        <div class="rmpt"><span class="d"></span><span class="l">100 practices</span><span class="v">Month 6</span></div>
+                        <div class="rmpt"><span class="d"></span><span class="l">500 practices</span><span class="v">Month 12</span></div>
+                        <div class="rmpt"><span class="d"></span><span class="l">$12.8M ARR</span><span class="v">Year 3</span></div>
+                    </div>
+                    <div class="rm">
+                        <div class="rmcard lite reveal" data-delay="3">
+                            <div class="ph"><div class="pn">1</div><div class="pt">Months 1-6</div><span class="rm-live"><span class="dot"></span>Live</span></div>
+                            <h3>Launch &amp; Adoption</h3>
+                            <ul><li>Sydney Gut Clinic as reference site</li><li>Metro GP &amp; specialist practices</li><li>Direct sales + 30-day free trial</li></ul>
+                            <div class="tgt"><b>100</b><span>practices</span></div>
+                        </div>
+                        <div class="rmcard lite reveal" data-delay="4">
+                            <div class="ph"><div class="pn">2</div><div class="pt">Months 7-12</div></div>
+                            <h3>Market Expansion</h3>
+                            <ul><li>National rollout across capital cities</li><li>Healthlink &amp; practice-system integrations</li><li>Specialist vertical expansion</li></ul>
+                            <div class="tgt"><b>500</b><span>practices</span></div>
+                        </div>
+                        <div class="rmcard climax reveal" data-delay="5">
+                            <span class="flag"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>Where it converges</span>
+                            <div class="ph"><div class="pn">3</div><div class="pt">Year 2+</div></div>
+                            <h3>Enterprise &amp; Hospital</h3>
+                            <ul><li>Hospital network pilots</li><li>Discharge summaries &amp; coding support</li><li>Deep EMR / system integrations</li><li>Enterprise-wide licensing</li></ul>
+                            <div class="tgt"><b>$12.8M</b><span>ARR</span></div>
+                        </div>
+                    </div>
+                    <p class="rm-cap reveal" data-delay="6">Phase 3 is where ambient documentation meets the systems that run hospitals, <b>discharge, coding and the patient record</b>.</p>
+                </div>
+            </div>
+        </section>
+'''
+
+# Main narrative first; the 19 feature demos live in an Appendix at the end.
+BODY = (INTRO + AGENDA + PROBLEM + PLATFORM + HOWITWORKS
         + COMPETITIVE + MARKET + TRACTION + TEAM + SECURITY
-        + IMX_WORLD + IMX_INTEG + IMX_VALUE + FINANCIALS + ASK + CLOSE)
+        + IMX_WORLD + IMX_INTEG + IMX_VALUE + ROADMAP + FINANCIALS + ASK + CLOSE
+        + WALK + FEAT)
 
 SCRIPT = r"""
         (function(){
@@ -923,6 +1014,12 @@ SCRIPT = r"""
                 else if(ev.key==='End'){ev.preventDefault();slides[slides.length-1].scrollIntoView({behavior:'smooth',inline:'start'});}
             });
             slides[0].classList.add('active');
+
+            // Deep-link: jump to #slide-id on load (e.g. .../arvi-features.html#s-roadmap)
+            if(location.hash){
+                var target=document.getElementById(location.hash.slice(1));
+                if(target){ target.scrollIntoView({inline:'start'}); setTimeout(function(){target.scrollIntoView({inline:'start'});syncVideos();},250); }
+            }
         })();
 """
 
