@@ -305,6 +305,18 @@ CSS = r"""
         .dlcard .dt{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
         .dlcard .dn{font-size:clamp(.92rem,1.2vw,1.08rem);font-weight:700;color:var(--primary-dark)}
         .dlcard .ds{font-size:.74rem;color:var(--muted)}
+        /* --- interactive ROI calculator --- */
+        .calc{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(1.2rem,3vw,2.5rem);margin-top:clamp(1rem,2.4vh,1.8rem);align-items:stretch}
+        .calc-inputs{padding:clamp(1.2rem,2vw,1.8rem);display:flex;flex-direction:column;gap:clamp(1rem,2vh,1.5rem);justify-content:center}
+        .calc-field label{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(.82rem,1vw,.96rem);font-weight:600;color:var(--primary-dark);margin-bottom:.55rem}
+        .calc-field label span{color:var(--accent);font-weight:800;font-size:1.05em}
+        .calc-field input[type=range]{width:100%;accent-color:var(--primary);height:6px;cursor:pointer}
+        .calc-note{font-size:.74rem;color:var(--muted);line-height:1.45}
+        .calc-outputs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.3rem)}
+        .calc-out{padding:clamp(1.1rem,1.9vw,1.7rem);text-align:center;display:flex;flex-direction:column;justify-content:center}
+        .calc-out .co-v{font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .calc-out .co-l{font-size:.78rem;color:var(--muted);margin-top:.45rem;line-height:1.3}
+        @media (max-width:900px){.calc{grid-template-columns:1fr}}
         @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
         @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
@@ -384,13 +396,13 @@ FEATURES = [
   "A clinician records a single consultation and Arvi generates a structured clinical note, formatted, accurate and ready to review in seconds.",
   [("mic","Record &amp; structure","Ambient capture becomes a clean, sectioned note, no typing."),
    ("check","Review, don't author","The clinician edits a draft instead of writing from scratch.")],
-  "01-letter-generation.mp4","app.arvihealth.com &middot; New note"),
+  "01-letter-generation.mp4","platform.arvihealth.com &middot; New note"),
 
  ("Core Documentation","Organisation &amp; Team Notes",
   "Documentation under a clinic or team account, with multiple clinicians working together and admin oversight across everyone's work.",
   [("users","Shared team workspace","Clinicians document under one organisation, not siloed accounts."),
    ("eye","Admin visibility","Administrators can access and manage notes across the team.")],
-  "02-admin-access.mp4","app.arvihealth.com &middot; Organisation"),
+  "02-admin-access.mp4","platform.arvihealth.com &middot; Organisation"),
 
  ("Core Documentation","Quick Record for Emergencies",
   "A fast-capture mode for urgent situations, minimal steps between hitting record and having a usable note. Built for the pace of an emergency department.",
@@ -408,49 +420,49 @@ FEATURES = [
   "No live capture required, the user uploads an existing audio file and Arvi generates the structured note from it.",
   [("upload","Bring your own audio","Drop in a file recorded anywhere; Arvi does the rest."),
    ("file","Same structured output","Uploaded audio produces the same clean clinical note.")],
-  "05-upload-recording.mp4","app.arvihealth.com &middot; Upload"),
+  "05-upload-recording.mp4","platform.arvihealth.com &middot; Upload"),
 
  ("Core Documentation","AI Regeneration",
   "Any note or letter can be regenerated or refined with AI, tune the tone, length or detail until it's exactly right.",
   [("refresh","Refine on demand","Regenerate sections or the whole document in a click."),
    ("sliders","Clinician in control","The AI assists; the clinician decides the final wording.")],
-  "06-regeneration.mp4","app.arvihealth.com &middot; Regenerate"),
+  "06-regeneration.mp4","platform.arvihealth.com &middot; Regenerate"),
 
  ("Letters &amp; Templates","Letter Generation &amp; Preview",
   "Arvi produces the GP or referral letter from the recording, then lets you review, edit and format it on a dedicated preview page before it goes out.",
   [("file","Letter from a recording","A ready-to-send GP or referral letter, generated automatically."),
    ("edit","Preview &amp; formatting","The final review page, edit and format before sending.")],
-  "07-edit-letter.mp4","app.arvihealth.com &middot; Preview &amp; formatting"),
+  "07-edit-letter.mp4","platform.arvihealth.com &middot; Preview &amp; formatting"),
 
  ("Letters &amp; Templates","Custom Letter Templates",
   "Users create their own templates and adjust the formatting to suit their practice, so every letter matches their house style.",
   [("sliders","Build your own","Create reusable templates for any letter type."),
    ("edit","Tune the formatting","Adjust layout and styling to match your practice.")],
-  "08-custom-template.mp4","app.arvihealth.com &middot; Templates"),
+  "08-custom-template.mp4","platform.arvihealth.com &middot; Templates"),
 
  ("Letters &amp; Templates","Approve, Send &amp; Resend",
   "Email the finished letter to the recipient directly from Arvi, with the option to resend whenever needed.",
   [("send","Send from Arvi","Deliver the letter to the recipient without leaving the app."),
    ("mail","Resend any time","Re-issue a letter in one click if it's needed again.")],
-  "09-approve-resend.mp4","app.arvihealth.com &middot; Send"),
+  "09-approve-resend.mp4","platform.arvihealth.com &middot; Send"),
 
  ("Patient &amp; Workflow","Patient Management &amp; Scheduling",
   "Manage patients, appointments and the calendar in one place, the day's schedule sits alongside the documentation.",
   [("calendar","Appointments &amp; calendar","See the day's schedule and book in patients."),
    ("users","Patient records","Keep patient details organised next to their notes.")],
-  "10-patient-management.mp4","app.arvihealth.com &middot; Patients"),
+  "10-patient-management.mp4","platform.arvihealth.com &middot; Patients"),
 
  ("Patient &amp; Workflow","Task Management",
   "Track outstanding work to completion, nothing slips between the consult and the follow-up.",
   [("tasks","Track outstanding work","A clear list of what still needs doing."),
    ("check","Close the loop","Mark tasks complete as the work gets done.")],
-  "11-task-management.mp4","app.arvihealth.com &middot; Tasks"),
+  "11-task-management.mp4","platform.arvihealth.com &middot; Tasks"),
 
  ("Patient &amp; Workflow","Telehealth Consultations",
   "Run remote consultations inside Arvi, and document them with the same AI workflow as in-person visits.",
   [("video","Remote consults in-app","Conduct telehealth sessions without a separate tool."),
    ("mic","Documented automatically","The same capture-to-note flow applies to remote visits.")],
-  "13-telehealth.mp4","app.arvihealth.com &middot; Telehealth"),
+  "13-telehealth.mp4","platform.arvihealth.com &middot; Telehealth"),
 
  ("Patient &amp; Workflow","Notifications",
   "Stay on top of what matters with in-app alerts and push notifications on mobile.",
@@ -462,31 +474,31 @@ FEATURES = [
   "One user can belong to several organisations and switch between them instantly, ideal for clinicians working across sites.",
   [("switch","Belong to many orgs","Hold membership in multiple organisations at once."),
    ("check","Switch in one tap","Move between organisations without logging out.")],
-  "15-org-switcher.mp4","app.arvihealth.com &middot; Switch organisation"),
+  "15-org-switcher.mp4","platform.arvihealth.com &middot; Switch organisation"),
 
  ("Organisation &amp; Users","Roles &amp; Permissions",
   "Role-based access and restrictions govern who can see and do what, the access model hospitals require.",
   [("shield","Role-based access","Assign roles that match real responsibilities."),
    ("lock","Granular restrictions","Control permissions down to the action.")],
-  "16-permission-update.mp4","app.arvihealth.com &middot; Permissions"),
+  "16-permission-update.mp4","platform.arvihealth.com &middot; Permissions"),
 
  ("Organisation &amp; Users","User Invites",
   "Bring new clinicians into an organisation quickly with a simple invite flow.",
   [("userplus","Invite in seconds","Add new users to the organisation with an invite."),
    ("users","Onboard the team","Grow the organisation without admin friction.")],
-  "17-user-invite.mp4","app.arvihealth.com &middot; Invite users"),
+  "17-user-invite.mp4","platform.arvihealth.com &middot; Invite users"),
 
  ("Organisation &amp; Users","Free Admin User",
   "Every organisation includes an admin seat at no cost, oversight without an extra licence.",
   [("user","Admin at no cost","A free administrator seat comes with the organisation."),
    ("eye","Oversight built in","Manage the team without paying for the privilege.")],
-  "18-free-admin.mp4","app.arvihealth.com &middot; Admin"),
+  "18-free-admin.mp4","platform.arvihealth.com &middot; Admin"),
 
  ("Billing","Stripe Subscriptions (Web)",
   "Arvi bills customers today via Stripe, subscriptions and payments on the web app, in production now.",
   [("card","Subscriptions &amp; payments","Recurring billing handled through Stripe on web."),
    ("check","Live in production","The commercial engine is running, not on a roadmap.")],
-  "19-subscription.mp4","app.arvihealth.com &middot; Billing"),
+  "19-subscription.mp4","platform.arvihealth.com &middot; Billing"),
 
  ("Billing","iOS In-App Purchase",
   "On iOS, Arvi bills natively through Apple's in-app purchase, a frictionless path for mobile users.",
@@ -727,13 +739,13 @@ HOWITWORKS = '''        <!-- How it works -->
         </section>
 '''
 
-WALK = '''        <!-- Appendix divider -->
-        <section class="slide" id="s-walk" data-sec="Appendix">
+WALK = '''        <!-- Live demo divider -->
+        <section class="slide" id="s-walk" data-sec="Live Demo">
             <div class="inner">
                 <div class="divider">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Appendix</div>
-                    <div class="big reveal" data-delay="1">Product Walkthrough</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">The full feature set in action, nineteen live demos across the five areas. Jump to any feature on request.</p>
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Live Demo</div>
+                    <div class="big reveal" data-delay="1">Let's See It in Action</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">A live walk through Arvi, from voice to a sent letter, across the five areas. Recorded walkthroughs follow for reference.</p>
                     <div class="menu reveal" data-delay="3">
                         <span class="mi"><b>01</b> Core Documentation</span>
                         <span class="mi"><b>02</b> Letters &amp; Templates</span>
@@ -759,10 +771,15 @@ COMPETITIVE = '''        <!-- Competitive -->
                     <div class="cmp-row"><div>Pricing</div><div>$300+/mo</div><div>$300+/mo</div><div>$1,320/yr</div><div class="arvi">From $30 + tokens</div></div>
                     <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs + specialists</div></div>
                     <div class="cmp-row"><div>Clinical validation</div><div>Standard</div><div>Standard</div><div>Standard</div><div class="arvi">Specialist-led</div></div>
-                    <div class="cmp-row"><div>Australian compliance</div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                    <div class="cmp-row"><div>Care settings</div><div>Hospitals</div><div>GP</div><div>Practices</div><div class="arvi">All settings</div></div>
+                    <div class="cmp-row"><div>Free admin seat</div><div>No</div><div>No</div><div>Limited</div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
                     <div class="cmp-row"><div>Entry barrier</div><div>Very high</div><div>Moderate</div><div>Med-high</div><div class="arvi">Lowest</div></div>
                 </div>
-                <p class="subtitle reveal" data-delay="3" style="max-width:none;margin-top:clamp(.8rem,1.6vh,1.2rem)"><b style="color:var(--primary-dark)">The quality edge:</b> Arvi's engine is trained and validated daily in a live specialist practice, built for complex medical terminology, not just GP visits.</p>
+                <div class="reveal" data-delay="3" style="display:flex;gap:clamp(.9rem,2.2vw,1.8rem);flex-wrap:wrap;margin-top:clamp(.9rem,1.8vh,1.3rem)">
+                    <div style="flex:1;min-width:210px"><b style="color:var(--primary-dark);font-size:clamp(.9rem,1.05vw,1rem)">Clinician-led &amp; specialist-verified</b><span style="display:block;font-size:.82rem;color:var(--muted);line-height:1.4;margin-top:.2rem">Trained and corrected in live practice, not crowdsourced, unverified templates.</span></div>
+                    <div style="flex:1;min-width:210px"><b style="color:var(--primary-dark);font-size:clamp(.9rem,1.05vw,1rem)">Adoption-friendly model</b><span style="display:block;font-size:.82rem;color:var(--muted);line-height:1.4;margin-top:.2rem">Entry from $30 + usage tokens, against ~$1,300/yr flat, so clinicians actually switch.</span></div>
+                    <div style="flex:1;min-width:210px"><b style="color:var(--primary-dark);font-size:clamp(.9rem,1.05vw,1rem)">Early-partner upside</b><span style="display:block;font-size:.82rem;color:var(--muted);line-height:1.4;margin-top:.2rem">Come in at a fairer valuation than late-stage incumbents, and help shape the roadmap.</span></div>
+                </div>
             </div>
         </section>
 '''
@@ -1043,10 +1060,37 @@ PRODUCT_ROADMAP = '''        <!-- Product roadmap -->
 '''
 
 # Main narrative first; the 19 feature demos live in an Appendix at the end.
-BODY = (INTRO + TEAM + AGENDA + PROBLEM + PLATFORM + HOWITWORKS
-        + COMPETITIVE + MARKET + TRACTION + SECURITY
-        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE
-        + WALK + FEAT)
+CALCULATOR = '''        <!-- Interactive ROI calculator (SGC-based) -->
+        <section class="slide" id="s-calc" data-sec="ROI">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/></svg> ROI Calculator</div>
+                    <h2 class="title reveal" data-delay="1">What Arvi Gives a Practice Back</h2>
+                    <p class="subtitle reveal" data-delay="2">Modelled on Sydney Gut Clinic's real usage. Drag the inputs to fit any practice.</p>
+                </div>
+                <div class="calc">
+                    <div class="calc-inputs glass reveal" data-delay="2">
+                        <div class="calc-field"><label>Clinicians <span id="ci-clin-v">6</span></label><input type="range" id="ci-clin" min="1" max="100" value="6"></div>
+                        <div class="calc-field"><label>Documentation hrs / clinician / week <span id="ci-hrs-v">10</span></label><input type="range" id="ci-hrs" min="2" max="30" value="10"></div>
+                        <div class="calc-field"><label>Value of a clinician hour <span id="ci-rate-v">$200</span></label><input type="range" id="ci-rate" min="50" max="600" step="10" value="200"></div>
+                        <p class="calc-note">Default = Sydney Gut Clinic (6 clinicians). Arvi cuts documentation time by ~80%, so a fifth of the time gets the same job done.</p>
+                    </div>
+                    <div class="calc-outputs">
+                        <div class="calc-out glass reveal" data-delay="3"><div class="co-v" id="co-hours">0</div><div class="co-l">clinician-hours saved / year</div></div>
+                        <div class="calc-out glass reveal" data-delay="3"><div class="co-v" id="co-value">0</div><div class="co-l">value of time returned / year</div></div>
+                        <div class="calc-out glass reveal" data-delay="4"><div class="co-v" id="co-fte">0</div><div class="co-l">full-time admin equivalent saved</div></div>
+                        <div class="calc-out glass reveal" data-delay="4"><div class="co-v">5&times;</div><div class="co-l">faster documentation</div></div>
+                    </div>
+                </div>
+                <p class="rm-cap reveal" data-delay="5">Illustrative. The ~80% saving is drawn from live SGC use; cost &amp; revenue scale with every clinician added.</p>
+            </div>
+        </section>
+'''
+
+BODY = (INTRO + TEAM + AGENDA + PROBLEM
+        + WALK + FEAT
+        + PLATFORM + TRACTION + CALCULATOR + COMPETITIVE + MARKET + SECURITY
+        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE)
 
 SCRIPT = r"""
         (function(){
@@ -1123,6 +1167,26 @@ SCRIPT = r"""
                 else if(ev.key==='End'){ev.preventDefault();slides[slides.length-1].scrollIntoView({behavior:'smooth',inline:'start'});}
             });
             slides[0].classList.add('active');
+
+            // Interactive ROI calculator (SGC-based)
+            (function(){
+                var clin=document.getElementById('ci-clin'), hrs=document.getElementById('ci-hrs'), rate=document.getElementById('ci-rate');
+                if(!clin) return;
+                var WEEKS=46, SAVE=0.8, FTE=1800;
+                function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(1)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
+                function calc(){
+                    var c=+clin.value, h=+hrs.value, r=+rate.value;
+                    document.getElementById('ci-clin-v').textContent=c;
+                    document.getElementById('ci-hrs-v').textContent=h;
+                    document.getElementById('ci-rate-v').textContent='$'+r;
+                    var hoursYear=Math.round(c*h*SAVE*WEEKS);
+                    document.getElementById('co-hours').textContent=hoursYear.toLocaleString('en-AU');
+                    document.getElementById('co-value').textContent=money(hoursYear*r);
+                    document.getElementById('co-fte').textContent=(hoursYear/FTE).toFixed(1);
+                }
+                [clin,hrs,rate].forEach(function(el){ el.addEventListener('input',calc); });
+                calc();
+            })();
 
             // Deep-link: jump to #slide-id on load (e.g. .../arvi-features.html#s-roadmap)
             if(location.hash){

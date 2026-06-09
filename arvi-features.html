@@ -311,6 +311,18 @@
         .dlcard .dt{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
         .dlcard .dn{font-size:clamp(.92rem,1.2vw,1.08rem);font-weight:700;color:var(--primary-dark)}
         .dlcard .ds{font-size:.74rem;color:var(--muted)}
+        /* --- interactive ROI calculator --- */
+        .calc{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(1.2rem,3vw,2.5rem);margin-top:clamp(1rem,2.4vh,1.8rem);align-items:stretch}
+        .calc-inputs{padding:clamp(1.2rem,2vw,1.8rem);display:flex;flex-direction:column;gap:clamp(1rem,2vh,1.5rem);justify-content:center}
+        .calc-field label{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(.82rem,1vw,.96rem);font-weight:600;color:var(--primary-dark);margin-bottom:.55rem}
+        .calc-field label span{color:var(--accent);font-weight:800;font-size:1.05em}
+        .calc-field input[type=range]{width:100%;accent-color:var(--primary);height:6px;cursor:pointer}
+        .calc-note{font-size:.74rem;color:var(--muted);line-height:1.45}
+        .calc-outputs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.3rem)}
+        .calc-out{padding:clamp(1.1rem,1.9vw,1.7rem);text-align:center;display:flex;flex-direction:column;justify-content:center}
+        .calc-out .co-v{font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .calc-out .co-l{font-size:.78rem;color:var(--muted);margin-top:.45rem;line-height:1.3}
+        @media (max-width:900px){.calc{grid-template-columns:1fr}}
         @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
         @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
@@ -425,6 +437,421 @@
                 </div>
             </div>
         </section>
+        <!-- Live demo divider -->
+        <section class="slide" id="s-walk" data-sec="Live Demo">
+            <div class="inner">
+                <div class="divider">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Live Demo</div>
+                    <div class="big reveal" data-delay="1">Let's See It in Action</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">A live walk through Arvi, from voice to a sent letter, across the five areas. Recorded walkthroughs follow for reference.</p>
+                    <div class="menu reveal" data-delay="3">
+                        <span class="mi"><b>01</b> Core Documentation</span>
+                        <span class="mi"><b>02</b> Letters &amp; Templates</span>
+                        <span class="mi"><b>03</b> Patient &amp; Workflow</span>
+                        <span class="mi"><b>04</b> Organisation &amp; Users</span>
+                        <span class="mi"><b>05</b> Billing</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- f1 -->
+        <section class="slide" id="f1" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">01</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Individual Notes</h2>
+                        <p class="subtitle reveal" data-delay="2">A clinician records a single consultation and Arvi generates a structured clinical note, formatted, accurate and ready to review in seconds.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span><div><h4>Record &amp; structure</h4><p>Ambient capture becomes a clean, sectioned note, no typing.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Review, don't author</h4><p>The clinician edits a draft instead of writing from scratch.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; New note</span></div><video src="Videos/01-letter-generation.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f2 -->
+        <section class="slide" id="f2" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">02</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Organisation &amp; Team Notes</h2>
+                        <p class="subtitle reveal" data-delay="2">Documentation under a clinic or team account, with multiple clinicians working together and admin oversight across everyone's work.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Shared team workspace</h4><p>Clinicians document under one organisation, not siloed accounts.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><div><h4>Admin visibility</h4><p>Administrators can access and manage notes across the team.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Organisation</span></div><video src="Videos/02-admin-access.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f3 -->
+        <section class="slide" id="f3" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">03</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Quick Record for Emergencies</h2>
+                        <p class="subtitle reveal" data-delay="2">A fast-capture mode for urgent situations, minimal steps between hitting record and having a usable note. Built for the pace of an emergency department.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><div><h4>One tap to capture</h4><p>No setup overhead when seconds matter.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Structured after the fact</h4><p>The note is generated once the moment has passed.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi &middot; Quick Record</span></div><video src="Videos/03-quick-record.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f4 -->
+        <section class="slide" id="f4" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">04</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Operating Theatre on Mobile</h2>
+                        <p class="subtitle reveal" data-delay="2">The clinician uses the mobile app right in theatre, capturing the operation note even when connectivity is low, then syncing when back online.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></span><div><h4>In-theatre capture</h4><p>The note is created at the point of care, not reconstructed later.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span><div><h4>Low-connectivity ready</h4><p>Works where hospital Wi-Fi is weak; syncs when reconnected.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; Operating theatre</span></div><video src="Videos/04-mobile-recording.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f5 -->
+        <section class="slide" id="f5" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">05</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Upload an Existing Recording</h2>
+                        <p class="subtitle reveal" data-delay="2">No live capture required, the user uploads an existing audio file and Arvi generates the structured note from it.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span><div><h4>Bring your own audio</h4><p>Drop in a file recorded anywhere; Arvi does the rest.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><div><h4>Same structured output</h4><p>Uploaded audio produces the same clean clinical note.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Upload</span></div><video src="Videos/05-upload-recording.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f6 -->
+        <section class="slide" id="f6" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">06</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">AI Regeneration</h2>
+                        <p class="subtitle reveal" data-delay="2">Any note or letter can be regenerated or refined with AI, tune the tone, length or detail until it's exactly right.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span><div><h4>Refine on demand</h4><p>Regenerate sections or the whole document in a click.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><div><h4>Clinician in control</h4><p>The AI assists; the clinician decides the final wording.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Regenerate</span></div><video src="Videos/06-regeneration.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f7 -->
+        <section class="slide" id="f7" data-sec="Letters & Templates">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">07</span><span class="s">Letters &amp; Templates</span></div>
+                        <h2 class="title reveal" data-delay="1">Letter Generation &amp; Preview</h2>
+                        <p class="subtitle reveal" data-delay="2">Arvi produces the GP or referral letter from the recording, then lets you review, edit and format it on a dedicated preview page before it goes out.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><div><h4>Letter from a recording</h4><p>A ready-to-send GP or referral letter, generated automatically.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></span><div><h4>Preview &amp; formatting</h4><p>The final review page, edit and format before sending.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Preview &amp; formatting</span></div><video src="Videos/07-edit-letter.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f8 -->
+        <section class="slide" id="f8" data-sec="Letters & Templates">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">08</span><span class="s">Letters &amp; Templates</span></div>
+                        <h2 class="title reveal" data-delay="1">Custom Letter Templates</h2>
+                        <p class="subtitle reveal" data-delay="2">Users create their own templates and adjust the formatting to suit their practice, so every letter matches their house style.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><div><h4>Build your own</h4><p>Create reusable templates for any letter type.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></span><div><h4>Tune the formatting</h4><p>Adjust layout and styling to match your practice.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Templates</span></div><video src="Videos/08-custom-template.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f9 -->
+        <section class="slide" id="f9" data-sec="Letters & Templates">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">09</span><span class="s">Letters &amp; Templates</span></div>
+                        <h2 class="title reveal" data-delay="1">Approve, Send &amp; Resend</h2>
+                        <p class="subtitle reveal" data-delay="2">Email the finished letter to the recipient directly from Arvi, with the option to resend whenever needed.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><div><h4>Send from Arvi</h4><p>Deliver the letter to the recipient without leaving the app.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><div><h4>Resend any time</h4><p>Re-issue a letter in one click if it's needed again.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Send</span></div><video src="Videos/09-approve-resend.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f10 -->
+        <section class="slide" id="f10" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">10</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Patient Management &amp; Scheduling</h2>
+                        <p class="subtitle reveal" data-delay="2">Manage patients, appointments and the calendar in one place, the day's schedule sits alongside the documentation.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><div><h4>Appointments &amp; calendar</h4><p>See the day's schedule and book in patients.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Patient records</h4><p>Keep patient details organised next to their notes.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Patients</span></div><video src="Videos/10-patient-management.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f11 -->
+        <section class="slide" id="f11" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">11</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Task Management</h2>
+                        <p class="subtitle reveal" data-delay="2">Track outstanding work to completion, nothing slips between the consult and the follow-up.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><h4>Track outstanding work</h4><p>A clear list of what still needs doing.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Close the loop</h4><p>Mark tasks complete as the work gets done.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Tasks</span></div><video src="Videos/11-task-management.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f12 -->
+        <section class="slide" id="f12" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">12</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Telehealth Consultations</h2>
+                        <p class="subtitle reveal" data-delay="2">Run remote consultations inside Arvi, and document them with the same AI workflow as in-person visits.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><div><h4>Remote consults in-app</h4><p>Conduct telehealth sessions without a separate tool.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span><div><h4>Documented automatically</h4><p>The same capture-to-note flow applies to remote visits.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Telehealth</span></div><video src="Videos/13-telehealth.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f13 -->
+        <section class="slide" id="f13" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">13</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Notifications</h2>
+                        <p class="subtitle reveal" data-delay="2">Stay on top of what matters with in-app alerts and push notifications on mobile.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><div><h4>In-app &amp; push alerts</h4><p>Get notified across web and mobile.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></span><div><h4>Never miss an action</h4><p>Time-sensitive items reach the clinician promptly.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; Notifications</span></div><video src="Videos/14-notifications.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f14 -->
+        <section class="slide" id="f14" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">14</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">Organisation Switcher</h2>
+                        <p class="subtitle reveal" data-delay="2">One user can belong to several organisations and switch between them instantly, ideal for clinicians working across sites.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><div><h4>Belong to many orgs</h4><p>Hold membership in multiple organisations at once.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Switch in one tap</h4><p>Move between organisations without logging out.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Switch organisation</span></div><video src="Videos/15-org-switcher.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f15 -->
+        <section class="slide" id="f15" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">15</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">Roles &amp; Permissions</h2>
+                        <p class="subtitle reveal" data-delay="2">Role-based access and restrictions govern who can see and do what, the access model hospitals require.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div><h4>Role-based access</h4><p>Assign roles that match real responsibilities.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><h4>Granular restrictions</h4><p>Control permissions down to the action.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Permissions</span></div><video src="Videos/16-permission-update.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f16 -->
+        <section class="slide" id="f16" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">16</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">User Invites</h2>
+                        <p class="subtitle reveal" data-delay="2">Bring new clinicians into an organisation quickly with a simple invite flow.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></span><div><h4>Invite in seconds</h4><p>Add new users to the organisation with an invite.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Onboard the team</h4><p>Grow the organisation without admin friction.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Invite users</span></div><video src="Videos/17-user-invite.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f17 -->
+        <section class="slide" id="f17" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">17</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">Free Admin User</h2>
+                        <p class="subtitle reveal" data-delay="2">Every organisation includes an admin seat at no cost, oversight without an extra licence.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span><div><h4>Admin at no cost</h4><p>A free administrator seat comes with the organisation.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><div><h4>Oversight built in</h4><p>Manage the team without paying for the privilege.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Admin</span></div><video src="Videos/18-free-admin.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f18 -->
+        <section class="slide" id="f18" data-sec="Billing">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">18</span><span class="s">Billing</span></div>
+                        <h2 class="title reveal" data-delay="1">Stripe Subscriptions (Web)</h2>
+                        <p class="subtitle reveal" data-delay="2">Arvi bills customers today via Stripe, subscriptions and payments on the web app, in production now.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span><div><h4>Subscriptions &amp; payments</h4><p>Recurring billing handled through Stripe on web.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Live in production</h4><p>The commercial engine is running, not on a roadmap.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Billing</span></div><video src="Videos/19-subscription.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f19 -->
+        <section class="slide" id="f19" data-sec="Billing">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">19</span><span class="s">Billing</span></div>
+                        <h2 class="title reveal" data-delay="1">iOS In-App Purchase</h2>
+                        <p class="subtitle reveal" data-delay="2">On iOS, Arvi bills natively through Apple's in-app purchase, a frictionless path for mobile users.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><div><h4>Native Apple billing</h4><p>Purchase and subscribe directly inside the iOS app.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Platform-appropriate</h4><p>Meets Apple's requirements for mobile monetisation.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; iOS billing</span></div><video src="Videos/20-ios-billing.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
         <!-- Platform -->
         <section class="slide" id="s-platform" data-sec="Overview">
             <div class="inner fill">
@@ -442,61 +869,6 @@
                     <div class="pillar glass reveal" data-delay="4"><div class="num">03</div><h3>Patient &amp; Workflow</h3><ul><li>Patient management</li><li>Scheduling</li><li>Task management</li><li>Telehealth</li><li>Notifications</li></ul></div>
                     <div class="pillar glass reveal" data-delay="5"><div class="num">04</div><h3>Organisation &amp; Users</h3><ul><li>Org switcher</li><li>Roles &amp; permissions</li><li>User invites</li><li>Free admin user</li></ul></div>
                     <div class="pillar glass reveal" data-delay="6"><div class="num">05</div><h3>Billing</h3><ul><li>Stripe (web)</li><li>iOS in-app purchase</li></ul></div>
-                </div>
-            </div>
-        </section>
-        <!-- How it works -->
-        <section class="slide" id="s-how" data-sec="Overview">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> How Arvi Works</div>
-                    <h2 class="title reveal" data-delay="1">Voice In, Clinical Document Out</h2>
-                    <p class="subtitle reveal" data-delay="2">The same four steps power every workflow you're about to see, on web and mobile.</p>
-                </div>
-                <div class="steps">
-                    <div class="step glass reveal" data-delay="2"><div class="sic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></div><div class="sn">STEP 01</div><h3>Capture</h3><p>Record the consult, or upload existing audio, anywhere.</p></div>
-                    <div class="step glass reveal" data-delay="3"><div class="sic"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="3" y2="12"/><line x1="7" y1="8" x2="7" y2="16"/><line x1="11" y1="4" x2="11" y2="20"/><line x1="15" y1="7" x2="15" y2="17"/><line x1="19" y1="10" x2="19" y2="14"/></svg></div><div class="sn">STEP 02</div><h3>Transcribe</h3><p>Speech becomes an accurate, medical-aware transcript.</p></div>
-                    <div class="step glass reveal" data-delay="4"><div class="sic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><div class="sn">STEP 03</div><h3>Structure</h3><p>AI drafts a structured note or letter from the transcript.</p></div>
-                    <div class="step glass reveal" data-delay="5"><div class="sic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><div class="sn">STEP 04</div><h3>Review &amp; send</h3><p>The clinician edits, formats and sends, in control throughout.</p></div>
-                </div>
-            </div>
-        </section>
-        <!-- Competitive -->
-        <section class="slide" id="s-comp" data-sec="Differentiation">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Competitive Landscape</div>
-                    <h2 class="title reveal" data-delay="1">Superior Quality, Accessible Pricing</h2>
-                    <p class="subtitle reveal" data-delay="2">Specialist-led validation and a price built for adoption, against the generalist incumbents.</p>
-                </div>
-                <div class="cmp glass reveal" data-delay="2">
-                    <div class="cmp-row cmp-head"><div>Feature</div><div>Nuance DAX</div><div>Lyrebird</div><div>Heidi</div><div class="arvi">Arvi<span class="cmp-best">BEST</span></div></div>
-                    <div class="cmp-row"><div>Pricing</div><div>$300+/mo</div><div>$300+/mo</div><div>$1,320/yr</div><div class="arvi">From $30 + tokens</div></div>
-                    <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs + specialists</div></div>
-                    <div class="cmp-row"><div>Clinical validation</div><div>Standard</div><div>Standard</div><div>Standard</div><div class="arvi">Specialist-led</div></div>
-                    <div class="cmp-row"><div>Australian compliance</div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
-                    <div class="cmp-row"><div>Entry barrier</div><div>Very high</div><div>Moderate</div><div>Med-high</div><div class="arvi">Lowest</div></div>
-                </div>
-                <p class="subtitle reveal" data-delay="3" style="max-width:none;margin-top:clamp(.8rem,1.6vh,1.2rem)"><b style="color:var(--primary-dark)">The quality edge:</b> Arvi's engine is trained and validated daily in a live specialist practice, built for complex medical terminology, not just GP visits.</p>
-            </div>
-        </section>
-        <!-- Market -->
-        <section class="slide" id="s-market" data-sec="Opportunity">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Market Opportunity</div>
-                    <h2 class="title reveal" data-delay="1">Bottom-Up Australian Market Sizing</h2>
-                </div>
-                <div class="cards" style="grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(1.2rem,3vw,2.5rem)">
-                    <div class="funnel">
-                        <div class="fbar tam reveal" data-delay="2"><div><div class="fl">TAM</div><div class="fd">Total addressable &middot; 70k clinicians</div></div><div class="fv">$63.8M</div></div>
-                        <div class="fbar sam reveal" data-delay="3"><div><div class="fl">SAM</div><div class="fd">Metro GPs + specialists</div></div><div class="fv">$36.5M</div></div>
-                        <div class="fbar som reveal" data-delay="4"><div><div class="fl">YEAR 3 TARGET</div><div class="fd">Serviceable obtainable &middot; 18k users</div></div><div class="fv">$16.9M</div></div>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1rem)">
-                        <div class="card glass reveal" data-delay="3"><h3>The specialist upside</h3><p>30,000+ specialists generate higher revenue per consult and are underserved by GP-focused tools.</p></div>
-                        <div class="card glass reveal" data-delay="4"><h3>Usage revenue layer</h3><p>A $30 base removes friction; usage top-ups drive blended ARPU to ~$76 as adoption scales.</p></div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -541,6 +913,75 @@
                         </div>
                         <figcaption><b>Real production usage</b> across the practice, straight from the live Arvi dashboard.</figcaption>
                     </figure>
+                </div>
+            </div>
+        </section>
+        <!-- Interactive ROI calculator (SGC-based) -->
+        <section class="slide" id="s-calc" data-sec="ROI">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/></svg> ROI Calculator</div>
+                    <h2 class="title reveal" data-delay="1">What Arvi Gives a Practice Back</h2>
+                    <p class="subtitle reveal" data-delay="2">Modelled on Sydney Gut Clinic's real usage. Drag the inputs to fit any practice.</p>
+                </div>
+                <div class="calc">
+                    <div class="calc-inputs glass reveal" data-delay="2">
+                        <div class="calc-field"><label>Clinicians <span id="ci-clin-v">6</span></label><input type="range" id="ci-clin" min="1" max="100" value="6"></div>
+                        <div class="calc-field"><label>Documentation hrs / clinician / week <span id="ci-hrs-v">10</span></label><input type="range" id="ci-hrs" min="2" max="30" value="10"></div>
+                        <div class="calc-field"><label>Value of a clinician hour <span id="ci-rate-v">$200</span></label><input type="range" id="ci-rate" min="50" max="600" step="10" value="200"></div>
+                        <p class="calc-note">Default = Sydney Gut Clinic (6 clinicians). Arvi cuts documentation time by ~80%, so a fifth of the time gets the same job done.</p>
+                    </div>
+                    <div class="calc-outputs">
+                        <div class="calc-out glass reveal" data-delay="3"><div class="co-v" id="co-hours">0</div><div class="co-l">clinician-hours saved / year</div></div>
+                        <div class="calc-out glass reveal" data-delay="3"><div class="co-v" id="co-value">0</div><div class="co-l">value of time returned / year</div></div>
+                        <div class="calc-out glass reveal" data-delay="4"><div class="co-v" id="co-fte">0</div><div class="co-l">full-time admin equivalent saved</div></div>
+                        <div class="calc-out glass reveal" data-delay="4"><div class="co-v">5&times;</div><div class="co-l">faster documentation</div></div>
+                    </div>
+                </div>
+                <p class="rm-cap reveal" data-delay="5">Illustrative. The ~80% saving is drawn from live SGC use; cost &amp; revenue scale with every clinician added.</p>
+            </div>
+        </section>
+        <!-- Competitive -->
+        <section class="slide" id="s-comp" data-sec="Differentiation">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Competitive Landscape</div>
+                    <h2 class="title reveal" data-delay="1">Superior Quality, Accessible Pricing</h2>
+                    <p class="subtitle reveal" data-delay="2">Specialist-led validation and a price built for adoption, against the generalist incumbents.</p>
+                </div>
+                <div class="cmp glass reveal" data-delay="2">
+                    <div class="cmp-row cmp-head"><div>Feature</div><div>Nuance DAX</div><div>Lyrebird</div><div>Heidi</div><div class="arvi">Arvi<span class="cmp-best">BEST</span></div></div>
+                    <div class="cmp-row"><div>Pricing</div><div>$300+/mo</div><div>$300+/mo</div><div>$1,320/yr</div><div class="arvi">From $30 + tokens</div></div>
+                    <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs + specialists</div></div>
+                    <div class="cmp-row"><div>Clinical validation</div><div>Standard</div><div>Standard</div><div>Standard</div><div class="arvi">Specialist-led</div></div>
+                    <div class="cmp-row"><div>Care settings</div><div>Hospitals</div><div>GP</div><div>Practices</div><div class="arvi">All settings</div></div>
+                    <div class="cmp-row"><div>Free admin seat</div><div>No</div><div>No</div><div>Limited</div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                    <div class="cmp-row"><div>Entry barrier</div><div>Very high</div><div>Moderate</div><div>Med-high</div><div class="arvi">Lowest</div></div>
+                </div>
+                <div class="reveal" data-delay="3" style="display:flex;gap:clamp(.9rem,2.2vw,1.8rem);flex-wrap:wrap;margin-top:clamp(.9rem,1.8vh,1.3rem)">
+                    <div style="flex:1;min-width:210px"><b style="color:var(--primary-dark);font-size:clamp(.9rem,1.05vw,1rem)">Clinician-led &amp; specialist-verified</b><span style="display:block;font-size:.82rem;color:var(--muted);line-height:1.4;margin-top:.2rem">Trained and corrected in live practice, not crowdsourced, unverified templates.</span></div>
+                    <div style="flex:1;min-width:210px"><b style="color:var(--primary-dark);font-size:clamp(.9rem,1.05vw,1rem)">Adoption-friendly model</b><span style="display:block;font-size:.82rem;color:var(--muted);line-height:1.4;margin-top:.2rem">Entry from $30 + usage tokens, against ~$1,300/yr flat, so clinicians actually switch.</span></div>
+                    <div style="flex:1;min-width:210px"><b style="color:var(--primary-dark);font-size:clamp(.9rem,1.05vw,1rem)">Early-partner upside</b><span style="display:block;font-size:.82rem;color:var(--muted);line-height:1.4;margin-top:.2rem">Come in at a fairer valuation than late-stage incumbents, and help shape the roadmap.</span></div>
+                </div>
+            </div>
+        </section>
+        <!-- Market -->
+        <section class="slide" id="s-market" data-sec="Opportunity">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Market Opportunity</div>
+                    <h2 class="title reveal" data-delay="1">Bottom-Up Australian Market Sizing</h2>
+                </div>
+                <div class="cards" style="grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(1.2rem,3vw,2.5rem)">
+                    <div class="funnel">
+                        <div class="fbar tam reveal" data-delay="2"><div><div class="fl">TAM</div><div class="fd">Total addressable &middot; 70k clinicians</div></div><div class="fv">$63.8M</div></div>
+                        <div class="fbar sam reveal" data-delay="3"><div><div class="fl">SAM</div><div class="fd">Metro GPs + specialists</div></div><div class="fv">$36.5M</div></div>
+                        <div class="fbar som reveal" data-delay="4"><div><div class="fl">YEAR 3 TARGET</div><div class="fd">Serviceable obtainable &middot; 18k users</div></div><div class="fv">$16.9M</div></div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1rem)">
+                        <div class="card glass reveal" data-delay="3"><h3>The specialist upside</h3><p>30,000+ specialists generate higher revenue per consult and are underserved by GP-focused tools.</p></div>
+                        <div class="card glass reveal" data-delay="4"><h3>Usage revenue layer</h3><p>A $30 base removes friction; usage top-ups drive blended ARPU to ~$76 as adoption scales.</p></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -776,421 +1217,6 @@
                 </div>
             </div>
         </section>
-        <!-- Appendix divider -->
-        <section class="slide" id="s-walk" data-sec="Appendix">
-            <div class="inner">
-                <div class="divider">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Appendix</div>
-                    <div class="big reveal" data-delay="1">Product Walkthrough</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">The full feature set in action, nineteen live demos across the five areas. Jump to any feature on request.</p>
-                    <div class="menu reveal" data-delay="3">
-                        <span class="mi"><b>01</b> Core Documentation</span>
-                        <span class="mi"><b>02</b> Letters &amp; Templates</span>
-                        <span class="mi"><b>03</b> Patient &amp; Workflow</span>
-                        <span class="mi"><b>04</b> Organisation &amp; Users</span>
-                        <span class="mi"><b>05</b> Billing</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- f1 -->
-        <section class="slide" id="f1" data-sec="Core Documentation">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">01</span><span class="s">Core Documentation</span></div>
-                        <h2 class="title reveal" data-delay="1">Individual Notes</h2>
-                        <p class="subtitle reveal" data-delay="2">A clinician records a single consultation and Arvi generates a structured clinical note, formatted, accurate and ready to review in seconds.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span><div><h4>Record &amp; structure</h4><p>Ambient capture becomes a clean, sectioned note, no typing.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Review, don't author</h4><p>The clinician edits a draft instead of writing from scratch.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; New note</span></div><video src="Videos/01-letter-generation.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f2 -->
-        <section class="slide" id="f2" data-sec="Core Documentation">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">02</span><span class="s">Core Documentation</span></div>
-                        <h2 class="title reveal" data-delay="1">Organisation &amp; Team Notes</h2>
-                        <p class="subtitle reveal" data-delay="2">Documentation under a clinic or team account, with multiple clinicians working together and admin oversight across everyone's work.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Shared team workspace</h4><p>Clinicians document under one organisation, not siloed accounts.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><div><h4>Admin visibility</h4><p>Administrators can access and manage notes across the team.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Organisation</span></div><video src="Videos/02-admin-access.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f3 -->
-        <section class="slide" id="f3" data-sec="Core Documentation">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">03</span><span class="s">Core Documentation</span></div>
-                        <h2 class="title reveal" data-delay="1">Quick Record for Emergencies</h2>
-                        <p class="subtitle reveal" data-delay="2">A fast-capture mode for urgent situations, minimal steps between hitting record and having a usable note. Built for the pace of an emergency department.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><div><h4>One tap to capture</h4><p>No setup overhead when seconds matter.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Structured after the fact</h4><p>The note is generated once the moment has passed.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi &middot; Quick Record</span></div><video src="Videos/03-quick-record.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f4 -->
-        <section class="slide" id="f4" data-sec="Core Documentation">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">04</span><span class="s">Core Documentation</span></div>
-                        <h2 class="title reveal" data-delay="1">Operating Theatre on Mobile</h2>
-                        <p class="subtitle reveal" data-delay="2">The clinician uses the mobile app right in theatre, capturing the operation note even when connectivity is low, then syncing when back online.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></span><div><h4>In-theatre capture</h4><p>The note is created at the point of care, not reconstructed later.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span><div><h4>Low-connectivity ready</h4><p>Works where hospital Wi-Fi is weak; syncs when reconnected.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; Operating theatre</span></div><video src="Videos/04-mobile-recording.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f5 -->
-        <section class="slide" id="f5" data-sec="Core Documentation">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">05</span><span class="s">Core Documentation</span></div>
-                        <h2 class="title reveal" data-delay="1">Upload an Existing Recording</h2>
-                        <p class="subtitle reveal" data-delay="2">No live capture required, the user uploads an existing audio file and Arvi generates the structured note from it.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span><div><h4>Bring your own audio</h4><p>Drop in a file recorded anywhere; Arvi does the rest.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><div><h4>Same structured output</h4><p>Uploaded audio produces the same clean clinical note.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Upload</span></div><video src="Videos/05-upload-recording.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f6 -->
-        <section class="slide" id="f6" data-sec="Core Documentation">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">06</span><span class="s">Core Documentation</span></div>
-                        <h2 class="title reveal" data-delay="1">AI Regeneration</h2>
-                        <p class="subtitle reveal" data-delay="2">Any note or letter can be regenerated or refined with AI, tune the tone, length or detail until it's exactly right.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span><div><h4>Refine on demand</h4><p>Regenerate sections or the whole document in a click.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><div><h4>Clinician in control</h4><p>The AI assists; the clinician decides the final wording.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Regenerate</span></div><video src="Videos/06-regeneration.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f7 -->
-        <section class="slide" id="f7" data-sec="Letters & Templates">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">07</span><span class="s">Letters &amp; Templates</span></div>
-                        <h2 class="title reveal" data-delay="1">Letter Generation &amp; Preview</h2>
-                        <p class="subtitle reveal" data-delay="2">Arvi produces the GP or referral letter from the recording, then lets you review, edit and format it on a dedicated preview page before it goes out.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><div><h4>Letter from a recording</h4><p>A ready-to-send GP or referral letter, generated automatically.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></span><div><h4>Preview &amp; formatting</h4><p>The final review page, edit and format before sending.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Preview &amp; formatting</span></div><video src="Videos/07-edit-letter.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f8 -->
-        <section class="slide" id="f8" data-sec="Letters & Templates">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">08</span><span class="s">Letters &amp; Templates</span></div>
-                        <h2 class="title reveal" data-delay="1">Custom Letter Templates</h2>
-                        <p class="subtitle reveal" data-delay="2">Users create their own templates and adjust the formatting to suit their practice, so every letter matches their house style.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><div><h4>Build your own</h4><p>Create reusable templates for any letter type.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></span><div><h4>Tune the formatting</h4><p>Adjust layout and styling to match your practice.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Templates</span></div><video src="Videos/08-custom-template.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f9 -->
-        <section class="slide" id="f9" data-sec="Letters & Templates">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">09</span><span class="s">Letters &amp; Templates</span></div>
-                        <h2 class="title reveal" data-delay="1">Approve, Send &amp; Resend</h2>
-                        <p class="subtitle reveal" data-delay="2">Email the finished letter to the recipient directly from Arvi, with the option to resend whenever needed.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><div><h4>Send from Arvi</h4><p>Deliver the letter to the recipient without leaving the app.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><div><h4>Resend any time</h4><p>Re-issue a letter in one click if it's needed again.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Send</span></div><video src="Videos/09-approve-resend.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f10 -->
-        <section class="slide" id="f10" data-sec="Patient & Workflow">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">10</span><span class="s">Patient &amp; Workflow</span></div>
-                        <h2 class="title reveal" data-delay="1">Patient Management &amp; Scheduling</h2>
-                        <p class="subtitle reveal" data-delay="2">Manage patients, appointments and the calendar in one place, the day's schedule sits alongside the documentation.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><div><h4>Appointments &amp; calendar</h4><p>See the day's schedule and book in patients.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Patient records</h4><p>Keep patient details organised next to their notes.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Patients</span></div><video src="Videos/10-patient-management.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f11 -->
-        <section class="slide" id="f11" data-sec="Patient & Workflow">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">11</span><span class="s">Patient &amp; Workflow</span></div>
-                        <h2 class="title reveal" data-delay="1">Task Management</h2>
-                        <p class="subtitle reveal" data-delay="2">Track outstanding work to completion, nothing slips between the consult and the follow-up.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><h4>Track outstanding work</h4><p>A clear list of what still needs doing.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Close the loop</h4><p>Mark tasks complete as the work gets done.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Tasks</span></div><video src="Videos/11-task-management.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f12 -->
-        <section class="slide" id="f12" data-sec="Patient & Workflow">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">12</span><span class="s">Patient &amp; Workflow</span></div>
-                        <h2 class="title reveal" data-delay="1">Telehealth Consultations</h2>
-                        <p class="subtitle reveal" data-delay="2">Run remote consultations inside Arvi, and document them with the same AI workflow as in-person visits.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><div><h4>Remote consults in-app</h4><p>Conduct telehealth sessions without a separate tool.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span><div><h4>Documented automatically</h4><p>The same capture-to-note flow applies to remote visits.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Telehealth</span></div><video src="Videos/13-telehealth.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f13 -->
-        <section class="slide" id="f13" data-sec="Patient & Workflow">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">13</span><span class="s">Patient &amp; Workflow</span></div>
-                        <h2 class="title reveal" data-delay="1">Notifications</h2>
-                        <p class="subtitle reveal" data-delay="2">Stay on top of what matters with in-app alerts and push notifications on mobile.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><div><h4>In-app &amp; push alerts</h4><p>Get notified across web and mobile.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></span><div><h4>Never miss an action</h4><p>Time-sensitive items reach the clinician promptly.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; Notifications</span></div><video src="Videos/14-notifications.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f14 -->
-        <section class="slide" id="f14" data-sec="Organisation & Users">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">14</span><span class="s">Organisation &amp; Users</span></div>
-                        <h2 class="title reveal" data-delay="1">Organisation Switcher</h2>
-                        <p class="subtitle reveal" data-delay="2">One user can belong to several organisations and switch between them instantly, ideal for clinicians working across sites.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><div><h4>Belong to many orgs</h4><p>Hold membership in multiple organisations at once.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Switch in one tap</h4><p>Move between organisations without logging out.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Switch organisation</span></div><video src="Videos/15-org-switcher.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f15 -->
-        <section class="slide" id="f15" data-sec="Organisation & Users">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">15</span><span class="s">Organisation &amp; Users</span></div>
-                        <h2 class="title reveal" data-delay="1">Roles &amp; Permissions</h2>
-                        <p class="subtitle reveal" data-delay="2">Role-based access and restrictions govern who can see and do what, the access model hospitals require.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div><h4>Role-based access</h4><p>Assign roles that match real responsibilities.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><h4>Granular restrictions</h4><p>Control permissions down to the action.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Permissions</span></div><video src="Videos/16-permission-update.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f16 -->
-        <section class="slide" id="f16" data-sec="Organisation & Users">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">16</span><span class="s">Organisation &amp; Users</span></div>
-                        <h2 class="title reveal" data-delay="1">User Invites</h2>
-                        <p class="subtitle reveal" data-delay="2">Bring new clinicians into an organisation quickly with a simple invite flow.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></span><div><h4>Invite in seconds</h4><p>Add new users to the organisation with an invite.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Onboard the team</h4><p>Grow the organisation without admin friction.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Invite users</span></div><video src="Videos/17-user-invite.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f17 -->
-        <section class="slide" id="f17" data-sec="Organisation & Users">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">17</span><span class="s">Organisation &amp; Users</span></div>
-                        <h2 class="title reveal" data-delay="1">Free Admin User</h2>
-                        <p class="subtitle reveal" data-delay="2">Every organisation includes an admin seat at no cost, oversight without an extra licence.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span><div><h4>Admin at no cost</h4><p>A free administrator seat comes with the organisation.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><div><h4>Oversight built in</h4><p>Manage the team without paying for the privilege.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Admin</span></div><video src="Videos/18-free-admin.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f18 -->
-        <section class="slide" id="f18" data-sec="Billing">
-            <div class="inner">
-                <div class="feature reverse">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">18</span><span class="s">Billing</span></div>
-                        <h2 class="title reveal" data-delay="1">Stripe Subscriptions (Web)</h2>
-                        <p class="subtitle reveal" data-delay="2">Arvi bills customers today via Stripe, subscriptions and payments on the web app, in production now.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span><div><h4>Subscriptions &amp; payments</h4><p>Recurring billing handled through Stripe on web.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Live in production</h4><p>The commercial engine is running, not on a roadmap.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">app.arvihealth.com &middot; Billing</span></div><video src="Videos/19-subscription.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- f19 -->
-        <section class="slide" id="f19" data-sec="Billing">
-            <div class="inner">
-                <div class="feature">
-                    <div class="feature-copy">
-                        <div class="kicker reveal"><span class="n">19</span><span class="s">Billing</span></div>
-                        <h2 class="title reveal" data-delay="1">iOS In-App Purchase</h2>
-                        <p class="subtitle reveal" data-delay="2">On iOS, Arvi bills natively through Apple's in-app purchase, a frictionless path for mobile users.</p>
-                        <ul class="points">
-                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><div><h4>Native Apple billing</h4><p>Purchase and subscribe directly inside the iOS app.</p></div></li>
-                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Platform-appropriate</h4><p>Meets Apple's requirements for mobile monetisation.</p></div></li>
-                        </ul>
-                    </div>
-                    <figure class="clip reveal" data-delay="2">
-                        <div class="clip-glow"></div>
-                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; iOS billing</span></div><video src="Videos/20-ios-billing.mp4" loop muted playsinline preload="metadata"></video></div>
-                    </figure>
-                </div>
-            </div>
-        </section>
     </main>
 
     <div class="counter"><span><b id="cur">1</b> / <span id="total">0</span></span><span class="sec" id="sec">Overview</span></div>
@@ -1270,6 +1296,26 @@
                 else if(ev.key==='End'){ev.preventDefault();slides[slides.length-1].scrollIntoView({behavior:'smooth',inline:'start'});}
             });
             slides[0].classList.add('active');
+
+            // Interactive ROI calculator (SGC-based)
+            (function(){
+                var clin=document.getElementById('ci-clin'), hrs=document.getElementById('ci-hrs'), rate=document.getElementById('ci-rate');
+                if(!clin) return;
+                var WEEKS=46, SAVE=0.8, FTE=1800;
+                function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(1)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
+                function calc(){
+                    var c=+clin.value, h=+hrs.value, r=+rate.value;
+                    document.getElementById('ci-clin-v').textContent=c;
+                    document.getElementById('ci-hrs-v').textContent=h;
+                    document.getElementById('ci-rate-v').textContent='$'+r;
+                    var hoursYear=Math.round(c*h*SAVE*WEEKS);
+                    document.getElementById('co-hours').textContent=hoursYear.toLocaleString('en-AU');
+                    document.getElementById('co-value').textContent=money(hoursYear*r);
+                    document.getElementById('co-fte').textContent=(hoursYear/FTE).toFixed(1);
+                }
+                [clin,hrs,rate].forEach(function(el){ el.addEventListener('input',calc); });
+                calc();
+            })();
 
             // Deep-link: jump to #slide-id on load (e.g. .../arvi-features.html#s-roadmap)
             if(location.hash){
