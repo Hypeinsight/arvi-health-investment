@@ -263,6 +263,7 @@ CSS = r"""
         .rmcard:hover{transform:translateY(-6px)}
         .rmcard .ph{display:flex;align-items:center;gap:.65rem;margin-bottom:.7rem}
         .rmcard .pn{width:clamp(34px,2.6vw,42px);height:clamp(34px,2.6vw,42px);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:clamp(.95rem,1.2vw,1.15rem);flex-shrink:0}
+        .rmcard .pn svg{width:54%;height:54%;stroke:currentColor;fill:none;stroke-width:2}
         .rmcard .pt{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.26rem .62rem;border-radius:20px}
         .rmcard h3{font-size:clamp(1.05rem,1.4vw,1.35rem);line-height:1.15;margin-bottom:.65rem}
         .rmcard ul{list-style:none;display:flex;flex-direction:column;gap:.42rem;flex:1}
@@ -909,7 +910,7 @@ ROADMAP = '''        <!-- Roadmap -->
         <section class="slide" id="s-roadmap" data-sec="Roadmap">
             <div class="inner fill">
                 <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Roadmap</div>
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Growth Roadmap</div>
                     <h2 class="title reveal" data-delay="1">From Specialist Clinics to the Hospital Ecosystem</h2>
                     <p class="subtitle reveal" data-delay="2">Arvi's path runs from individual clinicians today toward enterprise and hospital-wide documentation, where notes, coding and interoperability converge.</p>
                 </div>
@@ -985,10 +986,43 @@ IMX_INTEG_ALT = '''        <!-- Integration, reframed alternative (Framing B) fo
         </section>
 '''
 
+PRODUCT_ROADMAP = '''        <!-- Product roadmap -->
+        <section class="slide" id="s-proadmap" data-sec="Roadmap">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Product Roadmap</div>
+                    <h2 class="title reveal" data-delay="1">What We're Building Next</h2>
+                    <p class="subtitle reveal" data-delay="2">Beyond today's twenty production features, the capabilities on Arvi's near and long-term horizon.</p>
+                </div>
+                <div class="rm-wrap">
+                    <div class="rm">
+                        <div class="rmcard lite reveal" data-delay="3">
+                            <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><div class="pt">Now &rarr; 6 months</div></div>
+                            <h3>Connected &amp; live</h3>
+                            <ul><li>Inbound pathology &amp; results ingestion</li><li>Deeper patient-management system integrations</li><li>Real-time transcription &amp; live note preview</li><li>ISO 27001 / SOC 2 certification</li></ul>
+                        </div>
+                        <div class="rmcard lite reveal" data-delay="4">
+                            <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div><div class="pt">6 &rarr; 18 months</div></div>
+                            <h3>Hospital-grade intelligence</h3>
+                            <ul><li>Hospital EMR integration over HL7 / FHIR</li><li>Automated SNOMED / ICD coding support</li><li>Specialty models beyond gastroenterology</li><li>Organisation analytics &amp; insights</li></ul>
+                        </div>
+                        <div class="rmcard climax reveal" data-delay="5">
+                            <span class="flag"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>On the horizon</span>
+                            <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13 13"/><path d="M16.5 17.4l-.34 3.8a2 2 0 0 1-2 1.8H9.84a2 2 0 0 1-2-1.8l-.34-3.8m0-10.8l.34-3.8A2 2 0 0 1 9.84 1h4.32a2 2 0 0 1 2 1.8l.34 3.8"/></svg></div><div class="pt">The horizon</div></div>
+                            <h3>Ambient &amp; everywhere</h3>
+                            <ul><li>Wearable &amp; ambient capture, hands-free, no phone or PC</li><li>Multilingual &amp; accent robustness</li><li>Open API &amp; partner platform</li><li>Enterprise &amp; government compliance (IRAP)</li></ul>
+                        </div>
+                    </div>
+                    <p class="rm-cap reveal" data-delay="6">Pathology, EMR interoperability and coding are where Arvi's roadmap meets the systems hospitals already run.</p>
+                </div>
+            </div>
+        </section>
+'''
+
 # Main narrative first; the 19 feature demos live in an Appendix at the end.
 BODY = (INTRO + AGENDA + PROBLEM + PLATFORM + HOWITWORKS
         + COMPETITIVE + MARKET + TRACTION + TEAM + SECURITY
-        + IMX_WORLD + IMX_INTEG + IMX_INTEG_ALT + IMX_VALUE + ROADMAP + FINANCIALS + ASK + CLOSE
+        + IMX_WORLD + IMX_INTEG + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE
         + WALK + FEAT)
 
 SCRIPT = r"""
