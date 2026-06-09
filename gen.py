@@ -1044,13 +1044,13 @@ PRODUCT_ROADMAP = '''        <!-- Product roadmap -->
                         <div class="rmcard lite reveal" data-delay="4">
                             <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div><div class="pt">6 &rarr; 18 months</div></div>
                             <h3>Hospital-grade intelligence</h3>
-                            <ul><li>Hospital EMR integration over HL7 / FHIR</li><li>Coding-ready structured output (SNOMED / ICD-aligned)</li><li>Specialty-tuned models across disciplines</li><li>Organisation analytics &amp; insights</li></ul>
+                            <ul><li>Hospital EMR integration over HL7 / FHIR</li><li>Coding-ready structured output (SNOMED / ICD-aligned)</li><li>Evidence: guideline-backed answers at the point of care</li><li>Specialty-tuned models across disciplines</li><li>Organisation analytics &amp; insights</li></ul>
                         </div>
                         <div class="rmcard climax reveal" data-delay="5">
                             <span class="flag"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>On the horizon</span>
                             <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13 13"/><path d="M16.5 17.4l-.34 3.8a2 2 0 0 1-2 1.8H9.84a2 2 0 0 1-2-1.8l-.34-3.8m0-10.8l.34-3.8A2 2 0 0 1 9.84 1h4.32a2 2 0 0 1 2 1.8l.34 3.8"/></svg></div><div class="pt">The horizon</div></div>
                             <h3>Ambient &amp; everywhere</h3>
-                            <ul><li>Wearable &amp; ambient capture, hands-free, no phone or PC</li><li>Multilingual &amp; accent robustness</li><li>Open API &amp; partner platform</li><li>Enterprise &amp; government compliance (IRAP)</li></ul>
+                            <ul><li>Ambient &amp; wearable capture, and beyond, hands-free, no phone or PC</li><li>Patient comms: care beyond the visit</li><li>Multilingual &amp; accent robustness</li><li>Open API &amp; partner platform</li><li>Enterprise &amp; government compliance (IRAP)</li></ul>
                         </div>
                     </div>
                     <p class="rm-cap reveal" data-delay="6">Pathology, EMR interoperability and coding are where Arvi's roadmap meets the systems hospitals already run.</p>
@@ -1087,7 +1087,24 @@ CALCULATOR = '''        <!-- Interactive ROI calculator (SGC-based) -->
         </section>
 '''
 
-BODY = (INTRO + TEAM + AGENDA + PROBLEM
+VISION = '''        <!-- Vision -->
+        <section class="slide" id="s-vision" data-sec="Vision">
+            <div class="inner">
+                <div class="divider">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Our Vision</div>
+                    <div class="big reveal" data-delay="1">Make Clinical Documentation Disappear</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:780px;margin:0 auto">Every consultation, clinic, emergency, ward or theatre, captured and turned into a perfect, structured record the moment it ends. Clinicians get their time back; the health system runs on better information.</p>
+                    <div class="menu reveal" data-delay="3">
+                        <span class="mi">Capture anywhere</span>
+                        <span class="mi">Author instantly</span>
+                        <span class="mi">Feed every system</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+'''
+
+BODY = (INTRO + TEAM + AGENDA + PROBLEM + VISION
         + WALK + FEAT
         + PLATFORM + TRACTION + CALCULATOR + COMPETITIVE + MARKET + SECURITY
         + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + FINANCIALS + ASK + CLOSE)
