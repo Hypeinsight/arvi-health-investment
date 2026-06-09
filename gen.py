@@ -681,8 +681,8 @@ CLOSE = '''        <!-- Close -->
                     <div class="tags reveal" data-delay="3" style="justify-content:center"><span class="tag">20 features in production</span><span class="tag">HL7 / FHIR-ready</span><span class="tag">Built for acute care</span></div>
                     <a class="cta reveal" data-delay="4" href="https://arvihealth.com" target="_blank" rel="noopener">Visit arvihealth.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                     <div class="dl reveal" data-delay="5">
-                        <a class="dlcard glass" href="https://arvihealth.com" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on iOS"><div><div class="dt">Scan to download</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
-                        <a class="dlcard glass" href="https://arvihealth.com" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Android"><div><div class="dt">Scan to download</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
+                        <a class="dlcard glass" href="https://apps.apple.com/au/app/arvi-health/id6761469752" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on the App Store"><div><div class="dt">Scan to download</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
+                        <a class="dlcard glass" href="https://play.google.com/store/apps/details?id=com.healthai.mobile" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Google Play"><div><div class="dt">Scan to download</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
                     </div>
                 </div>
             </div>
