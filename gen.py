@@ -414,11 +414,11 @@ FEATURES = [
    ("check","Review, don't author","The clinician edits a draft instead of writing from scratch.")],
   "01-letter-generation.mp4","platform.arvihealth.com &middot; New note"),
 
- ("Core Documentation","Organization &amp; Team Notes",
+ ("Core Documentation","Organisation &amp; Team Notes",
   "Documentation under a clinic or team account, with multiple clinicians working together and admin oversight across everyone's work.",
-  [("users","Shared team workspace","Clinicians document under one organization, not siloed accounts."),
+  [("users","Shared team workspace","Clinicians document under one organisation, not siloed accounts."),
    ("eye","Admin visibility","Administrators can access and manage notes across the team.")],
-  "02-admin-access.mp4","platform.arvihealth.com &middot; Organization"),
+  "02-admin-access.mp4","platform.arvihealth.com &middot; Organisation"),
 
  ("Core Documentation","Quick Record for Emergencies",
   "A fast-capture mode for urgent situations, minimal steps between hitting record and having a usable note. Built for the pace of an emergency department.",
@@ -465,7 +465,7 @@ FEATURES = [
  ("Patient &amp; Workflow","Patient Management &amp; Scheduling",
   "Manage patients, appointments and the calendar in one place, the day's schedule sits alongside the documentation.",
   [("calendar","Appointments &amp; calendar","See the day's schedule and book in patients."),
-   ("users","Patient records","Keep patient details organized next to their notes.")],
+   ("users","Patient records","Keep patient details organised next to their notes.")],
   "10-patient-management.mp4","platform.arvihealth.com &middot; Patients"),
 
  ("Patient &amp; Workflow","Task Management",
@@ -486,27 +486,27 @@ FEATURES = [
    ("phone","Never miss an action","Time-sensitive items reach the clinician promptly.")],
   "14-notifications.mp4","Arvi mobile &middot; Notifications"),
 
- ("Organization &amp; Users","Organization Switcher",
-  "One user can belong to several organizations and switch between them instantly, ideal for clinicians working across sites.",
-  [("switch","Belong to many orgs","Hold membership in multiple organizations at once."),
-   ("check","Switch in one tap","Move between organizations without logging out.")],
-  "15-org-switcher.mp4","platform.arvihealth.com &middot; Switch organization"),
+ ("Organisation &amp; Users","Organisation Switcher",
+  "One user can belong to several organisations and switch between them instantly, ideal for clinicians working across sites.",
+  [("switch","Belong to many orgs","Hold membership in multiple organisations at once."),
+   ("check","Switch in one tap","Move between organisations without logging out.")],
+  "15-org-switcher.mp4","platform.arvihealth.com &middot; Switch organisation"),
 
- ("Organization &amp; Users","Roles &amp; Permissions",
+ ("Organisation &amp; Users","Roles &amp; Permissions",
   "Role-based access and restrictions govern who can see and do what, the access model hospitals require.",
   [("shield","Role-based access","Assign roles that match real responsibilities."),
    ("lock","Granular restrictions","Control permissions down to the action.")],
   "16-permission-update.mp4","platform.arvihealth.com &middot; Permissions"),
 
- ("Organization &amp; Users","User Invites",
-  "Bring new clinicians into an organization quickly with a simple invite flow.",
-  [("userplus","Invite in seconds","Add new users to the organization with an invite."),
-   ("users","Onboard the team","Grow the organization without admin friction.")],
+ ("Organisation &amp; Users","User Invites",
+  "Bring new clinicians into an organisation quickly with a simple invite flow.",
+  [("userplus","Invite in seconds","Add new users to the organisation with an invite."),
+   ("users","Onboard the team","Grow the organisation without admin friction.")],
   "17-user-invite.mp4","platform.arvihealth.com &middot; Invite users"),
 
- ("Organization &amp; Users","Free Admin User",
-  "Every organization includes an admin seat at no cost, oversight without an extra license.",
-  [("user","Admin at no cost","A free administrator seat comes with the organization."),
+ ("Organisation &amp; Users","Free Admin User",
+  "Every organisation includes an admin seat at no cost, oversight without an extra licence.",
+  [("user","Admin at no cost","A free administrator seat comes with the organisation."),
    ("eye","Oversight built in","Manage the team without paying for the privilege.")],
   "18-free-admin.mp4","platform.arvihealth.com &middot; Admin"),
 
@@ -601,7 +601,7 @@ PLATFORM = '''        <!-- Platform -->
                     <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> The Platform</div>
                     <h2 class="title reveal" data-delay="1">One Platform. Two Apps. Twenty Production Features.</h2>
                     <div class="apps reveal" data-delay="2">
-                        <div class="app glass"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><div><strong>Web app</strong><span>Full clinic &amp; organization workspace</span></div></div>
+                        <div class="app glass"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><div><strong>Web app</strong><span>Full clinic &amp; organisation workspace</span></div></div>
                         <div class="app glass"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg><div><strong>iOS &amp; Android</strong><span>Capture anywhere, ward, ED, theatre</span></div></div>
                     </div>
                 </div>
@@ -609,7 +609,7 @@ PLATFORM = '''        <!-- Platform -->
                     <div class="pillar glass reveal" data-delay="2"><div class="num">01</div><h3>Core Documentation</h3><ul><li>Individual notes</li><li>Org / team notes</li><li>Quick Record</li><li>Theatre recording</li><li>Upload audio</li><li>AI regeneration</li></ul></div>
                     <div class="pillar glass reveal" data-delay="3"><div class="num">02</div><h3>Letters &amp; Templates</h3><ul><li>Letter generation</li><li>Custom templates</li><li>Preview &amp; formatting</li><li>Send &amp; resend</li></ul></div>
                     <div class="pillar glass reveal" data-delay="4"><div class="num">03</div><h3>Patient &amp; Workflow</h3><ul><li>Patient management</li><li>Scheduling</li><li>Task management</li><li>Telehealth</li><li>Notifications</li></ul></div>
-                    <div class="pillar glass reveal" data-delay="5"><div class="num">04</div><h3>Organization &amp; Users</h3><ul><li>Org switcher</li><li>Roles &amp; permissions</li><li>User invites</li><li>Free admin user</li></ul></div>
+                    <div class="pillar glass reveal" data-delay="5"><div class="num">04</div><h3>Organisation &amp; Users</h3><ul><li>Org switcher</li><li>Roles &amp; permissions</li><li>User invites</li><li>Free admin user</li></ul></div>
                     <div class="pillar glass reveal" data-delay="6"><div class="num">05</div><h3>Billing</h3><ul><li>Stripe (web)</li><li>iOS in-app purchase</li></ul></div>
                 </div>
             </div>
@@ -766,7 +766,7 @@ WALK = '''        <!-- Demo cue: live demo starts now -->
                         <span class="mi"><b>01</b> Core Documentation</span>
                         <span class="mi"><b>02</b> Letters &amp; Templates</span>
                         <span class="mi"><b>03</b> Patient &amp; Workflow</span>
-                        <span class="mi"><b>04</b> Organization &amp; Users</span>
+                        <span class="mi"><b>04</b> Organisation &amp; Users</span>
                         <span class="mi"><b>05</b> Billing</span>
                     </div>
                 </div>
@@ -897,7 +897,7 @@ SECURITY = '''        <!-- Security & interoperability -->
                 </div>
                 <div class="cards c3">
                     <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Australian data residency</h3><p>Patient data handled under Australian privacy compliance, certified.</p></div>
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Encrypted &amp; access-controlled</h3><p>Role-based permissions and organization-level isolation across the platform.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Encrypted &amp; access-controlled</h3><p>Role-based permissions and organisation-level isolation across the platform.</p></div>
                     <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>HL7 / FHIR-ready</h3><p>Designed to exchange structured documents over standard interfaces.</p></div>
                     <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></div><h3>Clinician in the loop</h3><p>AI drafts; the clinician reviews and approves every note and letter.</p></div>
                     <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><h3>Specialist-validated</h3><p>Accuracy proven daily in a live specialist practice, not just GP visits.</p></div>
@@ -1060,7 +1060,7 @@ PRODUCT_ROADMAP = '''        <!-- Product roadmap -->
                         <div class="rmcard lite reveal" data-delay="4">
                             <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div><div class="pt">6 &rarr; 18 months</div></div>
                             <h3>Hospital-grade intelligence</h3>
-                            <ul><li>Hospital EMR integration over HL7 / FHIR</li><li>Coding-ready structured output (SNOMED / ICD-aligned)</li><li>Evidence: guideline-backed answers at the point of care</li><li>Specialty-tuned models across disciplines</li><li>Organization analytics &amp; insights</li></ul>
+                            <ul><li>Hospital EMR integration over HL7 / FHIR</li><li>Coding-ready structured output (SNOMED / ICD-aligned)</li><li>Evidence: guideline-backed answers at the point of care</li><li>Specialty-tuned models across disciplines</li><li>Organisation analytics &amp; insights</li></ul>
                         </div>
                         <div class="rmcard climax reveal" data-delay="5">
                             <span class="flag"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>On the horizon</span>
@@ -1082,7 +1082,7 @@ CALCULATOR = '''        <!-- Interactive ROI calculator (SGC-based) -->
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/></svg> ROI Calculator</div>
                     <h2 class="title reveal" data-delay="1">What Arvi Gives a Practice Back</h2>
-                    <p class="subtitle reveal" data-delay="2">Modeled on Sydney Gut Clinic's real usage. Drag the inputs to fit any practice.</p>
+                    <p class="subtitle reveal" data-delay="2">Modelled on Sydney Gut Clinic's real usage. Drag the inputs to fit any practice.</p>
                 </div>
                 <div class="calc">
                     <div class="calc-inputs glass reveal" data-delay="2">
@@ -1131,7 +1131,7 @@ APPENDIX = '''        <!-- Appendix divider -->
                         <span class="mi"><b>01</b> Core Documentation</span>
                         <span class="mi"><b>02</b> Letters &amp; Templates</span>
                         <span class="mi"><b>03</b> Patient &amp; Workflow</span>
-                        <span class="mi"><b>04</b> Organization &amp; Users</span>
+                        <span class="mi"><b>04</b> Organisation &amp; Users</span>
                         <span class="mi"><b>05</b> Billing</span>
                     </div>
                 </div>
