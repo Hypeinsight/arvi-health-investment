@@ -169,6 +169,88 @@ CSS = r"""
         .lockup .lk-imx{height:clamp(30px,4.6vh,48px);mix-blend-mode:multiply}
         .lockup .x{font-size:clamp(1.3rem,2.6vw,1.9rem);color:#94a3b8;font-weight:300}
 
+        /* --- added: agenda --- */
+        .cards.c2{grid-template-columns:repeat(2,1fr)}
+        .agenda{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1rem);margin-top:clamp(1rem,2.4vh,1.8rem);max-width:1000px}
+        .agenda-item{display:flex;align-items:center;gap:1rem;padding:clamp(.8rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.5rem)}
+        .agenda-item .an{font-variant-numeric:tabular-nums;font-weight:800;font-size:clamp(1rem,1.6vw,1.4rem);color:#fff;background:linear-gradient(135deg,var(--primary),var(--accent));width:clamp(36px,3vw,46px);height:clamp(36px,3vw,46px);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .agenda-item h3{font-size:clamp(1rem,1.4vw,1.3rem);color:var(--primary-dark);font-weight:700}
+        .agenda-item p{font-size:clamp(.8rem,1vw,.95rem);color:var(--muted);margin-top:.1rem}
+        .agenda-item .ad{margin-left:auto;font-size:clamp(.7rem,.9vw,.82rem);color:#94a3b8;font-weight:600;white-space:nowrap}
+        /* --- how it works --- */
+        .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.7rem,1.5vw,1.2rem);margin-top:clamp(1.2rem,3vh,2.2rem)}
+        .step{padding:clamp(1.1rem,1.8vw,1.7rem);display:flex;flex-direction:column;gap:.6rem}
+        .step .sic{width:clamp(42px,3.2vw,52px);height:clamp(42px,3.2vw,52px);border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 7px 18px rgba(4,85,163,.25)}
+        .step .sic svg{width:50%;height:50%;stroke:#fff;stroke-width:2;fill:none}
+        .step .sn{font-size:.7rem;font-weight:800;color:var(--accent);letter-spacing:.12em}
+        .step h3{font-size:clamp(.95rem,1.2vw,1.15rem);color:var(--primary-dark)}
+        .step p{font-size:clamp(.8rem,1vw,.95rem);color:var(--muted);line-height:1.45}
+        /* --- demo divider --- */
+        .divider{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(1rem,2.4vh,1.6rem)}
+        .divider .big{font-size:clamp(2.2rem,5.2vw,4.4rem);font-weight:800;letter-spacing:-.022em;line-height:1.04;background:linear-gradient(118deg,var(--primary-dark),var(--primary) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .menu{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;max-width:920px}
+        .menu .mi{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;border-radius:40px;font-weight:600;font-size:clamp(.8rem,1vw,.95rem);color:var(--primary-dark);background:var(--glass);border:1px solid var(--glass-border)}
+        .menu .mi b{color:var(--accent)}
+        /* --- comparison table --- */
+        .cmp{margin-top:clamp(1rem,2.4vh,1.6rem);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--glass-border)}
+        .cmp-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.1fr;font-size:clamp(.7rem,.92vw,.88rem)}
+        .cmp-row>div{padding:clamp(.55rem,1vw,.85rem) clamp(.5rem,1vw,1rem);display:flex;align-items:center;justify-content:center;text-align:center;border-top:1px solid rgba(4,55,98,.07)}
+        .cmp-row>div:first-child{justify-content:flex-start;text-align:left;font-weight:600;color:var(--primary-dark)}
+        .cmp-head{background:var(--primary-dark);color:#fff;font-weight:700}
+        .cmp-head>div{border-top:none}
+        .cmp-head .arvi{background:linear-gradient(135deg,var(--accent),var(--accent-2));position:relative}
+        .cmp .arvi{background:rgba(200,232,255,.34);font-weight:700;color:var(--primary-dark)}
+        .cmp .tick svg{width:18px;height:18px;stroke:#22c55e;stroke-width:2.5;fill:none}
+        .cmp-best{position:absolute;top:3px;right:5px;background:#ff3b30;color:#fff;font-size:.5rem;padding:1px 5px;border-radius:7px}
+        /* --- market funnel --- */
+        .funnel{display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1.1rem)}
+        .fbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:clamp(.8rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.5rem);border-radius:14px}
+        .fbar .fl{font-size:.7rem;font-weight:800;letter-spacing:.1em;color:var(--accent)}
+        .fbar .fd{font-size:clamp(.76rem,.95vw,.9rem);color:var(--muted);margin-top:.15rem}
+        .fbar .fv{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:800;color:var(--primary-dark)}
+        .fbar.tam{background:rgba(240,248,255,.7);border:2px dashed rgba(4,55,98,.25)}
+        .fbar.sam{background:rgba(200,232,255,.6);border:1px solid rgba(4,85,163,.25);margin:0 clamp(1rem,3vw,2.5rem)}
+        .fbar.som{background:linear-gradient(135deg,var(--primary-dark),var(--primary));margin:0 clamp(2rem,6vw,5rem)}
+        .fbar.som .fl{color:#c8e8ff}.fbar.som .fd{color:rgba(255,255,255,.8)}.fbar.som .fv{color:#fff}
+        /* --- traction --- */
+        .tr-live{display:flex;align-items:flex-start;gap:1rem;padding:clamp(1.1rem,1.8vw,1.6rem);border-radius:var(--r-lg);background:linear-gradient(140deg,var(--primary-dark),var(--primary));color:#fff;box-shadow:var(--s-md)}
+        .tr-live strong{font-size:clamp(1rem,1.3vw,1.2rem)}
+        .tr-live .badge2{display:inline-block;margin-top:.6rem;padding:.25rem .75rem;border-radius:20px;background:rgba(255,255,255,.18);font-size:.7rem;font-weight:700}
+        .checklist{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+        .checklist li{display:flex;gap:.6rem;align-items:flex-start;font-size:clamp(.82rem,1vw,.96rem);color:#334155;line-height:1.4}
+        .checklist li svg{width:18px;height:18px;stroke:#22c55e;stroke-width:2.4;fill:none;flex-shrink:0;margin-top:.12rem}
+        /* --- team --- */
+        .team{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.5vw,2rem);margin-top:clamp(1rem,2.4vh,1.8rem)}
+        .tcard{padding:clamp(1.2rem,2vw,1.9rem);display:flex;flex-direction:column;align-items:center;text-align:center}
+        .tcard img{width:clamp(84px,8vw,120px);height:clamp(84px,8vw,120px);border-radius:50%;object-fit:cover;border:3px solid var(--glass-border);box-shadow:var(--s-md)}
+        .tcard h3{font-size:clamp(1.05rem,1.5vw,1.4rem);color:var(--primary-dark);margin-top:.8rem}
+        .tcard .trole{font-size:.85rem;color:var(--accent);font-weight:700;margin-top:.15rem}
+        .tchips{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:.7rem 0}
+        .tchips span{font-size:.72rem;font-weight:600;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.07),rgba(105,26,106,.08));padding:.3rem .7rem;border-radius:20px}
+        .tcard ul{list-style:none;display:flex;flex-direction:column;gap:.45rem;text-align:left;margin-top:.4rem}
+        .tcard li{font-size:clamp(.8rem,.98vw,.92rem);color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.4}
+        .tcard li svg{width:15px;height:15px;stroke:var(--primary);stroke-width:2.4;fill:none;flex-shrink:0;margin-top:.22rem}
+        /* --- financials --- */
+        .fin{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1rem,2.5vw,2rem);margin-top:clamp(1rem,2vh,1.6rem);align-items:stretch}
+        .bars{display:flex;align-items:flex-end;justify-content:space-around;gap:clamp(1rem,3vw,2.5rem);height:clamp(150px,24vh,240px);padding:1rem clamp(.5rem,2vw,1.5rem) 0}
+        .bar{display:flex;flex-direction:column;align-items:center;gap:.5rem;flex:1;height:100%;justify-content:flex-end}
+        .bar .bv{font-weight:800;color:var(--primary-dark);font-size:clamp(.85rem,1.1vw,1.05rem)}
+        .bar .bcol{width:clamp(48px,6vw,92px);height:0;border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--primary),var(--primary-dark));transition:height .9s cubic-bezier(.22,1,.36,1)}
+        .bar:last-child .bcol{background:linear-gradient(180deg,var(--accent),var(--accent-2))}
+        .bar .bl{font-size:clamp(.72rem,.9vw,.85rem);color:var(--muted)}
+        .fin-cards{display:flex;flex-direction:column;gap:clamp(.6rem,1.2vh,1rem);justify-content:center}
+        .fin-card{padding:clamp(.9rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.3rem);border-left:4px solid var(--primary)}
+        .fin-card .fcl{font-size:.72rem;font-weight:600;color:var(--muted)}
+        .fin-card .fcv{font-size:clamp(1.2rem,1.8vw,1.6rem);font-weight:800;color:var(--primary-dark)}
+        .fin-card .fcs{font-size:.72rem;color:var(--accent)}
+        /* --- ask --- */
+        .ask-amt{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;letter-spacing:-.022em;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .ask-eq{font-size:clamp(1rem,1.6vw,1.4rem);font-weight:600;color:var(--primary-dark);margin-top:.3rem}
+        .fundbar{display:flex;height:clamp(22px,2.6vh,30px);border-radius:8px;overflow:hidden;margin-top:.5rem}
+        .fundbar span{display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;font-weight:700;white-space:nowrap}
+        @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}}
+        @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}}
+
         .counter{position:fixed;bottom:clamp(.8rem,2vh,1.5rem);right:clamp(1rem,3vw,2.4rem);font-size:clamp(.72rem,.95vw,.84rem);color:var(--muted);z-index:100;display:flex;gap:.6rem;align-items:center}
         .counter b{color:var(--primary);font-weight:700}
         .counter .sec{padding-left:.6rem;border-left:1px solid var(--line);text-transform:uppercase;letter-spacing:.1em;font-size:.72em;font-weight:700;color:#94a3b8}
@@ -547,7 +629,224 @@ CLOSE = '''        <!-- Close -->
         </section>
 '''
 
-BODY = INTRO + PROBLEM + PLATFORM + FEAT + IMX_WORLD + IMX_INTEG + IMX_VALUE + CLOSE
+AGENDA = '''        <!-- Agenda -->
+        <section class="slide" id="s-agenda" data-sec="Overview">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Agenda</div>
+                    <h2 class="title reveal" data-delay="1">How We'll Spend the Time</h2>
+                </div>
+                <div class="agenda">
+                    <div class="agenda-item glass reveal" data-delay="2"><div class="an">1</div><div><h3>The problem</h3><p>Why clinical documentation is the bottleneck, in 60 seconds.</p></div><div class="ad">~2 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="3"><div class="an">2</div><div><h3>Live product walkthrough</h3><p>A guided demo of Arvi across five areas, the heart of today.</p></div><div class="ad">~20 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="4"><div class="an">3</div><div><h3>Where Arvi could fit with InfoMedix</h3><p>A proposed integration pathway and the value it could add.</p></div><div class="ad">~10 min</div></div>
+                    <div class="agenda-item glass reveal" data-delay="5"><div class="an">4</div><div><h3>Traction, team &amp; the opportunity</h3><p>The proof, the people, and the raise.</p></div><div class="ad">~8 min</div></div>
+                </div>
+            </div>
+        </section>
+'''
+
+HOWITWORKS = '''        <!-- How it works -->
+        <section class="slide" id="s-how" data-sec="Overview">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> How Arvi Works</div>
+                    <h2 class="title reveal" data-delay="1">Voice In, Clinical Document Out</h2>
+                    <p class="subtitle reveal" data-delay="2">The same four steps power every workflow you're about to see, on web and mobile.</p>
+                </div>
+                <div class="steps">
+                    <div class="step glass reveal" data-delay="2"><div class="sic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></div><div class="sn">STEP 01</div><h3>Capture</h3><p>Record the consult, or upload existing audio, anywhere.</p></div>
+                    <div class="step glass reveal" data-delay="3"><div class="sic"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="3" y2="12"/><line x1="7" y1="8" x2="7" y2="16"/><line x1="11" y1="4" x2="11" y2="20"/><line x1="15" y1="7" x2="15" y2="17"/><line x1="19" y1="10" x2="19" y2="14"/></svg></div><div class="sn">STEP 02</div><h3>Transcribe</h3><p>Speech becomes an accurate, medical-aware transcript.</p></div>
+                    <div class="step glass reveal" data-delay="4"><div class="sic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><div class="sn">STEP 03</div><h3>Structure</h3><p>AI drafts a structured note or letter from the transcript.</p></div>
+                    <div class="step glass reveal" data-delay="5"><div class="sic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><div class="sn">STEP 04</div><h3>Review &amp; send</h3><p>The clinician edits, formats and sends, in control throughout.</p></div>
+                </div>
+            </div>
+        </section>
+'''
+
+WALK = '''        <!-- Demo divider -->
+        <section class="slide" id="s-walk" data-sec="Live Demo">
+            <div class="inner">
+                <div class="divider">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Live Demo</div>
+                    <div class="big reveal" data-delay="1">Product Walkthrough</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:680px;margin:0 auto">Five areas, twenty features, all in production today. Let's open the app.</p>
+                    <div class="menu reveal" data-delay="3">
+                        <span class="mi"><b>01</b> Core Documentation</span>
+                        <span class="mi"><b>02</b> Letters &amp; Templates</span>
+                        <span class="mi"><b>03</b> Patient &amp; Workflow</span>
+                        <span class="mi"><b>04</b> Organisation &amp; Users</span>
+                        <span class="mi"><b>05</b> Billing</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+'''
+
+COMPETITIVE = '''        <!-- Competitive -->
+        <section class="slide" id="s-comp" data-sec="Differentiation">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Competitive Landscape</div>
+                    <h2 class="title reveal" data-delay="1">Superior Quality, Accessible Pricing</h2>
+                    <p class="subtitle reveal" data-delay="2">Specialist-led validation and a price built for adoption, against the generalist incumbents.</p>
+                </div>
+                <div class="cmp glass reveal" data-delay="2">
+                    <div class="cmp-row cmp-head"><div>Feature</div><div>Nuance DAX</div><div>Lyrebird</div><div>Heidi</div><div class="arvi">Arvi<span class="cmp-best">BEST</span></div></div>
+                    <div class="cmp-row"><div>Pricing</div><div>$300+/mo</div><div>$300+/mo</div><div>$1,320/yr</div><div class="arvi">~$30/mo</div></div>
+                    <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs + specialists</div></div>
+                    <div class="cmp-row"><div>Clinical validation</div><div>Standard</div><div>Standard</div><div>Standard</div><div class="arvi">Specialist-led</div></div>
+                    <div class="cmp-row"><div>Australian compliance</div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                    <div class="cmp-row"><div>Entry barrier</div><div>Very high</div><div>Moderate</div><div>Med-high</div><div class="arvi">Lowest</div></div>
+                </div>
+                <p class="subtitle reveal" data-delay="3" style="max-width:none;margin-top:clamp(.8rem,1.6vh,1.2rem)"><b style="color:var(--primary-dark)">The quality edge:</b> Arvi's engine is trained and validated daily in a specialist gastroenterology practice, built for complex medical terminology, not just GP visits.</p>
+            </div>
+        </section>
+'''
+
+MARKET = '''        <!-- Market -->
+        <section class="slide" id="s-market" data-sec="Opportunity">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Market Opportunity</div>
+                    <h2 class="title reveal" data-delay="1">Bottom-Up Australian Market Sizing</h2>
+                </div>
+                <div class="cards" style="grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(1.2rem,3vw,2.5rem)">
+                    <div class="funnel">
+                        <div class="fbar tam reveal" data-delay="2"><div><div class="fl">TAM</div><div class="fd">Total addressable &middot; 70k clinicians</div></div><div class="fv">$63.8M</div></div>
+                        <div class="fbar sam reveal" data-delay="3"><div><div class="fl">SAM</div><div class="fd">Metro GPs + specialists</div></div><div class="fv">$36.5M</div></div>
+                        <div class="fbar som reveal" data-delay="4"><div><div class="fl">YEAR 3 TARGET</div><div class="fd">Serviceable obtainable &middot; 18k users</div></div><div class="fv">$16.9M</div></div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1rem)">
+                        <div class="card glass reveal" data-delay="3"><h3>The specialist upside</h3><p>30,000+ specialists generate higher revenue per consult and are underserved by GP-focused tools.</p></div>
+                        <div class="card glass reveal" data-delay="4"><h3>Usage revenue layer</h3><p>A $30 base removes friction; usage top-ups drive blended ARPU to ~$76 as adoption scales.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+'''
+
+TRACTION = '''        <!-- Traction -->
+        <section class="slide" id="s-traction" data-sec="Traction">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Traction &amp; Validation</div>
+                    <h2 class="title reveal" data-delay="1">Proven in a Real Clinical Setting</h2>
+                </div>
+                <div class="cards" style="grid-template-columns:1.1fr 1fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:stretch">
+                    <div style="display:flex;flex-direction:column;gap:clamp(.8rem,1.6vh,1.2rem)">
+                        <div class="tr-live reveal" data-delay="2"><div class="ic" style="background:rgba(255,255,255,.18)"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><line x1="10" y1="9" x2="10" y2="9"/></svg></div><div><strong>Live: Sydney Gut Clinic</strong><p style="font-size:.88rem;color:rgba(255,255,255,.85);margin-top:.3rem;line-height:1.5">In production and validated daily by specialists in complex gastroenterology, the clinic owned by co-founder Dr Suhirdan.</p><span class="badge2">Production ready</span></div></div>
+                        <div class="card glass reveal" data-delay="3"><h3>Shipped &amp; certified</h3><ul class="checklist" style="margin-top:.6rem"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>AI transcription engine in production</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Patient records &amp; referral letters live</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Australian privacy compliance certified</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Web, iOS &amp; Android, billing live</li></ul></div>
+                    </div>
+                    <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column;justify-content:center">
+                        <h3>12-month targets</h3>
+                        <div class="imx-bar" style="margin:.9rem 0;padding:0;gap:clamp(1rem,2.5vw,2rem);flex-wrap:wrap">
+                            <div class="imx-stat"><div class="v">500</div><div class="l">practices</div></div>
+                            <div class="imx-stat"><div class="v">$3M</div><div class="l">ARR</div></div>
+                            <div class="imx-stat"><div class="v">1,800</div><div class="l">active users</div></div>
+                            <div class="imx-stat"><div class="v">&gt;50</div><div class="l">NPS</div></div>
+                        </div>
+                        <p style="font-size:.82rem;color:var(--muted);line-height:1.5">Commercial launch 1 March 2026. Figures above are 12-month post-launch goals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+'''
+
+TEAM = '''        <!-- Team -->
+        <section class="slide" id="s-team" data-sec="Team">
+            <div class="inner">
+                <div class="slide-head" style="text-align:center">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> The Team</div>
+                    <h2 class="title reveal" data-delay="1">Clinical Authority Meets Proven SaaS Scaling</h2>
+                </div>
+                <div class="team">
+                    <div class="tcard glass reveal" data-delay="2"><img src="ari.png" alt="Ari Vivekanandarajah"><h3>Ari Vivekanandarajah</h3><div class="trole">Co-Founder</div><div class="tchips"><span>Successful SaaS exit</span><span>Agency owner</span></div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>20+ years in B2B &amp; SaaS marketing and growth</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Specialist in healthcare &amp; SaaS go-to-market</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads strategy, sales and operations</li></ul></div>
+                    <div class="tcard glass reveal" data-delay="3"><img src="dr%20suhirdan.jpg" alt="Dr Suhirdan Vivekanandarajah"><h3>Dr Suhirdan Vivekanandarajah</h3><div class="trole">Co-Founder</div><div class="tchips"><span>Gastroenterologist</span><span>Clinic owner</span></div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Practising gastroenterologist &amp; clinic owner</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Deep clinical workflow validation</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads product vision &amp; medical partnerships</li></ul></div>
+                </div>
+            </div>
+        </section>
+'''
+
+SECURITY = '''        <!-- Security & interoperability -->
+        <section class="slide" id="s-security" data-sec="Trust">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label imx reveal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security &amp; Interoperability</div>
+                    <h2 class="title reveal" data-delay="1">Built to Sit Inside a Hospital's Stack</h2>
+                    <p class="subtitle reveal" data-delay="2">The questions a CTO and CMO ask first, answered up front.</p>
+                </div>
+                <div class="cards c3">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Australian data residency</h3><p>Patient data handled under Australian privacy compliance, certified.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Encrypted &amp; access-controlled</h3><p>Role-based permissions and organisation-level isolation across the platform.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>HL7 / FHIR-ready</h3><p>Designed to exchange structured documents over standard interfaces.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></div><h3>Clinician in the loop</h3><p>AI drafts; the clinician reviews and approves every note and letter.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><h3>Specialist-validated</h3><p>Accuracy proven daily in a live specialist practice, not just GP visits.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><h3>Complements, not replaces</h3><p>Arvi feeds your system of record, it does not try to be it.</p></div>
+                </div>
+            </div>
+        </section>
+'''
+
+FINANCIALS = '''        <!-- Financials -->
+        <section class="slide" id="s-fin" data-sec="The Raise">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Financial Projections</div>
+                    <h2 class="title reveal" data-delay="1">Path to $12.8M ARR</h2>
+                </div>
+                <div class="fin">
+                    <div class="card glass reveal" data-delay="2">
+                        <h3 style="text-align:center;color:var(--muted);font-weight:600;font-size:.9rem">Projected ARR</h3>
+                        <div class="bars">
+                            <div class="bar"><div class="bv">$2.3M</div><div class="bcol" data-h="34%"></div><div class="bl">Year 1</div></div>
+                            <div class="bar"><div class="bv">$5.5M</div><div class="bcol" data-h="62%"></div><div class="bl">Year 2</div></div>
+                            <div class="bar"><div class="bv">$12.8M</div><div class="bcol" data-h="100%"></div><div class="bl">Year 3</div></div>
+                        </div>
+                    </div>
+                    <div class="fin-cards">
+                        <div class="fin-card glass reveal" data-delay="3"><div class="fcl">Blended ARPU</div><div class="fcv">~$76</div><div class="fcs">$30 base + $46 usage</div></div>
+                        <div class="fin-card glass reveal" data-delay="4"><div class="fcl">LTV : CAC target</div><div class="fcv">5.1 : 1</div><div class="fcs">Efficient growth</div></div>
+                        <div class="fin-card glass reveal" data-delay="5"><div class="fcl">Series A</div><div class="fcv">Q1 Year 2</div><div class="fcs">at $5M+ ARR</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+'''
+
+ASK = '''        <!-- Ask -->
+        <section class="slide" id="s-ask" data-sec="The Raise">
+            <div class="inner">
+                <div class="slide-head" style="text-align:center">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> The Ask</div>
+                    <h2 class="title reveal" data-delay="1" style="text-align:center">Seed Round</h2>
+                </div>
+                <div style="text-align:center">
+                    <div class="ask-amt reveal" data-delay="2">$2M</div>
+                    <div class="ask-eq reveal" data-delay="2">for 10% equity</div>
+                </div>
+                <div style="max-width:780px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
+                    <div class="reveal" data-delay="3" style="font-size:.8rem;font-weight:700;color:var(--primary-dark);margin-bottom:.4rem">Use of funds</div>
+                    <div class="fundbar reveal" data-delay="3">
+                        <span style="width:50%;background:var(--primary-dark)">S&amp;M 50%</span>
+                        <span style="width:25%;background:var(--primary)">Product 25%</span>
+                        <span style="width:20%;background:var(--accent)">Ops 20%</span>
+                        <span style="width:5%;background:var(--accent-2)">5%</span>
+                    </div>
+                </div>
+                <div class="cards c2" style="max-width:920px;margin:clamp(1rem,2.4vh,1.6rem) auto 0">
+                    <div class="card glass reveal" data-delay="4"><h3>2,500+ active users</h3><p>Market leadership across Australia within 12 months.</p></div>
+                    <div class="card glass reveal" data-delay="4"><h3>$2.3M ARR run-rate</h3><p>Revenue growth to a Series A-ready position.</p></div>
+                    <div class="card glass reveal" data-delay="5"><h3>Enterprise ready</h3><p>Healthlink &amp; enterprise integrations delivered.</p></div>
+                    <div class="card glass reveal" data-delay="5"><h3>Series A at $5.5M ARR</h3><p>Positioned for the next round in Year 2.</p></div>
+                </div>
+            </div>
+        </section>
+'''
+
+BODY = (INTRO + PROBLEM + AGENDA + PLATFORM + HOWITWORKS + WALK + FEAT
+        + COMPETITIVE + MARKET + TRACTION + TEAM + SECURITY
+        + IMX_WORLD + IMX_INTEG + IMX_VALUE + FINANCIALS + ASK + CLOSE)
 
 SCRIPT = r"""
         (function(){
@@ -572,6 +871,9 @@ SCRIPT = r"""
                 entries.forEach(function(e){
                     var i=slides.indexOf(e.target);
                     var vids=e.target.querySelectorAll('video');
+                    if(e.isIntersecting){
+                        e.target.querySelectorAll('.bcol').forEach(function(b){b.style.height=b.dataset.h;});
+                    }
                     if(e.isIntersecting&&e.intersectionRatio>=0.55){
                         e.target.classList.add('active');
                         dots.forEach(function(d,k){d.classList.toggle('active',k===i);});
@@ -580,6 +882,7 @@ SCRIPT = r"""
                         [].forEach.call(vids,function(v){try{var p=v.play();if(p)p.catch(function(){});}catch(_){}});
                     }else if(!e.isIntersecting){
                         [].forEach.call(vids,function(v){try{v.pause();}catch(_){}});
+                        e.target.querySelectorAll('.bcol').forEach(function(b){b.style.height='0';});
                     }
                 });
             },{root:deck,threshold:[0,0.55,1]});
