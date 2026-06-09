@@ -359,6 +359,8 @@
         .vis-arrow{display:flex;align-items:center;justify-content:center}
         .vis-arrow svg{width:clamp(28px,3.5vw,48px);height:auto;stroke:var(--accent);stroke-width:1.5;fill:none}
         @media (max-width:900px){.vis{grid-template-columns:1fr}.vis-arrow svg{transform:rotate(90deg)}}
+        /* --- vision statement --- */
+        .vision-statement{font-size:clamp(1.5rem,2.9vw,2.6rem);font-weight:800;line-height:1.3;letter-spacing:-.012em;max-width:min(92%,940px);margin:clamp(.7rem,1.6vh,1.2rem) auto 0;text-align:center;background:linear-gradient(120deg,var(--primary-dark),var(--primary) 52%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
         @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
         @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
@@ -478,13 +480,7 @@
             <div class="inner">
                 <div class="divider">
                     <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Our Vision</div>
-                    <div class="big reveal" data-delay="1">Free Every Clinician.<br>Run Every Clinic.</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:720px;margin:0 auto">An autonomous operating system for healthcare, where every clinical conversation becomes action.</p>
-                    <div class="menu reveal" data-delay="3">
-                        <span class="mi">Listen</span>
-                        <span class="mi">Reason</span>
-                        <span class="mi">Act</span>
-                    </div>
+                    <p class="vision-statement reveal" data-delay="1">To become the autonomous operating system for healthcare: giving every clinician their time back, and letting every clinic run on its own intelligence.</p>
                 </div>
             </div>
         </section>
