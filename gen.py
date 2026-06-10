@@ -1186,15 +1186,15 @@ UNITECON = '''        <!-- Unit economics -->
                     <p class="subtitle reveal" data-delay="2">A low entry point wins adoption, and no one loses money. Margin starts at the base and compounds with token usage, especially across a team.</p>
                 </div>
                 <div class="econ">
-                    <div class="econ-step glass reveal" data-delay="2"><div class="ev">$30</div><div class="el">base, per user / month</div><div class="ed">Low entry point, easy for any clinician to adopt.</div></div>
+                    <div class="econ-step glass reveal" data-delay="2"><div class="ev">$30</div><div class="el">base, per user / month</div><div class="ed">Low entry point, 10 hours of transcription included.</div></div>
                     <div class="econ-arrow reveal" data-delay="3"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
                     <div class="econ-step glass reveal" data-delay="3"><div class="ev">$12</div><div class="el">gross margin kept</div><div class="econ-bar"><div class="cost" style="width:60%"></div><div class="marg" style="width:40%"></div></div><div class="ed">~40% of the base, profitable before any token use.</div></div>
                     <div class="econ-arrow reveal" data-delay="4"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 5 19 12"/></svg></div>
-                    <div class="econ-step glass reveal" data-delay="4"><div class="ev">+ $12</div><div class="el">per 10-hour token pack</div><div class="ed">Each top-up adds premium margin on the base, and most clinicians buy several.</div></div>
+                    <div class="econ-step glass reveal" data-delay="4"><div class="ev">+ $12</div><div class="el">per 10-hour token pack</div><div class="ed">Each 10-hour top-up adds premium margin, and most active clinicians need at least one.</div></div>
                 </div>
                 <div class="econ-foot">
-                    <div class="ef glass reveal" data-delay="5"><span class="efv">$48 / user / mo</span> a heavy user: $12 base + 30 token-hours at $12 each. <b>Four times</b> the base-only margin.</div>
-                    <div class="ef glass reveal" data-delay="5"><span class="efv">$190+ / mo</span> a 6-clinician clinic: $72 base margin + shared token use, climbing with every heavy user. <b>Teams are the prize.</b></div>
+                    <div class="ef glass reveal" data-delay="5"><span class="efv">$24 / user / mo</span> a typical active clinician runs ~15 hrs/month (real SGC usage): the base plus one 10-hour token pack. <b>Double the base margin.</b></div>
+                    <div class="ef glass reveal" data-delay="5"><span class="efv">81% of usage</span> at SGC comes from just two of five users. Every extra pack adds ~$12, so <b>teams with heavy users are where margin compounds.</b></div>
                 </div>
             </div>
         </section>
