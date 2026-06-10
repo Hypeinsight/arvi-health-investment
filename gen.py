@@ -355,6 +355,19 @@ CSS = r"""
         @media (max-width:900px){.vis{grid-template-columns:1fr}.vis-arrow svg{transform:rotate(90deg)}}
         /* --- vision statement --- */
         .vision-statement{font-size:clamp(1.5rem,2.9vw,2.6rem);font-weight:800;line-height:1.3;letter-spacing:-.012em;max-width:min(92%,940px);margin:clamp(.7rem,1.6vh,1.2rem) auto 0;text-align:center;background:linear-gradient(120deg,var(--primary-dark),var(--primary) 52%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        /* --- solution (4 capabilities + workflow) --- */
+        .cards.c4{grid-template-columns:repeat(4,1fr)}
+        .sol-pill{display:inline-flex;align-items:center;gap:.3rem;margin-top:auto;align-self:flex-start;font-size:.62rem;font-weight:700;color:var(--accent);background:rgba(105,26,106,.1);padding:.28rem .6rem;border-radius:16px}
+        .sol-pill svg{width:11px;height:11px;stroke:var(--accent);stroke-width:2.5;fill:none}
+        .workflow{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-top:clamp(1rem,2.4vh,1.6rem);padding:clamp(.9rem,1.5vw,1.3rem) clamp(1.2rem,2.2vw,2rem);border-radius:var(--r-md);background:linear-gradient(135deg,var(--primary-dark),var(--primary))}
+        .workflow b{font-weight:700;color:#fff;font-size:clamp(.82rem,1.05vw,1rem)}
+        .workflow svg{width:20px;height:20px;stroke:rgba(255,255,255,.5);stroke-width:2;fill:none;flex-shrink:0}
+        /* --- gtm channels --- */
+        .gtm-chips{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:clamp(.7rem,1.6vh,1.1rem)}
+        .gtm-chip{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .9rem;border-radius:30px;font-size:clamp(.74rem,.9vw,.85rem);font-weight:600;color:var(--primary-dark);background:var(--glass);border:1px solid var(--glass-border)}
+        .gtm-chip svg{width:15px;height:15px;stroke:var(--primary);stroke-width:1.8;fill:none}
+        @media (max-width:900px){.cards.c4{grid-template-columns:repeat(2,1fr)}}
+        @media (max-width:640px){.cards.c4{grid-template-columns:1fr}}
         @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
         @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
 
@@ -1021,7 +1034,13 @@ ROADMAP = '''        <!-- Roadmap -->
                             <div class="tgt"><b>$12.8M</b><span>ARR</span></div>
                         </div>
                     </div>
-                    <p class="rm-cap reveal" data-delay="6">Phase 3 is where ambient documentation meets the systems that run hospitals, <b>discharge, coding and the patient record</b>.</p>
+                    <div class="rm-cap reveal" data-delay="6" style="margin-top:clamp(.7rem,1.6vh,1.1rem)">How we get there, our go-to-market channels:</div>
+                    <div class="gtm-chips reveal" data-delay="6">
+                        <span class="gtm-chip"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Direct outreach</span>
+                        <span class="gtm-chip"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>Medical partnerships</span>
+                        <span class="gtm-chip"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>Hospital networks</span>
+                        <span class="gtm-chip"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Digital marketing</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1178,8 +1197,28 @@ UNITECON = '''        <!-- Unit economics -->
         </section>
 '''
 
+SOLUTION = '''        <!-- The Solution (from original deck) -->
+        <section class="slide" id="s-solution" data-sec="The Solution">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg> The Solution</div>
+                    <h2 class="title reveal" data-delay="1">Enterprise-Grade Clinical Intelligence</h2>
+                </div>
+                <div class="cards c4">
+                    <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div><h3>Ambient scribe</h3><p>Passive listening captures the consult naturally, separating speakers without wake words.</p></div>
+                    <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><h3>Smart structuring</h3><p>Turns dialogue into structured notes (SOAP), letters and summaries instantly.</p></div>
+                    <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>Interoperability</h3><p>Built on HL7 / FHIR for clean integration with practice systems and hospital EMRs.</p><span class="sol-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Hospital ready</span></div>
+                    <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div><h3>Discharge automation</h3><p>Generates immediate discharge summaries and operation notes, easing bed block and admin delays.</p><span class="sol-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Hospital ready</span></div>
+                </div>
+                <div class="workflow reveal" data-delay="5">
+                    <b>1. Consult</b><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg><b>2. Transcribe</b><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg><b>3. Structure</b><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg><b>4. Integrate (PMS / EMR)</b>
+                </div>
+            </div>
+        </section>
+'''
+
 BODY = (INTRO + TEAM + AGENDA + PROBLEM + VISION + WALK
-        + PLATFORM + TRACTION + CALCULATOR + COMPETITIVE + MARKET + SECURITY
+        + PLATFORM + SOLUTION + TRACTION + CALCULATOR + COMPETITIVE + MARKET + SECURITY
         + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + UNITECON + FINANCIALS + ASK + CLOSE
         + APPENDIX + FEAT)
 
