@@ -45,10 +45,13 @@ CSS = r"""
         .deck{display:flex;height:100vh;height:100dvh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
         .deck::-webkit-scrollbar{height:0}
         .slide{position:relative;z-index:1;flex:0 0 100vw;width:100vw;height:100vh;height:100dvh;scroll-snap-align:start;
-            display:flex;flex-direction:column;justify-content:center;
-            padding:clamp(4.4rem,9vh,6.4rem) clamp(1.25rem,5vw,4.6rem) clamp(2rem,5vh,3.4rem);overflow:hidden}
-        .inner{width:100%;max-width:1660px;margin:0 auto}
-        .inner.fill{display:flex;flex-direction:column;justify-content:center;height:100%;min-height:0}
+            display:flex;flex-direction:column;
+            padding:clamp(4.4rem,9vh,6.4rem) clamp(1.25rem,5vw,4.6rem) clamp(2rem,5vh,3.4rem);overflow-x:hidden;overflow-y:auto}
+        .inner{width:100%;max-width:105rem;margin:auto}
+        .inner.fill{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+        /* scale the whole deck up on large screens so content fills 2K / 4K */
+        @media (min-width:2000px){:root{font-size:18px}}
+        @media (min-width:2560px){:root{font-size:20px}}
 
         /* type */
         .kicker{display:inline-flex;align-items:center;gap:.65rem;margin-bottom:clamp(.7rem,1.6vh,1.1rem)}
