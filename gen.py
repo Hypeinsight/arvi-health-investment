@@ -314,6 +314,9 @@ CSS = r"""
         .dlcard{display:flex;align-items:center;gap:clamp(.9rem,1.5vw,1.3rem);padding:clamp(.95rem,1.5vw,1.3rem) clamp(1.1rem,1.7vw,1.5rem);border-radius:var(--r-md);text-decoration:none;border:2.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,var(--primary),var(--accent)) border-box;box-shadow:var(--s-sm);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
         .dlcard:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
         .dlcard img{width:clamp(102px,10vw,138px);height:auto;display:block;background:#fff;padding:8px;border-radius:12px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(4,55,98,.08)}
+        .dl.compact{margin-top:clamp(.7rem,1.5vh,1rem)}
+        .dl.compact .dlcard{padding:clamp(.6rem,1vw,.9rem) clamp(.85rem,1.3vw,1.15rem)}
+        .dl.compact .dlcard img{width:clamp(70px,6.2vw,90px);padding:6px}
         .dlcard .dt{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.3rem}
         .dlcard .dt svg{width:12px;height:12px;stroke:var(--accent);stroke-width:2;fill:none}
         .dlcard .dn{font-size:clamp(1rem,1.25vw,1.2rem);font-weight:800;color:var(--primary-dark);margin:.2rem 0}
@@ -660,6 +663,10 @@ PLATFORM = '''        <!-- Platform -->
                     <div class="pillar glass reveal" data-delay="5"><div class="num">04</div><h3>Organisation &amp; Users</h3><ul><li>Org switcher</li><li>Roles &amp; permissions</li><li>User invites</li><li>Free admin user</li></ul></div>
                     <div class="pillar glass reveal" data-delay="6"><div class="num">05</div><h3>Billing</h3><ul><li>Stripe (web)</li><li>iOS in-app purchase</li></ul></div>
                 </div>
+                <div class="dl compact reveal" data-delay="6">
+                    <a class="dlcard" href="https://apps.apple.com/au/app/arvi-health/id6761469752" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on the App Store"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
+                    <a class="dlcard" href="https://play.google.com/store/apps/details?id=com.healthai.mobile" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Google Play"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
+                </div>
             </div>
         </section>
 '''
@@ -833,7 +840,7 @@ COMPETITIVE = '''        <!-- Competitive -->
                 <div class="cmp glass reveal" data-delay="2">
                     <div class="cmp-row cmp-head"><div>Feature</div><div>Nuance DAX</div><div>Lyrebird</div><div>Heidi</div><div class="arvi">Arvi<span class="cmp-best">BEST</span></div></div>
                     <div class="cmp-row"><div>Pricing</div><div>$300+/mo</div><div>$300+/mo</div><div>$1,320/yr</div><div class="arvi">From $30 + tokens</div></div>
-                    <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs + specialists</div></div>
+                    <div class="cmp-row"><div>Target market</div><div>Large hospitals</div><div>GPs only</div><div>Practices</div><div class="arvi">GPs, specialists, allied health &amp; hospitals</div></div>
                     <div class="cmp-row"><div>Clinical validation</div><div>Standard</div><div>Standard</div><div>Standard</div><div class="arvi">Specialist-led</div></div>
                     <div class="cmp-row"><div>Care settings</div><div>Hospitals</div><div>GP</div><div>Practices</div><div class="arvi">All settings</div></div>
                     <div class="cmp-row"><div>Free admin seat</div><div>No</div><div>No</div><div>Limited</div><div class="arvi tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
@@ -960,8 +967,7 @@ FINANCIALS = '''        <!-- Financials -->
             <div class="inner">
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Financial Projections</div>
-                    <h2 class="title reveal" data-delay="1">The Economics of Scale</h2>
-                    <p class="subtitle reveal" data-delay="2">Drag the dial. At a conservative $24 margin per doctor per month, adoption is the only variable that matters.</p>
+                    <h2 class="title reveal" data-delay="1">Path to $12.8M ARR</h2>
                 </div>
                 <div class="fin">
                     <div class="card glass reveal" data-delay="2">
@@ -972,13 +978,10 @@ FINANCIALS = '''        <!-- Financials -->
                             <div class="bar"><div class="bv">$12.8M</div><div class="bcol" data-h="100%"></div><div class="bl">Year 3</div></div>
                         </div>
                     </div>
-                    <div class="dial glass reveal" data-delay="3">
-                        <div class="calc-field"><label>Active doctors <span id="sc-doc-v">2,500</span></label><input type="range" id="sc-doc" min="500" max="10000" step="100" value="2500"></div>
-                        <div class="dial-outs">
-                            <div class="do"><div class="do-v" id="sc-mo">0</div><div class="do-l">margin / month</div></div>
-                            <div class="do"><div class="do-v" id="sc-yr">0</div><div class="do-l">margin / year</div></div>
-                        </div>
-                        <p class="calc-note">Aim: 2,500 active doctors by the end of Year 1. The $12 base margin is today's floor and falls as the models get more efficient, so every doctor compounds. Priced for adoption anywhere in the world.</p>
+                    <div class="fin-cards">
+                        <div class="fin-card glass reveal" data-delay="3"><div class="fcl">Blended ARPU</div><div class="fcv">~$76</div><div class="fcs">$30 base + $46 usage</div></div>
+                        <div class="fin-card glass reveal" data-delay="4"><div class="fcl">LTV : CAC target</div><div class="fcv">5.1 : 1</div><div class="fcs">Efficient growth</div></div>
+                        <div class="fin-card glass reveal" data-delay="5"><div class="fcl">Series A</div><div class="fcv">Q1 Year 2</div><div class="fcs">at $5M+ ARR</div></div>
                     </div>
                 </div>
             </div>
@@ -1214,6 +1217,26 @@ UNITECON = '''        <!-- Unit economics -->
         </section>
 '''
 
+UNITCALC = '''        <!-- Scale calculator: doctors -> margin -->
+        <section class="slide" id="s-unitcalc" data-sec="The Raise">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> Scale Calculator</div>
+                    <h2 class="title reveal" data-delay="1">What Adoption Is Worth</h2>
+                    <p class="subtitle reveal" data-delay="2">Drag the dial. At a conservative $24 margin per doctor per month, adoption is the only variable that matters.</p>
+                </div>
+                <div class="dial glass reveal" data-delay="2" style="max-width:820px;margin:clamp(1.2rem,3vh,2.2rem) auto 0">
+                    <div class="calc-field"><label>Active doctors <span id="sc-doc-v">2,500</span></label><input type="range" id="sc-doc" min="500" max="10000" step="100" value="2500"></div>
+                    <div class="dial-outs">
+                        <div class="do"><div class="do-v" id="sc-mo">0</div><div class="do-l">margin / month</div></div>
+                        <div class="do"><div class="do-v" id="sc-yr">0</div><div class="do-l">margin / year</div></div>
+                    </div>
+                    <p class="calc-note">Aim: 2,500 active doctors by the end of Year 1. The $12 base margin is today's floor and falls as the models get more efficient, so every doctor compounds. Priced for adoption anywhere in the world.</p>
+                </div>
+            </div>
+        </section>
+'''
+
 SOLUTION = '''        <!-- The Solution (from original deck) -->
         <section class="slide" id="s-solution" data-sec="The Solution">
             <div class="inner fill">
@@ -1258,8 +1281,8 @@ USEOFFUNDS = '''        <!-- Use of funds / rollout -->
 '''
 
 BODY = (INTRO + TEAM + AGENDA + PROBLEM + VISION + WALK
-        + PLATFORM + SOLUTION + TRACTION + CALCULATOR + COMPETITIVE + PRODUCT_ROADMAP + MARKET + SECURITY
-        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + ROADMAP + UNITECON + FINANCIALS + ASK + USEOFFUNDS + CLOSE
+        + PLATFORM + SOLUTION + TRACTION + CALCULATOR + COMPETITIVE + PRODUCT_ROADMAP + MARKET
+        + IMX_INTEG_ALT + ROADMAP + UNITECON + UNITCALC + FINANCIALS + ASK + USEOFFUNDS + CLOSE
         + APPENDIX + FEAT)
 
 SCRIPT = r"""
