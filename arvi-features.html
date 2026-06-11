@@ -261,6 +261,11 @@
         .dial .do{text-align:center}
         .dial .do-v{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
         .dial .do-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.3}
+        .econ-dial{display:flex;gap:clamp(1rem,2.6vw,2.2rem);align-items:center;flex-wrap:wrap;padding:clamp(1rem,1.7vw,1.5rem);margin-top:clamp(.9rem,2vh,1.4rem)}
+        .econ-dial .dial-outs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.6vw,1.2rem)}
+        .econ-dial .do{text-align:center}
+        .econ-dial .do-v{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .econ-dial .do-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.3}
         /* --- ask --- */
         .ask-amt{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;letter-spacing:-.022em;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
         .ask-eq{font-size:clamp(1rem,1.6vw,1.4rem);font-weight:600;color:var(--primary-dark);margin-top:.3rem}
@@ -816,23 +821,12 @@
                     <div class="ef glass reveal" data-delay="5"><span class="efv">$24 / user / mo</span> a typical active clinician runs ~15 hrs/month: the base plus one 10-hour pack. <b>Double the base margin.</b></div>
                     <div class="ef glass reveal" data-delay="5"><span class="efv">$36+ / user / mo</span> a heavy user adds a second pack, and keeps going. Every 10-hour pack ($29) is another <b>~$12 of margin.</b></div>
                 </div>
-            </div>
-        </section>
-        <!-- Scale calculator: doctors -> margin -->
-        <section class="slide" id="s-unitcalc" data-sec="The Raise">
-            <div class="inner">
-                <div class="slide-head">
-                    <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> Scale Calculator</div>
-                    <h2 class="title reveal" data-delay="1">What Adoption Is Worth</h2>
-                    <p class="subtitle reveal" data-delay="2">Drag the dial. At a conservative $24 margin per doctor per month, adoption is the only variable that matters.</p>
-                </div>
-                <div class="dial glass reveal" data-delay="2" style="max-width:820px;margin:clamp(1.2rem,3vh,2.2rem) auto 0">
-                    <div class="calc-field"><label>Active doctors <span id="sc-doc-v">2,500</span></label><input type="range" id="sc-doc" min="500" max="10000" step="100" value="2500"></div>
-                    <div class="dial-outs">
-                        <div class="do"><div class="do-v" id="sc-mo">0</div><div class="do-l">margin / month</div></div>
-                        <div class="do"><div class="do-v" id="sc-yr">0</div><div class="do-l">margin / year</div></div>
+                <div class="econ-dial glass reveal" data-delay="6">
+                    <div class="calc-field" style="flex:1;min-width:250px"><label>Active users <span id="sc-doc-v">2,500</span></label><input type="range" id="sc-doc" min="500" max="10000" step="100" value="2500"><p class="calc-note" style="margin-top:.45rem">Revenue scales with adoption: the typical active clinician runs $30 base + one 10-hour pack ($29). Priced for adoption anywhere in the world.</p></div>
+                    <div class="dial-outs" style="flex:0 0 auto;min-width:280px">
+                        <div class="do"><div class="do-v" id="sc-mo">0</div><div class="do-l">revenue / month</div></div>
+                        <div class="do"><div class="do-v" id="sc-yr">0</div><div class="do-l">revenue / year</div></div>
                     </div>
-                    <p class="calc-note">Aim: 2,500 active doctors by the end of Year 1. The $12 base margin is today's floor and falls as the models get more efficient, so every doctor compounds. Priced for adoption anywhere in the world.</p>
                 </div>
             </div>
         </section>
@@ -1455,10 +1449,10 @@
                 },2400);
             })();
 
-            // Scale dial: active doctors -> margin at $24 / doctor / month
+            // Scale dial: active users -> revenue at ~$59 / user / month (base + one pack)
             (function(){
                 var doc=document.getElementById('sc-doc'); if(!doc) return;
-                var PM=24;
+                var PM=59;
                 function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(2)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
                 function go(){
                     var d=+doc.value;
