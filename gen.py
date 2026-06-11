@@ -147,6 +147,8 @@ CSS = r"""
         .intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(1.5rem,4vw,4.2rem);align-items:center}
         .intro h1{font-size:clamp(2rem,4.6vw,4.1rem);font-weight:800;line-height:1.04;letter-spacing:-.022em;color:var(--primary-dark)}
         .intro h1 span{background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .intro h1 .rotw{display:inline-block;min-width:0;transition:opacity .34s ease,transform .34s ease}
+        .intro h1 .rotw.swap{opacity:0;transform:translateY(-.14em)}
         .intro p{font-size:clamp(1rem,1.4vw,1.3rem);color:var(--muted);line-height:1.6;margin-top:clamp(.8rem,1.8vh,1.2rem)}
         .badge{display:inline-flex;align-items:center;gap:.55rem;padding:.5rem 1.1rem;border-radius:50px;font-size:clamp(.72rem,1vw,.85rem);font-weight:700;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.08),rgba(105,26,106,.08));margin-bottom:clamp(.8rem,1.8vh,1.2rem)}
         .pulse{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(105,26,106,.5);animation:pulse 2s infinite}
@@ -247,6 +249,12 @@ CSS = r"""
         .fin-card .fcl{font-size:.72rem;font-weight:600;color:var(--muted)}
         .fin-card .fcv{font-size:clamp(1.2rem,1.8vw,1.6rem);font-weight:800;color:var(--primary-dark)}
         .fin-card .fcs{font-size:.72rem;color:var(--accent)}
+        /* --- scale dial (doctors -> margin) --- */
+        .dial{padding:clamp(1.1rem,1.8vw,1.6rem);display:flex;flex-direction:column;gap:clamp(.8rem,1.6vh,1.2rem);justify-content:center}
+        .dial .dial-outs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.6rem,1.4vw,1rem)}
+        .dial .do{text-align:center}
+        .dial .do-v{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .dial .do-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.3}
         /* --- ask --- */
         .ask-amt{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;letter-spacing:-.022em;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
         .ask-eq{font-size:clamp(1rem,1.6vw,1.4rem);font-weight:600;color:var(--primary-dark);margin-top:.3rem}
@@ -303,10 +311,9 @@ CSS = r"""
         .reviewflag{position:absolute;top:clamp(4.2rem,8.5vh,5.6rem);left:50%;transform:translateX(-50%);z-index:6;background:#b45309;color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:.32rem .85rem;border-radius:20px;box-shadow:0 6px 16px rgba(180,83,9,.32);white-space:nowrap}
         /* --- app download QR --- */
         .dl{display:flex;justify-content:center;gap:clamp(1rem,2.6vw,2rem);flex-wrap:wrap;margin-top:clamp(1rem,2.2vh,1.5rem)}
-        .dlcard{display:flex;align-items:center;gap:clamp(.9rem,1.5vw,1.3rem);padding:clamp(.85rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.4rem);border-radius:var(--r-md);text-decoration:none;border:1px solid var(--glass-border);box-shadow:var(--s-sm);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
-        .dlcard::before{content:"";position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--primary),var(--accent))}
+        .dlcard{display:flex;align-items:center;gap:clamp(.9rem,1.5vw,1.3rem);padding:clamp(.95rem,1.5vw,1.3rem) clamp(1.1rem,1.7vw,1.5rem);border-radius:var(--r-md);text-decoration:none;border:2.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,var(--primary),var(--accent)) border-box;box-shadow:var(--s-sm);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
         .dlcard:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
-        .dlcard img{width:clamp(68px,7vw,94px);height:auto;display:block;background:#fff;padding:7px;border-radius:12px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(4,55,98,.08)}
+        .dlcard img{width:clamp(102px,10vw,138px);height:auto;display:block;background:#fff;padding:8px;border-radius:12px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(4,55,98,.08)}
         .dlcard .dt{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.3rem}
         .dlcard .dt svg{width:12px;height:12px;stroke:var(--accent);stroke-width:2;fill:none}
         .dlcard .dn{font-size:clamp(1rem,1.25vw,1.2rem);font-weight:800;color:var(--primary-dark);margin:.2rem 0}
@@ -605,8 +612,8 @@ INTRO = '''        <!-- Intro -->
                 <div class="intro">
                     <div class="feature-copy">
                         <div class="badge reveal"><span class="pulse"></span> AI Clinical Documentation</div>
-                        <h1 class="reveal" data-delay="1">Capture the consult.<br><span>Arvi does the rest.</span></h1>
-                        <p class="reveal" data-delay="2">From clinic, emergency, ward or theatre to a structured clinical note and ready-to-send letter, the capture &amp; authoring layer that plugs into the systems hospitals already run.</p>
+                        <h1 class="reveal" data-delay="1">Capture the <span class="rotw" id="rotw">consult</span>.<br><span>Arvi does the rest.</span></h1>
+                        <p class="reveal" data-delay="2">From clinic, emergency, ward or theatre, straight to a structured clinical note and a ready-to-send letter. The capture and authoring layer that plugs into the systems hospitals already run.</p>
                         <div class="tags reveal" data-delay="3"><span class="tag">Web &amp; mobile apps</span><span class="tag">20 production features</span><span class="tag">HL7 / FHIR-ready</span></div>
                     </div>
                     <figure class="clip reveal" data-delay="2">
@@ -752,8 +759,8 @@ CLOSE = '''        <!-- Close -->
                     <div class="tags reveal" data-delay="3" style="justify-content:center"><span class="tag">20 features in production</span><span class="tag">HL7 / FHIR-ready</span><span class="tag">Built for acute care</span></div>
                     <a class="cta reveal" data-delay="4" href="https://arvihealth.com" target="_blank" rel="noopener">Visit arvihealth.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                     <div class="dl reveal" data-delay="5">
-                        <a class="dlcard glass" href="https://apps.apple.com/au/app/arvi-health/id6761469752" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on the App Store"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to download</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
-                        <a class="dlcard glass" href="https://play.google.com/store/apps/details?id=com.healthai.mobile" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Google Play"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to download</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
+                        <a class="dlcard" href="https://apps.apple.com/au/app/arvi-health/id6761469752" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on the App Store"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to download</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
+                        <a class="dlcard" href="https://play.google.com/store/apps/details?id=com.healthai.mobile" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Google Play"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to download</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
                     </div>
                 </div>
             </div>
@@ -921,8 +928,8 @@ TEAM = '''        <!-- Team -->
                     <div class="tcard glass reveal" data-delay="3"><img src="dr%20suhirdan.jpg" alt="Dr Suhirdan Vivekanandarajah"><h3>Dr Suhirdan Vivekanandarajah</h3><div class="trole">Co-Founder</div><div class="tchips"><span>Gastroenterologist</span><span>Clinic owner</span></div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Practising gastroenterologist &amp; clinic owner</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Deep clinical workflow validation</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Leads product vision &amp; medical partnerships</li></ul></div>
                 </div>
                 <div class="dl reveal" data-delay="4" style="margin-top:clamp(1rem,2.4vh,1.6rem)">
-                    <a class="dlcard glass" href="https://apps.apple.com/au/app/arvi-health/id6761469752" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on the App Store"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
-                    <a class="dlcard glass" href="https://play.google.com/store/apps/details?id=com.healthai.mobile" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Google Play"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
+                    <a class="dlcard" href="https://apps.apple.com/au/app/arvi-health/id6761469752" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on the App Store"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
+                    <a class="dlcard" href="https://play.google.com/store/apps/details?id=com.healthai.mobile" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Google Play"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
                 </div>
             </div>
         </section>
@@ -953,7 +960,8 @@ FINANCIALS = '''        <!-- Financials -->
             <div class="inner">
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Financial Projections</div>
-                    <h2 class="title reveal" data-delay="1">Path to $12.8M ARR</h2>
+                    <h2 class="title reveal" data-delay="1">The Economics of Scale</h2>
+                    <p class="subtitle reveal" data-delay="2">Drag the dial. At a conservative $24 margin per doctor per month, adoption is the only variable that matters.</p>
                 </div>
                 <div class="fin">
                     <div class="card glass reveal" data-delay="2">
@@ -964,10 +972,13 @@ FINANCIALS = '''        <!-- Financials -->
                             <div class="bar"><div class="bv">$12.8M</div><div class="bcol" data-h="100%"></div><div class="bl">Year 3</div></div>
                         </div>
                     </div>
-                    <div class="fin-cards">
-                        <div class="fin-card glass reveal" data-delay="3"><div class="fcl">Blended ARPU</div><div class="fcv">~$76</div><div class="fcs">$30 base + $46 usage</div></div>
-                        <div class="fin-card glass reveal" data-delay="4"><div class="fcl">LTV : CAC target</div><div class="fcv">5.1 : 1</div><div class="fcs">Efficient growth</div></div>
-                        <div class="fin-card glass reveal" data-delay="5"><div class="fcl">Series A</div><div class="fcv">Q1 Year 2</div><div class="fcs">at $5M+ ARR</div></div>
+                    <div class="dial glass reveal" data-delay="3">
+                        <div class="calc-field"><label>Active doctors <span id="sc-doc-v">2,500</span></label><input type="range" id="sc-doc" min="500" max="10000" step="100" value="2500"></div>
+                        <div class="dial-outs">
+                            <div class="do"><div class="do-v" id="sc-mo">0</div><div class="do-l">margin / month</div></div>
+                            <div class="do"><div class="do-v" id="sc-yr">0</div><div class="do-l">margin / year</div></div>
+                        </div>
+                        <p class="calc-note">Aim: 2,500 active doctors by the end of Year 1. The $12 base margin is today's floor and falls as the models get more efficient, so every doctor compounds. Priced for adoption anywhere in the world.</p>
                     </div>
                 </div>
             </div>
@@ -1186,7 +1197,7 @@ UNITECON = '''        <!-- Unit economics -->
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Unit Economics</div>
                     <h2 class="title reveal" data-delay="1">The $30 Model, and Why It Profits</h2>
-                    <p class="subtitle reveal" data-delay="2">A low entry point wins adoption, and no one loses money. Margin starts at the base and compounds as a clinician adds token packs.</p>
+                    <p class="subtitle reveal" data-delay="2">A low entry point wins adoption, and no one loses money. The $12 margin is today's floor, already coming down as the models get more efficient, and it compounds as a clinician adds token packs.</p>
                 </div>
                 <div class="econ">
                     <div class="econ-step glass reveal" data-delay="2"><div class="ev">$30</div><div class="el">base, per user / month</div><div class="ed">Low entry point, 10 hours of transcription included.</div></div>
@@ -1247,8 +1258,8 @@ USEOFFUNDS = '''        <!-- Use of funds / rollout -->
 '''
 
 BODY = (INTRO + TEAM + AGENDA + PROBLEM + VISION + WALK
-        + PLATFORM + SOLUTION + TRACTION + CALCULATOR + COMPETITIVE + MARKET + SECURITY
-        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + PRODUCT_ROADMAP + ROADMAP + UNITECON + FINANCIALS + ASK + USEOFFUNDS + CLOSE
+        + PLATFORM + SOLUTION + TRACTION + CALCULATOR + COMPETITIVE + PRODUCT_ROADMAP + MARKET + SECURITY
+        + IMX_WORLD + IMX_INTEG_ALT + IMX_VALUE + ROADMAP + UNITECON + FINANCIALS + ASK + USEOFFUNDS + CLOSE
         + APPENDIX + FEAT)
 
 SCRIPT = r"""
@@ -1345,6 +1356,35 @@ SCRIPT = r"""
                 }
                 [clin,hrs,rate].forEach(function(el){ el.addEventListener('input',calc); });
                 calc();
+            })();
+
+            // Rotating headline word: keeps the focus on clinical work, Arvi does the rest.
+            (function(){
+                var el=document.getElementById('rotw'); if(!el) return;
+                var words=['consult','procedure','ward round','theatre case','meeting','patient'];
+                var i=0;
+                setInterval(function(){
+                    el.classList.add('swap');
+                    setTimeout(function(){
+                        i=(i+1)%words.length;
+                        el.textContent=words[i];
+                        el.classList.remove('swap');
+                    },340);
+                },2400);
+            })();
+
+            // Scale dial: active doctors -> margin at $24 / doctor / month
+            (function(){
+                var doc=document.getElementById('sc-doc'); if(!doc) return;
+                var PM=24;
+                function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(2)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
+                function go(){
+                    var d=+doc.value;
+                    document.getElementById('sc-doc-v').textContent=d.toLocaleString('en-AU');
+                    document.getElementById('sc-mo').textContent=money(d*PM);
+                    document.getElementById('sc-yr').textContent=money(d*PM*12);
+                }
+                doc.addEventListener('input',go); go();
             })();
 
             // Deep-link: jump to #slide-id on load (e.g. .../arvi-features.html#s-roadmap)
