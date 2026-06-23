@@ -1439,9 +1439,10 @@ HTML = '''<!DOCTYPE html>
 </html>
 '''
 
-with io.open('arvi-features.html','w',encoding='utf-8') as f:
-    f.write(HTML)
-# count slides
-print("slides:", HTML.count('<section class="slide"'))
-print("videos:", HTML.count('<video'))
-print("WROTE arvi-features.html")
+if __name__ == "__main__":
+    with io.open('arvi-features.html','w',encoding='utf-8') as f:
+        f.write(HTML)
+    # count slides
+    print("slides:", HTML.count('<section class="slide"'))
+    print("videos:", HTML.count('<video'))
+    print("WROTE arvi-features.html")
