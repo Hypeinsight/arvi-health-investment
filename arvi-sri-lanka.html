@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <title>Arvi Health &middot; Mobile, Roadmap &amp; Features</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --primary-dark:#043762; --primary:#0455A3; --accent:#691A6A; --accent-2:#8a2b8b;
+            --bg:#f4f9fe; --ink:#0c2740; --muted:#5b7189; --line:rgba(4,55,98,.10);
+            --glass:rgba(255,255,255,.72); --glass-border:rgba(255,255,255,.65);
+            --s-sm:0 4px 16px rgba(4,55,98,.06);
+            --s-md:0 16px 44px -12px rgba(4,55,98,.20);
+            --s-lg:0 34px 90px -28px rgba(4,55,98,.55), 0 10px 28px rgba(4,55,98,.14);
+            --r-lg:clamp(16px,1.4vw,26px); --r-md:clamp(12px,1vw,18px); --r-sm:10px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;overflow:hidden}
+        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+        /* layered modern background: soft mesh + faint grid */
+        body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+            background:
+              radial-gradient(1100px 780px at 8% -12%, rgba(4,85,163,.12), transparent 58%),
+              radial-gradient(960px 720px at 104% 112%, rgba(105,26,106,.12), transparent 54%),
+              radial-gradient(700px 600px at 88% 4%, rgba(200,232,255,.5), transparent 60%);}
+        body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+            background-image:linear-gradient(rgba(4,55,98,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(4,55,98,.035) 1px,transparent 1px);
+            background-size:46px 46px;
+            -webkit-mask:radial-gradient(circle at 50% 35%, #000, transparent 78%);
+            mask:radial-gradient(circle at 50% 35%, #000, transparent 78%);}
+
+        /* progress + nav */
+        .progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:1100;background:transparent}
+        .progress span{display:block;height:100%;width:calc(var(--p,0)*100%);background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .2s ease}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;
+            padding:clamp(.7rem,1.5vh,1.05rem) clamp(1.1rem,4vw,3rem);
+            background:rgba(244,249,254,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+        .logo img{height:clamp(28px,4vh,40px);width:auto;display:block}
+        .nav-tag{font-size:clamp(.6rem,1vw,.76rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+        .nav-tag b{color:var(--primary)}
+        .dots{display:flex;gap:5px;align-items:center}
+        .dot{width:7px;height:7px;border-radius:50%;background:rgba(4,55,98,.22);cursor:pointer;border:none;padding:0;transition:all .35s cubic-bezier(.4,0,.2,1)}
+        .dot:hover{background:rgba(4,85,163,.55);transform:scale(1.3)}
+        .dot.active{background:linear-gradient(135deg,var(--primary),var(--accent));width:24px;border-radius:5px}
+
+        /* deck */
+        .deck{display:flex;height:100vh;height:100dvh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+        .deck::-webkit-scrollbar{height:0}
+        .slide{position:relative;z-index:1;flex:0 0 100vw;width:100vw;height:100vh;height:100dvh;scroll-snap-align:start;
+            display:flex;flex-direction:column;
+            padding:clamp(4.4rem,9vh,6.4rem) clamp(1.25rem,5vw,4.6rem) clamp(2rem,5vh,3.4rem);overflow-x:hidden;overflow-y:auto}
+        .inner{width:100%;max-width:105rem;margin:auto}
+        .inner.fill{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+        /* scale the whole deck up on large screens so content fills 2K / 4K */
+        @media (min-width:2000px){:root{font-size:18px}}
+        @media (min-width:2560px){:root{font-size:20px}}
+
+        /* type */
+        .kicker{display:inline-flex;align-items:center;gap:.65rem;margin-bottom:clamp(.7rem,1.6vh,1.1rem)}
+        .kicker .n{font-variant-numeric:tabular-nums;font-weight:800;font-size:.78rem;letter-spacing:.03em;color:#fff;background:linear-gradient(135deg,var(--primary),var(--accent));padding:.32rem .58rem;border-radius:9px;box-shadow:0 6px 16px rgba(4,85,163,.28)}
+        .kicker .s{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        .label{display:inline-flex;align-items:center;gap:.5rem;font-size:clamp(.66rem,1vw,.8rem);font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--accent);margin-bottom:clamp(.6rem,1.4vh,1rem)}
+        .label svg{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none}
+        .label.imx{color:var(--primary)}
+        .title{font-size:clamp(1.7rem,3.7vw,3.5rem);font-weight:800;line-height:1.06;letter-spacing:-.022em;
+            background:linear-gradient(118deg,var(--primary-dark) 0%,var(--primary) 50%,var(--accent) 100%);
+            -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .subtitle{font-size:clamp(.95rem,1.35vw,1.28rem);color:var(--muted);line-height:1.55;margin-top:clamp(.6rem,1.4vh,1rem);max-width:60ch}
+        .slide-head{margin-bottom:clamp(1rem,2.4vh,1.8rem)}
+        .slide-head .subtitle{max-width:82ch}
+
+        .glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--r-lg);box-shadow:var(--s-sm)}
+
+        /* feature layout */
+        .feature{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.68fr);gap:clamp(1.5rem,4vw,4.2rem);align-items:center}
+        .feature.reverse{grid-template-columns:minmax(0,1.68fr) minmax(0,.82fr)}
+        .feature.reverse .feature-copy{order:2}
+        .feature.reverse .clip{order:1}
+        .points{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.1rem);margin-top:clamp(1rem,2.4vh,1.7rem)}
+        .points li{display:flex;gap:.85rem;align-items:flex-start}
+        .ic{width:clamp(34px,2.5vw,40px);height:clamp(34px,2.5vw,40px);border-radius:var(--r-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 7px 18px rgba(4,85,163,.26)}
+        .ic svg{width:52%;height:52%;stroke:#fff;stroke-width:2;fill:none}
+        .points h4{font-size:clamp(.95rem,1.2vw,1.12rem);color:var(--primary-dark);font-weight:700}
+        .points p{font-size:clamp(.82rem,1vw,.97rem);color:var(--muted);line-height:1.45;margin-top:.1rem}
+        .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:clamp(1rem,2.2vh,1.5rem)}
+        .tag{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .95rem;border-radius:30px;font-size:clamp(.72rem,.95vw,.85rem);font-weight:600;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.07),rgba(105,26,106,.08))}
+
+        /* video frame - premium */
+        .clip{position:relative;min-width:0;display:flex;flex-direction:column;align-items:center}
+        .clip-glow{position:absolute;inset:-9% -9% -16%;z-index:-1;background:radial-gradient(58% 58% at 50% 42%,rgba(105,26,106,.22),transparent 70%);filter:blur(14px);animation:glow 5s ease-in-out infinite}
+        @keyframes glow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+        .clip-frame{position:relative;width:100%;border-radius:var(--r-lg);overflow:hidden;background:#06182c;border:1px solid rgba(255,255,255,.12);box-shadow:var(--s-lg)}
+        .chrome{display:flex;align-items:center;gap:.45rem;padding:.55rem .9rem;background:linear-gradient(135deg,#0a2744,#06457f)}
+        .chrome i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.32)}
+        .chrome .url{margin-left:.7rem;font-size:clamp(.62rem,.85vw,.74rem);color:rgba(255,255,255,.8);background:rgba(255,255,255,.13);padding:.22rem .85rem;border-radius:20px;max-width:72%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .clip-frame video{width:100%;height:auto;max-height:75dvh;display:block;background:#000;object-fit:contain}
+        .clip-frame img{width:100%;height:auto;max-height:60dvh;display:block;background:#06182c;object-fit:contain}
+        figcaption{font-size:clamp(.74rem,.95vw,.88rem);color:var(--muted);margin-top:.85rem;text-align:center}
+        figcaption b{color:var(--primary-dark)}
+
+        /* platform pillars */
+        .apps{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:clamp(.8rem,1.8vh,1.2rem)}
+        .app{display:flex;align-items:center;gap:.7rem;padding:.7rem 1.1rem;border-radius:var(--r-md)}
+        .app svg{width:24px;height:24px;stroke:var(--primary);stroke-width:1.8;fill:none;flex-shrink:0}
+        .app strong{color:var(--primary-dark);font-size:.92rem;display:block}
+        .app span{font-size:.76rem;color:var(--muted)}
+        .pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.7rem,1.4vw,1.2rem);align-items:stretch;margin-top:clamp(.8rem,2vh,1.5rem)}
+        .pillar{padding:clamp(1rem,1.6vw,1.5rem);display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+        .pillar:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
+        .pillar .num{font-size:clamp(.66rem,.9vw,.78rem);font-weight:800;color:var(--accent);letter-spacing:.12em}
+        .pillar h3{font-size:clamp(.95rem,1.2vw,1.12rem);color:var(--primary-dark);margin:.4rem 0 .7rem;line-height:1.2}
+        .pillar ul{list-style:none;display:flex;flex-direction:column;gap:.42rem}
+        .pillar li{font-size:clamp(.78rem,.95vw,.92rem);color:#475569;display:flex;gap:.45rem;align-items:flex-start;line-height:1.3}
+        .pillar li::before{content:"";width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));margin-top:.42rem;flex-shrink:0}
+
+        /* infomedix */
+        .imx-bar{display:flex;flex-wrap:wrap;gap:clamp(1.2rem,3vw,3rem);padding:clamp(1rem,2vh,1.5rem) clamp(1.3rem,2.5vw,2.2rem);margin:clamp(.8rem,2vh,1.3rem) 0}
+        .imx-stat .v{font-size:clamp(1.5rem,2.7vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .imx-stat .l{font-size:clamp(.72rem,.92vw,.85rem);color:var(--muted);margin-top:.35rem}
+        .cards{display:grid;gap:clamp(.8rem,1.6vw,1.4rem)}
+        .cards.c3{grid-template-columns:repeat(3,1fr)}
+        .card{padding:clamp(1.1rem,1.8vw,1.7rem);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+        .card:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
+        .card .vic{width:clamp(40px,3vw,50px);height:clamp(40px,3vw,50px);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--accent));margin-bottom:clamp(.6rem,1.2vh,1rem)}
+        .card .vic svg{width:50%;height:50%;stroke:#fff;stroke-width:2;fill:none}
+        .card h3{font-size:clamp(.98rem,1.2vw,1.15rem);color:var(--primary-dark);margin-bottom:.4rem}
+        .card p{font-size:clamp(.82rem,1vw,.96rem);color:var(--muted);line-height:1.5}
+
+        .integ{display:grid;grid-template-columns:.95fr auto 1.3fr;gap:clamp(1rem,2.5vw,2rem);align-items:center;margin-top:clamp(1rem,2.4vh,2rem)}
+        .integ-arvi{padding:clamp(1.2rem,2vw,1.9rem);border-radius:var(--r-lg);background:linear-gradient(150deg,var(--primary-dark),var(--primary));color:#fff;box-shadow:var(--s-md)}
+        .integ-arvi .il{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+        .integ-arvi h3{color:#fff;font-size:clamp(1.3rem,2.2vw,1.8rem);margin:.3rem 0 .5rem}
+        .integ-arvi>p{font-size:clamp(.82rem,1vw,.95rem);color:rgba(255,255,255,.82);line-height:1.45}
+        .integ-arvi ul{list-style:none;margin-top:1.1rem;display:flex;flex-direction:column;gap:.55rem}
+        .integ-arvi li{font-size:clamp(.82rem,1vw,.95rem);color:#fff;display:flex;gap:.5rem;align-items:center}
+        .integ-arvi li svg{width:16px;height:16px;stroke:#c8e8ff;stroke-width:2.4;fill:none;flex-shrink:0}
+        .pipe{display:flex;flex-direction:column;align-items:center;gap:.55rem}
+        .pipe .pl{font-size:clamp(.62rem,.85vw,.72rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-align:center;line-height:1.3}
+        .pipe .pl.sub{color:#94a3b8}
+        .pipe svg{width:clamp(38px,4vw,54px);height:clamp(38px,4vw,54px);stroke:var(--accent);stroke-width:1.4;fill:none}
+        .imx-prods{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.6rem,1.2vw,.9rem)}
+        .imx-prod{padding:clamp(.8rem,1.2vw,1.05rem);border-radius:var(--r-md);transition:transform .3s,box-shadow .3s}
+        .imx-prod:hover{transform:translateY(-3px);box-shadow:var(--s-md)}
+        .imx-prod h4{font-size:clamp(.84rem,1vw,.95rem);color:var(--primary-dark);margin-bottom:.2rem}
+        .imx-prod p{font-size:clamp(.72rem,.9vw,.82rem);color:var(--muted);line-height:1.35}
+        .imx-prod.span{grid-column:span 2}
+
+        /* intro + close */
+        .intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(1.5rem,4vw,4.2rem);align-items:center}
+        .intro h1{font-size:clamp(2rem,4.6vw,4.1rem);font-weight:800;line-height:1.04;letter-spacing:-.022em;color:var(--primary-dark)}
+        .intro h1 span{background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .intro h1 .rotw{display:inline-block;min-width:0;transition:opacity .34s ease,transform .34s ease}
+        .intro h1 .rotw.swap{opacity:0;transform:translateY(-.14em)}
+        .intro p{font-size:clamp(1rem,1.4vw,1.3rem);color:var(--muted);line-height:1.6;margin-top:clamp(.8rem,1.8vh,1.2rem)}
+        .badge{display:inline-flex;align-items:center;gap:.55rem;padding:.5rem 1.1rem;border-radius:50px;font-size:clamp(.72rem,1vw,.85rem);font-weight:700;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.08),rgba(105,26,106,.08));margin-bottom:clamp(.8rem,1.8vh,1.2rem)}
+        .pulse{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(105,26,106,.5);animation:pulse 2s infinite}
+        @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(105,26,106,.5)}70%{box-shadow:0 0 0 10px rgba(105,26,106,0)}100%{box-shadow:0 0 0 0 rgba(105,26,106,0)}}
+        .intro .clip-frame video{max-height:78dvh;object-fit:cover}
+        .close{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(1rem,2.4vh,1.6rem)}
+        .close img{height:clamp(46px,6vh,70px)}
+        .close .title,.close .subtitle{text-align:center}
+        .close .subtitle{margin-left:auto;margin-right:auto}
+        .cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:.4rem;padding:.9rem 2rem;border-radius:50px;font-weight:700;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 12px 34px rgba(105,26,106,.32);transition:transform .25s,box-shadow .25s}
+        .cta:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(105,26,106,.44)}
+        .cta svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+
+        /* InfoMedix brand marks (white-bg logo blended via multiply) */
+        .imx-logo{mix-blend-mode:multiply;width:auto;display:block}
+        .imx-bar .imx-logo{height:clamp(28px,4vh,44px);align-self:center;padding-right:clamp(.7rem,1.6vw,1.3rem);border-right:1px solid var(--line)}
+        .imx-side{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1rem);min-width:0}
+        .imx-side-head{display:flex;align-items:center;gap:.6rem}
+        .imx-side-head .imx-logo{height:clamp(20px,2.6vh,30px)}
+        .imx-side-head span{font-size:clamp(.72rem,.9vw,.84rem);color:var(--muted);font-weight:600}
+        .lockup{display:flex;align-items:center;justify-content:center;gap:clamp(1.1rem,3vw,2.4rem);flex-wrap:wrap}
+        .lockup img{width:auto}
+        .lockup .lk-arvi{height:clamp(40px,6vh,62px)}
+        .lockup .lk-imx{height:clamp(30px,4.6vh,48px);mix-blend-mode:multiply}
+        .lockup .x{font-size:clamp(1.3rem,2.6vw,1.9rem);color:#94a3b8;font-weight:300}
+
+        /* --- added: agenda --- */
+        .cards.c2{grid-template-columns:repeat(2,1fr)}
+        .agenda{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1rem);margin-top:clamp(1rem,2.4vh,1.8rem);max-width:1000px}
+        .agenda-item{display:flex;align-items:center;gap:1rem;padding:clamp(.8rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.5rem)}
+        .agenda-item .an{font-variant-numeric:tabular-nums;font-weight:800;font-size:clamp(1rem,1.6vw,1.4rem);color:#fff;background:linear-gradient(135deg,var(--primary),var(--accent));width:clamp(36px,3vw,46px);height:clamp(36px,3vw,46px);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .agenda-item h3{font-size:clamp(1rem,1.4vw,1.3rem);color:var(--primary-dark);font-weight:700}
+        .agenda-item p{font-size:clamp(.8rem,1vw,.95rem);color:var(--muted);margin-top:.1rem}
+        .agenda-item .ad{margin-left:auto;font-size:clamp(.7rem,.9vw,.82rem);color:#94a3b8;font-weight:600;white-space:nowrap}
+        /* --- how it works --- */
+        .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.7rem,1.5vw,1.2rem);margin-top:clamp(1.2rem,3vh,2.2rem)}
+        .step{padding:clamp(1.1rem,1.8vw,1.7rem);display:flex;flex-direction:column;gap:.6rem}
+        .step .sic{width:clamp(42px,3.2vw,52px);height:clamp(42px,3.2vw,52px);border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 7px 18px rgba(4,85,163,.25)}
+        .step .sic svg{width:50%;height:50%;stroke:#fff;stroke-width:2;fill:none}
+        .step .sn{font-size:.7rem;font-weight:800;color:var(--accent);letter-spacing:.12em}
+        .step h3{font-size:clamp(.95rem,1.2vw,1.15rem);color:var(--primary-dark)}
+        .step p{font-size:clamp(.8rem,1vw,.95rem);color:var(--muted);line-height:1.45}
+        /* --- demo divider --- */
+        .divider{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(1rem,2.4vh,1.6rem)}
+        .divider .big{font-size:clamp(2.2rem,5.2vw,4.4rem);font-weight:800;letter-spacing:-.022em;line-height:1.04;background:linear-gradient(118deg,var(--primary-dark),var(--primary) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .menu{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;max-width:920px}
+        .menu .mi{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;border-radius:40px;font-weight:600;font-size:clamp(.8rem,1vw,.95rem);color:var(--primary-dark);background:var(--glass);border:1px solid var(--glass-border)}
+        .menu .mi b{color:var(--accent)}
+        /* --- comparison table --- */
+        .cmp{margin-top:clamp(1rem,2.4vh,1.6rem);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--glass-border)}
+        .cmp-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.1fr;font-size:clamp(.7rem,.92vw,.88rem)}
+        .cmp-row>div{padding:clamp(.55rem,1vw,.85rem) clamp(.5rem,1vw,1rem);display:flex;align-items:center;justify-content:center;text-align:center;border-top:1px solid rgba(4,55,98,.07)}
+        .cmp-row>div:first-child{justify-content:flex-start;text-align:left;font-weight:600;color:var(--primary-dark)}
+        .cmp-head{background:var(--primary-dark);color:#fff;font-weight:700}
+        .cmp-head>div{border-top:none}
+        .cmp-head .arvi{background:linear-gradient(135deg,var(--accent),var(--accent-2));position:relative}
+        .cmp .arvi{background:rgba(200,232,255,.34);font-weight:700;color:var(--primary-dark)}
+        .cmp .tick svg{width:18px;height:18px;stroke:#22c55e;stroke-width:2.5;fill:none}
+        .cmp-best{position:absolute;top:3px;right:5px;background:#ff3b30;color:#fff;font-size:.5rem;padding:1px 5px;border-radius:7px}
+        /* --- market funnel --- */
+        .funnel{display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1.1rem)}
+        .fbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:clamp(.8rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.5rem);border-radius:14px}
+        .fbar .fl{font-size:.7rem;font-weight:800;letter-spacing:.1em;color:var(--accent)}
+        .fbar .fd{font-size:clamp(.76rem,.95vw,.9rem);color:var(--muted);margin-top:.15rem}
+        .fbar .fv{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:800;color:var(--primary-dark)}
+        .fbar.tam{background:rgba(240,248,255,.7);border:2px dashed rgba(4,55,98,.25)}
+        .fbar.sam{background:rgba(200,232,255,.6);border:1px solid rgba(4,85,163,.25);margin:0 clamp(1rem,3vw,2.5rem)}
+        .fbar.som{background:linear-gradient(135deg,var(--primary-dark),var(--primary));margin:0 clamp(2rem,6vw,5rem)}
+        .fbar.som .fl{color:#c8e8ff}.fbar.som .fd{color:rgba(255,255,255,.8)}.fbar.som .fv{color:#fff}
+        /* --- traction --- */
+        .tr-live{display:flex;align-items:flex-start;gap:1rem;padding:clamp(1.1rem,1.8vw,1.6rem);border-radius:var(--r-lg);background:linear-gradient(140deg,var(--primary-dark),var(--primary));color:#fff;box-shadow:var(--s-md)}
+        .tr-live strong{font-size:clamp(1rem,1.3vw,1.2rem)}
+        .tr-live .badge2{display:inline-block;margin-top:.6rem;padding:.25rem .75rem;border-radius:20px;background:rgba(255,255,255,.18);font-size:.7rem;font-weight:700}
+        .checklist{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+        .checklist li{display:flex;gap:.6rem;align-items:flex-start;font-size:clamp(.82rem,1vw,.96rem);color:#334155;line-height:1.4}
+        .checklist li svg{width:18px;height:18px;stroke:#22c55e;stroke-width:2.4;fill:none;flex-shrink:0;margin-top:.12rem}
+        /* --- team --- */
+        .team{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.5vw,2rem);margin-top:clamp(1rem,2.4vh,1.8rem)}
+        .tcard{padding:clamp(1.2rem,2vw,1.9rem);display:flex;flex-direction:column;align-items:center;text-align:center}
+        .tcard img{width:clamp(84px,8vw,120px);height:clamp(84px,8vw,120px);border-radius:50%;object-fit:cover;border:3px solid var(--glass-border);box-shadow:var(--s-md)}
+        .tcard h3{font-size:clamp(1.05rem,1.5vw,1.4rem);color:var(--primary-dark);margin-top:.8rem}
+        .tcard .trole{font-size:.85rem;color:var(--accent);font-weight:700;margin-top:.15rem}
+        .tchips{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:.7rem 0}
+        .tchips span{font-size:.72rem;font-weight:600;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.07),rgba(105,26,106,.08));padding:.3rem .7rem;border-radius:20px}
+        .tcard ul{list-style:none;display:flex;flex-direction:column;gap:.45rem;text-align:left;margin-top:.4rem}
+        .tcard li{font-size:clamp(.8rem,.98vw,.92rem);color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.4}
+        .tcard li svg{width:15px;height:15px;stroke:var(--primary);stroke-width:2.4;fill:none;flex-shrink:0;margin-top:.22rem}
+        /* --- financials --- */
+        .fin{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1rem,2.5vw,2rem);margin-top:clamp(1rem,2vh,1.6rem);align-items:stretch}
+        .bars{display:flex;align-items:flex-end;justify-content:space-around;gap:clamp(1rem,3vw,2.5rem);height:clamp(150px,24vh,240px);padding:1rem clamp(.5rem,2vw,1.5rem) 0}
+        .bar{display:flex;flex-direction:column;align-items:center;gap:.5rem;flex:1;height:100%;justify-content:flex-end}
+        .bar .bv{font-weight:800;color:var(--primary-dark);font-size:clamp(.85rem,1.1vw,1.05rem)}
+        .bar .bcol{width:clamp(48px,6vw,92px);height:0;border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--primary),var(--primary-dark));transition:height .9s cubic-bezier(.22,1,.36,1)}
+        .bar:last-child .bcol{background:linear-gradient(180deg,var(--accent),var(--accent-2))}
+        .bar .bl{font-size:clamp(.72rem,.9vw,.85rem);color:var(--muted)}
+        .fin-cards{display:flex;flex-direction:column;gap:clamp(.6rem,1.2vh,1rem);justify-content:center}
+        .fin-card{padding:clamp(.9rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.3rem);border-left:4px solid var(--primary)}
+        .fin-card .fcl{font-size:.72rem;font-weight:600;color:var(--muted)}
+        .fin-card .fcv{font-size:clamp(1.2rem,1.8vw,1.6rem);font-weight:800;color:var(--primary-dark)}
+        .fin-card .fcs{font-size:.72rem;color:var(--accent)}
+        /* --- scale dial (doctors -> margin) --- */
+        .dial{padding:clamp(1.1rem,1.8vw,1.6rem);display:flex;flex-direction:column;gap:clamp(.8rem,1.6vh,1.2rem);justify-content:center}
+        .dial .dial-outs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.6rem,1.4vw,1rem)}
+        .dial .do{text-align:center}
+        .dial .do-v{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .dial .do-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.3}
+        .econ-dial{display:flex;gap:clamp(1rem,2.6vw,2.2rem);align-items:center;flex-wrap:wrap;padding:clamp(1rem,1.7vw,1.5rem);margin-top:clamp(.9rem,2vh,1.4rem)}
+        .econ-dial .dial-outs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.6vw,1.2rem)}
+        .econ-dial .do{text-align:center}
+        .econ-dial .do-v{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .econ-dial .do-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.3}
+        /* --- ask --- */
+        .ask-amt{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;letter-spacing:-.022em;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .ask-eq{font-size:clamp(1rem,1.6vw,1.4rem);font-weight:600;color:var(--primary-dark);margin-top:.3rem}
+        .fundbar{display:flex;height:clamp(22px,2.6vh,30px);border-radius:8px;overflow:hidden;margin-top:.5rem}
+        .fundbar span{display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;font-weight:700;white-space:nowrap}
+        /* --- roadmap (showpiece) --- */
+        .rm-wrap{margin-top:clamp(1rem,2.2vh,1.6rem)}
+        .rmline{display:flex;justify-content:space-between;position:relative;margin:0 7% clamp(1.4rem,3vh,2.2rem)}
+        .rmline::before{content:"";position:absolute;left:10px;right:10px;top:9px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--primary),var(--accent))}
+        .rmpt{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center}
+        .rmpt .d{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 0 0 4px rgba(4,85,163,.12)}
+        .rmpt:first-child .d{background:var(--primary)}
+        .rmpt:last-child .d{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 4px rgba(105,26,106,.16)}
+        .rmpt .l{font-size:clamp(.72rem,.95vw,.86rem);font-weight:700;color:var(--primary-dark)}
+        .rmpt .v{font-size:clamp(.64rem,.82vw,.74rem);color:var(--muted)}
+        .rm{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.6rem);align-items:stretch}
+        .rmcard{position:relative;padding:clamp(1.2rem,1.9vw,1.7rem);border-radius:var(--r-lg);display:flex;flex-direction:column;overflow:hidden;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+        .rmcard:hover{transform:translateY(-6px)}
+        .rmcard .ph{display:flex;align-items:center;gap:.65rem;margin-bottom:.7rem}
+        .rmcard .pn{width:clamp(34px,2.6vw,42px);height:clamp(34px,2.6vw,42px);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:clamp(.95rem,1.2vw,1.15rem);flex-shrink:0}
+        .rmcard .pn svg{width:54%;height:54%;stroke:currentColor;fill:none;stroke-width:2}
+        .rmcard .pt{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.26rem .62rem;border-radius:20px}
+        .rmcard h3{font-size:clamp(1.05rem,1.4vw,1.35rem);line-height:1.15;margin-bottom:.65rem}
+        .rmcard ul{list-style:none;display:flex;flex-direction:column;gap:.42rem;flex:1}
+        .rmcard li{font-size:clamp(.8rem,.98vw,.94rem);display:flex;gap:.5rem;align-items:flex-start;line-height:1.38}
+        .rmcard li::before{content:"";width:6px;height:6px;border-radius:50%;margin-top:.46rem;flex-shrink:0}
+        .rmcard .tgt{margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:.45rem}
+        .rmcard .tgt b{font-size:clamp(1.3rem,1.9vw,1.7rem);font-weight:800}
+        .rmcard .tgt span{font-size:.72rem}
+        .rmcard.lite{background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--s-sm)}
+        .rmcard.lite .pn{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 6px 16px rgba(4,85,163,.25)}
+        .rmcard.lite .pt{background:rgba(4,85,163,.1);color:var(--primary)}
+        .rmcard.lite h3{color:var(--primary-dark)}
+        .rmcard.lite li{color:var(--muted)}
+        .rmcard.lite li::before{background:linear-gradient(135deg,var(--primary),var(--accent))}
+        .rmcard.lite .tgt b{color:var(--primary-dark)}.rmcard.lite .tgt span{color:var(--muted)}
+        .rmcard.climax{background:linear-gradient(150deg,var(--primary-dark),var(--primary) 58%,var(--accent));color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 72px -22px rgba(105,26,106,.62),0 12px 30px rgba(4,55,98,.22)}
+        .rmcard.climax::after{content:"";position:absolute;top:-45%;right:-35%;width:75%;height:75%;background:radial-gradient(circle,rgba(255,255,255,.2),transparent 70%);pointer-events:none}
+        .rmcard.climax>*{position:relative;z-index:1}
+        .rmcard.climax .pn{background:rgba(255,255,255,.2);color:#fff}
+        .rmcard.climax .pt{background:rgba(255,255,255,.16);color:#fff}
+        .rmcard.climax h3{color:#fff}
+        .rmcard.climax li{color:rgba(255,255,255,.92)}
+        .rmcard.climax li::before{background:#c8e8ff}
+        .rmcard.climax .tgt{border-top-color:rgba(255,255,255,.22)}
+        .rmcard.climax .tgt b{color:#fff}.rmcard.climax .tgt span{color:rgba(255,255,255,.78)}
+        .rmcard .flag{position:absolute;top:clamp(.9rem,1.4vw,1.3rem);right:clamp(.9rem,1.4vw,1.3rem);display:inline-flex;align-items:center;gap:.34rem;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.16);padding:.28rem .6rem;border-radius:20px;z-index:2}
+        .rmcard .flag svg{width:11px;height:11px;stroke:#c8e8ff;fill:none;stroke-width:2}
+        .rm-live{display:inline-flex;align-items:center;gap:.38rem;font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#16a34a;margin-left:auto}
+        .rm-live .dot{width:7px;height:7px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2s infinite}
+        .rm-cap{text-align:center;color:var(--muted);margin-top:clamp(.9rem,2vh,1.4rem);font-size:clamp(.82rem,1vw,.96rem)}
+        .rm-cap b{color:var(--primary-dark)}
+        /* --- A/B review flag (temporary marker for Dr Suhirdan to choose) --- */
+        .reviewflag{position:absolute;top:clamp(4.2rem,8.5vh,5.6rem);left:50%;transform:translateX(-50%);z-index:6;background:#b45309;color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:.32rem .85rem;border-radius:20px;box-shadow:0 6px 16px rgba(180,83,9,.32);white-space:nowrap}
+        /* --- app download QR --- */
+        .dl{display:flex;justify-content:center;gap:clamp(1rem,2.6vw,2rem);flex-wrap:wrap;margin-top:clamp(1rem,2.2vh,1.5rem)}
+        .dlcard{display:flex;align-items:center;gap:clamp(.9rem,1.5vw,1.3rem);padding:clamp(.95rem,1.5vw,1.3rem) clamp(1.1rem,1.7vw,1.5rem);border-radius:var(--r-md);text-decoration:none;border:2.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,var(--primary),var(--accent)) border-box;box-shadow:var(--s-sm);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+        .dlcard:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
+        .dlcard img{width:clamp(102px,10vw,138px);height:auto;display:block;background:#fff;padding:8px;border-radius:12px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(4,55,98,.08)}
+        .dl.compact{margin-top:clamp(.7rem,1.5vh,1rem)}
+        .dl.compact .dlcard{padding:clamp(.6rem,1vw,.9rem) clamp(.85rem,1.3vw,1.15rem)}
+        .dl.compact .dlcard img{width:clamp(70px,6.2vw,90px);padding:6px}
+        .dlcard .dt{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.3rem}
+        .dlcard .dt svg{width:12px;height:12px;stroke:var(--accent);stroke-width:2;fill:none}
+        .dlcard .dn{font-size:clamp(1rem,1.25vw,1.2rem);font-weight:800;color:var(--primary-dark);margin:.2rem 0}
+        .dlcard .ds{font-size:.76rem;color:var(--muted)}
+        /* --- interactive ROI calculator --- */
+        .calc{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(1.2rem,3vw,2.5rem);margin-top:clamp(1rem,2.4vh,1.8rem);align-items:stretch}
+        .calc-inputs{padding:clamp(1.2rem,2vw,1.8rem);display:flex;flex-direction:column;gap:clamp(1rem,2vh,1.5rem);justify-content:center}
+        .calc-field label{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(.82rem,1vw,.96rem);font-weight:600;color:var(--primary-dark);margin-bottom:.55rem}
+        .calc-field label span{color:var(--accent);font-weight:800;font-size:1.05em}
+        .calc-field input[type=range]{width:100%;accent-color:var(--primary);height:6px;cursor:pointer}
+        .calc-note{font-size:.74rem;color:var(--muted);line-height:1.45}
+        .calc-outputs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.3rem)}
+        .calc-out{padding:clamp(1.1rem,1.9vw,1.7rem);text-align:center;display:flex;flex-direction:column;justify-content:center}
+        .calc-out .co-v{font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .calc-out .co-l{font-size:.78rem;color:var(--muted);margin-top:.45rem;line-height:1.3}
+        @media (max-width:900px){.calc{grid-template-columns:1fr}}
+        /* --- unit economics --- */
+        .econ{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:clamp(.5rem,1.4vw,1.1rem);align-items:stretch;margin-top:clamp(1rem,2.4vh,1.8rem)}
+        .econ-step{padding:clamp(1.1rem,1.9vw,1.7rem);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.5rem;justify-content:center}
+        .econ-step .ev{font-size:clamp(1.9rem,3.8vw,3.1rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .econ-step .el{font-size:clamp(.82rem,1.05vw,1rem);font-weight:700;color:var(--primary-dark)}
+        .econ-step .ed{font-size:clamp(.76rem,.92vw,.86rem);color:var(--muted);line-height:1.4}
+        .econ-arrow{display:flex;align-items:center;justify-content:center}
+        .econ-arrow svg{width:clamp(22px,2.8vw,38px);height:auto;stroke:var(--accent);stroke-width:1.6;fill:none}
+        .econ-bar{display:flex;height:13px;border-radius:7px;overflow:hidden;width:100%;margin:.2rem 0}
+        .econ-bar .cost{background:rgba(4,55,98,.16)}
+        .econ-bar .marg{background:linear-gradient(90deg,var(--primary),var(--accent))}
+        .econ-foot{display:flex;gap:clamp(.8rem,2vw,1.5rem);flex-wrap:wrap;margin-top:clamp(1rem,2.4vh,1.6rem)}
+        .econ-foot .ef{flex:1;min-width:220px;padding:clamp(1rem,1.5vw,1.3rem);font-size:clamp(.82rem,1vw,.94rem);color:var(--muted);line-height:1.45}
+        .econ-foot .ef b{color:var(--primary-dark)}
+        .econ-foot .ef .efv{font-size:clamp(1.3rem,2vw,1.7rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:.3rem}
+        @media (max-width:900px){.econ{grid-template-columns:1fr}.econ-arrow svg{transform:rotate(90deg)}.econ-foot .ef{min-width:0}}
+        /* --- vision (today -> tomorrow) --- */
+        .vis{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(1rem,2.5vw,2rem);align-items:stretch;margin-top:clamp(1rem,2.4vh,1.9rem)}
+        .vis-card{padding:clamp(1.3rem,2.2vw,2rem);border-radius:var(--r-lg);display:flex;flex-direction:column;gap:.6rem;position:relative;overflow:hidden}
+        .vis-card.now{background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--s-sm)}
+        .vis-card.future{background:linear-gradient(150deg,var(--primary-dark),var(--primary) 58%,var(--accent));color:#fff;box-shadow:var(--s-lg)}
+        .vis-card.future::after{content:"";position:absolute;top:-45%;right:-35%;width:75%;height:75%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);pointer-events:none}
+        .vis-card>*{position:relative;z-index:1}
+        .vis-tag{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+        .vis-card.now .vis-tag{color:var(--accent)}
+        .vis-card.future .vis-tag{color:#c8e8ff}
+        .vis-card h3{font-size:clamp(1.1rem,1.7vw,1.55rem);line-height:1.15;color:var(--primary-dark)}
+        .vis-card.future h3{color:#fff}
+        .vis-card p{font-size:clamp(.86rem,1.05vw,1rem);line-height:1.5;color:var(--muted)}
+        .vis-card.future p{color:rgba(255,255,255,.9)}
+        .vis-pill{margin-top:auto;align-self:flex-start;font-size:.74rem;font-weight:700;padding:.35rem .85rem;border-radius:20px}
+        .vis-card.now .vis-pill{background:linear-gradient(135deg,rgba(4,55,98,.08),rgba(105,26,106,.08));color:var(--primary-dark)}
+        .vis-card.future .vis-pill{background:rgba(255,255,255,.16);color:#fff}
+        .vis-arrow{display:flex;align-items:center;justify-content:center}
+        .vis-arrow svg{width:clamp(28px,3.5vw,48px);height:auto;stroke:var(--accent);stroke-width:1.5;fill:none}
+        @media (max-width:900px){.vis{grid-template-columns:1fr}.vis-arrow svg{transform:rotate(90deg)}}
+        /* --- vision statement --- */
+        .vision-statement{font-size:clamp(1.5rem,2.9vw,2.6rem);font-weight:800;line-height:1.3;letter-spacing:-.012em;max-width:min(92%,940px);margin:clamp(.7rem,1.6vh,1.2rem) auto 0;text-align:center;background:linear-gradient(120deg,var(--primary-dark),var(--primary) 52%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        /* --- solution (4 capabilities + workflow) --- */
+        .cards.c4{grid-template-columns:repeat(4,1fr)}
+        .sol-pill{display:inline-flex;align-items:center;gap:.3rem;margin-top:auto;align-self:flex-start;font-size:.62rem;font-weight:700;color:var(--accent);background:rgba(105,26,106,.1);padding:.28rem .6rem;border-radius:16px}
+        .sol-pill svg{width:11px;height:11px;stroke:var(--accent);stroke-width:2.5;fill:none}
+        .workflow{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-top:clamp(1rem,2.4vh,1.6rem);padding:clamp(.9rem,1.5vw,1.3rem) clamp(1.2rem,2.2vw,2rem);border-radius:var(--r-md);background:linear-gradient(135deg,var(--primary-dark),var(--primary))}
+        .workflow b{font-weight:700;color:#fff;font-size:clamp(.82rem,1.05vw,1rem)}
+        .workflow svg{width:20px;height:20px;stroke:rgba(255,255,255,.5);stroke-width:2;fill:none;flex-shrink:0}
+        /* --- gtm channels --- */
+        .gtm-chips{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:clamp(.7rem,1.6vh,1.1rem)}
+        .gtm-chip{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .9rem;border-radius:30px;font-size:clamp(.74rem,.9vw,.85rem);font-weight:600;color:var(--primary-dark);background:var(--glass);border:1px solid var(--glass-border)}
+        .gtm-chip svg{width:15px;height:15px;stroke:var(--primary);stroke-width:1.8;fill:none}
+        @media (max-width:900px){.cards.c4{grid-template-columns:repeat(2,1fr)}}
+        @media (max-width:640px){.cards.c4{grid-template-columns:1fr}}
+        @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
+        @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
+
+        .counter{position:fixed;bottom:clamp(.8rem,2vh,1.5rem);right:clamp(1rem,3vw,2.4rem);font-size:clamp(.72rem,.95vw,.84rem);color:var(--muted);z-index:100;display:flex;gap:.6rem;align-items:center}
+        .counter b{color:var(--primary);font-weight:700}
+        .counter .sec{padding-left:.6rem;border-left:1px solid var(--line);text-transform:uppercase;letter-spacing:.1em;font-size:.72em;font-weight:700;color:#94a3b8}
+
+        /* reveal - springy, staggered */
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.34,1.4,.5,1)}
+        .slide.active .reveal{opacity:1;transform:none}
+        .slide.active .reveal[data-delay="1"]{transition-delay:.07s}
+        .slide.active .reveal[data-delay="2"]{transition-delay:.14s}
+        .slide.active .reveal[data-delay="3"]{transition-delay:.22s}
+        .slide.active .reveal[data-delay="4"]{transition-delay:.30s}
+        .slide.active .reveal[data-delay="5"]{transition-delay:.38s}
+        .slide.active .reveal[data-delay="6"]{transition-delay:.46s}
+
+        @media (max-width:1024px){
+            .feature,.feature.reverse,.intro{grid-template-columns:1fr;gap:clamp(1rem,3vh,2rem);align-content:center}
+            .feature.reverse .feature-copy,.feature.reverse .clip{order:0}
+            .clip-frame video,.intro .clip-frame video{max-height:46dvh}
+            .pillars{grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr}
+            .integ{grid-template-columns:1fr}
+            .pipe{flex-direction:row;gap:1rem}.pipe svg{transform:rotate(90deg)}
+        }
+        @media (max-width:640px){
+            .slide{justify-content:flex-start;overflow-y:auto;padding:clamp(4rem,11vh,5rem) 1.1rem 2rem}
+            .inner.fill{height:auto}
+            .cards.c3,.imx-prods{grid-template-columns:1fr}
+            .pillars{grid-template-columns:1fr 1fr}
+            .clip-frame video{max-height:none}
+            .nav-tag,.dots{display:none}
+            .subtitle{max-width:none}
+        }
+        @media (prefers-reduced-motion:reduce){
+            .reveal{transition:none;opacity:1;transform:none}
+            .clip-glow,.pulse{animation:none}.deck{scroll-behavior:auto}
+        }
+    </style>
+</head>
+<body>
+    <div class="progress" id="prog"><span></span></div>
+    <nav class="nav">
+        <a href="https://arvihealth.com" target="_blank" rel="noopener" class="logo"><img src="arvi logo.avif" alt="Arvi Health"></a>
+        <div class="dots" id="dots"></div>
+        <div class="nav-tag">Prepared for <b>Hospital Leadership</b> &middot; Sri Lanka</div>
+    </nav>
+
+    <main class="deck" id="deck">
+        <!-- Intro (mobile, SL) -->
+        <section class="slide" id="s-intro" data-sec="Overview">
+            <div class="inner">
+                <div class="intro">
+                    <div class="feature-copy">
+                        <div class="badge reveal"><span class="pulse"></span> Ayubowan &middot; AI Clinical Documentation</div>
+                        <h1 class="reveal" data-delay="1">Capture every <span class="rotw" id="slrot">consult</span>.<br><span>Arvi does the rest.</span></h1>
+                        <p class="reveal" data-delay="2">AI documentation that turns every encounter across your hospital into structured, connected clinical data. It integrates with the systems you already run, and scales up or down by department and use case. Engineered by a team here in Sri Lanka.</p>
+                        <div class="tags reveal" data-delay="3"><span class="tag">Works with your systems</span><span class="tag">Modular &amp; scalable</span><span class="tag">Built in Sri Lanka</span></div>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><video src="arvi-demo.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+        <!-- The gap: fragmentation, no history at the consult -->
+        <section class="slide" id="s-gap" data-sec="The Gap">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> The Gap</div>
+                    <h2 class="title reveal" data-delay="1">The Hospital Has the Data. The Consult Does Not.</h2>
+                    <p class="subtitle reveal" data-delay="2">A patient's history is scattered across wards, clinics, laboratories, paper and disconnected systems. At the moment that matters most, the consultation, the clinician rarely has the full, accurate picture in front of them.</p>
+                </div>
+                <div class="cards c3">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div><h3>No single source of truth</h3><p>Records live in silos across departments, systems and paper. Nothing holds the whole patient in one place.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></div><h3>Blind at the bedside</h3><p>The clinician consults without a reliable, complete history, rebuilding the story from memory and fragments.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><h3>The cost</h3><p>Repeated tests, missed context, slower decisions and avoidable risk to the patient.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- The mobile app -->
+        <section class="slide" id="s-app" data-sec="The App">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> The App</div>
+                    <h2 class="title reveal" data-delay="1">One App, Every Setting a Clinician Works In</h2>
+                    <p class="subtitle reveal" data-delay="2">No new hardware, no desktop at every bedside. Arvi lives on the phone the clinician already carries, and turns the moments of care into clean documentation.</p>
+                </div>
+                <div class="cards c4">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div><h3>Ward round</h3><p>Capture at the bedside and move on, the note is written before the next patient.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 2v6"/><path d="M9 5h6"/><circle cx="12" cy="14" r="7"/></svg></div><h3>Emergency</h3><p>One tap to record when seconds matter, a usable note without setup.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></div><h3>Operating theatre</h3><p>The operation note is created at the point of care, not reconstructed later.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div><h3>Clinic &amp; telehealth</h3><p>In person or remote, the same capture-to-note flow, ready to send.</p></div>
+                </div>
+                <div class="dl compact reveal" data-delay="6">
+                    <a class="dlcard" href="https://apps.apple.com/au/app/arvi-health/id6761469752" target="_blank" rel="noopener"><img src="qr-ios.png" alt="Download Arvi on the App Store"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for iOS</div><div class="ds">App Store</div></div></a>
+                    <a class="dlcard" href="https://play.google.com/store/apps/details?id=com.healthai.mobile" target="_blank" rel="noopener"><img src="qr-android.png" alt="Download Arvi on Google Play"><div><div class="dt"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>Scan to try Arvi</div><div class="dn">Arvi for Android</div><div class="ds">Google Play</div></div></a>
+                </div>
+            </div>
+        </section>
+        <!-- How it works -->
+        <section class="slide" id="s-how" data-sec="How It Works">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> How It Works</div>
+                    <h2 class="title reveal" data-delay="1">Speak. Everything Else Is Automatic.</h2>
+                    <p class="subtitle reveal" data-delay="2">Four steps, and only the first one asks anything of the clinician.</p>
+                </div>
+                <div class="steps">
+                    <div class="step reveal" data-delay="2"><div class="sic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div><div class="sn">STEP 01</div><h3>Speak</h3><p>Record the consult on the phone, or upload existing audio.</p></div>
+                    <div class="step reveal" data-delay="3"><div class="sic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/></svg></div><div class="sn">STEP 02</div><h3>Structure</h3><p>Arvi writes a clean, sectioned clinical note in seconds.</p></div>
+                    <div class="step reveal" data-delay="4"><div class="sic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><div class="sn">STEP 03</div><h3>Letter</h3><p>Referral, discharge and clinic letters drafted from the same recording.</p></div>
+                    <div class="step reveal" data-delay="5"><div class="sic"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><div class="sn">STEP 04</div><h3>Share</h3><p>Into the patient record, over the standard interfaces hospitals run.</p></div>
+                </div>
+                <p class="rm-cap reveal" data-delay="6" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">The clinician keeps their attention on the patient. Arvi handles the writing.</p>
+            </div>
+        </section>
+        <!-- Arvi as the brain of the hospital -->
+        <section class="slide" id="s-brain" data-sec="Our Role">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2a4 4 0 0 0-4 4 4 4 0 0 0-2 7 4 4 0 0 0 2 7 4 4 0 0 0 8 0 4 4 0 0 0 2-7 4 4 0 0 0-2-7 4 4 0 0 0-4-4z"/></svg> Our Role</div>
+                    <h2 class="title reveal" data-delay="1">Arvi Becomes the Brain of the Hospital</h2>
+                    <p class="subtitle reveal" data-delay="2">Because Arvi captures and structures every consultation, it can hold what the hospital never centralised. One connected clinical memory, with the accurate history surfaced back to the clinician at the point of care.</p>
+                </div>
+                <div class="cards c4">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div><h3>Captures every encounter</h3><p>Each consult, ward round and procedure, captured on the phone and structured.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><h3>Builds one record</h3><p>Fragments become a single, longitudinal patient story the hospital can trust.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Surfaces history at the consult</h3><p>The relevant, accurate history is in front of the clinician exactly when they need it.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div><h3>Reasons across it all</h3><p>The foundation of the practice brain: intelligence that acts on years of care, not a single note.</p></div>
+                </div>
+                <p class="rm-cap reveal" data-delay="6" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">This is the centre of our vision and roadmap: from a scribe on the phone to the intelligence layer for the whole hospital.</p>
+            </div>
+        </section>
+        <!-- Integration & modularity -->
+        <section class="slide" id="s-integrate" data-sec="Fits Your Stack">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Fits Your Stack</div>
+                    <h2 class="title reveal" data-delay="1">Integrates With What You Run. Modular by Design.</h2>
+                    <p class="subtitle reveal" data-delay="2">Arvi is not a rip and replace. It connects to the systems your hospital already depends on, and switches features on or off by department and use case, so it scales up or down fast.</p>
+                </div>
+                <div class="cards c4">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div><h3>Standards-based</h3><p>HL7 and FHIR-ready interfaces, so structured notes and letters flow into the record and onward to other systems.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>Sits alongside your EMR</h3><p>It augments the record, patient administration and laboratory systems you run today, rather than replacing them.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3>Feature modules</h3><p>Capture, letters, coding, pathology, analytics. Switch on only what a department actually needs.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="17 11 21 7 17 3"/><line x1="21" y1="7" x2="9" y2="7"/><polyline points="7 21 3 17 7 13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></div><h3>Scale up or down, fast</h3><p>Start with one ward, expand hospital-wide, or dial back. Configured in days, not months.</p></div>
+                </div>
+                <p class="rm-cap reveal" data-delay="6" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">Pay for what is used, deploy where it helps, and grow at your pace.</p>
+            </div>
+        </section>
+        <!-- Arvi in Sri Lanka -->
+        <section class="slide" id="s-slrole" data-sec="In Sri Lanka">
+            <div class="inner">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> In Sri Lanka</div>
+                    <h2 class="title reveal" data-delay="1">What Arvi Can Do for a Sri Lankan Hospital</h2>
+                    <p class="subtitle reveal" data-delay="2">Our clinicians carry some of the heaviest patient loads in the region, and much of their day is lost to writing. Arvi is built for exactly that pressure, and it is built here.</p>
+                </div>
+                <div class="cards c3">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Give clinicians time back</h3><p>Under high patient volume, every minute saved on notes is a minute returned to care, and more patients seen.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><h3>Structured English records</h3><p>Sri Lankan clinical records are already in English. Arvi turns them into clean, consistent documents.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><h3>Mobile-first, ward-ready</h3><p>It runs on the phone in the clinician's pocket, so it works where a desktop at every bed does not.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Affordable at scale</h3><p>Pay for what is used. A model that suits a public and private system watching every rupee.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Reach beyond the city</h3><p>Support telemedicine and connect district care to specialists whose time is scarce.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Built locally</h3><p>Engineered by a Sri Lankan team, so support, training and iteration stay close to you.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- Vision: SL and beyond -->
+        <section class="slide" id="s-slvision" data-sec="Our Vision">
+            <div class="inner">
+                <div class="divider">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Our Vision</div>
+                    <p class="vision-statement reveal" data-delay="1">To become the autonomous operating system for healthcare, proven in Sri Lanka and built for the world.</p>
+                    <div class="menu reveal" data-delay="2">
+                        <span class="mi"><b>Here</b> Sri Lankan hospitals</span>
+                        <span class="mi"><b>Then</b> The region</span>
+                        <span class="mi"><b>Onward</b> The world</span>
+                    </div>
+                    <p class="subtitle reveal" data-delay="3" style="text-align:center;max-width:760px;margin:clamp(.6rem,1.4vh,1rem) auto 0">We want Sri Lanka to be where this is proven first: a home base and a launch pad, not an afterthought. What works under our pressure will work anywhere.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Product roadmap (SL tailored) -->
+        <section class="slide" id="s-proadmap" data-sec="Roadmap">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Product Roadmap</div>
+                    <h2 class="title reveal" data-delay="1">Where Arvi Is Going</h2>
+                    <p class="subtitle reveal" data-delay="2">Beyond today's twenty production features, from a scribe on the phone toward the intelligence layer for a whole hospital.</p>
+                </div>
+                <div class="rm-wrap">
+                    <div class="rm">
+                        <div class="rmcard lite reveal" data-delay="3">
+                            <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><div class="pt">Now &rarr; 6 months</div></div>
+                            <h3>Connected &amp; live</h3>
+                            <ul><li>Real-time transcription &amp; live note preview</li><li>Pathology &amp; results ingestion</li><li>Hospital system &amp; EMR integration</li><li>Security certification</li></ul>
+                        </div>
+                        <div class="rmcard lite reveal" data-delay="4">
+                            <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div><div class="pt">6 &rarr; 18 months</div></div>
+                            <h3>Hospital-grade intelligence</h3>
+                            <ul><li>Coding-ready structured output</li><li>Evidence: guideline-backed answers at the point of care</li><li>Specialty-tuned models across disciplines</li><li>Organisation analytics &amp; insights</li></ul>
+                        </div>
+                        <div class="rmcard climax reveal" data-delay="5">
+                            <span class="flag"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>On the horizon</span>
+                            <div class="ph"><div class="pn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13 13"/><path d="M16.5 17.4l-.34 3.8a2 2 0 0 1-2 1.8H9.84a2 2 0 0 1-2-1.8l-.34-3.8m0-10.8l.34-3.8A2 2 0 0 1 9.84 1h4.32a2 2 0 0 1 2 1.8l.34 3.8"/></svg></div><div class="pt">The horizon</div></div>
+                            <h3>Agentic &amp; autonomous</h3>
+                            <ul><li>Ambient, continuous listening across the ward</li><li>Autonomous care coordination: book, refer, request, draft, you approve</li><li>Practice brain: reason over years of care, not just notes</li><li>Hardware beyond the phone: Arvi Badge &amp; Room</li></ul>
+                        </div>
+                    </div>
+                    <p class="rm-cap reveal" data-delay="6">The long-term goal is not transcription. It is a longitudinal memory across every conversation, referral and result that agents can act on, an autonomous healthcare operating system.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Appendix divider -->
+        <section class="slide" id="s-appendix" data-sec="Appendix">
+            <div class="inner">
+                <div class="divider">
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Appendix</div>
+                    <div class="big reveal" data-delay="1">Feature Walkthrough</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:720px;margin:0 auto">Recorded demos of all twenty features, across the five areas, for reference. Jump to any feature on request.</p>
+                    <div class="menu reveal" data-delay="3">
+                        <span class="mi"><b>01</b> Core Documentation</span>
+                        <span class="mi"><b>02</b> Letters &amp; Templates</span>
+                        <span class="mi"><b>03</b> Patient &amp; Workflow</span>
+                        <span class="mi"><b>04</b> Organisation &amp; Users</span>
+                        <span class="mi"><b>05</b> Billing</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- f1 -->
+        <section class="slide" id="f1" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">01</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Individual Notes</h2>
+                        <p class="subtitle reveal" data-delay="2">A clinician records a single consultation and Arvi generates a structured clinical note, formatted, accurate and ready to review in seconds.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span><div><h4>Record &amp; structure</h4><p>Ambient capture becomes a clean, sectioned note, no typing.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Review, don't author</h4><p>The clinician edits a draft instead of writing from scratch.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; New note</span></div><video src="Videos/01-letter-generation.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f2 -->
+        <section class="slide" id="f2" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">02</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Organisation &amp; Team Notes</h2>
+                        <p class="subtitle reveal" data-delay="2">Documentation under a clinic or team account, with multiple clinicians working together and admin oversight across everyone's work.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Shared team workspace</h4><p>Clinicians document under one organisation, not siloed accounts.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><div><h4>Admin visibility</h4><p>Administrators can access and manage notes across the team.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Organisation</span></div><video src="Videos/02-admin-access.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f3 -->
+        <section class="slide" id="f3" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">03</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Quick Record for Emergencies</h2>
+                        <p class="subtitle reveal" data-delay="2">A fast-capture mode for urgent situations, minimal steps between hitting record and having a usable note. Built for the pace of an emergency department.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><div><h4>One tap to capture</h4><p>No setup overhead when seconds matter.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Structured after the fact</h4><p>The note is generated once the moment has passed.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi &middot; Quick Record</span></div><video src="Videos/03-quick-record.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f4 -->
+        <section class="slide" id="f4" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">04</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Operating Theatre on Mobile</h2>
+                        <p class="subtitle reveal" data-delay="2">The clinician uses the mobile app right in theatre, capturing the operation note even when connectivity is low, then syncing when back online.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></span><div><h4>In-theatre capture</h4><p>The note is created at the point of care, not reconstructed later.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span><div><h4>Low-connectivity ready</h4><p>Works where hospital Wi-Fi is weak; syncs when reconnected.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; Operating theatre</span></div><video src="Videos/04-mobile-recording.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f5 -->
+        <section class="slide" id="f5" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">05</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">Upload an Existing Recording</h2>
+                        <p class="subtitle reveal" data-delay="2">No live capture required, the user uploads an existing audio file and Arvi generates the structured note from it.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span><div><h4>Bring your own audio</h4><p>Drop in a file recorded anywhere; Arvi does the rest.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><div><h4>Same structured output</h4><p>Uploaded audio produces the same clean clinical note.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Upload</span></div><video src="Videos/05-upload-recording.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f6 -->
+        <section class="slide" id="f6" data-sec="Core Documentation">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">06</span><span class="s">Core Documentation</span></div>
+                        <h2 class="title reveal" data-delay="1">AI Regeneration</h2>
+                        <p class="subtitle reveal" data-delay="2">Any note or letter can be regenerated or refined with AI, tune the tone, length or detail until it's exactly right.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span><div><h4>Refine on demand</h4><p>Regenerate sections or the whole document in a click.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><div><h4>Clinician in control</h4><p>The AI assists; the clinician decides the final wording.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Regenerate</span></div><video src="Videos/06-regeneration.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f7 -->
+        <section class="slide" id="f7" data-sec="Letters & Templates">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">07</span><span class="s">Letters &amp; Templates</span></div>
+                        <h2 class="title reveal" data-delay="1">Letter Generation &amp; Preview</h2>
+                        <p class="subtitle reveal" data-delay="2">Arvi produces the GP or referral letter from the recording, then lets you review, edit and format it on a dedicated preview page before it goes out.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><div><h4>Letter from a recording</h4><p>A ready-to-send GP or referral letter, generated automatically.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></span><div><h4>Preview &amp; formatting</h4><p>The final review page, edit and format before sending.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Preview &amp; formatting</span></div><video src="Videos/07-edit-letter.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f8 -->
+        <section class="slide" id="f8" data-sec="Letters & Templates">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">08</span><span class="s">Letters &amp; Templates</span></div>
+                        <h2 class="title reveal" data-delay="1">Custom Letter Templates</h2>
+                        <p class="subtitle reveal" data-delay="2">Users create their own templates and adjust the formatting to suit their practice, so every letter matches their house style.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><div><h4>Build your own</h4><p>Create reusable templates for any letter type.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></span><div><h4>Tune the formatting</h4><p>Adjust layout and styling to match your practice.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Templates</span></div><video src="Videos/08-custom-template.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f9 -->
+        <section class="slide" id="f9" data-sec="Letters & Templates">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">09</span><span class="s">Letters &amp; Templates</span></div>
+                        <h2 class="title reveal" data-delay="1">Approve, Send &amp; Resend</h2>
+                        <p class="subtitle reveal" data-delay="2">Email the finished letter to the recipient directly from Arvi, with the option to resend whenever needed.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><div><h4>Send from Arvi</h4><p>Deliver the letter to the recipient without leaving the app.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><div><h4>Resend any time</h4><p>Re-issue a letter in one click if it's needed again.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Send</span></div><video src="Videos/09-approve-resend.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f10 -->
+        <section class="slide" id="f10" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">10</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Patient Management &amp; Scheduling</h2>
+                        <p class="subtitle reveal" data-delay="2">Manage patients, appointments and the calendar in one place, the day's schedule sits alongside the documentation.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><div><h4>Appointments &amp; calendar</h4><p>See the day's schedule and book in patients.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Patient records</h4><p>Keep patient details organised next to their notes.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Patients</span></div><video src="Videos/10-patient-management.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f11 -->
+        <section class="slide" id="f11" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">11</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Task Management</h2>
+                        <p class="subtitle reveal" data-delay="2">Track outstanding work to completion, nothing slips between the consult and the follow-up.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><h4>Track outstanding work</h4><p>A clear list of what still needs doing.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Close the loop</h4><p>Mark tasks complete as the work gets done.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Tasks</span></div><video src="Videos/11-task-management.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f12 -->
+        <section class="slide" id="f12" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">12</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Telehealth Consultations</h2>
+                        <p class="subtitle reveal" data-delay="2">Run remote consultations inside Arvi, and document them with the same AI workflow as in-person visits.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><div><h4>Remote consults in-app</h4><p>Conduct telehealth sessions without a separate tool.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span><div><h4>Documented automatically</h4><p>The same capture-to-note flow applies to remote visits.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Telehealth</span></div><video src="Videos/13-telehealth.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f13 -->
+        <section class="slide" id="f13" data-sec="Patient & Workflow">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">13</span><span class="s">Patient &amp; Workflow</span></div>
+                        <h2 class="title reveal" data-delay="1">Notifications</h2>
+                        <p class="subtitle reveal" data-delay="2">Stay on top of what matters with in-app alerts and push notifications on mobile.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><div><h4>In-app &amp; push alerts</h4><p>Get notified across web and mobile.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/></svg></span><div><h4>Never miss an action</h4><p>Time-sensitive items reach the clinician promptly.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; Notifications</span></div><video src="Videos/14-notifications.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f14 -->
+        <section class="slide" id="f14" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">14</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">Organisation Switcher</h2>
+                        <p class="subtitle reveal" data-delay="2">One user can belong to several organisations and switch between them instantly, ideal for clinicians working across sites.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><div><h4>Belong to many orgs</h4><p>Hold membership in multiple organisations at once.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Switch in one tap</h4><p>Move between organisations without logging out.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Switch organisation</span></div><video src="Videos/15-org-switcher.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f15 -->
+        <section class="slide" id="f15" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">15</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">Roles &amp; Permissions</h2>
+                        <p class="subtitle reveal" data-delay="2">Role-based access and restrictions govern who can see and do what, the access model hospitals require.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div><h4>Role-based access</h4><p>Assign roles that match real responsibilities.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><h4>Granular restrictions</h4><p>Control permissions down to the action.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Permissions</span></div><video src="Videos/16-permission-update.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f16 -->
+        <section class="slide" id="f16" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">16</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">User Invites</h2>
+                        <p class="subtitle reveal" data-delay="2">Bring new clinicians into an organisation quickly with a simple invite flow.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></span><div><h4>Invite in seconds</h4><p>Add new users to the organisation with an invite.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h4>Onboard the team</h4><p>Grow the organisation without admin friction.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Invite users</span></div><video src="Videos/17-user-invite.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f17 -->
+        <section class="slide" id="f17" data-sec="Organisation & Users">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">17</span><span class="s">Organisation &amp; Users</span></div>
+                        <h2 class="title reveal" data-delay="1">Free Admin User</h2>
+                        <p class="subtitle reveal" data-delay="2">Every organisation includes an admin seat at no cost, oversight without an extra licence.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span><div><h4>Admin at no cost</h4><p>A free administrator seat comes with the organisation.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><div><h4>Oversight built in</h4><p>Manage the team without paying for the privilege.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Admin</span></div><video src="Videos/18-free-admin.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f18 -->
+        <section class="slide" id="f18" data-sec="Billing">
+            <div class="inner">
+                <div class="feature reverse">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">18</span><span class="s">Billing</span></div>
+                        <h2 class="title reveal" data-delay="1">Stripe Subscriptions (Web)</h2>
+                        <p class="subtitle reveal" data-delay="2">Arvi bills customers today via Stripe, subscriptions and payments on the web app, in production now.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span><div><h4>Subscriptions &amp; payments</h4><p>Recurring billing handled through Stripe on web.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Live in production</h4><p>The commercial engine is running, not on a roadmap.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">platform.arvihealth.com &middot; Billing</span></div><video src="Videos/19-subscription.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- f19 -->
+        <section class="slide" id="f19" data-sec="Billing">
+            <div class="inner">
+                <div class="feature">
+                    <div class="feature-copy">
+                        <div class="kicker reveal"><span class="n">19</span><span class="s">Billing</span></div>
+                        <h2 class="title reveal" data-delay="1">iOS In-App Purchase</h2>
+                        <p class="subtitle reveal" data-delay="2">On iOS, Arvi bills natively through Apple's in-app purchase, a frictionless path for mobile users.</p>
+                        <ul class="points">
+                            <li class="reveal" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><div><h4>Native Apple billing</h4><p>Purchase and subscribe directly inside the iOS app.</p></div></li>
+                            <li class="reveal" data-delay="4"><span class="ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><h4>Platform-appropriate</h4><p>Meets Apple's requirements for mobile monetisation.</p></div></li>
+                        </ul>
+                    </div>
+                    <figure class="clip reveal" data-delay="2">
+                        <div class="clip-glow"></div>
+                        <div class="clip-frame"><div class="chrome"><i></i><i></i><i></i><span class="url">Arvi mobile &middot; iOS billing</span></div><video src="Videos/20-ios-billing.mp4" loop muted playsinline preload="metadata"></video></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="counter"><span><b id="cur">1</b> / <span id="total">0</span></span><span class="sec" id="sec">Overview</span></div>
+
+    <script>
+        (function(){
+            var deck=document.getElementById('deck');
+            var slides=[].slice.call(document.querySelectorAll('.slide'));
+            var dotsWrap=document.getElementById('dots');
+            var cur=document.getElementById('cur');
+            var secEl=document.getElementById('sec');
+            var prog=document.getElementById('prog');
+            document.getElementById('total').textContent=slides.length;
+
+            slides.forEach(function(s,i){
+                var b=document.createElement('button');
+                b.className='dot'+(i===0?' active':'');
+                b.setAttribute('aria-label','Go to slide '+(i+1));
+                b.addEventListener('click',function(){s.scrollIntoView({behavior:'smooth',inline:'start'});});
+                dotsWrap.appendChild(b);
+            });
+            var dots=[].slice.call(dotsWrap.children);
+
+            var io=new IntersectionObserver(function(entries){
+                entries.forEach(function(e){
+                    var i=slides.indexOf(e.target);
+                    var vids=e.target.querySelectorAll('video');
+                    if(e.isIntersecting){
+                        e.target.querySelectorAll('.bcol').forEach(function(b){b.style.height=b.dataset.h;});
+                    }
+                    if(e.isIntersecting&&e.intersectionRatio>=0.55){
+                        e.target.classList.add('active');
+                        dots.forEach(function(d,k){d.classList.toggle('active',k===i);});
+                        cur.textContent=i+1;
+                        if(secEl)secEl.textContent=e.target.dataset.sec||'';
+                        [].forEach.call(vids,function(v){try{var p=v.play();if(p)p.catch(function(){});}catch(_){}});
+                    }else if(!e.isIntersecting){
+                        [].forEach.call(vids,function(v){try{v.pause();}catch(_){}});
+                        e.target.querySelectorAll('.bcol').forEach(function(b){b.style.height='0';});
+                    }
+                });
+            },{root:deck,threshold:[0,0.55,1]});
+            slides.forEach(function(s){io.observe(s);});
+
+            document.querySelectorAll('.slide:not(#s-intro) video').forEach(function(v){try{v.pause();}catch(_){}});
+
+            // Deterministic playback: always play the slide currently in view, pause the rest.
+            function syncVideos(){
+                var idx=Math.round(deck.scrollLeft/innerWidth);
+                slides.forEach(function(s,k){
+                    var vs=s.querySelectorAll('video');
+                    [].forEach.call(vs,function(v){
+                        if(k===idx){ if(v.paused){ var p=v.play(); if(p)p.catch(function(){}); } }
+                        else if(!v.paused){ try{v.pause();}catch(_){} }
+                    });
+                });
+            }
+            var vsync;
+            deck.addEventListener('scroll',function(){clearTimeout(vsync);vsync=setTimeout(syncVideos,120);});
+            window.addEventListener('load',syncVideos);
+            syncVideos();
+
+            function updateProgress(){
+                var max=deck.scrollWidth-deck.clientWidth;
+                var p=max>0?deck.scrollLeft/max:0;
+                prog.style.setProperty('--p',p.toFixed(4));
+            }
+            var ticking=false;
+            deck.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){updateProgress();ticking=false;});}});
+            updateProgress();
+
+            addEventListener('keydown',function(ev){
+                var i=Math.round(deck.scrollLeft/innerWidth);
+                if(ev.key==='ArrowRight'||ev.key==='PageDown'||ev.key===' '){ev.preventDefault();if(i<slides.length-1)slides[i+1].scrollIntoView({behavior:'smooth',inline:'start'});}
+                else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();if(i>0)slides[i-1].scrollIntoView({behavior:'smooth',inline:'start'});}
+                else if(ev.key==='Home'){ev.preventDefault();slides[0].scrollIntoView({behavior:'smooth',inline:'start'});}
+                else if(ev.key==='End'){ev.preventDefault();slides[slides.length-1].scrollIntoView({behavior:'smooth',inline:'start'});}
+            });
+            slides[0].classList.add('active');
+
+            // Interactive ROI calculator (SGC-based)
+            (function(){
+                var clin=document.getElementById('ci-clin'), hrs=document.getElementById('ci-hrs'), rate=document.getElementById('ci-rate');
+                if(!clin) return;
+                var WEEKS=46, SAVE=0.8, FTE=1800;
+                function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(1)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
+                function calc(){
+                    var c=+clin.value, h=+hrs.value, r=+rate.value;
+                    document.getElementById('ci-clin-v').textContent=c;
+                    document.getElementById('ci-hrs-v').textContent=h;
+                    document.getElementById('ci-rate-v').textContent='$'+r;
+                    var hoursYear=Math.round(c*h*SAVE*WEEKS);
+                    document.getElementById('co-hours').textContent=hoursYear.toLocaleString('en-AU');
+                    document.getElementById('co-value').textContent=money(hoursYear*r);
+                    document.getElementById('co-week').textContent=Math.round(h*SAVE);
+                }
+                [clin,hrs,rate].forEach(function(el){ el.addEventListener('input',calc); });
+                calc();
+            })();
+
+            // Rotating headline word: keeps the focus on clinical work, Arvi does the rest.
+            (function(){
+                var el=document.getElementById('rotw'); if(!el) return;
+                var words=['consult','procedure','ward round','theatre case','meeting','patient'];
+                var i=0;
+                setInterval(function(){
+                    el.classList.add('swap');
+                    setTimeout(function(){
+                        i=(i+1)%words.length;
+                        el.textContent=words[i];
+                        el.classList.remove('swap');
+                    },340);
+                },2400);
+            })();
+
+            // Scale dial: active users -> revenue at ~$59 / user / month (base + one pack)
+            (function(){
+                var doc=document.getElementById('sc-doc'); if(!doc) return;
+                var PM=59;
+                function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(2)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
+                function go(){
+                    var d=+doc.value;
+                    document.getElementById('sc-doc-v').textContent=d.toLocaleString('en-AU');
+                    document.getElementById('sc-mo').textContent=money(d*PM);
+                    document.getElementById('sc-yr').textContent=money(d*PM*12);
+                }
+                doc.addEventListener('input',go); go();
+            })();
+
+            // Deep-link: jump to #slide-id on load (e.g. .../arvi-features.html#s-roadmap)
+            if(location.hash){
+                var target=document.getElementById(location.hash.slice(1));
+                if(target){ target.scrollIntoView({inline:'start'}); setTimeout(function(){target.scrollIntoView({inline:'start'});syncVideos();},250); }
+            }
+        })();
+</script>
+    <script>
+    (function(){
+        var el=document.getElementById('slrot'); if(!el) return;
+        var words=['consult','ward round','procedure','discharge','clinic','emergency'];
+        var i=0;
+        setInterval(function(){
+            el.classList.add('swap');
+            setTimeout(function(){ i=(i+1)%words.length; el.textContent=words[i]; el.classList.remove('swap'); },340);
+        },2200);
+    })();
+    </script>
+</body>
+</html>
