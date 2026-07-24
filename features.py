@@ -67,10 +67,10 @@ INTRO = '''        <!-- Punch intro -->
             <div class="inner">
                 <div class="intro">
                     <div class="feature-copy">
-                        <div class="badge reveal"><span class="pulse"></span> A guided walkthrough</div>
-                        <h1 class="reveal" data-delay="1">Meet Arvi.<br><span>Let's take a look.</span></h1>
-                        <p class="reveal" data-delay="2">A quick walk through how Arvi turns your consultations into finished notes and letters. Scroll, or use the arrow keys, to move through it. There is a sign-up link waiting at the end.</p>
-                        <div class="tags reveal" data-delay="3"><span class="tag">For GPs &amp; specialists</span><span class="tag">Web &amp; mobile</span><span class="tag">Live today</span></div>
+                        <div class="badge reveal"><span class="pulse"></span> Getting started</div>
+                        <h1 class="reveal" data-delay="1">Welcome to Arvi.<br><span>Let's get you set up.</span></h1>
+                        <p class="reveal" data-delay="2">This short guide walks you through getting started on Arvi, from creating your account to sending your first letter. Scroll, or use the arrow keys, to move through it. You can sign up at the end.</p>
+                        <div class="tags reveal" data-delay="3"><span class="tag">For GPs &amp; specialists</span><span class="tag">Web &amp; mobile</span><span class="tag">Set up in minutes</span></div>
                     </div>
                     <figure class="clip reveal" data-delay="2">
                         <div class="clip-glow"></div>
@@ -91,7 +91,7 @@ OUTLINE = '''        <!-- Outline -->
                         <span class="mi"><b>01</b> Sign up</span>
                         <span class="mi"><b>02</b> Set up</span>
                         <span class="mi"><b>03</b> Your patients</span>
-                        <span class="mi"><b>04</b> Your workflow</span>
+                        <span class="mi"><b>04</b> Your first note</span>
                         <span class="mi"><b>05</b> On mobile</span>
                         <span class="mi"><b>06</b> What's next</span>
                     </div>
@@ -140,9 +140,9 @@ CHOICE = '''        <!-- GP / specialist fork -->
         <section class="slide" id="s-path" data-sec="Your Path">
             <div class="inner">
                 <div class="slide-head" style="text-align:center">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg> Your Path</div>
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg> First, Tell Us Who You Are</div>
                     <h2 class="title reveal" data-delay="1">Are You a GP or a Specialist?</h2>
-                    <p class="subtitle reveal" data-delay="2">Pick your path and the walkthrough follows your workflow. You can switch any time.</p>
+                    <p class="subtitle reveal" data-delay="2">Pick one and we will tailor the rest of your set-up to how you practise. You can switch any time.</p>
                 </div>
                 <div class="pathpick">
                     <button class="pathbtn reveal" data-delay="3" data-p="gp" onclick="arviSetPath('gp')">
@@ -156,7 +156,7 @@ CHOICE = '''        <!-- GP / specialist fork -->
                                 <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Quick record between patients</li>
                             </ul>
                         </div>
-                        <span class="go"><span>See the GP workflow</span></span>
+                        <span class="go"><span>Continue as a GP</span></span>
                     </button>
                     <button class="pathbtn reveal" data-delay="4" data-p="spec" onclick="arviSetPath('spec')">
                         <div>
@@ -169,7 +169,7 @@ CHOICE = '''        <!-- GP / specialist fork -->
                                 <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Patient summaries</li>
                             </ul>
                         </div>
-                        <span class="go"><span>See the specialist workflow</span></span>
+                        <span class="go"><span>Continue as a specialist</span></span>
                     </button>
                 </div>
             </div>
@@ -177,24 +177,24 @@ CHOICE = '''        <!-- GP / specialist fork -->
 '''
 
 GP_DIV = '''        <!-- GP path divider -->
-        <section class="slide" id="s-gp" data-path="gp" data-sec="GP Workflow">
+        <section class="slide" id="s-gp" data-path="gp" data-sec="For GPs">
             <div class="inner">
                 <div class="divider">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg> GP Workflow</div>
-                    <div class="big reveal" data-delay="1">A Day in General Practice</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">See a patient, capture the consult, write the referral, and move on. Here is how Arvi fits your day.</p>
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg> For GPs</div>
+                    <div class="big reveal" data-delay="1">Your First Note, as a GP</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">See a patient, capture the consult, write the referral, and send it. Here is how it comes together for a GP.</p>
                 </div>
             </div>
         </section>
 '''
 
 SPEC_DIV = '''        <!-- Specialist path divider -->
-        <section class="slide" id="s-spec" data-path="spec" data-sec="Specialist Workflow">
+        <section class="slide" id="s-spec" data-path="spec" data-sec="For Specialists">
             <div class="inner">
                 <div class="divider">
-                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M8 2v4a4 4 0 0 0 8 0V2"/><path d="M6 6v5a6 6 0 0 0 12 0V6"/><circle cx="19" cy="10" r="2"/></svg> Specialist Workflow</div>
-                    <div class="big reveal" data-delay="1">A Specialist Consultation</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">Take the consultation, generate the note, and send your letter back to the referring GP. Here is how Arvi fits your practice.</p>
+                    <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M8 2v4a4 4 0 0 0 8 0V2"/><path d="M6 6v5a6 6 0 0 0 12 0V6"/><circle cx="19" cy="10" r="2"/></svg> For Specialists</div>
+                    <div class="big reveal" data-delay="1">Your First Note, as a Specialist</div>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:700px;margin:0 auto">Take the consultation, generate the note, and send your letter back to the referring GP. Here is how it comes together for a specialist.</p>
                 </div>
             </div>
         </section>
@@ -299,44 +299,46 @@ BODY = (
           "10-patient-management.mp4", "platform.arvihealth.com &middot; Patients")
     # -------- GP path --------
     + GP_DIV
-    + vid("GP workflow", "Start the Consult",
+    + vid("For GPs", "Start the Consult",
           "Open the appointment, or Quick Create if the patient is not booked in. One tap and you are recording.",
           [("zap", "Quick Create", "No appointment needed to get going."),
            ("mic", "One tap to record", "Minimal steps between you and a note.")],
           "03-quick-record.mp4", "Arvi &middot; Quick Record", path="gp")
-    + vid("GP workflow", "Your Consultation Note",
+    + vid("For GPs", "Your Consultation Note",
           "Arvi writes the GP consult note while you focus on the patient, structured and ready to review in seconds.",
           [("mic", "Record &amp; structure", "Ambient capture becomes a clean note."),
-           ("check", "Review, don't author", "Edit a draft, don't write from scratch.")],
+           ("check", "Review, don't author", "Edit a draft, don't write from scratch."),
+           ("file", "Patient summary too", "The same consult can become a patient summary in a click.")],
           "01-letter-generation.mp4", "platform.arvihealth.com &middot; New note", path="gp")
-    + vid("GP workflow", "Write the Referral",
+    + vid("For GPs", "Write the Referral",
           "Generate the referral letter to the specialist from the same recording, then preview and format it on one page.",
           [("file", "Referral, drafted for you", "A ready-to-send referral, automatically."),
            ("edit", "Preview &amp; formatting", "Final review before it goes out.")],
           "07-edit-letter.mp4", "platform.arvihealth.com &middot; Referral", path="gp")
-    + vid("GP workflow", "Send It On",
+    + vid("For GPs", "Send It On",
           "Email the referral to the specialist from Arvi, and resend any time it is needed.",
           [("send", "Send from Arvi", "Deliver without leaving the app."),
            ("mail", "Resend any time", "Re-issue a letter in one click.")],
           "09-approve-resend.mp4", "platform.arvihealth.com &middot; Send", path="gp")
     # -------- Specialist path --------
     + SPEC_DIV
-    + vid("Specialist workflow", "Take the Consultation",
+    + vid("For specialists", "Take the Consultation",
           "Open the referred patient, or Quick Create if needed. One tap and Arvi is capturing the consultation.",
           [("zap", "Quick Create", "Start even without a booking."),
            ("mic", "One tap to record", "Minimal steps between you and a note.")],
           "03-quick-record.mp4", "Arvi &middot; Quick Record", path="spec")
-    + vid("Specialist workflow", "Your Consultation Note",
+    + vid("For specialists", "Your Consultation Note",
           "Arvi writes the specialist consultation note as you talk, structured to your field and ready to review.",
           [("mic", "Record &amp; structure", "Ambient capture becomes a clean note."),
-           ("check", "Review, don't author", "Edit a draft, don't write from scratch.")],
+           ("check", "Review, don't author", "Edit a draft, don't write from scratch."),
+           ("file", "Patient summary too", "The same consult can become a patient summary in a click.")],
           "01-letter-generation.mp4", "platform.arvihealth.com &middot; New note", path="spec")
-    + vid("Specialist workflow", "Your Specialist Letter",
+    + vid("For specialists", "Your Specialist Letter",
           "Generate the specialist letter back to the referring GP from the same recording, then preview and format it.",
           [("file", "Letter to the GP", "A ready-to-send specialist letter."),
            ("edit", "Preview &amp; formatting", "Final review before it goes out.")],
           "07-edit-letter.mp4", "platform.arvihealth.com &middot; Specialist letter", path="spec")
-    + vid("Specialist workflow", "Send Back to the GP",
+    + vid("For specialists", "Send Back to the GP",
           "Email the letter to the referring GP from Arvi, and resend any time. A patient summary is a click away too.",
           [("send", "Send from Arvi", "Close the loop with the referrer."),
            ("mail", "Resend any time", "Re-issue a letter in one click.")],
@@ -482,7 +484,7 @@ HTML = '''<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <title>Arvi Health &middot; Guided Walkthrough</title>
+    <title>Arvi Health &middot; Getting Started</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -493,7 +495,7 @@ HTML = '''<!DOCTYPE html>
     <nav class="nav">
         <a href="https://arvihealth.com" target="_blank" rel="noopener" class="logo"><img src="arvi logo.avif" alt="Arvi Health"></a>
         <div class="dots" id="dots"></div>
-        <div class="nav-tag">Arvi &middot; <b>Guided Walkthrough</b></div>
+        <div class="nav-tag">Arvi &middot; <b>Getting Started</b></div>
     </nav>
 
     <main class="deck" id="deck">
