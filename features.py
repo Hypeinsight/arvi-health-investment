@@ -61,7 +61,7 @@ EXTRA_CSS = '''
         .apppanel-foot{padding:.5rem 1rem;font-size:.72rem;color:var(--muted);text-align:center;border-top:1px solid var(--line);flex-shrink:0}
         .apppanel-foot a{color:var(--accent);font-weight:700;text-decoration:none}
         body.split .deck{width:calc(100vw - var(--pw))}
-        body.split .slide{flex:0 0 calc(100vw - var(--pw));width:calc(100vw - var(--pw))}
+        body.split .slide{flex:0 0 calc(100vw - var(--pw));width:calc(100vw - var(--pw));overflow-y:auto}
         body.split .nav{right:var(--pw)}
         body.split .progress{right:var(--pw);width:auto}
         body.split .counter{right:calc(var(--pw) + clamp(1rem,3vw,2.4rem))}
@@ -447,6 +447,7 @@ ENGINE = r"""
   }
   window.arviSetPath=function(p){
     path=p; document.body.setAttribute('data-chosen',p); applyPath();
+    if(window.arviFit) setTimeout(window.arviFit,120);
     // advance to the next slide (the onboarding steps begin), not the tailored section
     var choice=document.getElementById('s-path');
     var v=vis(); var ci=v.indexOf(choice); var next=v[ci+1];
@@ -542,31 +543,55 @@ HTML = '''<!DOCTYPE html>
     <script>
     (function(){
         var BASE=''' + repr(SIGNUP) + ''';
+        function visible(){ return [].slice.call(document.querySelectorAll('.slide')).filter(function(s){return getComputedStyle(s).display!=='none';}); }
         function current(){
-            var deck=document.getElementById('deck');
-            var vis=[].slice.call(document.querySelectorAll('.slide')).filter(function(s){return getComputedStyle(s).display!=='none';});
+            var deck=document.getElementById('deck'); var v=visible();
             var idx=Math.round(deck.scrollLeft/(deck.clientWidth||1));
-            if(idx<0)idx=0; if(idx>vis.length-1)idx=vis.length-1;
-            return vis[idx];
+            if(idx<0)idx=0; if(idx>v.length-1)idx=v.length-1;
+            return v[idx];
         }
         function realign(el){ if(el) requestAnimationFrame(function(){ el.scrollIntoView({inline:'start'}); }); }
+        // Scale each slide's content to fit the narrowed deck, so nothing is cut.
+        // Measures the content, shrinks only if it overflows, with a readable floor.
+        function fitSlides(){
+            var split=document.body.classList.contains('split');
+            [].slice.call(document.querySelectorAll('.slide')).forEach(function(s){
+                var inner=s.querySelector('.inner'); if(!inner) return;
+                inner.style.zoom='';
+                if(!split || getComputedStyle(s).display==='none') return;
+                var cs=getComputedStyle(s);
+                var availW=s.clientWidth-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0);
+                var availH=s.clientHeight-(parseFloat(cs.paddingTop)||0)-(parseFloat(cs.paddingBottom)||0);
+                var cw=inner.scrollWidth, ch=inner.scrollHeight;
+                if(!cw||!ch||!availW||!availH) return;
+                var z=Math.min(1, availW/cw, availH/ch);
+                if(z<0.68) z=0.68;            // readability floor; overflow then scrolls
+                if(z<0.995) inner.style.zoom=z.toFixed(3);
+            });
+        }
+        window.arviFit=fitSlides;
         window.openApp=function(ev,src){
             if(ev&&ev.preventDefault)ev.preventDefault();
             var f=document.getElementById('appframe');
             if(f.getAttribute('data-loaded')!=='1'){ f.src=BASE+(src?('&utm_content='+src):''); f.setAttribute('data-loaded','1'); }
             var el=current();
             document.body.classList.add('split');
-            realign(el);
+            void document.getElementById('deck').offsetWidth;   // flush the reflow first
+            realign(el); fitSlides();
+            setTimeout(fitSlides,180);                           // catch late reflow / scrollbar
             return false;
         };
         window.closeApp=function(){
             var el=current();
             document.body.classList.remove('split');
-            realign(el);
+            void document.getElementById('deck').offsetWidth;
+            realign(el); fitSlides();
+            setTimeout(fitSlides,180);
         };
         document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeApp(); });
-        // keep the current slide aligned if the panel changes the viewport
-        addEventListener('resize',function(){ realign(current()); });
+        // realign and refit if the window (or panel) changes the space available
+        var rt;
+        addEventListener('resize',function(){ realign(current()); clearTimeout(rt); rt=setTimeout(fitSlides,120); });
     })();
     </script>
 </body>
