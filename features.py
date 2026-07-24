@@ -72,6 +72,17 @@ EXTRA_CSS = '''
             body.split .nav,body.split .progress{right:0}
             body.split .counter{right:clamp(1rem,3vw,2.4rem)}
         }
+        /* click a slide video to enlarge it (opens over the deck, clear of the panel) */
+        .clip-frame{cursor:zoom-in;position:relative}
+        .clip-frame::after{content:"\\2922";position:absolute;right:10px;bottom:8px;width:32px;height:32px;border-radius:9px;background:rgba(4,39,64,.5);color:#fff;font-size:18px;line-height:32px;text-align:center;opacity:0;transition:opacity .25s;pointer-events:none;z-index:3}
+        .clip-frame:hover::after{opacity:1}
+        .vlight{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1150;display:none;align-items:center;justify-content:center;padding:clamp(16px,3vw,44px)}
+        .vlight.on{display:flex}
+        body.split .vlight{right:var(--pw)}
+        .vlight-bd{position:absolute;inset:0;background:rgba(4,39,64,.74);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+        .vlight video{position:relative;z-index:1;width:auto;max-width:100%;max-height:84vh;border-radius:14px;box-shadow:var(--s-lg);background:#000;display:block}
+        .vlight-x{position:absolute;top:clamp(12px,2vh,20px);right:clamp(12px,2vw,20px);z-index:2;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;font-size:1.4rem;line-height:1;color:var(--primary-dark);display:flex;align-items:center;justify-content:center;box-shadow:var(--s-md)}
+        .vlight-x:hover{background:#fff}
 '''
 
 # --------------------------------------------------- video-slide helper ----
@@ -539,6 +550,12 @@ HTML = '''<!DOCTYPE html>
         <div class="apppanel-foot">Keep moving through the guide on the left. <a href="''' + SIGNUP + '''&utm_content=panel-fallback" target="_blank" rel="noopener">Or open in a new tab</a></div>
     </aside>
 
+    <div class="vlight" id="vlight" aria-hidden="true">
+        <div class="vlight-bd" onclick="closeVideo()"></div>
+        <button class="vlight-x" onclick="closeVideo()" aria-label="Close video">&times;</button>
+        <video id="vlvideo" loop muted playsinline></video>
+    </div>
+
     <script>''' + ENGINE + '''</script>
     <script>
     (function(){
@@ -588,7 +605,27 @@ HTML = '''<!DOCTYPE html>
             realign(el); fitSlides();
             setTimeout(fitSlides,180);
         };
-        document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeApp(); });
+        // click any slide video to enlarge it (stays clear of the side panel)
+        window.openVideo=function(src){
+            if(!src) return;
+            var v=document.getElementById('vlvideo');
+            if(v.getAttribute('src')!==src){ v.setAttribute('src',src); }
+            document.getElementById('vlight').classList.add('on');
+            try{ var p=v.play(); if(p)p.catch(function(){}); }catch(e){}
+        };
+        window.closeVideo=function(){
+            document.getElementById('vlight').classList.remove('on');
+            try{ document.getElementById('vlvideo').pause(); }catch(e){}
+        };
+        [].slice.call(document.querySelectorAll('.clip-frame video')).forEach(function(v){
+            v.addEventListener('click',function(){ openVideo(v.currentSrc||v.getAttribute('src')); });
+        });
+
+        document.addEventListener('keydown',function(e){
+            if(e.key!=='Escape') return;
+            if(document.getElementById('vlight').classList.contains('on')) closeVideo();
+            else closeApp();
+        });
         // realign and refit if the window (or panel) changes the space available
         var rt;
         addEventListener('resize',function(){ realign(current()); clearTimeout(rt); rt=setTimeout(fitSlides,120); });
