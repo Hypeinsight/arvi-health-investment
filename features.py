@@ -48,6 +48,19 @@ EXTRA_CSS = '''
         body[data-chosen="gp"] .pathbtn[data-p="gp"] .go::after,body[data-chosen="spec"] .pathbtn[data-p="spec"] .go::after{content:"Now viewing"}
         @media (max-width:760px){.pathpick{grid-template-columns:1fr}}
         @media (prefers-reduced-motion:reduce){.steps.anim .sic{animation:none}.slide.active .menu.pop .mi{animation:none;opacity:1}}
+        /* in-deck sign-up modal */
+        .smodal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:clamp(10px,3vw,30px)}
+        .smodal[hidden]{display:none}
+        .smodal-bd{position:absolute;inset:0;background:rgba(4,39,64,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+        .smodal-box{position:relative;z-index:1;width:min(580px,96vw);max-height:94vh;background:#fff;border-radius:var(--r-lg);box-shadow:var(--s-lg);overflow:hidden;display:flex;flex-direction:column;animation:smIn .35s cubic-bezier(.34,1.4,.5,1)}
+        @keyframes smIn{0%{opacity:0;transform:translateY(16px) scale(.97)}100%{opacity:1;transform:none}}
+        .smodal-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 1.1rem;border-bottom:1px solid var(--line)}
+        .smodal-head b{color:var(--primary-dark);font-size:clamp(.95rem,1.2vw,1.08rem)}
+        .smodal-close{border:none;background:rgba(4,55,98,.07);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1.3rem;color:var(--muted);line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+        .smodal-close:hover{background:rgba(4,55,98,.14);color:var(--primary-dark)}
+        .smodal iframe{width:100%;flex:1;min-height:min(68vh,600px);border:0;display:block;background:#fff}
+        .smodal-foot{padding:.65rem 1.1rem;font-size:.76rem;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+        .smodal-foot a{color:var(--accent);font-weight:700;text-decoration:none}
 '''
 
 # --------------------------------------------------- video-slide helper ----
@@ -69,7 +82,7 @@ INTRO = '''        <!-- Punch intro -->
                     <div class="feature-copy">
                         <div class="badge reveal"><span class="pulse"></span> Getting started</div>
                         <h1 class="reveal" data-delay="1">Welcome to Arvi.<br><span>Let's get you set up.</span></h1>
-                        <p class="reveal" data-delay="2">This short guide walks you through getting started on Arvi, from creating your account to sending your first letter. Scroll, or use the arrow keys, to move through it. You can sign up at the end.</p>
+                        <p class="reveal" data-delay="2">This short guide walks you through getting started on Arvi, from creating your account to sending your first letter. Scroll, or use the arrow keys, to move through it. You can create your account whenever you are ready.</p>
                         <div class="tags reveal" data-delay="3"><span class="tag">For GPs &amp; specialists</span><span class="tag">Web &amp; mobile</span><span class="tag">Set up in minutes</span></div>
                     </div>
                     <figure class="clip reveal" data-delay="2">
@@ -114,6 +127,9 @@ SIGNUP_STEPS = '''        <!-- How simple sign-up is (animated) -->
                     <div class="step reveal" data-delay="3"><div class="sic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="sn">STEP 02</div><h3>Enter your details</h3><p>Name, email and your practice. That is it.</p></div>
                     <div class="step reveal" data-delay="4"><div class="sic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="sn">STEP 03</div><h3>You're in</h3><p>Straight to your dashboard, ready to set up.</p></div>
                 </div>
+                <div style="text-align:center;margin-top:clamp(1rem,2.6vh,1.8rem)">
+                    <a class="cta reveal" data-delay="5" href="''' + SIGNUP + '''&utm_content=signup-step" target="_blank" rel="noopener" onclick="return openSignup(event,'signup-step')">Create your account <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
             </div>
         </section>
 '''
@@ -142,7 +158,7 @@ CHOICE = '''        <!-- GP / specialist fork -->
                 <div class="slide-head" style="text-align:center">
                     <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg> First, Tell Us Who You Are</div>
                     <h2 class="title reveal" data-delay="1">Are You a GP or a Specialist?</h2>
-                    <p class="subtitle reveal" data-delay="2">Pick one and we will tailor the rest of your set-up to how you practise. You can switch any time.</p>
+                    <p class="subtitle reveal" data-delay="2">Choose one to get started.</p>
                 </div>
                 <div class="pathpick">
                     <button class="pathbtn reveal" data-delay="3" data-p="gp" onclick="arviSetPath('gp')">
@@ -273,7 +289,7 @@ FINALE = '''        <!-- Finale + sign up -->
                         <span class="mi">Your templates</span>
                     </div>
                     <p class="subtitle reveal" data-delay="3" style="text-align:center;max-width:680px;margin:clamp(.6rem,1.4vh,1rem) auto 0">You have seen how it works. Create your account and turn your next consultation into a finished note. From $30 a month, with a 30 day free trial.</p>
-                    <a class="cta reveal" data-delay="4" href="''' + SIGNUP + '''&utm_content=end-cta" target="_blank" rel="noopener">Sign up for free <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <a class="cta reveal" data-delay="4" href="''' + SIGNUP + '''&utm_content=end-cta" target="_blank" rel="noopener" onclick="return openSignup(event,'end-cta')">Sign up for free <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                 </div>
             </div>
         </section>
@@ -420,8 +436,10 @@ ENGINE = r"""
   }
   window.arviSetPath=function(p){
     path=p; document.body.setAttribute('data-chosen',p); applyPath();
-    var first=all.filter(function(s){return s.getAttribute('data-path')===p;})[0];
-    if(first){ setTimeout(function(){ first.scrollIntoView({behavior:'smooth',inline:'start'}); },90); }
+    // advance to the next slide (the onboarding steps begin), not the tailored section
+    var choice=document.getElementById('s-path');
+    var v=vis(); var ci=v.indexOf(choice); var next=v[ci+1];
+    if(next){ setTimeout(function(){ next.scrollIntoView({behavior:'smooth',inline:'start'}); },90); }
   };
 
   // scroll-position based activation (robust; no IntersectionObserver needed)
@@ -503,7 +521,30 @@ HTML = '''<!DOCTYPE html>
 
     <div class="counter"><span><b id="cur">1</b> / <span id="total">0</span></span><span class="sec" id="sec">Overview</span></div>
 
+    <div class="smodal" id="smodal" hidden>
+        <div class="smodal-bd" onclick="closeSignup()"></div>
+        <div class="smodal-box">
+            <div class="smodal-head"><b>Create your Arvi account</b><button class="smodal-close" onclick="closeSignup()" aria-label="Close">&times;</button></div>
+            <iframe id="sframe" title="Sign up for Arvi" src="about:blank"></iframe>
+            <div class="smodal-foot">Prefer a full page? <a href="''' + SIGNUP + '''&utm_content=modal-fallback" target="_blank" rel="noopener">Open sign-up in a new tab</a></div>
+        </div>
+    </div>
+
     <script>''' + ENGINE + '''</script>
+    <script>
+    (function(){
+        var BASE=''' + repr(SIGNUP) + ''';
+        window.openSignup=function(ev,src){
+            if(ev&&ev.preventDefault)ev.preventDefault();
+            var f=document.getElementById('sframe');
+            if(f.getAttribute('data-loaded')!=='1'){ f.src=BASE+(src?('&utm_content='+src):''); f.setAttribute('data-loaded','1'); }
+            document.getElementById('smodal').hidden=false;
+            return false;
+        };
+        window.closeSignup=function(){ document.getElementById('smodal').hidden=true; };
+        document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSignup(); });
+    })();
+    </script>
 </body>
 </html>
 '''
