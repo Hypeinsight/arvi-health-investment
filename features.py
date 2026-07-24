@@ -31,11 +31,17 @@ EXTRA_CSS = '''
         @keyframes chipPop{0%{opacity:0;transform:translateY(12px) scale(.9)}100%{opacity:1;transform:none}}
         /* GP / specialist path picker */
         .pathpick{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.5vw,2rem);max-width:900px;margin:clamp(1.1rem,2.8vh,2rem) auto 0}
-        .pathbtn{position:relative;text-align:left;cursor:pointer;padding:clamp(1.3rem,2.3vw,2.1rem);border-radius:var(--r-lg);border:2px solid var(--glass-border);background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:var(--s-sm);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-color .3s;display:flex;flex-direction:column;gap:.55rem;font-family:inherit}
+        .pathbtn{position:relative;text-align:left;cursor:pointer;padding:clamp(1.4rem,2.4vw,2.2rem);border-radius:var(--r-lg);border:2px solid var(--glass-border);background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:var(--s-sm);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-color .3s;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(1rem,2vh,1.6rem);font-family:inherit}
         .pathbtn:hover{transform:translateY(-5px);box-shadow:var(--s-md)}
-        .pathbtn h3{font-size:clamp(1.1rem,1.5vw,1.4rem);color:var(--primary-dark)}
-        .pathbtn p{font-size:clamp(.82rem,1vw,.95rem);color:var(--muted);line-height:1.45}
-        .pathbtn .go{margin-top:.3rem;font-size:.8rem;font-weight:800;letter-spacing:.02em;color:var(--accent);display:inline-flex;align-items:center;gap:.35rem}
+        .pathbtn>div{display:flex;flex-direction:column;gap:.55rem}
+        .pathbtn .vic{align-self:flex-start;flex:0 0 auto;width:clamp(48px,3.6vw,58px);height:clamp(48px,3.6vw,58px)}
+        .pathbtn h3{font-size:clamp(1.2rem,1.6vw,1.5rem);color:var(--primary-dark)}
+        .pathbtn p{font-size:clamp(.82rem,1vw,.96rem);color:var(--muted);line-height:1.45}
+        .pathfeat{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.3rem}
+        .pathfeat li{display:flex;align-items:center;gap:.55rem;font-size:clamp(.84rem,1.02vw,.96rem);font-weight:600;color:var(--primary-dark)}
+        .pathfeat li svg{width:16px;height:16px;stroke:var(--accent);stroke-width:2.6;fill:none;flex-shrink:0}
+        .pathbtn .go{font-size:.82rem;font-weight:800;letter-spacing:.02em;color:var(--accent);display:inline-flex;align-items:center;gap:.4rem}
+        .pathbtn .go::before{content:"\\2192 ";font-weight:800}
         body[data-chosen="gp"] .pathbtn[data-p="gp"],body[data-chosen="spec"] .pathbtn[data-p="spec"]{border-color:transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,var(--primary),var(--accent)) border-box;box-shadow:var(--s-md)}
         body[data-chosen="gp"] .pathbtn[data-p="gp"] .go span,body[data-chosen="spec"] .pathbtn[data-p="spec"] .go span{display:none}
         .pathbtn .go::after{content:""}
@@ -140,15 +146,29 @@ CHOICE = '''        <!-- GP / specialist fork -->
                 </div>
                 <div class="pathpick">
                     <button class="pathbtn reveal" data-delay="3" data-p="gp" onclick="arviSetPath('gp')">
-                        <div class="vic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
-                        <h3>General Practitioner</h3>
-                        <p>Quick consults, referral letters to specialists, and fast records between patients.</p>
+                        <div>
+                            <div class="vic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+                            <h3>General Practitioner</h3>
+                            <p>Quick consults and referrals to specialists.</p>
+                            <ul class="pathfeat">
+                                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Consult notes</li>
+                                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Referral letters</li>
+                                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Quick record between patients</li>
+                            </ul>
+                        </div>
                         <span class="go"><span>See the GP workflow</span></span>
                     </button>
                     <button class="pathbtn reveal" data-delay="4" data-p="spec" onclick="arviSetPath('spec')">
-                        <div class="vic"><svg viewBox="0 0 24 24"><path d="M8 2v4a4 4 0 0 0 8 0V2"/><path d="M6 6v5a6 6 0 0 0 12 0V6"/><path d="M12 17v0a5 5 0 0 0 5-5"/><circle cx="19" cy="10" r="2"/></svg></div>
-                        <h3>Specialist</h3>
-                        <p>Detailed consultations, specialist letters back to the referring GP, and patient summaries.</p>
+                        <div>
+                            <div class="vic"><svg viewBox="0 0 24 24"><path d="M8 2v4a4 4 0 0 0 8 0V2"/><path d="M6 6v5a6 6 0 0 0 12 0V6"/><path d="M12 17v0a5 5 0 0 0 5-5"/><circle cx="19" cy="10" r="2"/></svg></div>
+                            <h3>Specialist</h3>
+                            <p>Detailed consultations and letters back to the GP.</p>
+                            <ul class="pathfeat">
+                                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Consultation notes</li>
+                                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Specialist letters</li>
+                                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Patient summaries</li>
+                            </ul>
+                        </div>
                         <span class="go"><span>See the specialist workflow</span></span>
                     </button>
                 </div>
@@ -261,7 +281,7 @@ FINALE = '''        <!-- Finale + sign up -->
 
 # ------------------------------------------------------ the workflow ----
 BODY = (
-    INTRO + OUTLINE + SIGNUP_STEPS + SETUP_STEPS
+    INTRO + CHOICE + OUTLINE + SIGNUP_STEPS + SETUP_STEPS
     + vid("Set up", "Your Letters, Your Format",
           "Build templates that match your practice, GP referrals or specialist letters, so every document comes out in your house style.",
           [("sliders", "Build your own", "Reusable templates for any letter type."),
@@ -277,7 +297,6 @@ BODY = (
           [("calendar", "Appointments &amp; calendar", "See the day's schedule at a glance."),
            ("users", "Patient records", "Details sit right beside the notes.")],
           "10-patient-management.mp4", "platform.arvihealth.com &middot; Patients")
-    + CHOICE
     # -------- GP path --------
     + GP_DIV
     + vid("GP workflow", "Start the Consult",
@@ -364,7 +383,7 @@ BODY = (
     + FINALE
 )
 
-# ---- path-aware deck engine (self-contained; not gen.SCRIPT) ----
+# ---- path-aware deck engine: IntersectionObserver activation + path filtering ----
 ENGINE = r"""
 (function(){
   var deck=document.getElementById('deck');
@@ -388,53 +407,72 @@ ENGINE = r"""
       dotsWrap.appendChild(b);
     });
   }
-  function apply(){
+  function refreshDot(){
+    var idx=Math.round(deck.scrollLeft/deck.clientWidth);
+    var dots=[].slice.call(dotsWrap.children);
+    dots.forEach(function(d,k){ d.classList.toggle('active',k===idx); });
+  }
+  function applyPath(){
     all.forEach(function(s){ s.style.display=ok(s)?'':'none'; });
-    buildDots(); totalEl.textContent=vis().length; update(); syncVideos();
+    buildDots(); totalEl.textContent=vis().length; refreshDot(); syncVideos();
   }
   window.arviSetPath=function(p){
-    path=p; document.body.setAttribute('data-chosen',p); apply();
+    path=p; document.body.setAttribute('data-chosen',p); applyPath();
     var first=all.filter(function(s){return s.getAttribute('data-path')===p;})[0];
     if(first){ setTimeout(function(){ first.scrollIntoView({behavior:'smooth',inline:'start'}); },90); }
   };
 
-  var raf;
-  function update(){
+  // scroll-position based activation (robust; no IntersectionObserver needed)
+  function tick(){
     var v=vis();
-    var idx=Math.round(deck.scrollLeft/deck.clientWidth);
-    if(idx<0)idx=0; if(idx>v.length-1)idx=v.length-1;
+    var cw=deck.clientWidth||window.innerWidth||1;
+    var idx=Math.round(deck.scrollLeft/cw);
+    if(!(idx>=0))idx=0; if(idx>v.length-1)idx=v.length-1;
     var dots=[].slice.call(dotsWrap.children);
     dots.forEach(function(d,k){ d.classList.toggle('active',k===idx); });
-    if(v[idx])v[idx].classList.add('active');
+    v.forEach(function(s,k){
+      var vids=s.querySelectorAll('video');
+      if(k===idx){
+        s.classList.add('active');
+        [].forEach.call(vids,function(vd){ if(vd.paused){ var p=vd.play(); if(p)p.catch(function(){}); } });
+      } else {
+        [].forEach.call(vids,function(vd){ if(!vd.paused){ try{vd.pause();}catch(_){} } });
+      }
+    });
     if(cur)cur.textContent=idx+1;
     if(secEl&&v[idx])secEl.textContent=v[idx].getAttribute('data-sec')||'';
     var max=deck.scrollWidth-deck.clientWidth;
     prog.style.setProperty('--p', max>0?(deck.scrollLeft/max).toFixed(4):'0');
   }
-  function syncVideos(){
-    var v=vis(); var idx=Math.round(deck.scrollLeft/deck.clientWidth);
-    v.forEach(function(s,k){
-      [].forEach.call(s.querySelectorAll('video'),function(vd){
-        if(k===idx){ if(vd.paused){ var p=vd.play(); if(p)p.catch(function(){}); } }
-        else if(!vd.paused){ try{vd.pause();}catch(e){} }
-      });
-    });
-  }
-  var t;
-  deck.addEventListener('scroll',function(){
-    if(!raf){ raf=requestAnimationFrame(function(){ update(); raf=null; }); }
-    clearTimeout(t); t=setTimeout(syncVideos,120);
-  });
+  function syncVideos(){ tick(); }
+
+  // IntersectionObserver activation (matches the proven decks; fires on scroll in real browsers)
+  try{
+    var io=new IntersectionObserver(function(es){
+      var hit=false;
+      es.forEach(function(e){ if(e.isIntersecting&&e.intersectionRatio>=0.55){ e.target.classList.add('active'); hit=true; } });
+      if(hit) tick();
+    },{root:deck,threshold:[0,0.55,1]});
+    all.forEach(function(s){ io.observe(s); });
+  }catch(_){}
+
+  var raf;
+  deck.addEventListener('scroll',function(){ if(!raf){ raf=requestAnimationFrame(function(){ tick(); raf=null; }); } });
+  addEventListener('resize',function(){ tick(); });
   addEventListener('keydown',function(ev){
-    var v=vis(); var i=Math.round(deck.scrollLeft/deck.clientWidth);
+    var v=vis(); var i=Math.round(deck.scrollLeft/(deck.clientWidth||1));
     if(ev.key==='ArrowRight'||ev.key==='PageDown'||ev.key===' '){ev.preventDefault(); if(i<v.length-1)v[i+1].scrollIntoView({behavior:'smooth',inline:'start'});}
     else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault(); if(i>0)v[i-1].scrollIntoView({behavior:'smooth',inline:'start'});}
     else if(ev.key==='Home'){ev.preventDefault(); v[0].scrollIntoView({behavior:'smooth',inline:'start'});}
     else if(ev.key==='End'){ev.preventDefault(); v[v.length-1].scrollIntoView({behavior:'smooth',inline:'start'});}
   });
+
   document.body.setAttribute('data-chosen',path);
-  apply();
-  window.addEventListener('load',syncVideos);
+  applyPath();
+  // run after layout is ready so clientWidth is correct
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ tick(); }); });
+  window.addEventListener('load',tick);
+  setTimeout(tick,250);
 })();
 """
 
