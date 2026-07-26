@@ -276,19 +276,38 @@ MOBILE_STEPS = '''        <!-- Mobile guided install (animated) -->
         </section>
 '''
 
-HEALTHLINK = '''        <!-- HealthLink coming soon -->
+SPEC_PAPERLESS = '''        <!-- Specialist: paperless -->
+        <section class="slide" id="s-paperless" data-path="spec" data-sec="For specialists">
+            <div class="inner fill">
+                <div class="slide-head">
+                    <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M8 2v4a4 4 0 0 0 8 0V2"/><path d="M6 6v5a6 6 0 0 0 12 0V6"/><circle cx="19" cy="10" r="2"/></svg> For Specialists</div>
+                    <h2 class="title reveal" data-delay="1">Go Completely Paperless</h2>
+                    <p class="subtitle reveal" data-delay="2">Every note, letter and summary comes out of Arvi already written, so there is nothing to handwrite and nothing to file. It all lives in the record.</p>
+                </div>
+                <div class="cards c4">
+                    <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/></svg></div><h3>Consultation notes</h3><p>Every consult, written up for you.</p></div>
+                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.17L4 17.17V4z"/><line x1="8" y1="9" x2="16" y2="9"/></svg></div><h3>Specialist letters</h3><p>Back to the referring GP, drafted.</p></div>
+                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><h3>Patient summaries</h3><p>In plain language, for the patient.</p></div>
+                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Nothing on paper</h3><p>Filed and searchable, not in a drawer.</p></div>
+                </div>
+            </div>
+        </section>
+'''
+
+HEALTHLINK = '''        <!-- HealthLink coming soon: how it works -->
         <section class="slide" id="s-healthlink" data-sec="Coming Soon">
             <div class="inner">
                 <div class="slide-head">
-                    <div class="badge reveal" style="margin:0 auto clamp(.6rem,1.4vh,1rem)"><span class="pulse"></span> Coming soon</div>
-                    <h2 class="title reveal" data-delay="1" style="text-align:center">Soon, Letters Send Themselves</h2>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:760px;margin:0 auto">We are building a link into the practice software you already use, so your letters go straight there, with no copy and paste.</p>
+                    <div class="badge reveal" style="margin:0 auto clamp(.6rem,1.4vh,1rem)"><span class="pulse"></span> Coming soon &middot; GPs &amp; specialists</div>
+                    <h2 class="title reveal" data-delay="1" style="text-align:center">Letters Straight Into Your Software</h2>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:780px;margin:0 auto">We are building a secure link into the practice software you already run, over HealthLink. Here is how it will work.</p>
                 </div>
-                <div class="cards c3">
-                    <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>Straight to the record</h3><p>Letters land in the software you already run.</p></div>
-                    <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></div><h3>Sent securely</h3><p>Over HealthLink, which clinics already trust.</p></div>
-                    <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>No copy and paste</h3><p>The last bit of manual work, gone.</p></div>
+                <div class="steps anim">
+                    <div class="step reveal" data-delay="2"><div class="sic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/></svg></div><div class="sn">STEP 01</div><h3>Arvi writes it</h3><p>Your letter or patient summary, generated as usual.</p></div>
+                    <div class="step reveal" data-delay="3"><div class="sic"><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></div><div class="sn">STEP 02</div><h3>Sent over HealthLink</h3><p>Delivered securely, the rail clinics already trust.</p></div>
+                    <div class="step reveal" data-delay="4"><div class="sic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div><div class="sn">STEP 03</div><h3>Filed in your software</h3><p>It lands in the patient's record, no copy and paste.</p></div>
                 </div>
+                <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">Built to work with the practice management software you already use, for GPs and specialists alike.</p>
             </div>
         </section>
 '''
@@ -377,10 +396,16 @@ BODY = (
            ("edit", "A quick read", "Look it over before it goes.")],
           "07-edit-letter.mp4", "platform.arvihealth.com &middot; Specialist letter", path="spec")
     + vid("For specialists", "Send It Back",
-          "Send your letter to the referring GP from Arvi, and send it again anytime it is needed. A patient summary is a tap away too.",
+          "Send your letter to the referring GP from Arvi, and send it again anytime it is needed.",
           [("send", "Close the loop", "Send it back to whoever referred them."),
            ("mail", "Send again anytime", "One tap if it is ever needed twice.")],
           "09-approve-resend.mp4", "platform.arvihealth.com &middot; Send", path="spec")
+    + vid("For specialists", "Email the Patient Their Summary",
+          "Turn the same consult into a plain-language summary for the patient and email it to them, so they leave with a clear record of what was discussed.",
+          [("file", "A patient-friendly summary", "Plain language, not clinical shorthand."),
+           ("send", "Emailed to the patient", "Straight from Arvi, in a tap.")],
+          "09-approve-resend.mp4", "platform.arvihealth.com &middot; Patient summary", path="spec")
+    + SPEC_PAPERLESS
     # -------- shared, both paths converge --------
     + vid("Everyone", "Want to Change Something?",
           "Not happy with a line? Ask Arvi to rewrite any part until it reads the way you want.",
@@ -409,11 +434,16 @@ BODY = (
            ("user", "Free admin seat", "Oversight at no extra cost.")],
           "18-free-admin.mp4", "platform.arvihealth.com &middot; Admin")
     + MOBILE_STEPS
-    + vid("On mobile", "Even in Theatre",
-          "Record your operation note on your phone, even when the signal is weak. It catches up once you are back online.",
-          [("phone", "Record right there", "Write the note in the moment."),
-           ("wifi", "Works offline", "It syncs when you reconnect.")],
-          "04-mobile-recording.mp4", "Arvi mobile &middot; Operating theatre")
+    + vid("On mobile", "Working Remotely, On the Move",
+          "House calls, between clinics, or just away from your desk. The app in your pocket lets you capture a consult wherever you are.",
+          [("phone", "Record anywhere", "No desk or computer needed."),
+           ("wifi", "Even on a weak signal", "It syncs when you are back online.")],
+          "04-mobile-recording.mp4", "Arvi mobile", path="gp")
+    + vid("On mobile", "In Theatre or On the Move",
+          "In theatre, on the ward, or between sites. Record the note on your phone right at the point of care, even when the signal is weak.",
+          [("phone", "Record at the point of care", "In theatre or at the bedside."),
+           ("wifi", "Even on a weak signal", "It syncs when you are back online.")],
+          "04-mobile-recording.mp4", "Arvi mobile &middot; Operating theatre", path="spec")
     + HEALTHLINK
     + vid("The cost", "What It Costs",
           "It is $30 a month, and that includes 10 hours. Need more? Add 10-hour packs anytime. You start with 30 days free.",
