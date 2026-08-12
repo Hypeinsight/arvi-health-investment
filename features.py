@@ -343,24 +343,24 @@ BODY = (
           "Do this once and your letters will always come out looking the way you like.",
           [("sliders", "Make your own", "Set up a template for any letter you send."),
            ("edit", "Lay it out your way", "Change the format so it feels like yours.")],
-          "08-custom-template.mp4", "platform.arvihealth.com &middot; Templates")
+          "newui-custom-template.mp4", "platform.arvihealth.com &middot; Templates")
     + vid("Your patients", "Add Your Patients",
           "Bring your patient list across so everyone is ready to go. For now that is a quick file upload. Automatic sync from your practice software is coming soon.",
           [("users", "Upload your list", "Bring all your patients in at once."),
            ("eye", "See everyone", "Your whole practice in one place.")],
-          "02-admin-access.mp4", "platform.arvihealth.com &middot; Admin")
+          "newui-add-patients.mp4", "platform.arvihealth.com &middot; Admin")
     + vid("Your patients", "Your Day at a Glance",
           "When you log in, you will see today's appointments. Tap any one to get started.",
           [("calendar", "Today's list", "Everyone you are seeing, in order."),
            ("users", "Their details", "Right there when you open a patient.")],
-          "10-patient-management.mp4", "platform.arvihealth.com &middot; Patients")
+          "newui-day-at-a-glance.mp4", "platform.arvihealth.com &middot; Patients")
     # -------- GP path --------
     + GP_DIV
     + vid("For GPs", "Start Your Consult",
           "Open the patient's appointment and tap record. Not booked in? Tap Quick Create and start straight away.",
           [("zap", "Not booked in?", "Use Quick Create and you are going."),
            ("mic", "Just tap record", "Then talk to your patient as you normally would.")],
-          "03-quick-record.mp4", "Arvi &middot; Quick Record", path="gp")
+          "newui-quick-record.mp4", "Arvi &middot; Quick Record", path="gp")
     + vid("For GPs", "Your Note, Written for You",
           "While you talk with your patient, Arvi writes the note. When you are done, it is there waiting for you to check.",
           [("mic", "Just talk", "Arvi turns the conversation into a tidy note."),
@@ -371,19 +371,19 @@ BODY = (
           "From that same consult, Arvi drafts the referral for you. Read it over and change anything, all on one screen.",
           [("file", "Already drafted", "Your referral is written and ready."),
            ("edit", "A quick read", "Look it over before it goes.")],
-          "07-edit-letter.mp4", "platform.arvihealth.com &middot; Referral", path="gp")
+          "newui-referral.mp4", "platform.arvihealth.com &middot; Referral", path="gp")
     + vid("For GPs", "Send It",
           "Send the referral straight to the specialist from Arvi. Need it again later? Send it again in a tap.",
           [("send", "Send from here", "No need to switch over to email."),
            ("mail", "Send again anytime", "One tap if it is ever needed twice.")],
-          "09-approve-resend.mp4", "platform.arvihealth.com &middot; Send", path="gp")
+          "newui-send.mp4", "platform.arvihealth.com &middot; Send", path="gp")
     # -------- Specialist path --------
     + SPEC_DIV
     + vid("For specialists", "Start Your Consult",
           "Open your referred patient and tap record. Not booked in? Tap Quick Create and start straight away.",
           [("zap", "Not booked in?", "Use Quick Create and you are going."),
            ("mic", "Just tap record", "Then talk to your patient as you normally would.")],
-          "03-quick-record.mp4", "Arvi &middot; Quick Record", path="spec")
+          "newui-quick-record.mp4", "Arvi &middot; Quick Record", path="spec")
     + vid("For specialists", "Your Note, Written for You",
           "While you consult with your patient, Arvi writes the note. When you are done, it is there waiting for you to check.",
           [("mic", "Just talk", "Arvi turns the conversation into a tidy note."),
@@ -394,45 +394,45 @@ BODY = (
           "From the same consult, Arvi drafts your letter to the referring GP. Read it over and change anything you like.",
           [("file", "Already drafted", "Your letter is written and ready."),
            ("edit", "A quick read", "Look it over before it goes.")],
-          "07-edit-letter.mp4", "platform.arvihealth.com &middot; Specialist letter", path="spec")
+          "newui-referral.mp4", "platform.arvihealth.com &middot; Specialist letter", path="spec")
     + vid("For specialists", "Send It Back",
           "Send your letter to the referring GP from Arvi, and send it again anytime it is needed.",
           [("send", "Close the loop", "Send it back to whoever referred them."),
            ("mail", "Send again anytime", "One tap if it is ever needed twice.")],
-          "09-approve-resend.mp4", "platform.arvihealth.com &middot; Send", path="spec")
+          "newui-send.mp4", "platform.arvihealth.com &middot; Send", path="spec")
     + vid("For specialists", "Email the Patient Their Summary",
           "Turn the same consult into a plain-language summary for the patient and email it to them, so they leave with a clear record of what was discussed.",
           [("file", "A patient-friendly summary", "Plain language, not clinical shorthand."),
            ("send", "Emailed to the patient", "Straight from Arvi, in a tap.")],
-          "09-approve-resend.mp4", "platform.arvihealth.com &middot; Patient summary", path="spec")
+          "newui-patient-summary.mp4", "platform.arvihealth.com &middot; Patient summary", path="spec")
     + SPEC_PAPERLESS
     # -------- shared, both paths converge --------
     + vid("Everyone", "Want to Change Something?",
           "Not happy with a line? Ask Arvi to rewrite any part until it reads the way you want.",
           [("refresh", "Rewrite a bit", "Redo a section, or the whole thing."),
            ("sliders", "It's your call", "The final words are always yours.")],
-          "06-regeneration.mp4", "platform.arvihealth.com &middot; Regenerate")
+          "newui-regenerate.mp4", "platform.arvihealth.com &middot; Regenerate")
     + vid("Everyone", "Already Have a Recording?",
           "Got audio from earlier? Upload it and Arvi writes the note, just the same.",
           [("upload", "Upload a file", "Any recording you already have works."),
            ("file", "Same result", "You still get a clean, finished note.")],
-          "05-upload-recording.mp4", "platform.arvihealth.com &middot; Upload")
+          "newui-upload-recording.mp4", "platform.arvihealth.com &middot; Upload")
     + vid("Everyone", "Seeing Patients Remotely?",
           "Run your telehealth call inside Arvi and it writes the note, just like an in-person visit.",
           [("video", "Call from Arvi", "No separate video tool to open."),
            ("mic", "Written up for you", "Same as a face-to-face visit.")],
-          "13-telehealth.mp4", "platform.arvihealth.com &middot; Telehealth")
+          "newui-telehealth.mp4", "platform.arvihealth.com &middot; Telehealth")
     + vid("Everyone", "Keep Track of What's Left",
           "Anything still to do after a consult stays on your list until it is done.",
           [("tasks", "Your to-do list", "See what still needs doing."),
            ("check", "Tick it off", "Mark things done as you go.")],
-          "11-task-management.mp4", "platform.arvihealth.com &middot; Tasks")
+          "newui-tasks.mp4", "platform.arvihealth.com &middot; Tasks")
     + MEETING
     + vid("Your team", "Bring Your Team On",
           "Invite the rest of your practice to join you. Your admin seat is free.",
           [("userplus", "Send an invite", "They are in as soon as they accept."),
            ("user", "Free admin seat", "Oversight at no extra cost.")],
-          "18-free-admin.mp4", "platform.arvihealth.com &middot; Admin")
+          "newui-team.mp4", "platform.arvihealth.com &middot; Admin")
     + MOBILE_STEPS
     + vid("On mobile", "Working Remotely, On the Move",
           "House calls, between clinics, or just away from your desk. The app in your pocket lets you capture a consult wherever you are.",
