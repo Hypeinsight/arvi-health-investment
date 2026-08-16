@@ -468,7 +468,7 @@ FEATURES = [
   "A clinician records a single consultation and Arvi generates a structured clinical note, formatted, accurate and ready to review in seconds.",
   [("mic","Record &amp; structure","Ambient capture becomes a clean, sectioned note, no typing."),
    ("check","Review, don't author","The clinician edits a draft instead of writing from scratch.")],
-  "01-letter-generation.mp4","platform.arvihealth.com &middot; New note"),
+  "ui-gp-note.mp4","platform.arvihealth.com &middot; New note"),
 
  ("Core Documentation","Organisation &amp; Team Notes",
   "Documentation under a clinic or team account, with multiple clinicians working together and admin oversight across everyone's work.",
@@ -480,7 +480,7 @@ FEATURES = [
   "A fast-capture mode for urgent situations, minimal steps between hitting record and having a usable note. Built for the pace of an emergency department.",
   [("zap","One tap to capture","No setup overhead when seconds matter."),
    ("check","Structured after the fact","The note is generated once the moment has passed.")],
-  "03-quick-record.mp4","Arvi &middot; Quick Record"),
+  "ui-gp-quick-record.mp4","Arvi &middot; Quick Record"),
 
  ("Core Documentation","Operating Theatre on Mobile",
   "The clinician uses the mobile app right in theatre, capturing the operation note even when connectivity is low, then syncing when back online.",
@@ -492,49 +492,67 @@ FEATURES = [
   "No live capture required, the user uploads an existing audio file and Arvi generates the structured note from it.",
   [("upload","Bring your own audio","Drop in a file recorded anywhere; Arvi does the rest."),
    ("file","Same structured output","Uploaded audio produces the same clean clinical note.")],
-  "05-upload-recording.mp4","platform.arvihealth.com &middot; Upload"),
+  "ui-upload-record.mp4","platform.arvihealth.com &middot; Upload"),
 
  ("Core Documentation","AI Regeneration",
   "Any note or letter can be regenerated or refined with AI, tune the tone, length or detail until it's exactly right.",
   [("refresh","Refine on demand","Regenerate sections or the whole document in a click."),
    ("sliders","Clinician in control","The AI assists; the clinician decides the final wording.")],
-  "06-regeneration.mp4","platform.arvihealth.com &middot; Regenerate"),
+  "ui-regenerate.mp4","platform.arvihealth.com &middot; Regenerate"),
 
  ("Letters &amp; Templates","Letter Generation &amp; Preview",
   "Arvi produces the GP or referral letter from the recording, then lets you review, edit and format it on a dedicated preview page before it goes out.",
   [("file","Letter from a recording","A ready-to-send GP or referral letter, generated automatically."),
    ("edit","Preview &amp; formatting","The final review page, edit and format before sending.")],
-  "07-edit-letter.mp4","platform.arvihealth.com &middot; Preview &amp; formatting"),
+  "ui-gp-referral.mp4","platform.arvihealth.com &middot; Preview &amp; formatting"),
 
  ("Letters &amp; Templates","Custom Letter Templates",
   "Users create their own templates and adjust the formatting to suit their practice, so every letter matches their house style.",
   [("sliders","Build your own","Create reusable templates for any letter type."),
    ("edit","Tune the formatting","Adjust layout and styling to match your practice.")],
-  "08-custom-template.mp4","platform.arvihealth.com &middot; Templates"),
+  "ui-custom-template.mp4","platform.arvihealth.com &middot; Templates"),
 
  ("Letters &amp; Templates","Approve, Send &amp; Resend",
   "Email the finished letter to the recipient directly from Arvi, with the option to resend whenever needed.",
   [("send","Send from Arvi","Deliver the letter to the recipient without leaving the app."),
    ("mail","Resend any time","Re-issue a letter in one click if it's needed again.")],
-  "09-approve-resend.mp4","platform.arvihealth.com &middot; Send"),
+  "ui-gp-send.mp4","platform.arvihealth.com &middot; Send"),
+
+ ("Letters &amp; Templates","Patient Summaries",
+  "Turn the same consultation into a plain-language summary for the patient, then email it to them so they leave with a clear record of what was discussed.",
+  [("mail","Written for the patient","A jargon-free summary, generated from the same recording."),
+   ("send","Emailed in a tap","Send the patient their summary directly from Arvi.")],
+  "ui-sp-summary.mp4","platform.arvihealth.com &middot; Patient summary"),
 
  ("Patient &amp; Workflow","Patient Management &amp; Scheduling",
   "Manage patients, appointments and the calendar in one place, the day's schedule sits alongside the documentation.",
   [("calendar","Appointments &amp; calendar","See the day's schedule and book in patients."),
    ("users","Patient records","Keep patient details organised next to their notes.")],
-  "10-patient-management.mp4","platform.arvihealth.com &middot; Patients"),
+  "ui-today-appointments.mp4","platform.arvihealth.com &middot; Patients"),
+
+ ("Patient &amp; Workflow","Import Your Patients",
+  "Bring an existing patient list into Arvi in one step, so the whole practice is ready to go from day one.",
+  [("upload","Bulk import","Upload your patient list as a file; everyone is loaded at once."),
+   ("users","Ready to document","Imported patients are immediately available to record against.")],
+  "ui-upload-patient.mp4","platform.arvihealth.com &middot; Patients"),
 
  ("Patient &amp; Workflow","Task Management",
   "Track outstanding work to completion, nothing slips between the consult and the follow-up.",
   [("tasks","Track outstanding work","A clear list of what still needs doing."),
    ("check","Close the loop","Mark tasks complete as the work gets done.")],
-  "11-task-management.mp4","platform.arvihealth.com &middot; Tasks"),
+  "ui-tasks.mp4","platform.arvihealth.com &middot; Tasks"),
 
  ("Patient &amp; Workflow","Telehealth Consultations",
   "Run remote consultations inside Arvi, and document them with the same AI workflow as in-person visits.",
   [("video","Remote consults in-app","Conduct telehealth sessions without a separate tool."),
    ("mic","Documented automatically","The same capture-to-note flow applies to remote visits.")],
-  "13-telehealth.mp4","platform.arvihealth.com &middot; Telehealth"),
+  "ui-telehealth.mp4","platform.arvihealth.com &middot; Telehealth"),
+
+ ("Patient &amp; Workflow","Meeting Minutes",
+  "Record a team meeting or case conference and Arvi writes up the discussion, decisions and action items, so no one has to take notes.",
+  [("users","Beyond the consult","Capture team meetings and case conferences, not just patient visits."),
+   ("check","Decisions &amp; actions","The discussion, decisions and follow-ups, written up automatically.")],
+  "ui-meeting-minutes.mp4","platform.arvihealth.com &middot; Meeting minutes"),
 
  ("Patient &amp; Workflow","Notifications",
   "Stay on top of what matters with in-app alerts and push notifications on mobile.",
@@ -558,19 +576,19 @@ FEATURES = [
   "Bring new clinicians into an organisation quickly with a simple invite flow.",
   [("userplus","Invite in seconds","Add new users to the organisation with an invite."),
    ("users","Onboard the team","Grow the organisation without admin friction.")],
-  "17-user-invite.mp4","platform.arvihealth.com &middot; Invite users"),
+  "ui-team.mp4","platform.arvihealth.com &middot; Invite users"),
 
  ("Organisation &amp; Users","Free Admin User",
   "Every organisation includes an admin seat at no cost, oversight without an extra licence.",
   [("user","Admin at no cost","A free administrator seat comes with the organisation."),
    ("eye","Oversight built in","Manage the team without paying for the privilege.")],
-  "18-free-admin.mp4","platform.arvihealth.com &middot; Admin"),
+  "ui-team.mp4","platform.arvihealth.com &middot; Admin"),
 
  ("Billing","Stripe Subscriptions (Web)",
   "Arvi bills customers today via Stripe, subscriptions and payments on the web app, in production now.",
   [("card","Subscriptions &amp; payments","Recurring billing handled through Stripe on web."),
    ("check","Live in production","The commercial engine is running, not on a roadmap.")],
-  "19-subscription.mp4","platform.arvihealth.com &middot; Billing"),
+  "ui-subscription.mp4","platform.arvihealth.com &middot; Billing"),
 
  ("Billing","iOS In-App Purchase",
   "On iOS, Arvi bills natively through Apple's in-app purchase, a frictionless path for mobile users.",
@@ -622,7 +640,7 @@ INTRO = '''        <!-- Intro -->
                         <div class="badge reveal"><span class="pulse"></span> AI Clinical Documentation</div>
                         <h1 class="reveal" data-delay="1">Capture the <span class="rotw" id="rotw">consult</span>.<br><span>Arvi does the rest.</span></h1>
                         <p class="reveal" data-delay="2">From clinic, emergency, ward or theatre, straight to a structured clinical note and a ready-to-send letter. The capture and authoring layer that plugs into the systems hospitals already run.</p>
-                        <div class="tags reveal" data-delay="3"><span class="tag">Web &amp; mobile apps</span><span class="tag">20 production features</span><span class="tag">HealthLink / HL7 v2.3.1</span></div>
+                        <div class="tags reveal" data-delay="3"><span class="tag">Web &amp; mobile apps</span><span class="tag">23 production features</span><span class="tag">HealthLink / HL7 v2.3.1</span></div>
                     </div>
                     <figure class="clip reveal" data-delay="2">
                         <div class="clip-glow"></div>
@@ -655,7 +673,7 @@ PLATFORM = '''        <!-- Platform -->
             <div class="inner fill">
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> The Platform</div>
-                    <h2 class="title reveal" data-delay="1">One Platform. Two Apps. Twenty Production Features.</h2>
+                    <h2 class="title reveal" data-delay="1">One Platform. Two Apps. Twenty-Three Production Features.</h2>
                     <div class="apps reveal" data-delay="2">
                         <div class="app glass"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><div><strong>Web app</strong><span>Full clinic &amp; organisation workspace</span></div></div>
                         <div class="app glass"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg><div><strong>iOS &amp; Android</strong><span>Capture anywhere, ward, ED, theatre</span></div></div>
@@ -1114,7 +1132,7 @@ PRODUCT_ROADMAP = '''        <!-- Product roadmap -->
                 <div class="slide-head">
                     <div class="label reveal"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Product Roadmap</div>
                     <h2 class="title reveal" data-delay="1">What We're Building Next</h2>
-                    <p class="subtitle reveal" data-delay="2">Beyond today's twenty production features, the capabilities on Arvi's near and long-term horizon.</p>
+                    <p class="subtitle reveal" data-delay="2">Beyond today's twenty-three production features, the capabilities on Arvi's near and long-term horizon.</p>
                 </div>
                 <div class="rm-wrap">
                     <div class="rm">
@@ -1186,7 +1204,7 @@ APPENDIX = '''        <!-- Appendix divider -->
                 <div class="divider">
                     <div class="label reveal" style="justify-content:center"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Appendix</div>
                     <div class="big reveal" data-delay="1">Feature Walkthrough</div>
-                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:720px;margin:0 auto">Recorded demos of all twenty features, across the five areas, for reference. Jump to any feature on request.</p>
+                    <p class="subtitle reveal" data-delay="2" style="text-align:center;max-width:720px;margin:0 auto">Recorded demos of all twenty-three features, across the five areas, for reference. Jump to any feature on request.</p>
                     <div class="menu reveal" data-delay="3">
                         <span class="mi"><b>01</b> Core Documentation</span>
                         <span class="mi"><b>02</b> Letters &amp; Templates</span>

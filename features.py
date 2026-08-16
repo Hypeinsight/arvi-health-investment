@@ -250,6 +250,10 @@ MEETING = '''        <!-- Meeting minutes -->
                     <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M3 3h18v14H8l-5 4V3z"/></svg></div><h3>Team meetings</h3><p>Get the discussion, decisions and actions written up for you.</p></div>
                     <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Case conferences</h3><p>Capture the whole discussion without anyone having to take notes.</p></div>
                 </div>
+                <figure class="clip reveal" data-delay="5" style="max-width:760px;margin:clamp(1rem,2.4vh,1.6rem) auto 0">
+                    <div class="clip-glow"></div>
+                    <div class="clip-frame"><video src="Videos/ui-meeting-minutes.mp4" loop muted playsinline preload="metadata"></video></div>
+                </figure>
             </div>
         </section>
 '''
@@ -343,96 +347,96 @@ BODY = (
           "Do this once and your letters will always come out looking the way you like.",
           [("sliders", "Make your own", "Set up a template for any letter you send."),
            ("edit", "Lay it out your way", "Change the format so it feels like yours.")],
-          "08-custom-template.mp4", "platform.arvihealth.com &middot; Templates")
+          "ui-custom-template.mp4", "platform.arvihealth.com &middot; Templates")
     + vid("Your patients", "Add Your Patients",
           "Bring your patient list across so everyone is ready to go. For now that is a quick file upload. Automatic sync from your practice software is coming soon.",
           [("users", "Upload your list", "Bring all your patients in at once."),
            ("eye", "See everyone", "Your whole practice in one place.")],
-          "02-admin-access.mp4", "platform.arvihealth.com &middot; Admin")
+          "ui-upload-patient.mp4", "platform.arvihealth.com &middot; Admin")
     + vid("Your patients", "Your Day at a Glance",
           "When you log in, you will see today's appointments. Tap any one to get started.",
           [("calendar", "Today's list", "Everyone you are seeing, in order."),
            ("users", "Their details", "Right there when you open a patient.")],
-          "10-patient-management.mp4", "platform.arvihealth.com &middot; Patients")
+          "ui-today-appointments.mp4", "platform.arvihealth.com &middot; Patients")
     # -------- GP path --------
     + GP_DIV
     + vid("For GPs", "Start Your Consult",
           "Open the patient's appointment and tap record. Not booked in? Tap Quick Create and start straight away.",
           [("zap", "Not booked in?", "Use Quick Create and you are going."),
            ("mic", "Just tap record", "Then talk to your patient as you normally would.")],
-          "03-quick-record.mp4", "Arvi &middot; Quick Record", path="gp")
+          "ui-gp-quick-record.mp4", "Arvi &middot; Quick Record", path="gp")
     + vid("For GPs", "Your Note, Written for You",
           "While you talk with your patient, Arvi writes the note. When you are done, it is there waiting for you to check.",
           [("mic", "Just talk", "Arvi turns the conversation into a tidy note."),
            ("check", "Read, don't type", "You look it over instead of writing it."),
            ("file", "Need a summary?", "Turn the same consult into a patient summary in a tap.")],
-          "01-letter-generation.mp4", "platform.arvihealth.com &middot; New note", path="gp")
+          "ui-gp-note.mp4", "platform.arvihealth.com &middot; New note", path="gp")
     + vid("For GPs", "Write Your Referral",
           "From that same consult, Arvi drafts the referral for you. Read it over and change anything, all on one screen.",
           [("file", "Already drafted", "Your referral is written and ready."),
            ("edit", "A quick read", "Look it over before it goes.")],
-          "07-edit-letter.mp4", "platform.arvihealth.com &middot; Referral", path="gp")
+          "ui-gp-referral.mp4", "platform.arvihealth.com &middot; Referral", path="gp")
     + vid("For GPs", "Send It",
           "Send the referral straight to the specialist from Arvi. Need it again later? Send it again in a tap.",
           [("send", "Send from here", "No need to switch over to email."),
            ("mail", "Send again anytime", "One tap if it is ever needed twice.")],
-          "09-approve-resend.mp4", "platform.arvihealth.com &middot; Send", path="gp")
+          "ui-gp-send.mp4", "platform.arvihealth.com &middot; Send", path="gp")
     # -------- Specialist path --------
     + SPEC_DIV
     + vid("For specialists", "Start Your Consult",
           "Open your referred patient and tap record. Not booked in? Tap Quick Create and start straight away.",
           [("zap", "Not booked in?", "Use Quick Create and you are going."),
            ("mic", "Just tap record", "Then talk to your patient as you normally would.")],
-          "03-quick-record.mp4", "Arvi &middot; Quick Record", path="spec")
+          "ui-sp-quick-record.mp4", "Arvi &middot; Quick Record", path="spec")
     + vid("For specialists", "Your Note, Written for You",
           "While you consult with your patient, Arvi writes the note. When you are done, it is there waiting for you to check.",
           [("mic", "Just talk", "Arvi turns the conversation into a tidy note."),
            ("check", "Read, don't type", "You look it over instead of writing it."),
            ("file", "Need a summary?", "Turn the same consult into a patient summary in a tap.")],
-          "01-letter-generation.mp4", "platform.arvihealth.com &middot; New note", path="spec")
+          "ui-sp-note.mp4", "platform.arvihealth.com &middot; New note", path="spec")
     + vid("For specialists", "Your Letter Back to the GP",
           "From the same consult, Arvi drafts your letter to the referring GP. Read it over and change anything you like.",
           [("file", "Already drafted", "Your letter is written and ready."),
            ("edit", "A quick read", "Look it over before it goes.")],
-          "07-edit-letter.mp4", "platform.arvihealth.com &middot; Specialist letter", path="spec")
+          "ui-sp-letter.mp4", "platform.arvihealth.com &middot; Specialist letter", path="spec")
     + vid("For specialists", "Send It Back",
           "Send your letter to the referring GP from Arvi, and send it again anytime it is needed.",
           [("send", "Close the loop", "Send it back to whoever referred them."),
            ("mail", "Send again anytime", "One tap if it is ever needed twice.")],
-          "09-approve-resend.mp4", "platform.arvihealth.com &middot; Send", path="spec")
+          "ui-sp-send.mp4", "platform.arvihealth.com &middot; Send", path="spec")
     + vid("For specialists", "Email the Patient Their Summary",
           "Turn the same consult into a plain-language summary for the patient and email it to them, so they leave with a clear record of what was discussed.",
           [("file", "A patient-friendly summary", "Plain language, not clinical shorthand."),
            ("send", "Emailed to the patient", "Straight from Arvi, in a tap.")],
-          "09-approve-resend.mp4", "platform.arvihealth.com &middot; Patient summary", path="spec")
+          "ui-sp-summary.mp4", "platform.arvihealth.com &middot; Patient summary", path="spec")
     + SPEC_PAPERLESS
     # -------- shared, both paths converge --------
     + vid("Everyone", "Want to Change Something?",
           "Not happy with a line? Ask Arvi to rewrite any part until it reads the way you want.",
           [("refresh", "Rewrite a bit", "Redo a section, or the whole thing."),
            ("sliders", "It's your call", "The final words are always yours.")],
-          "06-regeneration.mp4", "platform.arvihealth.com &middot; Regenerate")
+          "ui-regenerate.mp4", "platform.arvihealth.com &middot; Regenerate")
     + vid("Everyone", "Already Have a Recording?",
           "Got audio from earlier? Upload it and Arvi writes the note, just the same.",
           [("upload", "Upload a file", "Any recording you already have works."),
            ("file", "Same result", "You still get a clean, finished note.")],
-          "05-upload-recording.mp4", "platform.arvihealth.com &middot; Upload")
+          "ui-upload-record.mp4", "platform.arvihealth.com &middot; Upload")
     + vid("Everyone", "Seeing Patients Remotely?",
           "Run your telehealth call inside Arvi and it writes the note, just like an in-person visit.",
           [("video", "Call from Arvi", "No separate video tool to open."),
            ("mic", "Written up for you", "Same as a face-to-face visit.")],
-          "13-telehealth.mp4", "platform.arvihealth.com &middot; Telehealth")
+          "ui-telehealth.mp4", "platform.arvihealth.com &middot; Telehealth")
     + vid("Everyone", "Keep Track of What's Left",
           "Anything still to do after a consult stays on your list until it is done.",
           [("tasks", "Your to-do list", "See what still needs doing."),
            ("check", "Tick it off", "Mark things done as you go.")],
-          "11-task-management.mp4", "platform.arvihealth.com &middot; Tasks")
+          "ui-tasks.mp4", "platform.arvihealth.com &middot; Tasks")
     + MEETING
     + vid("Your team", "Bring Your Team On",
           "Invite the rest of your practice to join you. Your admin seat is free.",
           [("userplus", "Send an invite", "They are in as soon as they accept."),
            ("user", "Free admin seat", "Oversight at no extra cost.")],
-          "18-free-admin.mp4", "platform.arvihealth.com &middot; Admin")
+          "ui-team.mp4", "platform.arvihealth.com &middot; Admin")
     + MOBILE_STEPS
     + vid("On mobile", "Working Remotely, On the Move",
           "House calls, between clinics, or just away from your desk. The app in your pocket lets you capture a consult wherever you are.",
@@ -449,7 +453,7 @@ BODY = (
           "It is $30 a month, and that includes 10 hours. Need more? Add 10-hour packs anytime. You start with 30 days free.",
           [("card", "$30 a month", "Ten hours included to get going."),
            ("check", "Top up as you go", "Add more only when you need it.")],
-          "19-subscription.mp4", "platform.arvihealth.com &middot; Pricing")
+          "ui-subscription.mp4", "platform.arvihealth.com &middot; Pricing")
     + FINALE
 )
 
