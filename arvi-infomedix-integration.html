@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <title>Arvi Health &middot; InfoMedix Integration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --primary-dark:#043762; --primary:#0455A3; --accent:#691A6A; --accent-2:#8a2b8b;
+            --bg:#f4f9fe; --ink:#0c2740; --muted:#5b7189; --line:rgba(4,55,98,.10);
+            --glass:rgba(255,255,255,.72); --glass-border:rgba(255,255,255,.65);
+            --s-sm:0 4px 16px rgba(4,55,98,.06);
+            --s-md:0 16px 44px -12px rgba(4,55,98,.20);
+            --s-lg:0 34px 90px -28px rgba(4,55,98,.55), 0 10px 28px rgba(4,55,98,.14);
+            --r-lg:clamp(16px,1.4vw,26px); --r-md:clamp(12px,1vw,18px); --r-sm:10px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;overflow:hidden}
+        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+        /* layered modern background: soft mesh + faint grid */
+        body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+            background:
+              radial-gradient(1100px 780px at 8% -12%, rgba(4,85,163,.12), transparent 58%),
+              radial-gradient(960px 720px at 104% 112%, rgba(105,26,106,.12), transparent 54%),
+              radial-gradient(700px 600px at 88% 4%, rgba(200,232,255,.5), transparent 60%);}
+        body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+            background-image:linear-gradient(rgba(4,55,98,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(4,55,98,.035) 1px,transparent 1px);
+            background-size:46px 46px;
+            -webkit-mask:radial-gradient(circle at 50% 35%, #000, transparent 78%);
+            mask:radial-gradient(circle at 50% 35%, #000, transparent 78%);}
+
+        /* progress + nav */
+        .progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:1100;background:transparent}
+        .progress span{display:block;height:100%;width:calc(var(--p,0)*100%);background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .2s ease}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;
+            padding:clamp(.7rem,1.5vh,1.05rem) clamp(1.1rem,4vw,3rem);
+            background:rgba(244,249,254,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+        .logo img{height:clamp(28px,4vh,40px);width:auto;display:block}
+        .nav-tag{font-size:clamp(.6rem,1vw,.76rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+        .nav-tag b{color:var(--primary)}
+        .dots{display:flex;gap:5px;align-items:center}
+        .dot{width:7px;height:7px;border-radius:50%;background:rgba(4,55,98,.22);cursor:pointer;border:none;padding:0;transition:all .35s cubic-bezier(.4,0,.2,1)}
+        .dot:hover{background:rgba(4,85,163,.55);transform:scale(1.3)}
+        .dot.active{background:linear-gradient(135deg,var(--primary),var(--accent));width:24px;border-radius:5px}
+
+        /* deck */
+        .deck{display:flex;height:100vh;height:100dvh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+        .deck::-webkit-scrollbar{height:0}
+        .slide{position:relative;z-index:1;flex:0 0 100vw;width:100vw;height:100vh;height:100dvh;scroll-snap-align:start;
+            display:flex;flex-direction:column;
+            padding:clamp(4.4rem,9vh,6.4rem) clamp(1.25rem,5vw,4.6rem) clamp(2rem,5vh,3.4rem);overflow-x:hidden;overflow-y:auto}
+        .inner{width:100%;max-width:105rem;margin:auto}
+        .inner.fill{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+        /* scale the whole deck up on large screens so content fills 2K / 4K */
+        @media (min-width:2000px){:root{font-size:18px}}
+        @media (min-width:2560px){:root{font-size:20px}}
+
+        /* type */
+        .kicker{display:inline-flex;align-items:center;gap:.65rem;margin-bottom:clamp(.7rem,1.6vh,1.1rem)}
+        .kicker .n{font-variant-numeric:tabular-nums;font-weight:800;font-size:.78rem;letter-spacing:.03em;color:#fff;background:linear-gradient(135deg,var(--primary),var(--accent));padding:.32rem .58rem;border-radius:9px;box-shadow:0 6px 16px rgba(4,85,163,.28)}
+        .kicker .s{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        .label{display:inline-flex;align-items:center;gap:.5rem;font-size:clamp(.66rem,1vw,.8rem);font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--accent);margin-bottom:clamp(.6rem,1.4vh,1rem)}
+        .label svg{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none}
+        .label.imx{color:var(--primary)}
+        .title{font-size:clamp(1.7rem,3.7vw,3.5rem);font-weight:800;line-height:1.06;letter-spacing:-.022em;
+            background:linear-gradient(118deg,var(--primary-dark) 0%,var(--primary) 50%,var(--accent) 100%);
+            -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .subtitle{font-size:clamp(.95rem,1.35vw,1.28rem);color:var(--muted);line-height:1.55;margin-top:clamp(.6rem,1.4vh,1rem);max-width:60ch}
+        .slide-head{margin-bottom:clamp(1rem,2.4vh,1.8rem)}
+        .slide-head .subtitle{max-width:82ch}
+
+        .glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--r-lg);box-shadow:var(--s-sm)}
+
+        /* feature layout */
+        .feature{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.68fr);gap:clamp(1.5rem,4vw,4.2rem);align-items:center}
+        .feature.reverse{grid-template-columns:minmax(0,1.68fr) minmax(0,.82fr)}
+        .feature.reverse .feature-copy{order:2}
+        .feature.reverse .clip{order:1}
+        .points{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.1rem);margin-top:clamp(1rem,2.4vh,1.7rem)}
+        .points li{display:flex;gap:.85rem;align-items:flex-start}
+        .ic{width:clamp(34px,2.5vw,40px);height:clamp(34px,2.5vw,40px);border-radius:var(--r-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 7px 18px rgba(4,85,163,.26)}
+        .ic svg{width:52%;height:52%;stroke:#fff;stroke-width:2;fill:none}
+        .points h4{font-size:clamp(.95rem,1.2vw,1.12rem);color:var(--primary-dark);font-weight:700}
+        .points p{font-size:clamp(.82rem,1vw,.97rem);color:var(--muted);line-height:1.45;margin-top:.1rem}
+        .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:clamp(1rem,2.2vh,1.5rem)}
+        .tag{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .95rem;border-radius:30px;font-size:clamp(.72rem,.95vw,.85rem);font-weight:600;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.07),rgba(105,26,106,.08))}
+
+        /* video frame - premium */
+        .clip{position:relative;min-width:0;display:flex;flex-direction:column;align-items:center}
+        .clip-glow{position:absolute;inset:-9% -9% -16%;z-index:-1;background:radial-gradient(58% 58% at 50% 42%,rgba(105,26,106,.22),transparent 70%);filter:blur(14px);animation:glow 5s ease-in-out infinite}
+        @keyframes glow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+        .clip-frame{position:relative;width:100%;border-radius:var(--r-lg);overflow:hidden;background:#06182c;border:1px solid rgba(255,255,255,.12);box-shadow:var(--s-lg)}
+        .chrome{display:flex;align-items:center;gap:.45rem;padding:.55rem .9rem;background:linear-gradient(135deg,#0a2744,#06457f)}
+        .chrome i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.32)}
+        .chrome .url{margin-left:.7rem;font-size:clamp(.62rem,.85vw,.74rem);color:rgba(255,255,255,.8);background:rgba(255,255,255,.13);padding:.22rem .85rem;border-radius:20px;max-width:72%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .clip-frame video{width:100%;height:auto;max-height:75dvh;display:block;background:#000;object-fit:contain}
+        .clip-frame img{width:100%;height:auto;max-height:60dvh;display:block;background:#06182c;object-fit:contain}
+        figcaption{font-size:clamp(.74rem,.95vw,.88rem);color:var(--muted);margin-top:.85rem;text-align:center}
+        figcaption b{color:var(--primary-dark)}
+
+        /* platform pillars */
+        .apps{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:clamp(.8rem,1.8vh,1.2rem)}
+        .app{display:flex;align-items:center;gap:.7rem;padding:.7rem 1.1rem;border-radius:var(--r-md)}
+        .app svg{width:24px;height:24px;stroke:var(--primary);stroke-width:1.8;fill:none;flex-shrink:0}
+        .app strong{color:var(--primary-dark);font-size:.92rem;display:block}
+        .app span{font-size:.76rem;color:var(--muted)}
+        .pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.7rem,1.4vw,1.2rem);align-items:stretch;margin-top:clamp(.8rem,2vh,1.5rem)}
+        .pillar{padding:clamp(1rem,1.6vw,1.5rem);display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+        .pillar:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
+        .pillar .num{font-size:clamp(.66rem,.9vw,.78rem);font-weight:800;color:var(--accent);letter-spacing:.12em}
+        .pillar h3{font-size:clamp(.95rem,1.2vw,1.12rem);color:var(--primary-dark);margin:.4rem 0 .7rem;line-height:1.2}
+        .pillar ul{list-style:none;display:flex;flex-direction:column;gap:.42rem}
+        .pillar li{font-size:clamp(.78rem,.95vw,.92rem);color:#475569;display:flex;gap:.45rem;align-items:flex-start;line-height:1.3}
+        .pillar li::before{content:"";width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));margin-top:.42rem;flex-shrink:0}
+
+        /* infomedix */
+        .imx-bar{display:flex;flex-wrap:wrap;gap:clamp(1.2rem,3vw,3rem);padding:clamp(1rem,2vh,1.5rem) clamp(1.3rem,2.5vw,2.2rem);margin:clamp(.8rem,2vh,1.3rem) 0}
+        .imx-stat .v{font-size:clamp(1.5rem,2.7vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .imx-stat .l{font-size:clamp(.72rem,.92vw,.85rem);color:var(--muted);margin-top:.35rem}
+        .cards{display:grid;gap:clamp(.8rem,1.6vw,1.4rem)}
+        .cards.c3{grid-template-columns:repeat(3,1fr)}
+        .card{padding:clamp(1.1rem,1.8vw,1.7rem);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+        .card:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
+        .card .vic{width:clamp(40px,3vw,50px);height:clamp(40px,3vw,50px);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--accent));margin-bottom:clamp(.6rem,1.2vh,1rem)}
+        .card .vic svg{width:50%;height:50%;stroke:#fff;stroke-width:2;fill:none}
+        .card h3{font-size:clamp(.98rem,1.2vw,1.15rem);color:var(--primary-dark);margin-bottom:.4rem}
+        .card p{font-size:clamp(.82rem,1vw,.96rem);color:var(--muted);line-height:1.5}
+
+        .integ{display:grid;grid-template-columns:.95fr auto 1.3fr;gap:clamp(1rem,2.5vw,2rem);align-items:center;margin-top:clamp(1rem,2.4vh,2rem)}
+        .integ-arvi{padding:clamp(1.2rem,2vw,1.9rem);border-radius:var(--r-lg);background:linear-gradient(150deg,var(--primary-dark),var(--primary));color:#fff;box-shadow:var(--s-md)}
+        .integ-arvi .il{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+        .integ-arvi h3{color:#fff;font-size:clamp(1.3rem,2.2vw,1.8rem);margin:.3rem 0 .5rem}
+        .integ-arvi>p{font-size:clamp(.82rem,1vw,.95rem);color:rgba(255,255,255,.82);line-height:1.45}
+        .integ-arvi ul{list-style:none;margin-top:1.1rem;display:flex;flex-direction:column;gap:.55rem}
+        .integ-arvi li{font-size:clamp(.82rem,1vw,.95rem);color:#fff;display:flex;gap:.5rem;align-items:center}
+        .integ-arvi li svg{width:16px;height:16px;stroke:#c8e8ff;stroke-width:2.4;fill:none;flex-shrink:0}
+        .pipe{display:flex;flex-direction:column;align-items:center;gap:.55rem}
+        .pipe .pl{font-size:clamp(.62rem,.85vw,.72rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-align:center;line-height:1.3}
+        .pipe .pl.sub{color:#94a3b8}
+        .pipe svg{width:clamp(38px,4vw,54px);height:clamp(38px,4vw,54px);stroke:var(--accent);stroke-width:1.4;fill:none}
+        .imx-prods{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.6rem,1.2vw,.9rem)}
+        .imx-prod{padding:clamp(.8rem,1.2vw,1.05rem);border-radius:var(--r-md);transition:transform .3s,box-shadow .3s}
+        .imx-prod:hover{transform:translateY(-3px);box-shadow:var(--s-md)}
+        .imx-prod h4{font-size:clamp(.84rem,1vw,.95rem);color:var(--primary-dark);margin-bottom:.2rem}
+        .imx-prod p{font-size:clamp(.72rem,.9vw,.82rem);color:var(--muted);line-height:1.35}
+        .imx-prod.span{grid-column:span 2}
+
+        /* intro + close */
+        .intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(1.5rem,4vw,4.2rem);align-items:center}
+        .intro h1{font-size:clamp(2rem,4.6vw,4.1rem);font-weight:800;line-height:1.04;letter-spacing:-.022em;color:var(--primary-dark)}
+        .intro h1 span{background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .intro h1 .rotw{display:inline-block;min-width:0;transition:opacity .34s ease,transform .34s ease}
+        .intro h1 .rotw.swap{opacity:0;transform:translateY(-.14em)}
+        .intro p{font-size:clamp(1rem,1.4vw,1.3rem);color:var(--muted);line-height:1.6;margin-top:clamp(.8rem,1.8vh,1.2rem)}
+        .badge{display:inline-flex;align-items:center;gap:.55rem;padding:.5rem 1.1rem;border-radius:50px;font-size:clamp(.72rem,1vw,.85rem);font-weight:700;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.08),rgba(105,26,106,.08));margin-bottom:clamp(.8rem,1.8vh,1.2rem)}
+        .pulse{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(105,26,106,.5);animation:pulse 2s infinite}
+        @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(105,26,106,.5)}70%{box-shadow:0 0 0 10px rgba(105,26,106,0)}100%{box-shadow:0 0 0 0 rgba(105,26,106,0)}}
+        .intro .clip-frame video{max-height:78dvh;object-fit:cover}
+        .close{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(1rem,2.4vh,1.6rem)}
+        .close img{height:clamp(46px,6vh,70px)}
+        .close .title,.close .subtitle{text-align:center}
+        .close .subtitle{margin-left:auto;margin-right:auto}
+        .cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:.4rem;padding:.9rem 2rem;border-radius:50px;font-weight:700;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 12px 34px rgba(105,26,106,.32);transition:transform .25s,box-shadow .25s}
+        .cta:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(105,26,106,.44)}
+        .cta svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+
+        /* InfoMedix brand marks (white-bg logo blended via multiply) */
+        .imx-logo{mix-blend-mode:multiply;width:auto;display:block}
+        .imx-bar .imx-logo{height:clamp(28px,4vh,44px);align-self:center;padding-right:clamp(.7rem,1.6vw,1.3rem);border-right:1px solid var(--line)}
+        .imx-side{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1rem);min-width:0}
+        .imx-side-head{display:flex;align-items:center;gap:.6rem}
+        .imx-side-head .imx-logo{height:clamp(20px,2.6vh,30px)}
+        .imx-side-head span{font-size:clamp(.72rem,.9vw,.84rem);color:var(--muted);font-weight:600}
+        .lockup{display:flex;align-items:center;justify-content:center;gap:clamp(1.1rem,3vw,2.4rem);flex-wrap:wrap}
+        .lockup img{width:auto}
+        .lockup .lk-arvi{height:clamp(40px,6vh,62px)}
+        .lockup .lk-imx{height:clamp(30px,4.6vh,48px);mix-blend-mode:multiply}
+        .lockup .x{font-size:clamp(1.3rem,2.6vw,1.9rem);color:#94a3b8;font-weight:300}
+
+        /* --- added: agenda --- */
+        .cards.c2{grid-template-columns:repeat(2,1fr)}
+        .agenda{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1rem);margin-top:clamp(1rem,2.4vh,1.8rem);max-width:1000px}
+        .agenda-item{display:flex;align-items:center;gap:1rem;padding:clamp(.8rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.5rem)}
+        .agenda-item .an{font-variant-numeric:tabular-nums;font-weight:800;font-size:clamp(1rem,1.6vw,1.4rem);color:#fff;background:linear-gradient(135deg,var(--primary),var(--accent));width:clamp(36px,3vw,46px);height:clamp(36px,3vw,46px);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .agenda-item h3{font-size:clamp(1rem,1.4vw,1.3rem);color:var(--primary-dark);font-weight:700}
+        .agenda-item p{font-size:clamp(.8rem,1vw,.95rem);color:var(--muted);margin-top:.1rem}
+        .agenda-item .ad{margin-left:auto;font-size:clamp(.7rem,.9vw,.82rem);color:#94a3b8;font-weight:600;white-space:nowrap}
+        /* --- how it works --- */
+        .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.7rem,1.5vw,1.2rem);margin-top:clamp(1.2rem,3vh,2.2rem)}
+        .step{padding:clamp(1.1rem,1.8vw,1.7rem);display:flex;flex-direction:column;gap:.6rem}
+        .step .sic{width:clamp(42px,3.2vw,52px);height:clamp(42px,3.2vw,52px);border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 7px 18px rgba(4,85,163,.25)}
+        .step .sic svg{width:50%;height:50%;stroke:#fff;stroke-width:2;fill:none}
+        .step .sn{font-size:.7rem;font-weight:800;color:var(--accent);letter-spacing:.12em}
+        .step h3{font-size:clamp(.95rem,1.2vw,1.15rem);color:var(--primary-dark)}
+        .step p{font-size:clamp(.8rem,1vw,.95rem);color:var(--muted);line-height:1.45}
+        /* --- demo divider --- */
+        .divider{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(1rem,2.4vh,1.6rem)}
+        .divider .big{font-size:clamp(2.2rem,5.2vw,4.4rem);font-weight:800;letter-spacing:-.022em;line-height:1.04;background:linear-gradient(118deg,var(--primary-dark),var(--primary) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .menu{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;max-width:920px}
+        .menu .mi{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;border-radius:40px;font-weight:600;font-size:clamp(.8rem,1vw,.95rem);color:var(--primary-dark);background:var(--glass);border:1px solid var(--glass-border)}
+        .menu .mi b{color:var(--accent)}
+        /* --- comparison table --- */
+        .cmp{margin-top:clamp(1rem,2.4vh,1.6rem);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--glass-border)}
+        .cmp-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.1fr;font-size:clamp(.7rem,.92vw,.88rem)}
+        .cmp-row>div{padding:clamp(.55rem,1vw,.85rem) clamp(.5rem,1vw,1rem);display:flex;align-items:center;justify-content:center;text-align:center;border-top:1px solid rgba(4,55,98,.07)}
+        .cmp-row>div:first-child{justify-content:flex-start;text-align:left;font-weight:600;color:var(--primary-dark)}
+        .cmp-head{background:var(--primary-dark);color:#fff;font-weight:700}
+        .cmp-head>div{border-top:none}
+        .cmp-head .arvi{background:linear-gradient(135deg,var(--accent),var(--accent-2));position:relative}
+        .cmp .arvi{background:rgba(200,232,255,.34);font-weight:700;color:var(--primary-dark)}
+        .cmp .tick svg{width:18px;height:18px;stroke:#22c55e;stroke-width:2.5;fill:none}
+        .cmp-best{position:absolute;top:3px;right:5px;background:#ff3b30;color:#fff;font-size:.5rem;padding:1px 5px;border-radius:7px}
+        /* --- market funnel --- */
+        .funnel{display:flex;flex-direction:column;gap:clamp(.7rem,1.4vh,1.1rem)}
+        .fbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:clamp(.8rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.5rem);border-radius:14px}
+        .fbar .fl{font-size:.7rem;font-weight:800;letter-spacing:.1em;color:var(--accent)}
+        .fbar .fd{font-size:clamp(.76rem,.95vw,.9rem);color:var(--muted);margin-top:.15rem}
+        .fbar .fv{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:800;color:var(--primary-dark)}
+        .fbar.tam{background:rgba(240,248,255,.7);border:2px dashed rgba(4,55,98,.25)}
+        .fbar.sam{background:rgba(200,232,255,.6);border:1px solid rgba(4,85,163,.25);margin:0 clamp(1rem,3vw,2.5rem)}
+        .fbar.som{background:linear-gradient(135deg,var(--primary-dark),var(--primary));margin:0 clamp(2rem,6vw,5rem)}
+        .fbar.som .fl{color:#c8e8ff}.fbar.som .fd{color:rgba(255,255,255,.8)}.fbar.som .fv{color:#fff}
+        /* --- traction --- */
+        .tr-live{display:flex;align-items:flex-start;gap:1rem;padding:clamp(1.1rem,1.8vw,1.6rem);border-radius:var(--r-lg);background:linear-gradient(140deg,var(--primary-dark),var(--primary));color:#fff;box-shadow:var(--s-md)}
+        .tr-live strong{font-size:clamp(1rem,1.3vw,1.2rem)}
+        .tr-live .badge2{display:inline-block;margin-top:.6rem;padding:.25rem .75rem;border-radius:20px;background:rgba(255,255,255,.18);font-size:.7rem;font-weight:700}
+        .checklist{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+        .checklist li{display:flex;gap:.6rem;align-items:flex-start;font-size:clamp(.82rem,1vw,.96rem);color:#334155;line-height:1.4}
+        .checklist li svg{width:18px;height:18px;stroke:#22c55e;stroke-width:2.4;fill:none;flex-shrink:0;margin-top:.12rem}
+        /* --- team --- */
+        .team{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.5vw,2rem);margin-top:clamp(1rem,2.4vh,1.8rem)}
+        .tcard{padding:clamp(1.2rem,2vw,1.9rem);display:flex;flex-direction:column;align-items:center;text-align:center}
+        .tcard img{width:clamp(84px,8vw,120px);height:clamp(84px,8vw,120px);border-radius:50%;object-fit:cover;border:3px solid var(--glass-border);box-shadow:var(--s-md)}
+        .tcard h3{font-size:clamp(1.05rem,1.5vw,1.4rem);color:var(--primary-dark);margin-top:.8rem}
+        .tcard .trole{font-size:.85rem;color:var(--accent);font-weight:700;margin-top:.15rem}
+        .tchips{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:.7rem 0}
+        .tchips span{font-size:.72rem;font-weight:600;color:var(--primary-dark);background:linear-gradient(135deg,rgba(4,55,98,.07),rgba(105,26,106,.08));padding:.3rem .7rem;border-radius:20px}
+        .tcard ul{list-style:none;display:flex;flex-direction:column;gap:.45rem;text-align:left;margin-top:.4rem}
+        .tcard li{font-size:clamp(.8rem,.98vw,.92rem);color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.4}
+        .tcard li svg{width:15px;height:15px;stroke:var(--primary);stroke-width:2.4;fill:none;flex-shrink:0;margin-top:.22rem}
+        /* --- financials --- */
+        .fin{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1rem,2.5vw,2rem);margin-top:clamp(1rem,2vh,1.6rem);align-items:stretch}
+        .bars{display:flex;align-items:flex-end;justify-content:space-around;gap:clamp(1rem,3vw,2.5rem);height:clamp(150px,24vh,240px);padding:1rem clamp(.5rem,2vw,1.5rem) 0}
+        .bar{display:flex;flex-direction:column;align-items:center;gap:.5rem;flex:1;height:100%;justify-content:flex-end}
+        .bar .bv{font-weight:800;color:var(--primary-dark);font-size:clamp(.85rem,1.1vw,1.05rem)}
+        .bar .bcol{width:clamp(48px,6vw,92px);height:0;border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--primary),var(--primary-dark));transition:height .9s cubic-bezier(.22,1,.36,1)}
+        .bar:last-child .bcol{background:linear-gradient(180deg,var(--accent),var(--accent-2))}
+        .bar .bl{font-size:clamp(.72rem,.9vw,.85rem);color:var(--muted)}
+        .fin-cards{display:flex;flex-direction:column;gap:clamp(.6rem,1.2vh,1rem);justify-content:center}
+        .fin-card{padding:clamp(.9rem,1.4vw,1.2rem) clamp(1rem,1.6vw,1.3rem);border-left:4px solid var(--primary)}
+        .fin-card .fcl{font-size:.72rem;font-weight:600;color:var(--muted)}
+        .fin-card .fcv{font-size:clamp(1.2rem,1.8vw,1.6rem);font-weight:800;color:var(--primary-dark)}
+        .fin-card .fcs{font-size:.72rem;color:var(--accent)}
+        /* --- scale dial (doctors -> margin) --- */
+        .dial{padding:clamp(1.1rem,1.8vw,1.6rem);display:flex;flex-direction:column;gap:clamp(.8rem,1.6vh,1.2rem);justify-content:center}
+        .dial .dial-outs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.6rem,1.4vw,1rem)}
+        .dial .do{text-align:center}
+        .dial .do-v{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .dial .do-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.3}
+        .econ-dial{display:flex;gap:clamp(1rem,2.6vw,2.2rem);align-items:center;flex-wrap:wrap;padding:clamp(1rem,1.7vw,1.5rem);margin-top:clamp(.9rem,2vh,1.4rem)}
+        .econ-dial .dial-outs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.6vw,1.2rem)}
+        .econ-dial .do{text-align:center}
+        .econ-dial .do-v{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .econ-dial .do-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;line-height:1.3}
+        /* --- ask --- */
+        .ask-amt{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;letter-spacing:-.022em;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .ask-eq{font-size:clamp(1rem,1.6vw,1.4rem);font-weight:600;color:var(--primary-dark);margin-top:.3rem}
+        .fundbar{display:flex;height:clamp(22px,2.6vh,30px);border-radius:8px;overflow:hidden;margin-top:.5rem}
+        .fundbar span{display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;font-weight:700;white-space:nowrap}
+        /* --- roadmap (showpiece) --- */
+        .rm-wrap{margin-top:clamp(1rem,2.2vh,1.6rem)}
+        .rmline{display:flex;justify-content:space-between;position:relative;margin:0 7% clamp(1.4rem,3vh,2.2rem)}
+        .rmline::before{content:"";position:absolute;left:10px;right:10px;top:9px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--primary),var(--accent))}
+        .rmpt{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center}
+        .rmpt .d{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 0 0 4px rgba(4,85,163,.12)}
+        .rmpt:first-child .d{background:var(--primary)}
+        .rmpt:last-child .d{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 4px rgba(105,26,106,.16)}
+        .rmpt .l{font-size:clamp(.72rem,.95vw,.86rem);font-weight:700;color:var(--primary-dark)}
+        .rmpt .v{font-size:clamp(.64rem,.82vw,.74rem);color:var(--muted)}
+        .rm{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.6rem);align-items:stretch}
+        .rmcard{position:relative;padding:clamp(1.2rem,1.9vw,1.7rem);border-radius:var(--r-lg);display:flex;flex-direction:column;overflow:hidden;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+        .rmcard:hover{transform:translateY(-6px)}
+        .rmcard .ph{display:flex;align-items:center;gap:.65rem;margin-bottom:.7rem}
+        .rmcard .pn{width:clamp(34px,2.6vw,42px);height:clamp(34px,2.6vw,42px);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:clamp(.95rem,1.2vw,1.15rem);flex-shrink:0}
+        .rmcard .pn svg{width:54%;height:54%;stroke:currentColor;fill:none;stroke-width:2}
+        .rmcard .pt{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.26rem .62rem;border-radius:20px}
+        .rmcard h3{font-size:clamp(1.05rem,1.4vw,1.35rem);line-height:1.15;margin-bottom:.65rem}
+        .rmcard ul{list-style:none;display:flex;flex-direction:column;gap:.42rem;flex:1}
+        .rmcard li{font-size:clamp(.8rem,.98vw,.94rem);display:flex;gap:.5rem;align-items:flex-start;line-height:1.38}
+        .rmcard li::before{content:"";width:6px;height:6px;border-radius:50%;margin-top:.46rem;flex-shrink:0}
+        .rmcard .tgt{margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:.45rem}
+        .rmcard .tgt b{font-size:clamp(1.3rem,1.9vw,1.7rem);font-weight:800}
+        .rmcard .tgt span{font-size:.72rem}
+        .rmcard.lite{background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--s-sm)}
+        .rmcard.lite .pn{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 6px 16px rgba(4,85,163,.25)}
+        .rmcard.lite .pt{background:rgba(4,85,163,.1);color:var(--primary)}
+        .rmcard.lite h3{color:var(--primary-dark)}
+        .rmcard.lite li{color:var(--muted)}
+        .rmcard.lite li::before{background:linear-gradient(135deg,var(--primary),var(--accent))}
+        .rmcard.lite .tgt b{color:var(--primary-dark)}.rmcard.lite .tgt span{color:var(--muted)}
+        .rmcard.climax{background:linear-gradient(150deg,var(--primary-dark),var(--primary) 58%,var(--accent));color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 72px -22px rgba(105,26,106,.62),0 12px 30px rgba(4,55,98,.22)}
+        .rmcard.climax::after{content:"";position:absolute;top:-45%;right:-35%;width:75%;height:75%;background:radial-gradient(circle,rgba(255,255,255,.2),transparent 70%);pointer-events:none}
+        .rmcard.climax>*{position:relative;z-index:1}
+        .rmcard.climax .pn{background:rgba(255,255,255,.2);color:#fff}
+        .rmcard.climax .pt{background:rgba(255,255,255,.16);color:#fff}
+        .rmcard.climax h3{color:#fff}
+        .rmcard.climax li{color:rgba(255,255,255,.92)}
+        .rmcard.climax li::before{background:#c8e8ff}
+        .rmcard.climax .tgt{border-top-color:rgba(255,255,255,.22)}
+        .rmcard.climax .tgt b{color:#fff}.rmcard.climax .tgt span{color:rgba(255,255,255,.78)}
+        .rmcard .flag{position:absolute;top:clamp(.9rem,1.4vw,1.3rem);right:clamp(.9rem,1.4vw,1.3rem);display:inline-flex;align-items:center;gap:.34rem;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.16);padding:.28rem .6rem;border-radius:20px;z-index:2}
+        .rmcard .flag svg{width:11px;height:11px;stroke:#c8e8ff;fill:none;stroke-width:2}
+        .rm-live{display:inline-flex;align-items:center;gap:.38rem;font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#16a34a;margin-left:auto}
+        .rm-live .dot{width:7px;height:7px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2s infinite}
+        .rm-cap{text-align:center;color:var(--muted);margin-top:clamp(.9rem,2vh,1.4rem);font-size:clamp(.82rem,1vw,.96rem)}
+        .rm-cap b{color:var(--primary-dark)}
+        /* --- A/B review flag (temporary marker for Dr Suhirdan to choose) --- */
+        .reviewflag{position:absolute;top:clamp(4.2rem,8.5vh,5.6rem);left:50%;transform:translateX(-50%);z-index:6;background:#b45309;color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:.32rem .85rem;border-radius:20px;box-shadow:0 6px 16px rgba(180,83,9,.32);white-space:nowrap}
+        /* --- app download QR --- */
+        .dl{display:flex;justify-content:center;gap:clamp(1rem,2.6vw,2rem);flex-wrap:wrap;margin-top:clamp(1rem,2.2vh,1.5rem)}
+        .dlcard{display:flex;align-items:center;gap:clamp(.9rem,1.5vw,1.3rem);padding:clamp(.95rem,1.5vw,1.3rem) clamp(1.1rem,1.7vw,1.5rem);border-radius:var(--r-md);text-decoration:none;border:2.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,var(--primary),var(--accent)) border-box;box-shadow:var(--s-sm);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+        .dlcard:hover{transform:translateY(-4px);box-shadow:var(--s-md)}
+        .dlcard img{width:clamp(102px,10vw,138px);height:auto;display:block;background:#fff;padding:8px;border-radius:12px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(4,55,98,.08)}
+        .dl.compact{margin-top:clamp(.7rem,1.5vh,1rem)}
+        .dl.compact .dlcard{padding:clamp(.6rem,1vw,.9rem) clamp(.85rem,1.3vw,1.15rem)}
+        .dl.compact .dlcard img{width:clamp(70px,6.2vw,90px);padding:6px}
+        .dlcard .dt{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.3rem}
+        .dlcard .dt svg{width:12px;height:12px;stroke:var(--accent);stroke-width:2;fill:none}
+        .dlcard .dn{font-size:clamp(1rem,1.25vw,1.2rem);font-weight:800;color:var(--primary-dark);margin:.2rem 0}
+        .dlcard .ds{font-size:.76rem;color:var(--muted)}
+        /* --- interactive ROI calculator --- */
+        .calc{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(1.2rem,3vw,2.5rem);margin-top:clamp(1rem,2.4vh,1.8rem);align-items:stretch}
+        .calc-inputs{padding:clamp(1.2rem,2vw,1.8rem);display:flex;flex-direction:column;gap:clamp(1rem,2vh,1.5rem);justify-content:center}
+        .calc-field label{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(.82rem,1vw,.96rem);font-weight:600;color:var(--primary-dark);margin-bottom:.55rem}
+        .calc-field label span{color:var(--accent);font-weight:800;font-size:1.05em}
+        .calc-field input[type=range]{width:100%;accent-color:var(--primary);height:6px;cursor:pointer}
+        .calc-note{font-size:.74rem;color:var(--muted);line-height:1.45}
+        .calc-outputs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.3rem)}
+        .calc-out{padding:clamp(1.1rem,1.9vw,1.7rem);text-align:center;display:flex;flex-direction:column;justify-content:center}
+        .calc-out .co-v{font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .calc-out .co-l{font-size:.78rem;color:var(--muted);margin-top:.45rem;line-height:1.3}
+        @media (max-width:900px){.calc{grid-template-columns:1fr}}
+        /* --- unit economics --- */
+        .econ{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:clamp(.5rem,1.4vw,1.1rem);align-items:stretch;margin-top:clamp(1rem,2.4vh,1.8rem)}
+        .econ-step{padding:clamp(1.1rem,1.9vw,1.7rem);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.5rem;justify-content:center}
+        .econ-step .ev{font-size:clamp(1.9rem,3.8vw,3.1rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .econ-step .el{font-size:clamp(.82rem,1.05vw,1rem);font-weight:700;color:var(--primary-dark)}
+        .econ-step .ed{font-size:clamp(.76rem,.92vw,.86rem);color:var(--muted);line-height:1.4}
+        .econ-arrow{display:flex;align-items:center;justify-content:center}
+        .econ-arrow svg{width:clamp(22px,2.8vw,38px);height:auto;stroke:var(--accent);stroke-width:1.6;fill:none}
+        .econ-bar{display:flex;height:13px;border-radius:7px;overflow:hidden;width:100%;margin:.2rem 0}
+        .econ-bar .cost{background:rgba(4,55,98,.16)}
+        .econ-bar .marg{background:linear-gradient(90deg,var(--primary),var(--accent))}
+        .econ-foot{display:flex;gap:clamp(.8rem,2vw,1.5rem);flex-wrap:wrap;margin-top:clamp(1rem,2.4vh,1.6rem)}
+        .econ-foot .ef{flex:1;min-width:220px;padding:clamp(1rem,1.5vw,1.3rem);font-size:clamp(.82rem,1vw,.94rem);color:var(--muted);line-height:1.45}
+        .econ-foot .ef b{color:var(--primary-dark)}
+        .econ-foot .ef .efv{font-size:clamp(1.3rem,2vw,1.7rem);font-weight:800;line-height:1;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:.3rem}
+        @media (max-width:900px){.econ{grid-template-columns:1fr}.econ-arrow svg{transform:rotate(90deg)}.econ-foot .ef{min-width:0}}
+        /* --- vision (today -> tomorrow) --- */
+        .vis{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(1rem,2.5vw,2rem);align-items:stretch;margin-top:clamp(1rem,2.4vh,1.9rem)}
+        .vis-card{padding:clamp(1.3rem,2.2vw,2rem);border-radius:var(--r-lg);display:flex;flex-direction:column;gap:.6rem;position:relative;overflow:hidden}
+        .vis-card.now{background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--s-sm)}
+        .vis-card.future{background:linear-gradient(150deg,var(--primary-dark),var(--primary) 58%,var(--accent));color:#fff;box-shadow:var(--s-lg)}
+        .vis-card.future::after{content:"";position:absolute;top:-45%;right:-35%;width:75%;height:75%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);pointer-events:none}
+        .vis-card>*{position:relative;z-index:1}
+        .vis-tag{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+        .vis-card.now .vis-tag{color:var(--accent)}
+        .vis-card.future .vis-tag{color:#c8e8ff}
+        .vis-card h3{font-size:clamp(1.1rem,1.7vw,1.55rem);line-height:1.15;color:var(--primary-dark)}
+        .vis-card.future h3{color:#fff}
+        .vis-card p{font-size:clamp(.86rem,1.05vw,1rem);line-height:1.5;color:var(--muted)}
+        .vis-card.future p{color:rgba(255,255,255,.9)}
+        .vis-pill{margin-top:auto;align-self:flex-start;font-size:.74rem;font-weight:700;padding:.35rem .85rem;border-radius:20px}
+        .vis-card.now .vis-pill{background:linear-gradient(135deg,rgba(4,55,98,.08),rgba(105,26,106,.08));color:var(--primary-dark)}
+        .vis-card.future .vis-pill{background:rgba(255,255,255,.16);color:#fff}
+        .vis-arrow{display:flex;align-items:center;justify-content:center}
+        .vis-arrow svg{width:clamp(28px,3.5vw,48px);height:auto;stroke:var(--accent);stroke-width:1.5;fill:none}
+        @media (max-width:900px){.vis{grid-template-columns:1fr}.vis-arrow svg{transform:rotate(90deg)}}
+        /* --- vision statement --- */
+        .vision-statement{font-size:clamp(1.5rem,2.9vw,2.6rem);font-weight:800;line-height:1.3;letter-spacing:-.012em;max-width:min(92%,940px);margin:clamp(.7rem,1.6vh,1.2rem) auto 0;text-align:center;background:linear-gradient(120deg,var(--primary-dark),var(--primary) 52%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        /* --- solution (4 capabilities + workflow) --- */
+        .cards.c4{grid-template-columns:repeat(4,1fr)}
+        .sol-pill{display:inline-flex;align-items:center;gap:.3rem;margin-top:auto;align-self:flex-start;font-size:.62rem;font-weight:700;color:var(--accent);background:rgba(105,26,106,.1);padding:.28rem .6rem;border-radius:16px}
+        .sol-pill svg{width:11px;height:11px;stroke:var(--accent);stroke-width:2.5;fill:none}
+        .workflow{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-top:clamp(1rem,2.4vh,1.6rem);padding:clamp(.9rem,1.5vw,1.3rem) clamp(1.2rem,2.2vw,2rem);border-radius:var(--r-md);background:linear-gradient(135deg,var(--primary-dark),var(--primary))}
+        .workflow b{font-weight:700;color:#fff;font-size:clamp(.82rem,1.05vw,1rem)}
+        .workflow svg{width:20px;height:20px;stroke:rgba(255,255,255,.5);stroke-width:2;fill:none;flex-shrink:0}
+        /* --- gtm channels --- */
+        .gtm-chips{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:clamp(.7rem,1.6vh,1.1rem)}
+        .gtm-chip{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .9rem;border-radius:30px;font-size:clamp(.74rem,.9vw,.85rem);font-weight:600;color:var(--primary-dark);background:var(--glass);border:1px solid var(--glass-border)}
+        .gtm-chip svg{width:15px;height:15px;stroke:var(--primary);stroke-width:1.8;fill:none}
+        @media (max-width:900px){.cards.c4{grid-template-columns:repeat(2,1fr)}}
+        @media (max-width:640px){.cards.c4{grid-template-columns:1fr}}
+        @media (max-width:1024px){.steps{grid-template-columns:repeat(2,1fr)}.fin{grid-template-columns:1fr}.rm{grid-template-columns:1fr}.rmcard:hover{transform:none}}
+        @media (max-width:640px){.steps,.team,.cards.c2{grid-template-columns:1fr}.agenda-item .ad{display:none}.cmp-row{font-size:.56rem}.fbar.sam,.fbar.som{margin:0}.rmline{display:none}}
+
+        .counter{position:fixed;bottom:clamp(.8rem,2vh,1.5rem);right:clamp(1rem,3vw,2.4rem);font-size:clamp(.72rem,.95vw,.84rem);color:var(--muted);z-index:100;display:flex;gap:.6rem;align-items:center}
+        .counter b{color:var(--primary);font-weight:700}
+        .counter .sec{padding-left:.6rem;border-left:1px solid var(--line);text-transform:uppercase;letter-spacing:.1em;font-size:.72em;font-weight:700;color:#94a3b8}
+
+        /* reveal - springy, staggered */
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.34,1.4,.5,1)}
+        .slide.active .reveal{opacity:1;transform:none}
+        .slide.active .reveal[data-delay="1"]{transition-delay:.07s}
+        .slide.active .reveal[data-delay="2"]{transition-delay:.14s}
+        .slide.active .reveal[data-delay="3"]{transition-delay:.22s}
+        .slide.active .reveal[data-delay="4"]{transition-delay:.30s}
+        .slide.active .reveal[data-delay="5"]{transition-delay:.38s}
+        .slide.active .reveal[data-delay="6"]{transition-delay:.46s}
+
+        @media (max-width:1024px){
+            .feature,.feature.reverse,.intro{grid-template-columns:1fr;gap:clamp(1rem,3vh,2rem);align-content:center}
+            .feature.reverse .feature-copy,.feature.reverse .clip{order:0}
+            .clip-frame video,.intro .clip-frame video{max-height:46dvh}
+            .pillars{grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr}
+            .integ{grid-template-columns:1fr}
+            .pipe{flex-direction:row;gap:1rem}.pipe svg{transform:rotate(90deg)}
+        }
+        @media (max-width:640px){
+            .slide{justify-content:flex-start;overflow-y:auto;padding:clamp(4rem,11vh,5rem) 1.1rem 2rem}
+            .inner.fill{height:auto}
+            .cards.c3,.imx-prods{grid-template-columns:1fr}
+            .pillars{grid-template-columns:1fr 1fr}
+            .clip-frame video{max-height:none}
+            .nav-tag,.dots{display:none}
+            .subtitle{max-width:none}
+        }
+        @media (prefers-reduced-motion:reduce){
+            .reveal{transition:none;opacity:1;transform:none}
+            .clip-glow,.pulse{animation:none}.deck{scroll-behavior:auto}
+        }
+
+        .cmp.c4 .cmp-row{grid-template-columns:1.6fr 1fr 1fr 1.3fr}
+        .rm.c4{grid-template-columns:repeat(4,1fr)}
+        @media (max-width:1024px){.rm.c4{grid-template-columns:1fr 1fr}}
+        @media (max-width:860px){.cmp.c4 .cmp-row{font-size:.56rem}}
+    
+.qtbl{display:flex;flex-direction:column;gap:.55rem;margin-top:clamp(.9rem,2.2vh,1.5rem)}
+.qrow{display:grid;grid-template-columns:auto minmax(0,1.5fr) minmax(0,1.2fr);gap:clamp(.7rem,1.6vw,1.4rem);align-items:center;padding:clamp(.65rem,1.1vw,.95rem) clamp(.9rem,1.4vw,1.25rem)}
+.qrow .qn{align-self:center;font-variant-numeric:tabular-nums;font-weight:800;font-size:.72rem;color:#fff;background:linear-gradient(135deg,var(--primary),var(--accent));padding:.3rem .55rem;border-radius:8px;white-space:nowrap}
+.qrow .qq{color:var(--primary-dark);font-weight:600;font-size:clamp(.82rem,1vw,.98rem);line-height:1.32}
+.qrow .qw{color:var(--muted);font-size:clamp(.76rem,.92vw,.87rem);line-height:1.32}
+@media (max-width:760px){.qrow{grid-template-columns:auto 1fr}.qrow .qw{grid-column:2}}
+.cmp.c3 .cmp-row{grid-template-columns:1.3fr 1.7fr 1.1fr}
+@media (max-width:860px){.cmp.c3 .cmp-row{font-size:.6rem}}
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:clamp(.9rem,2.2vh,1.4rem)}
+.gitem{padding:.65rem .95rem;border-radius:12px}
+.gitem b{color:var(--primary-dark);font-size:clamp(.82rem,1vw,.92rem);display:block;margin-bottom:.12rem}
+.gitem span{color:var(--muted);font-size:clamp(.75rem,.9vw,.83rem);line-height:1.32}
+@media (max-width:760px){.gloss{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+    <div class="progress" id="prog"><span></span></div>
+    <nav class="nav">
+        <a href="https://arvihealth.com" target="_blank" rel="noopener" class="logo"><img src="arvi logo.avif" alt="Arvi Health"></a>
+        <div class="dots" id="dots"></div>
+        <div class="nav-tag">Integration &middot; <b>InfoMedix</b></div>
+    </nav>
+
+    <main class="deck" id="deck">
+
+<!-- Title -->
+<section class="slide" id="s-intro" data-sec="Overview">
+  <div class="inner">
+    <div class="divider">
+      <div class="badge reveal"><span class="pulse"></span> Integration Design &middot; Aug 2026</div>
+      <div class="lockup reveal" data-delay="1" style="margin:.2rem 0 .3rem">
+        <img class="lk-arvi" src="arvi logo.avif" alt="Arvi Health">
+        <span class="x">&times;</span>
+        <img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix">
+      </div>
+      <div class="big reveal" data-delay="2">Connecting Arvi to InfoMedix</div>
+      <p class="subtitle reveal" data-delay="3" style="text-align:center;max-width:900px;margin:0 auto">Arvi and InfoMedix exchange two things, patients coming in and letters going out, using FHIR as the shared language, joined by the patient MRN and protected by a signed-token gate on every crossing.</p>
+      <div class="menu reveal" data-delay="4">
+        <span class="mi"><b>FHIR</b> R4 (4.0.1)</span>
+        <span class="mi"><b>AU Core</b> aligned</span>
+        <span class="mi"><b>SMART</b> Backend Services</span>
+      </div>
+      <p class="subtitle reveal" data-delay="5" style="text-align:center;font-size:clamp(.78rem,1vw,.9rem);opacity:.7">Prepared for the InfoMedix technical conversation</p>
+    </div>
+  </div>
+</section>
+
+<!-- Big picture -->
+<section class="slide" id="s-big" data-sec="The Big Picture">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> The Big Picture</div>
+      <h2 class="title reveal" data-delay="1">Two Arrows and One Shared Key</h2>
+      <p class="subtitle reveal" data-delay="2">Strip away the acronyms and the whole integration is two arrows and one shared key. Everything else, the FHIR resources, the tokens, the mappers, is machinery in service of these.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><polyline points="19 12 12 19 5 12"/></svg></div><h3>Patients come in</h3><p>InfoMedix knows who the patient is. Arvi does not. So patient records flow from InfoMedix to Arvi.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/></svg></div><h3>Letters go out</h3><p>Arvi produces the clinical letter. InfoMedix needs it in the chart. So letters flow from Arvi to InfoMedix.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><h3>The shared key: the MRN</h3><p>The hospital Medical Record Number is the one thing both systems agree on. It is what lets a letter find the right patient.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Ownership -->
+<section class="slide" id="s-own" data-sec="Ownership">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Ownership</div>
+      <h2 class="title reveal" data-delay="1">A Clean Division of Ownership</h2>
+      <p class="subtitle reveal" data-delay="2">Respecting this line prevents most of the serious problems that occur in integrations like this.</p>
+    </div>
+    <div class="cards c2" style="max-width:1000px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>InfoMedix owns patient identity</h3><p>Who the patient is, their MRN, their demographics, when they were admitted. Arvi will never invent a patient, edit demographics, or decide two records are the same person.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Arvi owns clinical documents</h3><p>The recording, the transcript, the generated letter, the approval state. Arvi decides what a consultation note contains and hands you the finished document.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">Keeping patient creation one-directional means no duplicate records ever appear inside the hospital system, which is a patient-safety benefit, not just a data one.</p>
+  </div>
+</section>
+
+<!-- What FHIR is -->
+<section class="slide" id="s-fhir" data-sec="The Language">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> The Language</div>
+      <h2 class="title reveal" data-delay="1">FHIR Is a Language, Not a Product</h2>
+      <p class="subtitle reveal" data-delay="2">It is agreed JSON shapes plus a REST convention. English is not the translator; English is what the translator speaks. In this integration, FHIR is the language and the mapper is the translator.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3>Agreed shapes</h3><p>Without a standard, one system says patient_surname, another lastName. FHIR settles it in advance: it is name[0].family, for everyone.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>The mapper translates</h3><p>FHIR at the edges, an internal shape in the middle. Arvi translates on the way in and out.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Anti-corruption layer</h3><p>A thin translation boundary so neither system concepts leak into the other design.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Two identifiers -->
+<section class="slide" id="s-ident" data-sec="The Language">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg> Identifiers</div>
+      <h2 class="title reveal" data-delay="1">Two Identifiers, Two Different Jobs</h2>
+      <p class="subtitle reveal" data-delay="2">A DocumentReference carries two coded values that look similar but mean completely different things. Keeping them straight is what makes a letter file correctly.</p>
+    </div>
+    <div class="cards c2" style="max-width:1000px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>LOINC 11488-4, what kind</h3><p>Answers what kind of document this is. Lives in the type field. Issued by LOINC, a global body, so every consultation note anywhere is 11488-4.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><h3>MRN SVH-88213, whose</h3><p>Answers which patient this is about. Lives in the subject field. Issued by each hospital, so it is unique to one person at one hospital.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">FHIR always pairs a system with a value, so an MRN can never be mistaken for someone else at another hospital.</p>
+  </div>
+</section>
+
+<!-- The boundary (reframed mapping) -->
+<section class="slide" id="s-boundary" data-sec="The Boundary">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> The Boundary</div>
+      <h2 class="title reveal" data-delay="1">One Clean Boundary Between Us</h2>
+      <p class="subtitle reveal" data-delay="2">InfoMedix always sees standard FHIR. Arvi translates at the edge and keeps its own internal shape, so neither system constrains the other and the contract between us stays stable.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>You send and receive FHIR</h3><p>Standard FHIR resources at the boundary, nothing Arvi-specific. What you already speak.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Arvi translates at the edge</h3><p>A mapper converts FHIR to an internal shape and back. FHIR never reaches the core database.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>The contract stays stable</h3><p>Because translation is isolated, a change on either side does not ripple across the boundary.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">This is the anti-corruption layer pattern. How Arvi builds it internally is in the appendix, and does not affect what InfoMedix sends or receives.</p>
+  </div>
+</section>
+
+<!-- Four crossings -->
+<section class="slide" id="s-cross" data-sec="How We Communicate">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> How We Communicate</div>
+      <h2 class="title reveal" data-delay="1">Data Crosses the Boundary Four Times</h2>
+      <p class="subtitle reveal" data-delay="2">The direction of the call is not the same each time. Because both sides make outbound calls, each side needs to issue the other a base URL and a set of credentials.</p>
+    </div>
+    <div class="cmp c4 glass reveal" data-delay="2">
+      <div class="cmp-row cmp-head"><div>What crosses</div><div>Who calls</div><div>Who answers</div><div class="arvi">When</div></div>
+      <div class="cmp-row"><div>FHIR Patient</div><div>InfoMedix</div><div>Arvi</div><div class="arvi">On admission or booking</div></div>
+      <div class="cmp-row"><div>FHIR DocumentReference (the letter)</div><div>Arvi</div><div>InfoMedix</div><div class="arvi">After clinician approval</div></div>
+      <div class="cmp-row"><div>201 Created (the response)</div><div>InfoMedix</div><div>Arvi</div><div class="arvi">Same connection, at once</div></div>
+      <div class="cmp-row"><div>Status callback</div><div>InfoMedix</div><div>Arvi</div><div class="arvi">Minutes or hours later</div></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">Received is not the same as filed. The 201 is the receipt at the counter, the status callback is the delivery confirmation. Both matter.</p>
+  </div>
+</section>
+
+<!-- Scenario (interactive flow, from the mock) -->
+<section class="slide" id="s-journey" data-sec="The Scenario">
+<style>
+#flow{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(1.1rem,3vw,2.6rem);align-items:start;margin-top:clamp(.5rem,1.4vh,.9rem)}
+#flow .flow-diagram{padding:clamp(.7rem,1.3vw,1.1rem)}
+#flow svg{width:100%;height:auto;display:block;max-height:56vh}
+#flow .flow-lane{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;fill:var(--muted)}
+#flow .fn-t{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;transition:fill .3s}
+#flow .fn-s{font-family:'Inter',sans-serif;font-size:11px;transition:fill .3s}
+#flow .fconn{stroke:#c3d3e3;stroke-width:1.6;transition:stroke .3s}
+#flow .fconn.lit{stroke:var(--primary);stroke-width:2.6}
+#flow .node rect{transition:fill .3s,stroke .3s;cursor:pointer}
+#flow .flow-stepno{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:.4rem}
+#flow .flow-title{font-size:clamp(1.1rem,1.7vw,1.5rem);color:var(--primary-dark);font-weight:800;margin-bottom:.5rem;line-height:1.15}
+#flow .flow-note{color:var(--muted);font-size:clamp(.85rem,1.05vw,1rem);line-height:1.55;margin-bottom:1rem;min-height:4.6em}
+#flow .flow-payload{border-radius:var(--r-md);overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#0b2137;box-shadow:var(--s-md)}
+#flow .flow-pbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:.55rem .9rem;border-bottom:1px solid rgba(255,255,255,.1);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8aa2ba;font-weight:700}
+#flow .flow-fmt{padding:.2rem .6rem;border-radius:5px;white-space:nowrap;font-weight:800}
+#flow .flow-fmt.fhir{background:rgba(4,85,163,.32);color:#9ec2f0}
+#flow .flow-fmt.own{background:rgba(15,118,110,.32);color:#7fded0}
+#flow .flow-fmt.hum{background:rgba(180,83,9,.34);color:#f0c489}
+#flow pre{font-family:'JetBrains Mono',SFMono-Regular,Consolas,monospace;font-size:clamp(.72rem,.92vw,.82rem);line-height:1.65;padding:.85rem 1rem;overflow-x:auto;white-space:pre;color:#cfe0f0;margin:0;min-height:9.5em}
+#flow pre .k{color:#7fb0f0}#flow pre .v{color:#6fe0cf}#flow pre .c{color:#6b8299}#flow pre .h{color:#f0b060}
+#flow .flow-controls{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+#flow .flow-controls button{font-family:'Inter',sans-serif;font-size:.9rem;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:.55rem 1.1rem;cursor:pointer;transition:all .18s}
+#flow .flow-controls button:hover:not(:disabled){border-color:var(--primary);color:var(--primary)}
+#flow .flow-controls button:disabled{opacity:.4;cursor:default}
+#flow #f_play{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;font-weight:700;min-width:84px}
+#flow .flow-legend{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:1.1rem;font-size:.76rem;color:var(--muted)}
+#flow .flow-legend div{display:flex;align-items:center;gap:.5rem}
+#flow .flow-legend .sw{width:11px;height:11px;border-radius:3px;flex:none}
+@media (max-width:1024px){#flow{grid-template-columns:1fr}#flow svg{max-height:44vh}}
+</style>
+  <div class="inner fill">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg> The Scenario</div>
+      <h2 class="title reveal" data-delay="1">One Patient In, One Letter Out</h2>
+      <p class="subtitle reveal" data-delay="2">A complete round trip for Jane Smith, MRN SVH-88213, seen by Dr Jones. Step through each crossing and watch the payload change shape at the boundary.</p>
+      <p class="reveal" data-delay="3" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:.6rem;font-size:.78rem;font-weight:700;color:var(--accent);background:rgba(105,26,106,.09);padding:.4rem .9rem;border-radius:30px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--accent);stroke-width:2;fill:none"><polygon points="5 3 19 12 5 21 5 3"/></svg> Interactive. Press Play, or step with Back and Next. Click any box to jump.</p>
+    </div>
+    <div id="flow" class="reveal" data-delay="2">
+      <div class="flow-diagram glass">
+        <svg viewBox="0 0 440 636" role="img" aria-label="Two lanes, InfoMedix on the left and Arvi on the right, with FHIR crossing between them.">
+          <defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+          <rect x="16" y="34" width="188" height="586" rx="12" fill="#eef4fb"/>
+          <rect x="236" y="34" width="188" height="586" rx="12" fill="#eef4fb"/>
+          <text class="flow-lane" x="110" y="20" text-anchor="middle">InfoMedix (DPC)</text>
+          <text class="flow-lane" x="330" y="20" text-anchor="middle">Arvi</text>
+          <line id="fc1" class="fconn" x1="110" y1="102" x2="110" y2="114" marker-end="url(#fa)"/>
+          <line id="fc2" class="fconn" x1="330" y1="162" x2="330" y2="174" marker-end="url(#fa)"/>
+          <line id="fc3" class="fconn" x1="330" y1="240" x2="330" y2="252" marker-end="url(#fa)"/>
+          <line id="fc4" class="fconn" x1="330" y1="318" x2="330" y2="330" marker-end="url(#fa)"/>
+          <line id="fc5" class="fconn" x1="330" y1="396" x2="330" y2="408" marker-end="url(#fa)"/>
+          <line id="fc6" class="fconn" x1="330" y1="474" x2="330" y2="486" marker-end="url(#fa)"/>
+          <line id="fc7" class="fconn" x1="110" y1="534" x2="110" y2="546" marker-end="url(#fa)"/>
+          <g class="node" id="fn0"><rect x="28" y="40" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="68">Patient admitted</text><text class="fn-s" x="46" y="87">Given an MRN</text></g>
+          <g class="node" id="fn1"><rect x="28" y="118" width="384" height="44" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="139">FHIR Patient</text><text class="fn-s" x="46" y="155">Pushed across the boundary</text></g>
+          <g class="node" id="fn2"><rect x="248" y="178" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="206">Inbound mapper</text><text class="fn-s" x="266" y="225">FHIR translated away</text></g>
+          <g class="node" id="fn3"><rect x="248" y="256" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="284">Upsert on MRN</text><text class="fn-s" x="266" y="303">One row per person</text></g>
+          <g class="node" id="fn4"><rect x="248" y="334" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="362">Visit recorded</text><text class="fn-s" x="266" y="381">Draft stays internal</text></g>
+          <g class="node" id="fn5"><rect x="248" y="412" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="440">Clinician approves</text><text class="fn-s" x="266" y="459">Queued to outbox</text></g>
+          <g class="node" id="fn6"><rect x="28" y="490" width="384" height="44" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="511">FHIR DocumentReference</text><text class="fn-s" x="46" y="527">Sent back across</text></g>
+          <g class="node" id="fn7"><rect x="28" y="550" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="578">Filed to chart</text><text class="fn-s" x="46" y="597">Matched on MRN</text></g>
+        </svg>
+      </div>
+      <div class="flow-panel">
+        <p class="flow-stepno" id="f_stepno"></p>
+        <h3 class="flow-title" id="f_title"></h3>
+        <p class="flow-note" id="f_note"></p>
+        <div class="flow-payload">
+          <div class="flow-pbar"><span id="f_ploc"></span><span class="flow-fmt" id="f_fmt"></span></div>
+          <pre id="f_pre"></pre>
+        </div>
+        <div class="flow-controls">
+          <button id="f_play">Play</button>
+          <button id="f_prev">Back</button>
+          <button id="f_next">Next</button>
+        </div>
+        <div class="flow-legend">
+          <div><span class="sw" style="background:var(--primary)"></span>FHIR on the wire</div>
+          <div><span class="sw" style="background:#0f766e"></span>Internal shape</div>
+          <div><span class="sw" style="background:#b45309"></span>Human decision</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+(function(){
+  var TONE={
+    fhir:{fill:"#e3ecfb",stroke:"#0455A3",t:"#043762",s:"#3f6ea3"},
+    own:{fill:"#e2f5f1",stroke:"#0f766e",t:"#0b5c53",s:"#4b8f85"},
+    hum:{fill:"#fbf0dd",stroke:"#b45309",t:"#7c3a06",s:"#a9773e"},
+    off:{fill:"#f4f9fe",stroke:"#d5e3f0",t:"#7d93a8",s:"#a9b8c8"}
+  };
+  var steps=[
+   {tone:"own",lit:null,title:"The hospital creates the patient",
+    note:"Jane is admitted and the hospital issues an MRN. At this point Arvi has never heard of her, and closing that gap is the point of the first crossing.",
+    loc:"InfoMedix, patient record",fmt:"Their system",cls:"own",
+    code:'<span class="c">MRN </span>  <span class="v">SVH-88213</span>\n<span class="c">Name</span>  Jane Smith\n<span class="c">DOB </span>  1970-04-12'},
+   {tone:"fhir",lit:"fc1",title:"The patient crosses as FHIR",
+    note:"The identifier carries a system as well as a value. The same MRN at a different hospital is a different person, so the number alone would be unsafe.",
+    loc:"In transit, HTTPS plus token",fmt:"FHIR Patient",cls:"fhir",
+    code:'{\n  <span class="k">"resourceType"</span>: <span class="v">"Patient"</span>,\n  <span class="k">"identifier"</span>: [{\n    <span class="k">"system"</span>: <span class="v">"...mrn"</span>,\n    <span class="k">"value"</span>:  <span class="v">"SVH-88213"</span>\n  }],\n  <span class="k">"name"</span>: [{<span class="k">"family"</span>:<span class="v">"Smith"</span>}],\n  <span class="k">"birthDate"</span>: <span class="v">"1970-04-12"</span>\n}'},
+   {tone:"own",lit:"fc2",title:"The mapper translates it",
+    note:"FHIR stops at this line. Past the mapper, nothing inside Arvi knows the word FHIR, and that is the whole point of the boundary.",
+    loc:"Arvi, mapper output",fmt:"Internal shape",cls:"own",
+    code:'<span class="c">family_name</span>  Smith\n<span class="c">birth_date </span>  1970-04-12\n<span class="c">gender     </span>  female\n<span class="c">source     </span>  <span class="v">infomedix</span>'},
+   {tone:"own",lit:"fc3",title:"Saved to the database",
+    note:"Keyed on system plus value, never on name. Names change and MRNs do not. Sending the same patient again updates the row instead of creating a second one.",
+    loc:"Arvi, postgres",fmt:"Internal shape",cls:"own",
+    code:'<span class="c">-- patients</span>\nfamily_name  Smith\n\n<span class="c">-- patient_identifiers</span>\nsystem  ...mrn\nvalue   <span class="v">SVH-88213</span>\n<span class="c">UNIQUE (system, value)</span>'},
+   {tone:"own",lit:"fc4",title:"The consultation is recorded",
+    note:"Arvi transcribes and drafts the letter. Nothing leaves the system yet, an unapproved draft is a suggestion, not a clinical document.",
+    loc:"Arvi, letters",fmt:"Internal shape",cls:"own",
+    code:'<span class="c">status </span>  under_review\n<span class="c">type   </span>  consultation_note\n<span class="c">body   </span>  "Presented with a..."'},
+   {tone:"hum",lit:"fc5",title:"A clinician approves it",
+    note:"The letter and the outbox row commit together in one transaction, then the response returns straight away. The browser never waits on the far end.",
+    loc:"Arvi, one transaction",fmt:"Human decision",cls:"hum",
+    code:'<span class="h">BEGIN;</span>\n  UPDATE letters SET status=<span class="v">\'approved\'</span>;\n  INSERT INTO outbox (...);\n<span class="h">COMMIT;</span>\n\n<span class="c">to 200 OK in ~50ms</span>'},
+   {tone:"fhir",lit:"fc6",title:"The letter crosses back as FHIR",
+    note:"FHIR reappears only at the edge. Two identifiers do two different jobs: type says what kind of document, subject says who it belongs to.",
+    loc:"In transit, HTTPS plus token",fmt:"FHIR DocumentReference",cls:"fhir",
+    code:'{\n  <span class="k">"resourceType"</span>: <span class="v">"DocumentReference"</span>,\n  <span class="k">"docStatus"</span>: <span class="v">"final"</span>,\n  <span class="k">"type"</span>: {<span class="k">"coding"</span>:[{<span class="k">"code"</span>:<span class="v">"11488-4"</span>}]},\n              <span class="c">what kind</span>\n  <span class="k">"subject"</span>: {<span class="k">"identifier"</span>:{\n    <span class="k">"value"</span>: <span class="v">"SVH-88213"</span>   <span class="c">whose</span>\n  }}\n}'},
+   {tone:"own",lit:"fc7",title:"It is filed to the chart",
+    note:"InfoMedix reads the identifier, finds the patient, files the letter. A 201 confirms custody, and a status callback later confirms it reached the chart.",
+    loc:"InfoMedix, response",fmt:"FHIR response",cls:"fhir",
+    code:'<span class="v">201 Created</span>\nLocation: DocumentReference/dr-9912\n\n<span class="c">marked sent</span>\n<span class="c">audit row written</span>'}
+  ];
+  var i=0,timer=null;
+  var $=function(id){return document.getElementById(id);};
+  function paint(){
+    for(var n=0;n<8;n++){
+      var g=$("fn"+n); if(!g) continue;
+      var t=TONE[n===i?steps[i].tone:"off"];
+      var r=g.querySelector("rect");
+      r.setAttribute("fill",t.fill); r.setAttribute("stroke",t.stroke); r.setAttribute("stroke-width","1.4");
+      g.querySelector(".fn-t").setAttribute("fill",t.t);
+      g.querySelector(".fn-s").setAttribute("fill",t.s);
+    }
+    for(var c=1;c<=7;c++){ var el=$("fc"+c); if(el) el.setAttribute("class","fconn"); }
+    if(steps[i].lit){ var lit=$(steps[i].lit); if(lit) lit.setAttribute("class","fconn lit"); }
+    var s=steps[i];
+    $("f_stepno").textContent="Step "+(i+1)+" of 8";
+    $("f_title").textContent=s.title;
+    $("f_note").textContent=s.note;
+    $("f_ploc").textContent=s.loc;
+    var f=$("f_fmt"); f.textContent=s.fmt; f.className="flow-fmt "+s.cls;
+    $("f_pre").innerHTML=s.code;
+    $("f_prev").disabled=(i===0);
+    $("f_next").disabled=(i===7);
+  }
+  function stop(){ if(timer){clearInterval(timer);timer=null;} var p=$("f_play"); if(p)p.textContent="Play"; }
+  function go(n){ stop(); i=n; paint(); }
+  $("f_play").onclick=function(){
+    if(timer){stop();return;}
+    if(i===7)i=0;
+    paint(); this.textContent="Pause";
+    timer=setInterval(function(){ if(i>=7){stop();return;} i++; paint(); },4500);
+  };
+  $("f_next").onclick=function(){ if(i<7)go(i+1); };
+  $("f_prev").onclick=function(){ if(i>0)go(i-1); };
+  for(var x=0;x<8;x++){ (function(n){ var el=$("fn"+n); if(el) el.onclick=function(){go(n);}; })(x); }
+  paint();
+})();
+</script>
+</section>
+
+<!-- FHIR resources -->
+<section class="slide" id="s-res" data-sec="FHIR Resources">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> FHIR Resources</div>
+      <h2 class="title reveal" data-delay="1">Five Standard Bricks</h2>
+      <p class="subtitle reveal" data-delay="2">FHIR defines roughly 150 resource types. This integration needs five. Everyone in healthcare uses the same bricks, which is why systems click together.</p>
+    </div>
+    <div class="cmp c4 glass reveal" data-delay="2">
+      <div class="cmp-row cmp-head"><div>Resource</div><div>What it is</div><div>How it is used</div><div class="arvi">Priority</div></div>
+      <div class="cmp-row"><div>Patient</div><div>The person</div><div>Sent by InfoMedix, carries the MRN</div><div class="arvi">Essential</div></div>
+      <div class="cmp-row"><div>DocumentReference</div><div>The envelope</div><div>Sent by Arvi, what letter and whose</div><div class="arvi">Essential</div></div>
+      <div class="cmp-row"><div>Binary</div><div>The letter bytes</div><div>Only needed if we send PDFs</div><div class="arvi">Only if PDF</div></div>
+      <div class="cmp-row"><div>Practitioner</div><div>The clinician</div><div>Identifies the letter author</div><div class="arvi">Recommended</div></div>
+      <div class="cmp-row"><div>Encounter</div><div>One visit</div><div>Links the letter to a consultation</div><div class="arvi">Confirm</div></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.7rem,1.6vh,1rem)">DocumentReference is the envelope. Binary is the letter inside. Our letters are plain text, so we go inline and skip Binary.</p>
+  </div>
+</section>
+
+<!-- LOINC per letter type -->
+<section class="slide" id="s-loinc" data-sec="FHIR Resources">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Document Coding</div>
+      <h2 class="title reveal" data-delay="1">A LOINC Code for Each Letter Type</h2>
+      <p class="subtitle reveal" data-delay="2">Arvi produces six kinds of letter. Each needs a LOINC code so InfoMedix knows where to file it and how to label it. We store the mapping as configuration, never hardcoded.</p>
+    </div>
+    <div class="cmp c4 glass reveal" data-delay="2">
+      <div class="cmp-row cmp-head"><div>Arvi letter type</div><div>Sections</div><div>Suggested LOINC</div><div class="arvi">Note</div></div>
+      <div class="cmp-row"><div>Consultation note</div><div>Yes</div><div>11488-4</div><div class="arvi">The standard consultation note code</div></div>
+      <div class="cmp-row"><div>Patient summary</div><div>Yes</div><div>34133-9</div><div class="arvi">Summarisation of episode note</div></div>
+      <div class="cmp-row"><div>Procedure report</div><div>Yes</div><div>28570-0</div><div class="arvi">Procedure note</div></div>
+      <div class="cmp-row"><div>Dictation</div><div>Yes</div><div>11488-4</div><div class="arvi">Depends what the dictation becomes</div></div>
+      <div class="cmp-row"><div>Specialist to GP, initial</div><div>No</div><div>Referral response</div><div class="arvi">Confirm your preferred code</div></div>
+      <div class="cmp-row"><div>Specialist to GP, follow-up</div><div>Yes</div><div>Same family</div><div class="arvi">Confirm your preferred code</div></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.7rem,1.6vh,1rem)">Treat this as a draft. The code decides where a letter files in the chart, so we would use your value set rather than guessing.</p>
+  </div>
+</section>
+
+<!-- Sections / Composition -->
+<section class="slide" id="s-sections" data-sec="FHIR Resources">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Document Structure</div>
+      <h2 class="title reveal" data-delay="1">Formatted Text, or a FHIR Composition?</h2>
+      <p class="subtitle reveal" data-delay="2">Five of our six letter types have sections: History, Examination, Impression, Plan. FHIR can carry these as a Composition, which is more correct but substantially more work.</p>
+    </div>
+    <div class="cards c2" style="max-width:1000px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Our recommendation: formatted text</h3><p>A DocumentReference with the sections as headed text. It stays perfectly readable in the chart, with far less machinery.</p><span class="sol-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Start here</span></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><h3>Composition, only if you use it</h3><p>Discrete, separately-addressable sections. Worth the extra work only if InfoMedix actually does something with the structure.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">So we ask directly: do you want discrete sections as a FHIR Composition, or is a formatted text document sufficient?</p>
+  </div>
+</section>
+
+<!-- Standards baseline -->
+<section class="slide" id="s-standards" data-sec="Standards">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Standards</div>
+      <h2 class="title reveal" data-delay="1">The Standards Baseline</h2>
+      <p class="subtitle reveal" data-delay="2">R4 is the Australian baseline. We build toward AU Core sensibly, without over-investing before it is required.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3>R4 (4.0.1)</h3><p>The Australian baseline. AU Base and AU Core are both built on R4.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>AU Core aligned</h3><p>Profiles Patient, Practitioner, Encounter and DocumentReference for Australian use. Currently advisory.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h3>Not R4B or R5</h3><p>Those are not the Australian norm, so we stay on R4 unless you need otherwise.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Security four layers -->
+<section class="slide" id="s-sec" data-sec="Security">
+  <div class="inner fill">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security</div>
+      <h2 class="title reveal" data-delay="1">Security Is a Property of the Connection</h2>
+      <p class="subtitle reveal" data-delay="2">Not a box the data stops at. Think of a bank: the armoured van, the ID check at the door, what the door lets you into, and the CCTV. Four layers, and this integration has the same four.</p>
+    </div>
+    <div class="cards c4">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>1. Transport</h3><p>TLS 1.2 minimum, 1.3 preferred. Mutual TLS if InfoMedix require it. The armoured van.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>2. Authentication</h3><p>OAuth 2.0 client credentials with a signed JWT, not an API key. Proving who you are.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>3. Authorisation</h3><p>Least-privilege scopes, for example system/DocumentReference.c and system/Patient.rs. What you may do.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><h3>4. Accountability</h3><p>An append-only audit record of every send and receive. Proving what happened.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Auth -->
+<section class="slide" id="s-auth" data-sec="Authentication">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg> Authentication</div>
+      <h2 class="title reveal" data-delay="1">SMART Backend Services, the Healthcare Standard</h2>
+      <p class="subtitle reveal" data-delay="2">OAuth 2.0 client credentials with an asymmetric signed assertion, not a shared API key. A wax seal: copying the letter is useless without the signet ring.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>A key pair</h3><p>The private key never leaves its owner. Only the public key is shared. Nobody can forge a signature without the private key.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>A short-lived token</h3><p>The caller signs a tiny assertion that expires in five minutes and carries a one-time id, which blocks replay.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>A JWKS endpoint</h3><p>Each side publishes its public key at a URL, so signatures can be verified and key rotation is painless.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">This is the same pattern Epic, Oracle Health and most major EHRs use for system-to-system access.</p>
+  </div>
+</section>
+
+<!-- Grant types -->
+<section class="slide" id="s-grants" data-sec="Authentication">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg> OAuth Grants</div>
+      <h2 class="title reveal" data-delay="1">Which OAuth Grant, and Which to Avoid</h2>
+      <p class="subtitle reveal" data-delay="2">For completeness, the grant types and our verdict on each for clinical data.</p>
+    </div>
+    <div class="cmp c3 glass reveal" data-delay="2">
+      <div class="cmp-row cmp-head"><div>Grant type</div><div>Use for</div><div class="arvi">Verdict</div></div>
+      <div class="cmp-row"><div>client_credentials + private_key_jwt</div><div>Server to server, no human involved</div><div class="arvi">Use this. The standard</div></div>
+      <div class="cmp-row"><div>authorization_code + PKCE</div><div>A user clicking a consent screen</div><div class="arvi">Only if we add patient-context launch later</div></div>
+      <div class="cmp-row"><div>implicit</div><div>Legacy browser apps</div><div class="arvi">Avoid. Exposes tokens in URLs</div></div>
+      <div class="cmp-row"><div>password (ROPC)</div><div>Legacy</div><div class="arvi">Avoid. Handles someone else credentials</div></div>
+      <div class="cmp-row"><div>Static API key</div><div>Simple internal tooling</div><div class="arvi">Avoid for clinical data</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Security one picture -->
+<section class="slide" id="s-secpic" data-sec="Security">
+  <div class="inner fill">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security</div>
+      <h2 class="title reveal" data-delay="1">The Security Layer, in One Picture</h2>
+      <p class="subtitle reveal" data-delay="2">The same gate wraps every crossing, in both directions. What happens once, what happens every few minutes, what happens on every request, and what happens always.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal" data-delay="2"><div class="sic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><div class="sn">ONCE, AT ONBOARDING</div><h3>Registration</h3><p>Each side generates a key pair and shares only the public half. Private keys never leave their owner.</p></div>
+      <div class="step reveal" data-delay="3"><div class="sic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><div class="sn">EVERY FEW MINUTES</div><h3>Token exchange</h3><p>The caller signs a short-lived assertion. The receiver verifies it against the registered public key and issues an access token.</p></div>
+      <div class="step reveal" data-delay="4"><div class="sic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="sn">EVERY REQUEST</div><h3>The gate</h3><p>TLS encrypts the pipe, the bearer token says who is calling, the scope says what they may do.</p></div>
+      <div class="step reveal" data-delay="5"><div class="sic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><div class="sn">ALWAYS</div><h3>Audit</h3><p>An append-only record of every send and receive, so any question about a document can be answered.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="6" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">The gate sits on the crossing, not in the chain. The token is a header on the same request that carries the letter.</p>
+  </div>
+</section>
+
+<!-- Idempotency + failure -->
+<section class="slide" id="s-reliab" data-sec="Reliability">
+  <div class="inner fill">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Reliability</div>
+      <h2 class="title reveal" data-delay="1">Idempotency and Handling Failure</h2>
+      <p class="subtitle reveal" data-delay="2">Networks fail. A request succeeds, the response is lost, the sender retries. Without care the patient gets two identical letters, which is a clinical problem, not just untidy data.</p>
+    </div>
+    <div class="cmp c3 glass reveal" data-delay="2">
+      <div class="cmp-row cmp-head"><div>Response</div><div>What it means</div><div class="arvi">What we do</div></div>
+      <div class="cmp-row"><div>201 / 200</div><div>Custody of the document taken</div><div class="arvi">Mark sent, store id, audit, clear outbox</div></div>
+      <div class="cmp-row"><div>400</div><div>The JSON is wrong</div><div class="arvi">Permanent. Dead-letter and alert a human</div></div>
+      <div class="cmp-row"><div>401 / 403</div><div>Token expired or scope short</div><div class="arvi">Refresh the token, then retry</div></div>
+      <div class="cmp-row"><div>429</div><div>Rate limited</div><div class="arvi">Back off, respect Retry-After</div></div>
+      <div class="cmp-row"><div>5xx</div><div>Their end has a problem</div><div class="arvi">Retry with exponential backoff</div></div>
+      <div class="cmp-row"><div>No response</div><div>Network timeout</div><div class="arvi">Retry, the idempotency key is essential</div></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.7rem,1.6vh,1rem)">We send an Idempotency-Key per letter, and would like to know if you support conditional create via If-None-Exist.</p>
+  </div>
+</section>
+
+<!-- Endpoints -->
+<section class="slide" id="s-ep" data-sec="Our Endpoints">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg> Our Endpoints</div>
+      <h2 class="title reveal" data-delay="1">The Endpoints Arvi Exposes to InfoMedix</h2>
+      <p class="subtitle reveal" data-delay="2">Two of the four crossings are InfoMedix calling us. We accept FHIR the format, not FHIR the protocol, so this is a small, well-guarded surface.</p>
+    </div>
+    <div class="cmp c4 glass reveal" data-delay="2">
+      <div class="cmp-row cmp-head"><div>Route</div><div>Method</div><div>Purpose</div><div class="arvi">Body</div></div>
+      <div class="cmp-row"><div>/v1/fhir/Patient</div><div>POST</div><div>Receive a new or updated patient</div><div class="arvi">FHIR Patient</div></div>
+      <div class="cmp-row"><div>/v1/callbacks/document-status</div><div>POST</div><div>Confirm a letter was filed, or rejected</div><div class="arvi">Small JSON</div></div>
+      <div class="cmp-row"><div>/.well-known/jwks.json</div><div>GET</div><div>Publish our public key</div><div class="arvi">None</div></div>
+      <div class="cmp-row"><div>/health</div><div>GET</div><div>Liveness check for your monitoring</div><div class="arvi">None</div></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.7rem,1.6vh,1rem)">One route per partner, never a shared endpoint. The token decides who is calling, not the JSON body. We validate before storing and return proper FHIR OperationOutcome errors.</p>
+  </div>
+</section>
+
+<!-- Australian data protection -->
+<section class="slide" id="s-privacy" data-sec="Compliance">
+  <div class="inner fill">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg> Compliance</div>
+      <h2 class="title reveal" data-delay="1">Australian Data Protection and Residency</h2>
+      <p class="subtitle reveal" data-delay="2">A few obligations shape the design and will come up in any hospital vendor assessment.</p>
+    </div>
+    <div class="cards c4">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Privacy Act and APPs</h3><p>Health information is sensitive information and attracts the strictest handling requirements.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></div><h3>APP 8, cross-border</h3><p>If any AI processing happens offshore, we remain accountable for the overseas handling. We answer this clearly.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Notifiable Data Breaches</h3><p>A documented breach response process, not just good intentions.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>Onshore hosting</h3><p>All patient data, and the logs that reference it, hosted in Australian regions.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- What we do not need -->
+<section class="slide" id="s-scope" data-sec="Scoping">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Scoping</div>
+      <h2 class="title reveal" data-delay="1">What This Integration Does Not Need</h2>
+      <p class="subtitle reveal" data-delay="2">A direct integration into a hospital DMR is governed by that hospital infrastructure, not the national stack. Confirming this early avoids a large, unnecessary workstream.</p>
+    </div>
+    <div class="cards c4">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h3>No NASH PKI</h3><p>National authentication certificates are for national services, not a direct DMR integration.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h3>No HPI-O</h3><p>The organisation identifier is only needed for the Healthcare Identifiers Service and national messaging.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h3>No My Health Record</h3><p>No national conformance testing is required to integrate point to point with InfoMedix.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h3>No HL7 v2, unless preferred</h3><p>R4 FHIR is the baseline. We only fall back to HL7 v2 if InfoMedix specifically prefer it.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">Those are required only for My Health Record, the Healthcare Identifiers Service, electronic prescribing, or national secure messaging.</p>
+  </div>
+</section>
+
+<!-- Security track -->
+<section class="slide" id="s-track" data-sec="Security Track">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg> Security Track</div>
+      <h2 class="title reveal" data-delay="1">The Security Track, Run in Parallel</h2>
+      <p class="subtitle reveal" data-delay="2">This is usually the long pole. Hospitals ask for it in any vendor assessment, so it runs alongside the engineering, not after.</p>
+    </div>
+    <div class="cards c4">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>ISO 27001</h3><p>The certification hospitals expect. InfoMedix hold it too, so it is shared ground.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3>Essential Eight</h3><p>Maturity against the ACSC baseline mitigation strategies.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Penetration testing</h3><p>Recent independent testing results, plus a completed vendor security questionnaire.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>Data residency</h3><p>All patient data and the logs that reference it hosted in Australian regions.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">InfoMedix hold ISO 9001 and ISO 27001, so this is common ground, not a hurdle.</p>
+  </div>
+</section>
+
+<!-- Priority questions -->
+<section class="slide" id="s-q" data-sec="The Conversation">
+  <div class="inner fill">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> The Conversation</div>
+      <h2 class="title reveal" data-delay="1">The Four Questions to Settle First</h2>
+      <p class="subtitle reveal" data-delay="2">Each of these can change weeks of work. Settling them first turns the rest into detail.</p>
+    </div>
+    <div class="cards c2" style="max-width:1100px;margin:clamp(.8rem,2vh,1.4rem) auto 0">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>Q1. Push or pull?</h3><p>Will you push FHIR Patient resources to an endpoint we host, or should we query your FHIR server? This decides whether we build a server or a client.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Q2. Your document endpoint?</h3><p>Do you have a FHIR endpoint we push documents to? What is the base URL, and is there a CapabilityStatement at [base]/metadata?</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><h3>Q3. An appointment feed?</h3><p>Is there an encounter or appointment feed we can consume? If yes, a clinician opens Arvi and today list is already there with MRNs attached.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><h3>Q4. Where does the MRN come from?</h3><p>Arvi needs the MRN to file a letter. We would agree how it reaches us: on the patient push, on an appointment feed, or via a lookup.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Questions: standards -->
+<section class="slide" id="s-q1" data-sec="The Conversation">
+  <div class="inner">
+    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Standards and Versions</h2></div>
+    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q5</span><div class="qq">Which FHIR version, R4 (4.0.1)?</div><div class="qw">Confirms our baseline assumption.</div></div><div class="qrow glass"><span class="qn">Q6</span><div class="qq">AU Core conformance, or is base R4 sufficient?</div><div class="qw">Changes how strictly we validate and which elements are mandatory.</div></div><div class="qrow glass"><span class="qn">Q7</span><div class="qq">Do you support HL7 v2, and would you prefer it?</div><div class="qw">Some hospital systems still prefer MDM T02, which changes the transport.</div></div></div>
+  </div>
+</section>
+
+<!-- Questions: documents -->
+<section class="slide" id="s-q2" data-sec="The Conversation">
+  <div class="inner">
+    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Documents</h2></div>
+    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q8</span><div class="qq">DocumentReference with inline base64, or a separate Binary?</div><div class="qw">Both are valid FHIR. We need to know which you parse.</div></div><div class="qrow glass"><span class="qn">Q9</span><div class="qq">Which LOINC codes do you expect per document type?</div><div class="qw">The code decides where a letter files and how it is labelled.</div></div><div class="qrow glass"><span class="qn">Q10</span><div class="qq">Sections as a FHIR Composition, or is formatted text enough?</div><div class="qw">Composition is more work, only worth it if you use the structure.</div></div><div class="qrow glass"><span class="qn">Q11</span><div class="qq">Draft letters, or only clinician-approved finals?</div><div class="qw">We assume finals only, worth confirming.</div></div><div class="qrow glass"><span class="qn">Q12</span><div class="qq">A maximum document size or rate limit to design to?</div><div class="qw">Affects batching and retry strategy.</div></div></div>
+  </div>
+</section>
+
+<!-- Questions: patient identity -->
+<section class="slide" id="s-q3" data-sec="The Conversation">
+  <div class="inner">
+    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Patient Identity</h2></div>
+    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q13</span><div class="qq">What system URI should we use for each hospital MRN?</div><div class="qw">The system namespace is what makes an MRN unambiguous.</div></div><div class="qrow glass"><span class="qn">Q14</span><div class="qq">If several hospitals run through you, how do we tell their MRN namespaces apart?</div><div class="qw">The same number at two hospitals is two different people.</div></div><div class="qrow glass"><span class="qn">Q15</span><div class="qq">Will you send patient merges when duplicates are combined?</div><div class="qw">Determines whether we need Patient.link handling.</div></div><div class="qrow glass"><span class="qn">Q16</span><div class="qq">Do you send demographic updates, or only initial creation?</div><div class="qw">Determines whether our upsert handles ongoing changes.</div></div></div>
+  </div>
+</section>
+
+<!-- Questions: security -->
+<section class="slide" id="s-q4" data-sec="The Conversation">
+  <div class="inner">
+    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Security</h2></div>
+    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q17</span><div class="qq">SMART Backend Services with private_key_jwt, or another OAuth arrangement?</div><div class="qw">This is the core authentication design.</div></div><div class="qrow glass"><span class="qn">Q18</span><div class="qq">Token endpoint URL, and which signing algorithms do you accept?</div><div class="qw">RS384 and ES384 are the SMART defaults.</div></div><div class="qrow glass"><span class="qn">Q19</span><div class="qq">Do you require mutual TLS in addition to the bearer token?</div><div class="qw">If yes, we manage a certificate and monitor expiry.</div></div><div class="qrow glass"><span class="qn">Q20</span><div class="qq">Which scopes will you grant us?</div><div class="qw">We want the minimum necessary, and need to know what to request.</div></div><div class="qrow glass"><span class="qn">Q21</span><div class="qq">Do you require IP allowlisting? Can you share egress ranges?</div><div class="qw">So we can allowlist you on our side too.</div></div><div class="qrow glass"><span class="qn">Q22</span><div class="qq">How should we authenticate you when you call our endpoints?</div><div class="qw">The reverse direction needs its own credentials.</div></div></div>
+  </div>
+</section>
+
+<!-- Questions: reliability -->
+<section class="slide" id="s-q5" data-sec="The Conversation">
+  <div class="inner">
+    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Reliability and Operations</h2></div>
+    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q23</span><div class="qq">A status callback after filing, or is the 201 all we get?</div><div class="qw">Without a callback, a letter can silently fail to reach a chart.</div></div><div class="qrow glass"><span class="qn">Q24</span><div class="qq">What are your rejection reasons, and how are they returned?</div><div class="qw">Lets us build sensible handling rather than one dead-letter bucket.</div></div><div class="qrow glass"><span class="qn">Q25</span><div class="qq">Do you support conditional create via If-None-Exist?</div><div class="qw">Prevents duplicate letters in a chart after a retry.</div></div><div class="qrow glass"><span class="qn">Q26</span><div class="qq">Is there a sandbox with synthetic patients?</div><div class="qw">We want to build and test before touching anything real.</div></div><div class="qrow glass"><span class="qn">Q27</span><div class="qq">Support hours and escalation path for integration issues?</div><div class="qw">Needed for our operational runbook.</div></div></div>
+  </div>
+</section>
+
+<!-- Questions: commercial -->
+<section class="slide" id="s-q6" data-sec="The Conversation">
+  <div class="inner">
+    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Commercial and Process</h2></div>
+    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q28</span><div class="qq">Scoped per hospital customer, or once across your platform?</div><div class="qw">Affects effort, timeline and commercial structure.</div></div><div class="qrow glass"><span class="qn">Q29</span><div class="qq">Is there a certification or conformance step before go-live?</div><div class="qw">Needs to be in the project plan, not discovered late.</div></div><div class="qrow glass"><span class="qn">Q30</span><div class="qq">What security documentation do you need from us?</div><div class="qw">ISO 27001, pen test results, a questionnaire. Usually the long pole.</div></div></div>
+  </div>
+</section>
+
+<!-- How we run it -->
+<section class="slide" id="s-next" data-sec="Next Steps">
+  <div class="inner fill">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Next Steps</div>
+      <h2 class="title reveal" data-delay="1">How We Would Run This</h2>
+      <p class="subtitle reveal" data-delay="2">A short path from this conversation to a working integration.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>Walk the four crossings</h3><p>Confirm together which direction each of the four runs, using the scenario slide.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><h3>Answer Q1 to Q4</h3><p>Push or pull, your document endpoint, an appointment feed, and where the MRN comes from.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>Exchange URLs and credentials</h3><p>Four crossings, four sets of credentials. Each side issues the other a base URL and keys.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Stand up a sandbox</h3><p>A test environment with synthetic patients, so we build and test before touching anything real.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3>Confirm codes and systems</h3><p>Your LOINC value set and the system URI for each hospital MRN.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><h3>Run the security questionnaire</h3><p>Start ISO 27001 evidence and the vendor assessment in parallel with the build.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Appendix: inside the mapper -->
+<section class="slide" id="s-appmap" data-sec="Appendix">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Appendix</div>
+      <h2 class="title reveal" data-delay="1">Inside the Mapper</h2>
+      <p class="subtitle reveal" data-delay="2">For reference. How Arvi builds the translation layer internally. None of this changes what InfoMedix sends or receives.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Start as a module</h3><p>A translation folder inside the app. A pure function, easiest to build, test and debug. The right start for one or two partners.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>Grow to a service if needed</h3><p>A separate integration service with one adapter per partner, justified once several partners with different transports exist.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h3>Never store raw FHIR</h3><p>Storing received FHIR directly would let a standards committee design our schema. We translate to our own shape first.</p></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">One patients table plus a separate identifiers table. Upsert on the system and value pair, never on name, and repoint identifiers when you send a patient merge. That keeps merges solvable without a painful migration.</p>
+  </div>
+</section>
+
+<!-- Glossary -->
+<section class="slide" id="s-gloss" data-sec="Appendix">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Appendix</div>
+      <h2 class="title reveal" data-delay="1">Glossary</h2>
+      <p class="subtitle reveal" data-delay="2">Plain-English definitions of the key terms in this deck.</p>
+    </div>
+    <div class="gloss reveal" data-delay="2"><div class="gitem glass"><b>Anti-corruption layer</b><span>A thin translation boundary that stops one system concepts leaking into the other.</span></div><div class="gitem glass"><b>AU Core</b><span>The Australian FHIR Implementation Guide. Profiles base resources for Australian use. Currently advisory.</span></div><div class="gitem glass"><b>Base64</b><span>A way of writing data with safe characters so it can travel inside JSON. FHIR requires it for attachments.</span></div><div class="gitem glass"><b>CapabilityStatement</b><span>A FHIR document describing what a server supports. Usually at [base]/metadata.</span></div><div class="gitem glass"><b>DMR</b><span>Digital Medical Record. A document repository that stores and displays documents, not a full EMR.</span></div><div class="gitem glass"><b>DocumentReference</b><span>The FHIR resource describing a document: type, patient, author, date, and the content or a pointer to it.</span></div><div class="gitem glass"><b>FHIR</b><span>Fast Healthcare Interoperability Resources. Agreed JSON shapes plus a REST convention. A language, not a product.</span></div><div class="gitem glass"><b>HL7 v2</b><span>The older pipe-delimited messaging standard, still common in Australian hospitals.</span></div><div class="gitem glass"><b>Idempotency</b><span>Doing something twice has the same effect as once. Essential when retries can duplicate documents.</span></div><div class="gitem glass"><b>JWKS</b><span>JSON Web Key Set. A URL publishing public keys so others can verify signatures. Makes rotation painless.</span></div><div class="gitem glass"><b>JWT</b><span>JSON Web Token. A small signed message used to prove identity.</span></div><div class="gitem glass"><b>LOINC</b><span>A global coding system for clinical concepts. Used to say what kind of document a letter is.</span></div><div class="gitem glass"><b>mTLS</b><span>Mutual TLS. Both sides present certificates, not just the server.</span></div><div class="gitem glass"><b>MRN</b><span>Medical Record Number. The hospital patient identifier and the key that joins the two systems.</span></div><div class="gitem glass"><b>OAuth 2.0</b><span>The standard framework for granting limited access without sharing a password.</span></div><div class="gitem glass"><b>OperationOutcome</b><span>The FHIR resource used to return errors and warnings.</span></div><div class="gitem glass"><b>Outbox pattern</b><span>Writing a job in the same transaction as the business change, then processing it asynchronously.</span></div><div class="gitem glass"><b>private_key_jwt</b><span>An OAuth client authentication method using a signed assertion instead of a shared secret.</span></div><div class="gitem glass"><b>Scope</b><span>A string in an OAuth token limiting what the holder may do, for example system/Patient.rs.</span></div><div class="gitem glass"><b>SMART Backend Services</b><span>The widely adopted standard for securing system-to-system FHIR access.</span></div><div class="gitem glass"><b>Upsert</b><span>Insert if new, update if it already exists. How repeated patient pushes avoid duplicates.</span></div></div>
+  </div>
+</section>
+
+<!-- Close -->
+<section class="slide" id="s-close" data-sec="Overview">
+  <div class="inner">
+    <div class="close">
+      <div class="lockup reveal">
+        <img class="lk-arvi" src="arvi logo.avif" alt="Arvi Health">
+        <span class="x">&times;</span>
+        <img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix">
+      </div>
+      <h2 class="title reveal" data-delay="1" style="text-align:center">Two Arrows. One Shared Key.</h2>
+      <p class="subtitle reveal" data-delay="2" style="text-align:center;margin-left:auto;margin-right:auto">Patients in, letters out, joined by the MRN and secured on every crossing. The four questions turn this conversation into a build plan.</p>
+      <a class="cta reveal" data-delay="3" href="https://arvihealth.com" target="_blank" rel="noopener">arvihealth.com <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+    <div class="counter"><span><b id="cur">1</b> / <span id="total">0</span></span><span class="sec" id="sec">Overview</span></div>
+
+    <script>
+        (function(){
+            var deck=document.getElementById('deck');
+            var slides=[].slice.call(document.querySelectorAll('.slide'));
+            var dotsWrap=document.getElementById('dots');
+            var cur=document.getElementById('cur');
+            var secEl=document.getElementById('sec');
+            var prog=document.getElementById('prog');
+            document.getElementById('total').textContent=slides.length;
+
+            slides.forEach(function(s,i){
+                var b=document.createElement('button');
+                b.className='dot'+(i===0?' active':'');
+                b.setAttribute('aria-label','Go to slide '+(i+1));
+                b.addEventListener('click',function(){s.scrollIntoView({behavior:'smooth',inline:'start'});});
+                dotsWrap.appendChild(b);
+            });
+            var dots=[].slice.call(dotsWrap.children);
+
+            var io=new IntersectionObserver(function(entries){
+                entries.forEach(function(e){
+                    var i=slides.indexOf(e.target);
+                    var vids=e.target.querySelectorAll('video');
+                    if(e.isIntersecting){
+                        e.target.querySelectorAll('.bcol').forEach(function(b){b.style.height=b.dataset.h;});
+                    }
+                    if(e.isIntersecting&&e.intersectionRatio>=0.55){
+                        e.target.classList.add('active');
+                        dots.forEach(function(d,k){d.classList.toggle('active',k===i);});
+                        cur.textContent=i+1;
+                        if(secEl)secEl.textContent=e.target.dataset.sec||'';
+                        [].forEach.call(vids,function(v){try{var p=v.play();if(p)p.catch(function(){});}catch(_){}});
+                    }else if(!e.isIntersecting){
+                        [].forEach.call(vids,function(v){try{v.pause();}catch(_){}});
+                        e.target.querySelectorAll('.bcol').forEach(function(b){b.style.height='0';});
+                    }
+                });
+            },{root:deck,threshold:[0,0.55,1]});
+            slides.forEach(function(s){io.observe(s);});
+
+            document.querySelectorAll('.slide:not(#s-intro) video').forEach(function(v){try{v.pause();}catch(_){}});
+
+            // Deterministic playback: always play the slide currently in view, pause the rest.
+            function syncVideos(){
+                var idx=Math.round(deck.scrollLeft/innerWidth);
+                slides.forEach(function(s,k){
+                    var vs=s.querySelectorAll('video');
+                    [].forEach.call(vs,function(v){
+                        if(k===idx){ if(v.paused){ var p=v.play(); if(p)p.catch(function(){}); } }
+                        else if(!v.paused){ try{v.pause();}catch(_){} }
+                    });
+                });
+            }
+            var vsync;
+            deck.addEventListener('scroll',function(){clearTimeout(vsync);vsync=setTimeout(syncVideos,120);});
+            window.addEventListener('load',syncVideos);
+            syncVideos();
+
+            function updateProgress(){
+                var max=deck.scrollWidth-deck.clientWidth;
+                var p=max>0?deck.scrollLeft/max:0;
+                prog.style.setProperty('--p',p.toFixed(4));
+            }
+            var ticking=false;
+            deck.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){updateProgress();ticking=false;});}});
+            updateProgress();
+
+            addEventListener('keydown',function(ev){
+                var i=Math.round(deck.scrollLeft/innerWidth);
+                if(ev.key==='ArrowRight'||ev.key==='PageDown'||ev.key===' '){ev.preventDefault();if(i<slides.length-1)slides[i+1].scrollIntoView({behavior:'smooth',inline:'start'});}
+                else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();if(i>0)slides[i-1].scrollIntoView({behavior:'smooth',inline:'start'});}
+                else if(ev.key==='Home'){ev.preventDefault();slides[0].scrollIntoView({behavior:'smooth',inline:'start'});}
+                else if(ev.key==='End'){ev.preventDefault();slides[slides.length-1].scrollIntoView({behavior:'smooth',inline:'start'});}
+            });
+            slides[0].classList.add('active');
+
+            // Interactive ROI calculator (SGC-based)
+            (function(){
+                var clin=document.getElementById('ci-clin'), hrs=document.getElementById('ci-hrs'), rate=document.getElementById('ci-rate');
+                if(!clin) return;
+                var WEEKS=46, SAVE=0.8, FTE=1800;
+                function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(1)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
+                function calc(){
+                    var c=+clin.value, h=+hrs.value, r=+rate.value;
+                    document.getElementById('ci-clin-v').textContent=c;
+                    document.getElementById('ci-hrs-v').textContent=h;
+                    document.getElementById('ci-rate-v').textContent='$'+r;
+                    var hoursYear=Math.round(c*h*SAVE*WEEKS);
+                    document.getElementById('co-hours').textContent=hoursYear.toLocaleString('en-AU');
+                    document.getElementById('co-value').textContent=money(hoursYear*r);
+                    document.getElementById('co-week').textContent=Math.round(h*SAVE);
+                }
+                [clin,hrs,rate].forEach(function(el){ el.addEventListener('input',calc); });
+                calc();
+            })();
+
+            // Rotating headline word: keeps the focus on clinical work, Arvi does the rest.
+            (function(){
+                var el=document.getElementById('rotw'); if(!el) return;
+                var words=['consult','procedure','ward round','theatre case','meeting','patient'];
+                var i=0;
+                setInterval(function(){
+                    el.classList.add('swap');
+                    setTimeout(function(){
+                        i=(i+1)%words.length;
+                        el.textContent=words[i];
+                        el.classList.remove('swap');
+                    },340);
+                },2400);
+            })();
+
+            // Scale dial: active users -> revenue at ~$59 / user / month (base + one pack)
+            (function(){
+                var doc=document.getElementById('sc-doc'); if(!doc) return;
+                var PM=59;
+                function money(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(2)+'M'; if(n>=1e3) return '$'+Math.round(n/1e3)+'k'; return '$'+Math.round(n); }
+                function go(){
+                    var d=+doc.value;
+                    document.getElementById('sc-doc-v').textContent=d.toLocaleString('en-AU');
+                    document.getElementById('sc-mo').textContent=money(d*PM);
+                    document.getElementById('sc-yr').textContent=money(d*PM*12);
+                }
+                doc.addEventListener('input',go); go();
+            })();
+
+            // Deep-link: jump to #slide-id on load (e.g. .../arvi-features.html#s-roadmap)
+            if(location.hash){
+                var target=document.getElementById(location.hash.slice(1));
+                if(target){ target.scrollIntoView({inline:'start'}); setTimeout(function(){target.scrollIntoView({inline:'start'});syncVideos();},250); }
+            }
+        })();
+</script>
+</body>
+</html>
