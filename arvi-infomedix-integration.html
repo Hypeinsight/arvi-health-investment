@@ -457,6 +457,9 @@
 .needcol{display:flex;flex-direction:column;gap:.6rem;margin-top:.3rem}
 .needcol li{display:flex;gap:.6rem;align-items:flex-start;font-size:clamp(.86rem,1.05vw,1rem);color:#334155;line-height:1.42;list-style:none}
 .needcol li svg{width:18px;height:18px;stroke:var(--primary);stroke-width:2.2;fill:none;flex-shrink:0;margin-top:.18rem}
+.cmp.c3 .cmp-row{grid-template-columns:1.3fr 1.6fr 1.4fr}
+.cmp .arvi .rec{display:inline-block;margin-left:.4rem;font-size:.5rem;font-weight:800;letter-spacing:.06em;background:#fff;color:var(--accent);padding:1px 5px;border-radius:6px;vertical-align:middle}
+@media (max-width:860px){.cmp.c3 .cmp-row{font-size:.62rem}}
 </style>
 </head>
 <body>
@@ -480,53 +483,50 @@
         <img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix">
       </div>
       <div class="big reveal" data-delay="2">How Arvi Works With InfoMedix</div>
-      <p class="subtitle reveal" data-delay="3" style="text-align:center;max-width:820px;margin:0 auto">Two separate systems, one clinician working across both, and a data bridge between them so the same information is never entered twice.</p>
+      <p class="subtitle reveal" data-delay="3" style="text-align:center;max-width:840px;margin:0 auto">Arvi runs as a service behind InfoMedix. Send us a patient and the consultation audio, and we send back the finished letter. Nothing is kept afterwards.</p>
       <p class="subtitle reveal" data-delay="4" style="text-align:center;font-size:clamp(.78rem,1vw,.9rem);opacity:.7">Prepared for the InfoMedix technical conversation</p>
     </div>
   </div>
 </section>
 
-<!-- The setup -->
-<section class="slide" id="s-setup" data-sec="The Setup">
+<!-- The model -->
+<section class="slide" id="s-model" data-sec="The Model">
   <div class="inner">
     <div class="slide-head">
-      <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/></svg> The Setup</div>
-      <h2 class="title reveal" data-delay="1">Two Systems, One Clinician</h2>
-      <p class="subtitle reveal" data-delay="2">Arvi and InfoMedix stay separate products. The clinician works across both, and the two systems exchange data in the background so nothing is entered twice.</p>
+      <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg> The Model</div>
+      <h2 class="title reveal" data-delay="1">Arvi Is the Engine, Not Another App</h2>
+      <p class="subtitle reveal" data-delay="2">The clinician stays in DPC. Arvi runs behind it as a service: InfoMedix sends us the patient and the audio, and we send back the letter. InfoMedix sell the feature, Arvi is the engine underneath.</p>
     </div>
     <div class="bridge reveal" data-delay="2">
       <div class="bcard imx">
-        <span class="bt">The hospital record</span>
-        <h3>InfoMedix</h3>
-        <p>Holds the patient record and the MRN, and files the finished documents into the chart.</p>
+        <span class="bt">The clinician's system</span>
+        <h3>InfoMedix (DPC)</h3>
+        <p>Captures the consultation audio, and files the finished letter into the chart. The clinician never leaves it.</p>
       </div>
       <div class="bmid">
-        <span class="bwho">One clinician,<br>both apps</span>
+        <span class="bwho">Patient + audio in,<br>draft letter out</span>
         <span class="barrow"><svg viewBox="0 0 24 24"><polyline points="7 8 3 12 7 16"/><polyline points="17 8 21 12 17 16"/><line x1="3" y1="12" x2="21" y2="12"/></svg></span>
-        <span class="blab">FHIR<br>over HTTPS</span>
+        <span class="blab">FHIR<br>+ audio</span>
       </div>
       <div class="bcard arvi">
-        <span class="bt">The AI scribe</span>
+        <span class="bt">The documentation engine</span>
         <h3>Arvi</h3>
-        <p>Records the consultation and writes the letter, then hands it back for the chart.</p>
+        <p>Transcribes the audio and writes the letter, hands it back as a draft, then deletes everything.</p>
       </div>
     </div>
-    <p class="rm-cap reveal" data-delay="4" style="text-align:center;margin-top:clamp(1rem,2.4vh,1.6rem)">The bridge carries two things: patients come into Arvi, and finished documents go back into InfoMedix.</p>
   </div>
 </section>
 
-<!-- What flows -->
-<section class="slide" id="s-flows" data-sec="What Flows">
-  <div class="inner">
+<!-- What defines it -->
+<section class="slide" id="s-defines" data-sec="The Model">
+  <div class="inner fill">
     <div class="slide-head">
-      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> What Flows</div>
-      <h2 class="title reveal" data-delay="1">Patients In, Documents Out</h2>
-      <p class="subtitle reveal" data-delay="2">Two flows and one join key. That is the whole integration.</p>
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> The Model</div>
+      <h2 class="title reveal" data-delay="1">Four Things That Define It</h2>
+      <p class="subtitle reveal" data-delay="2">This is what makes it a service rather than a platform, and what makes the security story simple.</p>
     </div>
-    <div class="cards c3">
-      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><polyline points="19 12 12 19 5 12"/></svg></div><h3>Patients in</h3><p>InfoMedix sends the patient to Arvi, so the clinician opens Arvi and the patient is already there. No re-typing.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/></svg></div><h3>Documents out</h3><p>Once the clinician approves the letter, Arvi sends it back into the InfoMedix chart, filed against the right patient.</p></div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><h3>Joined on the MRN</h3><p>The Medical Record Number ties the two together, so every document lands on the correct patient.</p></div>
+    <div class="cards c4">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></div><h3>We own the contract</h3><p>Arvi publishes the API and the docs. InfoMedix build against it. One contract, reusable for future partners.</p></div><div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div><h3>They provide the audio</h3><p>InfoMedix capture the consultation and upload it. Arvi records nothing itself.</p></div><div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg></div><h3>We keep nothing</h3><p>Audio, transcript and letter exist only while the job runs, then they are purged. Only an audit row survives.</p></div><div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><h3>A human still approves</h3><p>The letter arrives as a draft. A clinician finalises it in DPC, where they already work.</p></div>
     </div>
   </div>
 </section>
@@ -538,8 +538,8 @@
 #flow .flow-diagram{padding:clamp(.7rem,1.3vw,1.1rem)}
 #flow svg{width:100%;height:auto;display:block;max-height:56vh}
 #flow .flow-lane{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;fill:var(--muted)}
-#flow .fn-t{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;transition:fill .3s}
-#flow .fn-s{font-family:'Inter',sans-serif;font-size:11px;transition:fill .3s}
+#flow .fn-t{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;transition:fill .3s}
+#flow .fn-s{font-family:'Inter',sans-serif;font-size:10.5px;transition:fill .3s}
 #flow .fconn{stroke:#c3d3e3;stroke-width:1.6;transition:stroke .3s}
 #flow .fconn.lit{stroke:var(--primary);stroke-width:2.6}
 #flow .node rect{transition:fill .3s,stroke .3s;cursor:pointer}
@@ -567,13 +567,13 @@
   <div class="inner fill">
     <div class="slide-head">
       <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg> The Process</div>
-      <h2 class="title reveal" data-delay="1">One Patient In, One Letter Out</h2>
-      <p class="subtitle reveal" data-delay="2">The whole exchange, step by step, for one patient: Jane Smith, seen by Dr Jones.</p>
+      <h2 class="title reveal" data-delay="1">Patient and Audio In, Draft Letter Out</h2>
+      <p class="subtitle reveal" data-delay="2">The whole service, step by step, for one consultation: Jane Smith, seen by Dr Jones.</p>
       <p class="reveal" data-delay="3" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:.6rem;font-size:.78rem;font-weight:700;color:var(--accent);background:rgba(105,26,106,.09);padding:.4rem .9rem;border-radius:30px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--accent);stroke-width:2;fill:none"><polygon points="5 3 19 12 5 21 5 3"/></svg> Interactive. Press Play, or step with Back and Next. Click any box to jump.</p>
     </div>
     <div id="flow" class="reveal" data-delay="2">
       <div class="flow-diagram glass">
-        <svg viewBox="0 0 440 636" role="img" aria-label="Two lanes, InfoMedix on the left and Arvi on the right, with FHIR crossing between them.">
+        <svg viewBox="0 0 440 636" role="img" aria-label="Two lanes, InfoMedix on the left and Arvi on the right.">
           <defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
           <rect x="16" y="34" width="188" height="586" rx="12" fill="#eef4fb"/>
           <rect x="236" y="34" width="188" height="586" rx="12" fill="#eef4fb"/>
@@ -586,14 +586,14 @@
           <line id="fc5" class="fconn" x1="330" y1="396" x2="330" y2="408" marker-end="url(#fa)"/>
           <line id="fc6" class="fconn" x1="330" y1="474" x2="330" y2="486" marker-end="url(#fa)"/>
           <line id="fc7" class="fconn" x1="110" y1="534" x2="110" y2="546" marker-end="url(#fa)"/>
-          <g class="node" id="fn0"><rect x="28" y="40" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="68">Patient admitted</text><text class="fn-s" x="46" y="87">Given an MRN</text></g>
-          <g class="node" id="fn1"><rect x="28" y="118" width="384" height="44" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="139">FHIR Patient</text><text class="fn-s" x="46" y="155">Pushed across the boundary</text></g>
-          <g class="node" id="fn2"><rect x="248" y="178" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="206">Inbound mapper</text><text class="fn-s" x="266" y="225">FHIR translated away</text></g>
-          <g class="node" id="fn3"><rect x="248" y="256" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="284">Upsert on MRN</text><text class="fn-s" x="266" y="303">One row per person</text></g>
-          <g class="node" id="fn4"><rect x="248" y="334" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="362">Visit recorded</text><text class="fn-s" x="266" y="381">Draft stays internal</text></g>
-          <g class="node" id="fn5"><rect x="248" y="412" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="440">Clinician approves</text><text class="fn-s" x="266" y="459">Queued to outbox</text></g>
-          <g class="node" id="fn6"><rect x="28" y="490" width="384" height="44" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="511">FHIR DocumentReference</text><text class="fn-s" x="46" y="527">Sent back across</text></g>
-          <g class="node" id="fn7"><rect x="28" y="550" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="578">Filed to chart</text><text class="fn-s" x="46" y="597">Matched on MRN</text></g>
+          <g class="node" id="fn0"><rect x="28" y="40" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="68">Open a session</text><text class="fn-s" x="46" y="87">Patient as FHIR</text></g>
+          <g class="node" id="fn1"><rect x="28" y="118" width="384" height="44" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="139">Patient context</text><text class="fn-s" x="46" y="155">FHIR, in our envelope</text></g>
+          <g class="node" id="fn2"><rect x="248" y="178" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="206">Session + slot</text><text class="fn-s" x="266" y="225">Presigned upload URL</text></g>
+          <g class="node" id="fn3"><rect x="248" y="256" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="284">Audio in the bucket</text><text class="fn-s" x="266" y="303">Straight to AU storage</text></g>
+          <g class="node" id="fn4"><rect x="248" y="334" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="362">Split + transcribe</text><text class="fn-s" x="266" y="381">Parallel segments</text></g>
+          <g class="node" id="fn5"><rect x="248" y="412" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="266" y="440">Write the letter</text><text class="fn-s" x="266" y="459">Draft generated</text></g>
+          <g class="node" id="fn6"><rect x="28" y="490" width="384" height="44" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="511">Deliver as a draft</text><text class="fn-s" x="46" y="527">FHIR DocumentReference, preliminary</text></g>
+          <g class="node" id="fn7"><rect x="28" y="550" width="164" height="62" rx="10" fill="#f4f9fe" stroke="#d5e3f0"/><text class="fn-t" x="46" y="578">Finalise + purge</text><text class="fn-s" x="46" y="597">In DPC, then deleted</text></g>
         </svg>
       </div>
       <div class="flow-panel">
@@ -611,7 +611,7 @@
         </div>
         <div class="flow-legend">
           <div><span class="sw" style="background:var(--primary)"></span>FHIR on the wire</div>
-          <div><span class="sw" style="background:#0f766e"></span>Internal shape</div>
+          <div><span class="sw" style="background:#0f766e"></span>Our API / internal</div>
           <div><span class="sw" style="background:#b45309"></span>Human decision</div>
         </div>
       </div>
@@ -626,38 +626,38 @@
     off:{fill:"#f4f9fe",stroke:"#d5e3f0",t:"#7d93a8",s:"#a9b8c8"}
   };
   var steps=[
-   {tone:"own",lit:null,title:"The hospital creates the patient",
-    note:"Jane is admitted and the hospital issues an MRN. At this point Arvi has never heard of her, and closing that gap is the point of the first step.",
-    loc:"InfoMedix, patient record",fmt:"Their system",cls:"own",
-    code:'<span class="c">MRN </span>  <span class="v">SVH-88213</span>\n<span class="c">Name</span>  Jane Smith\n<span class="c">DOB </span>  1970-04-12'},
-   {tone:"fhir",lit:"fc1",title:"The patient crosses as FHIR",
-    note:"InfoMedix sends the patient to Arvi. The identifier carries a system as well as a value, so the MRN is never ambiguous.",
-    loc:"In transit, HTTPS plus token",fmt:"FHIR Patient",cls:"fhir",
-    code:'{\n  <span class="k">"resourceType"</span>: <span class="v">"Patient"</span>,\n  <span class="k">"identifier"</span>: [{\n    <span class="k">"system"</span>: <span class="v">"...mrn"</span>,\n    <span class="k">"value"</span>:  <span class="v">"SVH-88213"</span>\n  }],\n  <span class="k">"name"</span>: [{<span class="k">"family"</span>:<span class="v">"Smith"</span>}],\n  <span class="k">"birthDate"</span>: <span class="v">"1970-04-12"</span>\n}'},
-   {tone:"own",lit:"fc2",title:"Arvi takes it in",
-    note:"Arvi converts the FHIR to its own shape at the edge. The clinician now sees Jane in Arvi, ready to record.",
-    loc:"Arvi, mapper output",fmt:"Internal shape",cls:"own",
-    code:'<span class="c">family_name</span>  Smith\n<span class="c">birth_date </span>  1970-04-12\n<span class="c">gender     </span>  female\n<span class="c">source     </span>  <span class="v">infomedix</span>'},
-   {tone:"own",lit:"fc3",title:"Saved against the MRN",
-    note:"Keyed on the MRN, never on name. Sending the same patient again updates the record instead of creating a second one.",
-    loc:"Arvi, patient store",fmt:"Internal shape",cls:"own",
-    code:'<span class="c">-- patients</span>\nfamily_name  Smith\n\n<span class="c">-- patient_identifiers</span>\nsystem  ...mrn\nvalue   <span class="v">SVH-88213</span>\n<span class="c">UNIQUE (system, value)</span>'},
-   {tone:"own",lit:"fc4",title:"The consultation is recorded",
-    note:"Arvi records and drafts the letter. Nothing leaves Arvi yet, a draft is a suggestion until the clinician signs off.",
-    loc:"Arvi, letters",fmt:"Internal shape",cls:"own",
-    code:'<span class="c">status </span>  under_review\n<span class="c">type   </span>  consultation_note\n<span class="c">body   </span>  "Presented with a..."'},
-   {tone:"hum",lit:"fc5",title:"The clinician approves",
-    note:"The clinician reviews and approves the letter. That is the moment it becomes a real document, and it is queued to send.",
-    loc:"Arvi, one transaction",fmt:"Human decision",cls:"hum",
-    code:'<span class="h">BEGIN;</span>\n  UPDATE letters SET status=<span class="v">\'approved\'</span>;\n  INSERT INTO outbox (...);\n<span class="h">COMMIT;</span>\n\n<span class="c">to 200 OK in ~50ms</span>'},
-   {tone:"fhir",lit:"fc6",title:"The letter crosses back as FHIR",
-    note:"Arvi sends the approved letter to InfoMedix. Type says what kind of document it is, subject says who it belongs to.",
-    loc:"In transit, HTTPS plus token",fmt:"FHIR DocumentReference",cls:"fhir",
-    code:'{\n  <span class="k">"resourceType"</span>: <span class="v">"DocumentReference"</span>,\n  <span class="k">"docStatus"</span>: <span class="v">"final"</span>,\n  <span class="k">"type"</span>: {<span class="k">"coding"</span>:[{<span class="k">"code"</span>:<span class="v">"11488-4"</span>}]},\n              <span class="c">what kind</span>\n  <span class="k">"subject"</span>: {<span class="k">"identifier"</span>:{\n    <span class="k">"value"</span>: <span class="v">"SVH-88213"</span>   <span class="c">whose</span>\n  }}\n}'},
-   {tone:"own",lit:"fc7",title:"It is filed to the chart",
-    note:"InfoMedix matches on the MRN and files the letter. The next clinician to open Jane sees it in the chart, in the right place.",
-    loc:"InfoMedix, response",fmt:"FHIR response",cls:"fhir",
-    code:'<span class="v">201 Created</span>\nLocation: DocumentReference/dr-9912\n\n<span class="c">filed to chart</span>\n<span class="c">status callback sent</span>'}
+   {tone:"own",lit:null,title:"InfoMedix opens a session",
+    note:"InfoMedix posts the patient as FHIR and the letter type. Small and fast, so a bad MRN is caught before any audio moves.",
+    loc:"InfoMedix",fmt:"Our API",cls:"own",
+    code:'POST /v1/sessions\n{\n  <span class="k">"letterType"</span>: <span class="v">"consultation_note"</span>,\n  <span class="k">"context"</span>: { <span class="c">FHIR Patient ...</span> }\n}'},
+   {tone:"fhir",lit:"fc1",title:"The patient context crosses",
+    note:"The patient travels as standard FHIR inside our session envelope. This is one of only two places FHIR appears.",
+    loc:"InfoMedix to Arvi",fmt:"FHIR Patient",cls:"fhir",
+    code:'<span class="k">"identifier"</span>: [{\n  <span class="k">"system"</span>: <span class="v">"...mrn"</span>,\n  <span class="k">"value"</span>:  <span class="v">"SVH-88213"</span>\n}]'},
+   {tone:"own",lit:"fc2",title:"Session created, slot issued",
+    note:"Arvi returns a sessionId and a single-use, 15-minute upload URL pointing at one exact location in an Australian bucket.",
+    loc:"Arvi to InfoMedix",fmt:"Our API",cls:"own",
+    code:'201 <span class="v">sessionId: ses_7c2a91</span>\n<span class="c">status</span> awaiting_audio\n\nuploadUrl  <span class="v">...s3.ap-southeast-2</span>\nexpiresAt  15 min'},
+   {tone:"own",lit:"fc3",title:"Audio straight to the bucket",
+    note:"InfoMedix uploads the consultation audio directly to storage. It never passes through the Arvi API. Then a short call confirms it.",
+    loc:"InfoMedix to AU bucket",fmt:"Raw audio",cls:"own",
+    code:'PUT audio.ogg  <span class="c">Opus, ~11 MB</span>\n  to the presigned URL\n\nPOST /audio-complete\n  <span class="c">202 queued</span>'},
+   {tone:"own",lit:"fc4",title:"Split and transcribe",
+    note:"A worker splits on silence and transcribes the segments in parallel. A 45-minute consult finishes in minutes, not tens of minutes.",
+    loc:"Arvi, background",fmt:"Internal",cls:"own",
+    code:'<span class="c">split on silence</span>  ~45-60s\n<span class="c">transcribe x10</span>   in parallel\n<span class="c">stitch</span>          de-dup seams'},
+   {tone:"own",lit:"fc5",title:"Write the letter",
+    note:"The stitched transcript becomes the letter. None of this is visible to InfoMedix, and none of it is part of the contract.",
+    loc:"Arvi, background",fmt:"Internal",cls:"own",
+    code:'<span class="c">letter draft</span>\n<span class="c">type </span> consultation_note\n<span class="c">body </span> "Presented with a..."'},
+   {tone:"fhir",lit:"fc6",title:"Deliver as a draft",
+    note:"Arvi sends a FHIR DocumentReference marked preliminary to DPC. Current, but not yet clinically verified.",
+    loc:"Arvi to InfoMedix",fmt:"FHIR DocumentReference",cls:"fhir",
+    code:'{\n  <span class="k">"resourceType"</span>: <span class="v">"DocumentReference"</span>,\n  <span class="k">"docStatus"</span>: <span class="v">"preliminary"</span>,\n  <span class="k">"type"</span>: {<span class="c">LOINC 11488-4</span>},\n  <span class="k">"subject"</span>: {<span class="c">MRN SVH-88213</span>}\n}'},
+   {tone:"hum",lit:"fc7",title:"Finalise, then purge",
+    note:"A clinician finalises the draft in DPC, where they already work. Arvi confirms delivery, then deletes the audio, transcript and letter. Only an audit row remains.",
+    loc:"InfoMedix (DPC), then Arvi",fmt:"Human decision, then nothing kept",cls:"hum",
+    code:'<span class="h">in DPC:</span> preliminary -> <span class="v">final</span>\n\n<span class="c">purge audio, transcript, letter</span>\n<span class="c">keep only the audit row</span>'}
   ];
   var i=0,timer=null;
   var $=function(id){return document.getElementById(id);};
@@ -698,29 +698,52 @@
 </script>
 </section>
 
-<!-- What each side provides -->
-<section class="slide" id="s-need" data-sec="What We Need">
+<!-- Nothing retained -->
+<section class="slide" id="s-retain" data-sec="Retention">
   <div class="inner">
     <div class="slide-head">
-      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> What We Need</div>
-      <h2 class="title reveal" data-delay="1">What Each Side Provides</h2>
-      <p class="subtitle reveal" data-delay="2">A short, concrete list to make the bridge work. Most of the effort sits with confirming a handful of details.</p>
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg> Retention</div>
+      <h2 class="title reveal" data-delay="1">Nothing Kept After the Job</h2>
+      <p class="subtitle reveal" data-delay="2">The commercial promise is simple, and it is one of the strongest things about this model in a hospital security review.</p>
     </div>
-    <div class="cards c2" style="max-width:1050px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column">
-        <h3 style="margin-bottom:.6rem">From InfoMedix</h3>
-        <ul class="needcol">
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>A way to send us patients, or an endpoint we can read</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>An endpoint to receive our documents</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>The patient MRN, and its system identifier</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Your LOINC codes for filing each document type</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>A sandbox with test patients</span></li>
-        </ul>
-      </div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column">
-        <h3 style="margin-bottom:.6rem">From Arvi</h3>
-        <ul class="needcol">
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Endpoints to receive patients and status updates</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Documents pushed as standard FHIR, on approval</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Standard, secure auth (SMART Backend Services)</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>An audit trail of every exchange</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Security evidence: ISO 27001, questionnaire</span></li>
-        </ul>
-      </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg></div><h3>No patient database</h3><p>Nothing stored means nothing to breach. Most of what a hospital vendor assessment worries about does not apply.</p></div><div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><h3>Delivered as a draft</h3><p>The letter arrives as preliminary. The clinician finalises it in DPC. That review is the clinical safety gate.</p></div><div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg></div><h3>Purged after delivery</h3><p>Audio, transcript and letter are deleted once filing is confirmed, enforced by a bucket lifecycle rule. Only the audit row remains.</p></div>
     </div>
-    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(1rem,2.4vh,1.6rem)">Both sides make calls to the other, so each issues the other a base URL and credentials.</p>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">The precise claim, and the one to make in a review: Arvi does not retain patient data beyond the processing window. Strong, true and defensible.</p>
+  </div>
+</section>
+
+<!-- Add-on: patient summary -->
+<section class="slide" id="s-sum" data-sec="Add-on">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Add-on</div>
+      <h2 class="title reveal" data-delay="1">Patient Summary, on One Click</h2>
+      <p class="subtitle reveal" data-delay="2">A separate, optional add-on. A clinician opens a patient in DPC, clicks once, and reads a short summary of the recent record. Seconds, not minutes, because someone is watching the screen.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51z"/></svg></div><h3>One click in DPC</h3><p>A Generate Patient Summary button in the patient profile. No new screen, no workflow to learn.</p></div><div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><h3>A short, sourced summary</h3><p>A few lines of the recent record, with the documents it drew on and the dates, so any claim can be checked.</p></div><div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>A view, not a record</h3><p>Shown and discarded, regenerated on demand. It carries its own disclaimer and is never filed without review.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Two routes -->
+<section class="slide" id="s-routes" data-sec="Add-on">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Add-on</div>
+      <h2 class="title reveal" data-delay="1">Two Ways to Build It</h2>
+      <p class="subtitle reveal" data-delay="2">The catch: InfoMedix hold mostly scanned documents, and an AI cannot read a photo of handwriting. That points to a text-first route.</p>
+    </div>
+    <div class="cmp c3 glass reveal" data-delay="2">
+      <div class="cmp-row cmp-head"><div>How they compare</div><div>Route A &middot; the documents</div><div class="arvi">Route B &middot; the text<span class="rec">RECOMMENDED</span></div></div>
+      <div class="cmp-row"><div>What InfoMedix send</div><div>Their documents plus Arvi letters</div><div class="arvi">Their existing summary plus Arvi letters</div></div>
+      <div class="cmp-row"><div>Scanned or handwritten PDFs</div><div>Break it, or need unreliable OCR</div><div class="arvi">Not involved, it is already text</div></div>
+      <div class="cmp-row"><div>Extraction step</div><div>Parser and OCR, with error handling</div><div class="arvi">None</div></div>
+      <div class="cmp-row"><div>Speed</div><div>20 to 45 seconds with OCR</div><div class="arvi">5 to 15 seconds</div></div>
+      <div class="cmp-row"><div>Coverage</div><div>The last few documents only</div><div class="arvi">Their whole-record summary</div></div>
+    </div>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.8rem,1.8vh,1.2rem)">Our recommendation: build Route B first. It removes the extraction problem entirely and does not depend on the quality of their PDF library. Route A can be added later if their documents turn out to be born-digital.</p>
   </div>
 </section>
 
@@ -733,11 +756,34 @@
       <p class="subtitle reveal" data-delay="2">Nothing exotic. The integration runs on the same standards a hospital vendor assessment expects.</p>
     </div>
     <div class="cards c4">
-      <div class="card glass reveal" data-delay="2"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3>Standard FHIR</h3><p>HL7 FHIR R4 (4.0.1), aligned with AU Core.</p></div>
-      <div class="card glass reveal" data-delay="3"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Encrypted transport</h3><p>TLS 1.2 or higher, with mutual TLS if you require it.</p></div>
-      <div class="card glass reveal" data-delay="4"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>Modern auth</h3><p>OAuth 2.0 SMART Backend Services, least-privilege scopes.</p></div>
-      <div class="card glass reveal" data-delay="5"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><h3>Accountable</h3><p>Append-only audit, and patient data hosted onshore.</p></div>
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3>Standard FHIR</h3><p>HL7 FHIR R4 (4.0.1), aligned with AU Core, at the two data boundaries.</p></div><div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Australian and encrypted</h3><p>Audio in an Australian bucket, TLS in transit, encrypted at rest.</p></div><div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>Modern auth</h3><p>OAuth 2.0 SMART Backend Services, least-privilege scopes, no shared keys.</p></div><div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><h3>Accountable</h3><p>Append-only audit of every call and delivery. Data hosted onshore.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- What each side provides -->
+<section class="slide" id="s-need" data-sec="What We Need">
+  <div class="inner">
+    <div class="slide-head">
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> What We Need</div>
+      <h2 class="title reveal" data-delay="1">What Each Side Provides</h2>
+      <p class="subtitle reveal" data-delay="2">A short, concrete list. Most of the effort is confirming a handful of details, not building.</p>
+    </div>
+    <div class="cards c2" style="max-width:1050px;margin:clamp(1rem,2.4vh,1.8rem) auto 0">
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column">
+        <h3 style="margin-bottom:.6rem">From InfoMedix</h3>
+        <ul class="needcol">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>The patient as FHIR, and the consultation audio</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>A destination for the letter, a FHIR endpoint or a callback URL</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>The MRN, and its system identifier</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Your LOINC codes for filing each letter type</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>A finalise action in DPC for the draft</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>For the summary add-on, your existing summary text</span></li>
+        </ul>
+      </div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column">
+        <h3 style="margin-bottom:.6rem">From Arvi</h3>
+        <ul class="needcol">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>The published API, documented, with a sandbox</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Transcription and letter generation, in the background</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>The letter delivered as a preliminary draft</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>No retention: everything purged after delivery</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Standard, secure auth and an audit trail</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Security evidence: ISO 27001, questionnaire</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(1rem,2.4vh,1.6rem)">Both sides make calls to the other, so each issues the other a base URL and credentials.</p>
   </div>
 </section>
 
@@ -750,29 +796,30 @@
         <span class="x">&times;</span>
         <img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix">
       </div>
-      <h2 class="title reveal" data-delay="1" style="text-align:center">Two Systems, Talking</h2>
-      <p class="subtitle reveal" data-delay="2" style="text-align:center;margin-left:auto;margin-right:auto">The clinician stays in their flow, patients come into Arvi, documents go back to InfoMedix. Ready to work through the details together.</p>
+      <h2 class="title reveal" data-delay="1" style="text-align:center">One Engine, Nothing Retained</h2>
+      <p class="subtitle reveal" data-delay="2" style="text-align:center;margin-left:auto;margin-right:auto">The clinician stays in DPC, the letter writes itself in the background, and nothing is kept. Ready to work through the details together.</p>
       <a class="cta reveal" data-delay="3" href="https://arvihealth.com" target="_blank" rel="noopener">arvihealth.com <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
   </div>
 </section>
 
-<!-- Appendix: technical detail in brief -->
+<!-- Appendix -->
 <section class="slide" id="s-appx" data-sec="Appendix">
   <div class="inner">
     <div class="slide-head">
       <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg> Appendix</div>
-      <h2 class="title reveal" data-delay="1">The Technical Detail, in Brief</h2>
-      <p class="subtitle reveal" data-delay="2">For reference. The endpoints Arvi exposes, and the shape of the exchange.</p>
+      <h2 class="title reveal" data-delay="1">The API, in Brief</h2>
+      <p class="subtitle reveal" data-delay="2">For reference. The letter service, plus the one-call summary add-on.</p>
     </div>
     <div class="cmp c4 glass reveal" data-delay="2">
-      <div class="cmp-row cmp-head"><div>Route</div><div>Method</div><div>Purpose</div><div class="arvi">Body</div></div>
-      <div class="cmp-row"><div>/v1/fhir/Patient</div><div>POST</div><div>Receive a new or updated patient</div><div class="arvi">FHIR Patient</div></div>
-      <div class="cmp-row"><div>/v1/callbacks/document-status</div><div>POST</div><div>Confirm a document was filed, or rejected</div><div class="arvi">Small JSON</div></div>
-      <div class="cmp-row"><div>/.well-known/jwks.json</div><div>GET</div><div>Publish our public key</div><div class="arvi">None</div></div>
-      <div class="cmp-row"><div>/health</div><div>GET</div><div>Liveness check</div><div class="arvi">None</div></div>
+      <div class="cmp-row cmp-head"><div>Endpoint</div><div>Method</div><div>Purpose</div><div class="arvi">Notes</div></div>
+      <div class="cmp-row"><div>/v1/sessions</div><div>POST</div><div>Open a session with patient and letter type</div><div class="arvi">FHIR Patient inside</div></div>
+      <div class="cmp-row"><div>/v1/sessions/{id}/audio-slot</div><div>POST</div><div>Get a single-use upload URL</div><div class="arvi">Presigned, 15 min</div></div>
+      <div class="cmp-row"><div>/v1/sessions/{id}/audio-complete</div><div>POST</div><div>Confirm upload, start processing</div><div class="arvi">202 queued</div></div>
+      <div class="cmp-row"><div>callback + DocumentReference</div><div>POST</div><div>Deliver the draft, then report outcome</div><div class="arvi">We call them</div></div>
+      <div class="cmp-row"><div>/v1/patient-summary</div><div>POST</div><div>Summary add-on, one request one answer</div><div class="arvi">5 to 15 s, Route B</div></div>
     </div>
-    <p class="rm-cap reveal" data-delay="3" style="text-align:left;max-width:none;margin-top:clamp(.9rem,2vh,1.3rem)">Resources: Patient inbound, DocumentReference outbound (plain-text body inline as base64), optional Practitioner and Encounter. Coding: your LOINC value set per document type. Auth: client-credentials with private_key_jwt, RS384 assertions, keys via JWKS, least-privilege scopes. Reliability: Idempotency-Key per document, status callback confirms filing.</p>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:left;max-width:none;margin-top:clamp(.9rem,2vh,1.3rem)">Delivery: FHIR DocumentReference, docStatus preliminary, plain-text body inline as base64, coded with your LOINC value set. Auth: OAuth 2.0 SMART Backend Services (private_key_jwt, RS384, JWKS). Audio: straight to an Australian bucket, never through the API, purged after delivery.</p>
   </div>
 </section>
 
