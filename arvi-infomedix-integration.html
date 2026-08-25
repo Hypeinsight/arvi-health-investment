@@ -477,7 +477,7 @@
         <img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix">
       </div>
       <div class="big reveal" data-delay="2">Connecting Arvi to InfoMedix</div>
-      <p class="subtitle reveal" data-delay="3" style="text-align:center;max-width:900px;margin:0 auto">Arvi and InfoMedix exchange two things, patients coming in and letters going out, using FHIR as the shared language, joined by the patient MRN and protected by a signed-token gate on every crossing.</p>
+      <p class="subtitle reveal" data-delay="3" style="text-align:center;max-width:900px;margin:0 auto">Two exchanges over FHIR R4: patients in, documents out. Joined on the MRN, secured with a signed-token gate on every call.</p>
       <div class="menu reveal" data-delay="4">
         <span class="mi"><b>FHIR</b> R4 (4.0.1)</span>
         <span class="mi"><b>AU Core</b> aligned</span>
@@ -493,13 +493,13 @@
   <div class="inner">
     <div class="slide-head">
       <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> The Big Picture</div>
-      <h2 class="title reveal" data-delay="1">Two Arrows and One Shared Key</h2>
-      <p class="subtitle reveal" data-delay="2">Strip away the acronyms and the whole integration is two arrows and one shared key. Everything else, the FHIR resources, the tokens, the mappers, is machinery in service of these.</p>
+      <h2 class="title reveal" data-delay="1">Two Data Flows, One Join Key</h2>
+      <p class="subtitle reveal" data-delay="2">The whole integration is two data flows and one join key. Everything else, resources, tokens, mappers, is in service of these.</p>
     </div>
     <div class="cards c3">
-      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><polyline points="19 12 12 19 5 12"/></svg></div><h3>Patients come in</h3><p>InfoMedix knows who the patient is. Arvi does not. So patient records flow from InfoMedix to Arvi.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/></svg></div><h3>Letters go out</h3><p>Arvi produces the clinical letter. InfoMedix needs it in the chart. So letters flow from Arvi to InfoMedix.</p></div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><h3>The shared key: the MRN</h3><p>The hospital Medical Record Number is the one thing both systems agree on. It is what lets a letter find the right patient.</p></div>
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><polyline points="19 12 12 19 5 12"/></svg></div><h3>Patients in</h3><p>InfoMedix holds patient identity; Arvi does not. FHIR Patient resources flow InfoMedix to Arvi.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/></svg></div><h3>Documents out</h3><p>Arvi produces the clinical document. It flows Arvi to InfoMedix, with a status callback on the return leg.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><h3>Joined on the MRN</h3><p>The MRN is the shared key. It resolves a document to the right patient at the right hospital.</p></div>
     </div>
   </div>
 </section>
@@ -520,18 +520,18 @@
   </div>
 </section>
 
-<!-- What FHIR is -->
-<section class="slide" id="s-fhir" data-sec="The Language">
+<!-- The approach -->
+<section class="slide" id="s-fhir" data-sec="The Approach">
   <div class="inner">
     <div class="slide-head">
-      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> The Language</div>
-      <h2 class="title reveal" data-delay="1">FHIR Is a Language, Not a Product</h2>
-      <p class="subtitle reveal" data-delay="2">It is agreed JSON shapes plus a REST convention. English is not the translator; English is what the translator speaks. In this integration, FHIR is the language and the mapper is the translator.</p>
+      <div class="label reveal"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> The Approach</div>
+      <h2 class="title reveal" data-delay="1">FHIR at the Edges, Our Model in the Middle</h2>
+      <p class="subtitle reveal" data-delay="2">We speak R4 at the boundary and translate to our own domain model behind it. Standard resources cross; neither schema leaks into the other.</p>
     </div>
     <div class="cards c3">
-      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3>Agreed shapes</h3><p>Without a standard, one system says patient_surname, another lastName. FHIR settles it in advance: it is name[0].family, for everyone.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>The mapper translates</h3><p>FHIR at the edges, an internal shape in the middle. Arvi translates on the way in and out.</p></div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Anti-corruption layer</h3><p>A thin translation boundary so neither system concepts leak into the other design.</p></div>
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3>Standard resources on the wire</h3><p>R4 Patient inbound, R4 DocumentReference outbound. Nothing Arvi-specific crosses the boundary.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>Translate at the edge</h3><p>Inbound and outbound mappers convert between FHIR and our internal model. FHIR never reaches the core.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Anti-corruption layer</h3><p>The boundary isolates both schemas, so a change on either side does not propagate across.</p></div>
     </div>
   </div>
 </section>
@@ -552,23 +552,6 @@
   </div>
 </section>
 
-<!-- The boundary (reframed mapping) -->
-<section class="slide" id="s-boundary" data-sec="The Boundary">
-  <div class="inner">
-    <div class="slide-head">
-      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> The Boundary</div>
-      <h2 class="title reveal" data-delay="1">One Clean Boundary Between Us</h2>
-      <p class="subtitle reveal" data-delay="2">InfoMedix always sees standard FHIR. Arvi translates at the edge and keeps its own internal shape, so neither system constrains the other and the contract between us stays stable.</p>
-    </div>
-    <div class="cards c3">
-      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>You send and receive FHIR</h3><p>Standard FHIR resources at the boundary, nothing Arvi-specific. What you already speak.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Arvi translates at the edge</h3><p>A mapper converts FHIR to an internal shape and back. FHIR never reaches the core database.</p></div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>The contract stays stable</h3><p>Because translation is isolated, a change on either side does not ripple across the boundary.</p></div>
-    </div>
-    <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">This is the anti-corruption layer pattern. How Arvi builds it internally is in the appendix, and does not affect what InfoMedix sends or receives.</p>
-  </div>
-</section>
-
 <!-- Four crossings -->
 <section class="slide" id="s-cross" data-sec="How We Communicate">
   <div class="inner">
@@ -584,7 +567,7 @@
       <div class="cmp-row"><div>201 Created (the response)</div><div>InfoMedix</div><div>Arvi</div><div class="arvi">Same connection, at once</div></div>
       <div class="cmp-row"><div>Status callback</div><div>InfoMedix</div><div>Arvi</div><div class="arvi">Minutes or hours later</div></div>
     </div>
-    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">Received is not the same as filed. The 201 is the receipt at the counter, the status callback is the delivery confirmation. Both matter.</p>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">Received is not filed. The 201 confirms custody, the status callback confirms it reached the chart. We track both.</p>
   </div>
 </section>
 
@@ -760,18 +743,18 @@
   <div class="inner">
     <div class="slide-head">
       <div class="label reveal"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> FHIR Resources</div>
-      <h2 class="title reveal" data-delay="1">Five Standard Bricks</h2>
-      <p class="subtitle reveal" data-delay="2">FHIR defines roughly 150 resource types. This integration needs five. Everyone in healthcare uses the same bricks, which is why systems click together.</p>
+      <h2 class="title reveal" data-delay="1">Five Resources Carry the Exchange</h2>
+      <p class="subtitle reveal" data-delay="2">Around 150 resource types exist. This integration needs five.</p>
     </div>
     <div class="cmp c4 glass reveal" data-delay="2">
       <div class="cmp-row cmp-head"><div>Resource</div><div>What it is</div><div>How it is used</div><div class="arvi">Priority</div></div>
       <div class="cmp-row"><div>Patient</div><div>The person</div><div>Sent by InfoMedix, carries the MRN</div><div class="arvi">Essential</div></div>
-      <div class="cmp-row"><div>DocumentReference</div><div>The envelope</div><div>Sent by Arvi, what letter and whose</div><div class="arvi">Essential</div></div>
-      <div class="cmp-row"><div>Binary</div><div>The letter bytes</div><div>Only needed if we send PDFs</div><div class="arvi">Only if PDF</div></div>
-      <div class="cmp-row"><div>Practitioner</div><div>The clinician</div><div>Identifies the letter author</div><div class="arvi">Recommended</div></div>
-      <div class="cmp-row"><div>Encounter</div><div>One visit</div><div>Links the letter to a consultation</div><div class="arvi">Confirm</div></div>
+      <div class="cmp-row"><div>DocumentReference</div><div>Document metadata</div><div>Sent by Arvi, what document and whose</div><div class="arvi">Essential</div></div>
+      <div class="cmp-row"><div>Binary</div><div>Raw document bytes</div><div>Only needed if we send PDFs</div><div class="arvi">Only if PDF</div></div>
+      <div class="cmp-row"><div>Practitioner</div><div>The clinician</div><div>Identifies the document author</div><div class="arvi">Recommended</div></div>
+      <div class="cmp-row"><div>Encounter</div><div>One visit</div><div>Links the document to a consultation</div><div class="arvi">Confirm</div></div>
     </div>
-    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.7rem,1.6vh,1rem)">DocumentReference is the envelope. Binary is the letter inside. Our letters are plain text, so we go inline and skip Binary.</p>
+    <p class="rm-cap reveal" data-delay="3" style="text-align:center;margin-top:clamp(.7rem,1.6vh,1rem)">DocumentReference carries the metadata; the plain-text body goes inline as base64. Binary only if we move to PDFs.</p>
   </div>
 </section>
 
@@ -833,14 +816,14 @@
   <div class="inner fill">
     <div class="slide-head">
       <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security</div>
-      <h2 class="title reveal" data-delay="1">Security Is a Property of the Connection</h2>
-      <p class="subtitle reveal" data-delay="2">Not a box the data stops at. Think of a bank: the armoured van, the ID check at the door, what the door lets you into, and the CCTV. Four layers, and this integration has the same four.</p>
+      <h2 class="title reveal" data-delay="1">Four Layers on Every Call</h2>
+      <p class="subtitle reveal" data-delay="2">The same gate wraps every request, in both directions: transport, authentication, authorisation, and audit.</p>
     </div>
     <div class="cards c4">
-      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>1. Transport</h3><p>TLS 1.2 minimum, 1.3 preferred. Mutual TLS if InfoMedix require it. The armoured van.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>2. Authentication</h3><p>OAuth 2.0 client credentials with a signed JWT, not an API key. Proving who you are.</p></div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>3. Authorisation</h3><p>Least-privilege scopes, for example system/DocumentReference.c and system/Patient.rs. What you may do.</p></div>
-      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><h3>4. Accountability</h3><p>An append-only audit record of every send and receive. Proving what happened.</p></div>
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Transport</h3><p>TLS 1.2 minimum, 1.3 preferred. Mutual TLS if you require it.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>Authentication</h3><p>OAuth 2.0 client-credentials with a signed JWT (private_key_jwt). No shared API keys.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Authorisation</h3><p>Least-privilege scopes, for example system/DocumentReference.c and system/Patient.rs.</p></div>
+      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><h3>Audit</h3><p>An append-only record of every send and receive.</p></div>
     </div>
   </div>
 </section>
@@ -851,12 +834,12 @@
     <div class="slide-head">
       <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg> Authentication</div>
       <h2 class="title reveal" data-delay="1">SMART Backend Services, the Healthcare Standard</h2>
-      <p class="subtitle reveal" data-delay="2">OAuth 2.0 client credentials with an asymmetric signed assertion, not a shared API key. A wax seal: copying the letter is useless without the signet ring.</p>
+      <p class="subtitle reveal" data-delay="2">OAuth 2.0 client-credentials with an asymmetric signed assertion (private_key_jwt), not a shared secret.</p>
     </div>
     <div class="cards c3">
-      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>A key pair</h3><p>The private key never leaves its owner. Only the public key is shared. Nobody can forge a signature without the private key.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>A short-lived token</h3><p>The caller signs a tiny assertion that expires in five minutes and carries a one-time id, which blocks replay.</p></div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>A JWKS endpoint</h3><p>Each side publishes its public key at a URL, so signatures can be verified and key rotation is painless.</p></div>
+      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>Asymmetric key pair</h3><p>The private key stays with the caller; only the public key is shared. Signatures cannot be forged without it.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Short-lived assertion</h3><p>RS384-signed, five-minute expiry, one-time jti to block replay.</p></div>
+      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>JWKS-published keys</h3><p>Each side serves its public keys at a JWKS endpoint, so rotation needs no coordination call.</p></div>
     </div>
     <p class="rm-cap reveal" data-delay="5" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">This is the same pattern Epic, Oracle Health and most major EHRs use for system-to-system access.</p>
   </div>
@@ -895,7 +878,7 @@
       <div class="step reveal" data-delay="4"><div class="sic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="sn">EVERY REQUEST</div><h3>The gate</h3><p>TLS encrypts the pipe, the bearer token says who is calling, the scope says what they may do.</p></div>
       <div class="step reveal" data-delay="5"><div class="sic"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><div class="sn">ALWAYS</div><h3>Audit</h3><p>An append-only record of every send and receive, so any question about a document can be answered.</p></div>
     </div>
-    <p class="rm-cap reveal" data-delay="6" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">The gate sits on the crossing, not in the chain. The token is a header on the same request that carries the letter.</p>
+    <p class="rm-cap reveal" data-delay="6" style="text-align:center;margin-top:clamp(.9rem,2vh,1.4rem)">The token is a header on the same request that carries the document. Nothing stops at a separate security step.</p>
   </div>
 </section>
 
@@ -1028,18 +1011,6 @@
   </div>
 </section>
 
-<!-- Glossary -->
-<section class="slide" id="s-gloss" data-sec="Appendix">
-  <div class="inner">
-    <div class="slide-head">
-      <div class="label reveal"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Appendix</div>
-      <h2 class="title reveal" data-delay="1">Glossary</h2>
-      <p class="subtitle reveal" data-delay="2">Plain-English definitions of the key terms in this deck.</p>
-    </div>
-    <div class="gloss reveal" data-delay="2"><div class="gitem glass"><b>Anti-corruption layer</b><span>A thin translation boundary that stops one system concepts leaking into the other.</span></div><div class="gitem glass"><b>AU Core</b><span>The Australian FHIR Implementation Guide. Profiles base resources for Australian use. Currently advisory.</span></div><div class="gitem glass"><b>Base64</b><span>A way of writing data with safe characters so it can travel inside JSON. FHIR requires it for attachments.</span></div><div class="gitem glass"><b>CapabilityStatement</b><span>A FHIR document describing what a server supports. Usually at [base]/metadata.</span></div><div class="gitem glass"><b>DMR</b><span>Digital Medical Record. A document repository that stores and displays documents, not a full EMR.</span></div><div class="gitem glass"><b>DocumentReference</b><span>The FHIR resource describing a document: type, patient, author, date, and the content or a pointer to it.</span></div><div class="gitem glass"><b>FHIR</b><span>Fast Healthcare Interoperability Resources. Agreed JSON shapes plus a REST convention. A language, not a product.</span></div><div class="gitem glass"><b>HL7 v2</b><span>The older pipe-delimited messaging standard, still common in Australian hospitals.</span></div><div class="gitem glass"><b>Idempotency</b><span>Doing something twice has the same effect as once. Essential when retries can duplicate documents.</span></div><div class="gitem glass"><b>JWKS</b><span>JSON Web Key Set. A URL publishing public keys so others can verify signatures. Makes rotation painless.</span></div><div class="gitem glass"><b>JWT</b><span>JSON Web Token. A small signed message used to prove identity.</span></div><div class="gitem glass"><b>LOINC</b><span>A global coding system for clinical concepts. Used to say what kind of document a letter is.</span></div><div class="gitem glass"><b>mTLS</b><span>Mutual TLS. Both sides present certificates, not just the server.</span></div><div class="gitem glass"><b>MRN</b><span>Medical Record Number. The hospital patient identifier and the key that joins the two systems.</span></div><div class="gitem glass"><b>OAuth 2.0</b><span>The standard framework for granting limited access without sharing a password.</span></div><div class="gitem glass"><b>OperationOutcome</b><span>The FHIR resource used to return errors and warnings.</span></div><div class="gitem glass"><b>Outbox pattern</b><span>Writing a job in the same transaction as the business change, then processing it asynchronously.</span></div><div class="gitem glass"><b>private_key_jwt</b><span>An OAuth client authentication method using a signed assertion instead of a shared secret.</span></div><div class="gitem glass"><b>Scope</b><span>A string in an OAuth token limiting what the holder may do, for example system/Patient.rs.</span></div><div class="gitem glass"><b>SMART Backend Services</b><span>The widely adopted standard for securing system-to-system FHIR access.</span></div><div class="gitem glass"><b>Upsert</b><span>Insert if new, update if it already exists. How repeated patient pushes avoid duplicates.</span></div></div>
-  </div>
-</section>
-
 <!-- Close -->
 <section class="slide" id="s-close" data-sec="Overview">
   <div class="inner">
@@ -1049,7 +1020,7 @@
         <span class="x">&times;</span>
         <img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix">
       </div>
-      <h2 class="title reveal" data-delay="1" style="text-align:center">Two Arrows. One Shared Key.</h2>
+      <h2 class="title reveal" data-delay="1" style="text-align:center">Two Flows, One Join Key</h2>
       <p class="subtitle reveal" data-delay="2" style="text-align:center;margin-left:auto;margin-right:auto">Patients in, letters out, joined by the MRN and secured on every crossing. A clean, two-way exchange, ready to build together.</p>
       <a class="cta reveal" data-delay="3" href="https://arvihealth.com" target="_blank" rel="noopener">arvihealth.com <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></a>
     </div>
