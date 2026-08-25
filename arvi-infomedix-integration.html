@@ -992,71 +992,6 @@
   </div>
 </section>
 
-<!-- Priority questions -->
-<section class="slide" id="s-q" data-sec="The Conversation">
-  <div class="inner fill">
-    <div class="slide-head">
-      <div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> The Conversation</div>
-      <h2 class="title reveal" data-delay="1">The Four Questions to Settle First</h2>
-      <p class="subtitle reveal" data-delay="2">Each of these can change weeks of work. Settling them first turns the rest into detail.</p>
-    </div>
-    <div class="cards c2" style="max-width:1100px;margin:clamp(.8rem,2vh,1.4rem) auto 0">
-      <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>Q1. Push or pull?</h3><p>Will you push FHIR Patient resources to an endpoint we host, or should we query your FHIR server? This decides whether we build a server or a client.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Q2. Your document endpoint?</h3><p>Do you have a FHIR endpoint we push documents to? What is the base URL, and is there a CapabilityStatement at [base]/metadata?</p></div>
-      <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><h3>Q3. An appointment feed?</h3><p>Is there an encounter or appointment feed we can consume? If yes, a clinician opens Arvi and today list is already there with MRNs attached.</p></div>
-      <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><h3>Q4. Where does the MRN come from?</h3><p>Arvi needs the MRN to file a letter. We would agree how it reaches us: on the patient push, on an appointment feed, or via a lookup.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- Questions: standards -->
-<section class="slide" id="s-q1" data-sec="The Conversation">
-  <div class="inner">
-    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Standards and Versions</h2></div>
-    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q5</span><div class="qq">Which FHIR version, R4 (4.0.1)?</div><div class="qw">Confirms our baseline assumption.</div></div><div class="qrow glass"><span class="qn">Q6</span><div class="qq">AU Core conformance, or is base R4 sufficient?</div><div class="qw">Changes how strictly we validate and which elements are mandatory.</div></div><div class="qrow glass"><span class="qn">Q7</span><div class="qq">Do you support HL7 v2, and would you prefer it?</div><div class="qw">Some hospital systems still prefer MDM T02, which changes the transport.</div></div></div>
-  </div>
-</section>
-
-<!-- Questions: documents -->
-<section class="slide" id="s-q2" data-sec="The Conversation">
-  <div class="inner">
-    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Documents</h2></div>
-    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q8</span><div class="qq">DocumentReference with inline base64, or a separate Binary?</div><div class="qw">Both are valid FHIR. We need to know which you parse.</div></div><div class="qrow glass"><span class="qn">Q9</span><div class="qq">Which LOINC codes do you expect per document type?</div><div class="qw">The code decides where a letter files and how it is labelled.</div></div><div class="qrow glass"><span class="qn">Q10</span><div class="qq">Sections as a FHIR Composition, or is formatted text enough?</div><div class="qw">Composition is more work, only worth it if you use the structure.</div></div><div class="qrow glass"><span class="qn">Q11</span><div class="qq">Draft letters, or only clinician-approved finals?</div><div class="qw">We assume finals only, worth confirming.</div></div><div class="qrow glass"><span class="qn">Q12</span><div class="qq">A maximum document size or rate limit to design to?</div><div class="qw">Affects batching and retry strategy.</div></div></div>
-  </div>
-</section>
-
-<!-- Questions: patient identity -->
-<section class="slide" id="s-q3" data-sec="The Conversation">
-  <div class="inner">
-    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Patient Identity</h2></div>
-    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q13</span><div class="qq">What system URI should we use for each hospital MRN?</div><div class="qw">The system namespace is what makes an MRN unambiguous.</div></div><div class="qrow glass"><span class="qn">Q14</span><div class="qq">If several hospitals run through you, how do we tell their MRN namespaces apart?</div><div class="qw">The same number at two hospitals is two different people.</div></div><div class="qrow glass"><span class="qn">Q15</span><div class="qq">Will you send patient merges when duplicates are combined?</div><div class="qw">Determines whether we need Patient.link handling.</div></div><div class="qrow glass"><span class="qn">Q16</span><div class="qq">Do you send demographic updates, or only initial creation?</div><div class="qw">Determines whether our upsert handles ongoing changes.</div></div></div>
-  </div>
-</section>
-
-<!-- Questions: security -->
-<section class="slide" id="s-q4" data-sec="The Conversation">
-  <div class="inner">
-    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Security</h2></div>
-    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q17</span><div class="qq">SMART Backend Services with private_key_jwt, or another OAuth arrangement?</div><div class="qw">This is the core authentication design.</div></div><div class="qrow glass"><span class="qn">Q18</span><div class="qq">Token endpoint URL, and which signing algorithms do you accept?</div><div class="qw">RS384 and ES384 are the SMART defaults.</div></div><div class="qrow glass"><span class="qn">Q19</span><div class="qq">Do you require mutual TLS in addition to the bearer token?</div><div class="qw">If yes, we manage a certificate and monitor expiry.</div></div><div class="qrow glass"><span class="qn">Q20</span><div class="qq">Which scopes will you grant us?</div><div class="qw">We want the minimum necessary, and need to know what to request.</div></div><div class="qrow glass"><span class="qn">Q21</span><div class="qq">Do you require IP allowlisting? Can you share egress ranges?</div><div class="qw">So we can allowlist you on our side too.</div></div><div class="qrow glass"><span class="qn">Q22</span><div class="qq">How should we authenticate you when you call our endpoints?</div><div class="qw">The reverse direction needs its own credentials.</div></div></div>
-  </div>
-</section>
-
-<!-- Questions: reliability -->
-<section class="slide" id="s-q5" data-sec="The Conversation">
-  <div class="inner">
-    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Reliability and Operations</h2></div>
-    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q23</span><div class="qq">A status callback after filing, or is the 201 all we get?</div><div class="qw">Without a callback, a letter can silently fail to reach a chart.</div></div><div class="qrow glass"><span class="qn">Q24</span><div class="qq">What are your rejection reasons, and how are they returned?</div><div class="qw">Lets us build sensible handling rather than one dead-letter bucket.</div></div><div class="qrow glass"><span class="qn">Q25</span><div class="qq">Do you support conditional create via If-None-Exist?</div><div class="qw">Prevents duplicate letters in a chart after a retry.</div></div><div class="qrow glass"><span class="qn">Q26</span><div class="qq">Is there a sandbox with synthetic patients?</div><div class="qw">We want to build and test before touching anything real.</div></div><div class="qrow glass"><span class="qn">Q27</span><div class="qq">Support hours and escalation path for integration issues?</div><div class="qw">Needed for our operational runbook.</div></div></div>
-  </div>
-</section>
-
-<!-- Questions: commercial -->
-<section class="slide" id="s-q6" data-sec="The Conversation">
-  <div class="inner">
-    <div class="slide-head"><div class="label reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Questions</div><h2 class="title reveal" data-delay="1">Commercial and Process</h2></div>
-    <div class="qtbl reveal" data-delay="2"><div class="qrow glass"><span class="qn">Q28</span><div class="qq">Scoped per hospital customer, or once across your platform?</div><div class="qw">Affects effort, timeline and commercial structure.</div></div><div class="qrow glass"><span class="qn">Q29</span><div class="qq">Is there a certification or conformance step before go-live?</div><div class="qw">Needs to be in the project plan, not discovered late.</div></div><div class="qrow glass"><span class="qn">Q30</span><div class="qq">What security documentation do you need from us?</div><div class="qw">ISO 27001, pen test results, a questionnaire. Usually the long pole.</div></div></div>
-  </div>
-</section>
-
 <!-- How we run it -->
 <section class="slide" id="s-next" data-sec="Next Steps">
   <div class="inner fill">
@@ -1067,7 +1002,7 @@
     </div>
     <div class="cards c3">
       <div class="card glass reveal" data-delay="2" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>Walk the four crossings</h3><p>Confirm together which direction each of the four runs, using the scenario slide.</p></div>
-      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><h3>Answer Q1 to Q4</h3><p>Push or pull, your document endpoint, an appointment feed, and where the MRN comes from.</p></div>
+      <div class="card glass reveal" data-delay="3" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><h3>Settle the key unknowns</h3><p>Push or pull, your document endpoint, an appointment feed, and where the MRN comes from.</p></div>
       <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3"/></svg></div><h3>Exchange URLs and credentials</h3><p>Four crossings, four sets of credentials. Each side issues the other a base URL and keys.</p></div>
       <div class="card glass reveal" data-delay="4" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Stand up a sandbox</h3><p>A test environment with synthetic patients, so we build and test before touching anything real.</p></div>
       <div class="card glass reveal" data-delay="5" style="display:flex;flex-direction:column"><div class="vic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3>Confirm codes and systems</h3><p>Your LOINC value set and the system URI for each hospital MRN.</p></div>
@@ -1115,7 +1050,7 @@
         <img class="lk-imx" src="InfoMedix-logo-png.webp" alt="InfoMedix">
       </div>
       <h2 class="title reveal" data-delay="1" style="text-align:center">Two Arrows. One Shared Key.</h2>
-      <p class="subtitle reveal" data-delay="2" style="text-align:center;margin-left:auto;margin-right:auto">Patients in, letters out, joined by the MRN and secured on every crossing. The four questions turn this conversation into a build plan.</p>
+      <p class="subtitle reveal" data-delay="2" style="text-align:center;margin-left:auto;margin-right:auto">Patients in, letters out, joined by the MRN and secured on every crossing. A clean, two-way exchange, ready to build together.</p>
       <a class="cta reveal" data-delay="3" href="https://arvihealth.com" target="_blank" rel="noopener">arvihealth.com <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></a>
     </div>
   </div>
