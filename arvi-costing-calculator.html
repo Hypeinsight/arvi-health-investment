@@ -227,7 +227,7 @@
                     <p>Two live models. The <b>Application</b> model prices the clinician app (base subscription plus token top-ups). The <b>Engine</b> model prices Arvi as a metered service inside a partner platform, the way InfoMedix would consume it. Every figure recalculates as you type. The defaults are Arvi's current working assumptions.</p>
                 </div>
                 <div class="hero-cards">
-                    <a class="hc glass" href="#app"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><h4>Application model</h4><p>Base plan, top-ups, per-user and shared fixed costs. Break-even attach rate, break-even users, forecast up to 36 months.</p></div></a>
+                    <a class="hc glass" href="#app"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><h4>Application model</h4><p>Base plan and top-ups against Azure cost per hour, add-ons by user band and the shared floor. Cost per user-hour, break-even users, forecast up to 36 months.</p></div></a>
                     <a class="hc glass" href="#engine"><div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><div><h4>Engine model (InfoMedix)</h4><p>Cost and price per token, margin floor, partner volume, platform fees. Gross margin, tiered rate card, comparison with medical scribe and transcription providers, ramp forecast.</p></div></a>
                     <a class="hc glass" href="#token"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><h4>Token definition</h4><p>The unit definition, its conversions, and how it lines up with how medical speech and scribe vendors meter.</p></div></a>
                 </div>
@@ -240,7 +240,7 @@
                 <div class="sec-head">
                     <div class="label"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> Application model</div>
                     <h2 class="title">The $30 Plan: Cost, Margin, Break-even</h2>
-                    <p class="subtitle">Each user pays a base subscription that includes a block of hours. Heavy users buy top-ups. Costs are the AI spend per user plus GCP and services. GCP can be entered per user or as a <b>shared monthly pool</b>, which is closer to how infrastructure bills and makes a true break-even user count possible.</p>
+                    <p class="subtitle">Each user pays a base subscription that includes a block of hours and buys top-ups beyond it. Cost is built per hour: the <b>Azure AI cost per audio hour</b> measured from Arvi's own bills, fixed add-ons per user that step up with scale, and a <b>shared monthly floor</b> spread across every active user. Divide a user's total by the hours they use and you have the all-in cost of one user-hour.</p>
                 </div>
 
                 <div class="calc">
@@ -249,22 +249,21 @@
                         <div id="app-fields"></div>
                         <div class="toolbar">
                             <button class="btn" id="app-reset"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Reset defaults</button>
-                            <button class="btn" id="app-pool"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.2-8.56"/><polyline points="21 3 21 9 15 9"/></svg> Treat GCP as a shared pool</button>
                         </div>
-                        <p class="note" id="app-pool-note">"Shared pool" moves the per-user GCP figure into one monthly amount (per-user &times; current users), so it stops scaling with headcount.</p>
+                        <p class="note">Fixed add-ons per user step with the user band: <b>$15.40</b> up to 100 users, <b>$15.82</b> from 100 and <b>$16.86</b> from 500, covering Redis plus the GCP resources and Pusher capacity needed at that scale. Top-ups per user are derived from usage in whole packs, so unused hours in a pack are still paid for.</p>
                     </div>
 
                     <div>
                         <div class="outs">
-                            <div class="out glass hi"><div class="v" id="a-profit">–</div><div class="l">Monthly profit <b>(after AI, GCP and top-up costs)</b></div></div>
+                            <div class="out glass hi"><div class="v" id="a-profit">–</div><div class="l">Monthly profit <b>(after Azure, add-ons and the floor)</b></div></div>
                             <div class="out glass"><div class="v" id="a-rev">–</div><div class="l">Monthly revenue <b>(subscriptions + top-ups)</b></div></div>
-                            <div class="out glass"><div class="v" id="a-cost">–</div><div class="l">Monthly cost <b>(AI + GCP &amp; services + top-up AI)</b></div></div>
+                            <div class="out glass"><div class="v" id="a-cost">–</div><div class="l">Monthly cost <b>(Azure + add-ons + floor)</b></div></div>
                             <div class="out glass"><div class="v" id="a-margin">–</div><div class="l">Gross margin</div></div>
-                            <div class="out glass"><div class="v" id="a-cu">–</div><div class="l">Contribution per user on the base plan <b>(price &minus; AI &minus; per-user GCP)</b></div></div>
-                            <div class="out glass"><div class="v" id="a-ct">–</div><div class="l">Contribution per top-up sold</div></div>
-                            <div class="out glass"><div class="v" id="a-arpu">–</div><div class="l">Blended revenue per user (ARPU)</div></div>
-                            <div class="out glass"><div class="v" id="a-attbe">–</div><div class="l">Break-even top-up attach rate <b>(share of users buying one top-up so the base user stops losing money)</b></div></div>
-                            <div class="out glass"><div class="v" id="a-usersbe">–</div><div class="l">Break-even users <b>(to cover the shared pool at the current attach rate)</b></div></div>
+                            <div class="out glass"><div class="v" id="a-cph">–</div><div class="l">All-in cost per user-hour <b id="a-cph-sub"></b></div></div>
+                            <div class="out glass"><div class="v" id="a-cpu">–</div><div class="l">Cost per user per month <b id="a-cpu-sub"></b></div></div>
+                            <div class="out glass"><div class="v" id="a-cu">–</div><div class="l">Contribution per user before the floor <b>(revenue &minus; Azure &minus; add-ons)</b></div></div>
+                            <div class="out glass"><div class="v" id="a-mh">–</div><div class="l">Margin per top-up hour <b id="a-mh-sub"></b></div></div>
+                            <div class="out glass"><div class="v" id="a-usersbe">–</div><div class="l">Break-even users <b>(to cover the shared floor at this usage)</b></div></div>
                         </div>
                         <div class="callout" id="a-verdict" style="margin-top:1rem"></div>
                     </div>
@@ -274,7 +273,7 @@
                     <div class="panel glass">
                         <h3>Profit vs users <span class="pill">Break-even lines</span></h3>
                         <div class="chart-wrap" id="ch-app-be"></div>
-                        <p class="note">Each line is a top-up attach rate (share of users buying one top-up each month). The dot is your current inputs. When GCP is modelled per user, lines pass through the origin: volume cannot rescue a negative per-user margin, only price, cost or attach rate can. A shared pool bends the lines down at zero users and creates a real crossing point.</p>
+                        <p class="note">Each line is an average usage level per user. The dot is your current inputs. Every line starts at minus the shared floor and climbs by the per-user contribution; the small kinks at 100 and 500 users are the add-on band steps. Where a line crosses zero is the break-even user count for that usage.</p>
                     </div>
                     <div class="panel glass">
                         <h3>Per-user unit economics <span class="pill">One month</span></h3>
@@ -282,14 +281,14 @@
                             <thead><tr><th>Line</th><th>Per user</th></tr></thead>
                             <tbody>
                                 <tr><td>Base subscription</td><td id="u-base">–</td></tr>
-                                <tr><td>Variable AI cost</td><td id="u-var">–</td></tr>
-                                <tr><td>GCP &amp; services per user</td><td id="u-fixu">–</td></tr>
-                                <tr class="be"><td>Base-plan contribution</td><td id="u-cu">–</td></tr>
-                                <tr><td>Top-up revenue at current attach rate</td><td id="u-tprev">–</td></tr>
-                                <tr><td>Top-up AI cost at current attach rate</td><td id="u-tpcost">–</td></tr>
-                                <tr class="be"><td>Blended contribution per user</td><td id="u-cper">–</td></tr>
-                                <tr><td>Shared pool spread over current users</td><td id="u-pool">–</td></tr>
+                                <tr><td id="u-tprev-l">Top-up revenue</td><td id="u-tprev">–</td></tr>
+                                <tr class="be"><td>Revenue per user</td><td id="u-rev">–</td></tr>
+                                <tr><td id="u-var-l">Azure AI cost</td><td id="u-var">–</td></tr>
+                                <tr><td id="u-fixu-l">Fixed add-ons</td><td id="u-fixu">–</td></tr>
+                                <tr class="be"><td>Contribution before the floor</td><td id="u-cu">–</td></tr>
+                                <tr><td id="u-pool-l">Shared floor spread over users</td><td id="u-pool">–</td></tr>
                                 <tr class="be"><td>Net per user per month</td><td id="u-net">–</td></tr>
+                                <tr class="be"><td id="u-cph-l">All-in cost per user-hour</td><td id="u-cph">–</td></tr>
                             </tbody>
                         </table></div>
                         <div class="callout" id="a-unit-note" style="margin-top:.9rem"></div>
@@ -634,59 +633,68 @@
     var APP_DEFS=[
         {group:'Users & plan', id:'a_users', label:'Active paying users', note:'paying subscriptions in the month', value:100, min:1, max:2000, hardMax:100000, step:1, slider:true},
         {id:'a_base', label:'Base subscription', note:'per user per month', value:29.99, min:0, max:200, step:0.01, prefix:'$'},
-        {id:'a_hours', label:'Audio hours included in base', note:'used for per-hour equivalents only', value:10, min:1, max:100, step:1, suffix:'hrs'},
-        {group:'Costs', id:'a_var', label:'Variable AI cost', note:'per user per month, for the hours included in the base plan', value:18, min:0, max:200, step:0.01, prefix:'$'},
-        {id:'a_fixu', label:'GCP + service cost per user', note:'per month', value:20, min:0, max:200, step:0.01, prefix:'$'},
-        {id:'a_fixs', label:'Shared fixed platform cost', note:'per month, not scaling with users', value:0, min:0, max:50000, hardMax:10000000, step:10, prefix:'$'},
-        {group:'Top-ups', id:'a_tp', label:'Top-up price', note:'one extra block of hours', value:39.99, min:0, max:200, step:0.01, prefix:'$'},
-        {id:'a_tc', label:'AI cost per top-up', note:'AI spend to deliver one top-up block', value:18, min:0, max:200, step:0.01, prefix:'$'},
-        {id:'a_att1', label:'Users buying a first top-up', note:'share of active users, each month', value:10, min:0, max:100, step:1, suffix:'%', slider:true},
-        {id:'a_att2', label:'Users also buying a second top-up', value:0, min:0, max:100, step:1, suffix:'%', slider:true}
+        {id:'a_hours', label:'Audio hours included in base', value:10, min:1, max:100, step:1, suffix:'hrs'},
+        {id:'a_tp', label:'Top-up price', note:'one extra pack of hours', value:39.99, min:0, max:200, step:0.01, prefix:'$'},
+        {id:'a_tph', label:'Audio hours per top-up', value:10, min:1, max:100, step:1, suffix:'hrs'},
+        {group:'Usage', id:'a_use', label:'Average audio hours per user per month', note:'observed average is about 17; top-ups are derived from this', value:17, min:1, max:80, step:0.5, suffix:'hrs', slider:true},
+        {group:'Costs', id:'a_rate', label:'Azure AI cost per audio hour', note:'measured $2.33 (June), $2.70 (July), $3.20 (August); $3.30 used as the planning rate', value:3.30, min:0, max:20, step:0.01, prefix:'$'},
+        {id:'a_addon', label:'Fixed add-ons per user per month', note:'Redis and per-user services at up to 100 users; steps up by band automatically', value:15.40, min:0, max:200, step:0.01, prefix:'$'},
+        {id:'a_floor', label:'Shared monthly floor', note:'fixed infrastructure, spread across all active users', value:2000, min:0, max:50000, hardMax:10000000, step:50, prefix:'$'}
     ];
+    // Add-on band steps above the base figure: +0.42 from 100 users, +1.46 from 500 users (GCP resources and Pusher capacity for that scale).
+    function addonAt(v,users){ return v.a_addon+(users>=500?1.46:(users>=100?0.42:0)); }
     var APPF_DEFS=[
         {id:'af_start', label:'Starting users (month 1)', value:10, min:1, max:2000, hardMax:100000, step:1, slider:true},
         {id:'af_growth', label:'Net user growth per month', value:15, min:0, max:60, step:1, suffix:'%', slider:true},
         {id:'af_months', label:'Horizon', value:24, min:6, max:36, step:1, suffix:'mo', slider:true}
     ];
 
-    function appCalc(v){
-        var users=v.a_users, tu1=users*v.a_att1/100, tu2=users*v.a_att2/100, tops=tu1+tu2;
-        var rev=users*v.a_base+tops*v.a_tp;
-        var cost=users*(v.a_var+v.a_fixu)+v.a_fixs+tops*v.a_tc;
-        var cu=v.a_base-v.a_var-v.a_fixu, ct=v.a_tp-v.a_tc;
-        var a=(v.a_att1+v.a_att2)/100, cPer=cu+a*ct;
-        return {users:users,tops:tops,rev:rev,cost:cost,profit:rev-cost,cu:cu,ct:ct,a:a,cPer:cPer};
+    // Per-user economics at a given usage level H (audio hours per month) and user count.
+    function appCalc(v, users, H){
+        users=users!=null?users:v.a_users; H=H!=null?H:v.a_use;
+        var packs=Math.max(0,Math.ceil((H-v.a_hours)/v.a_tph-1e-9));
+        var revU=v.a_base+packs*v.a_tp, azure=H*v.a_rate, addon=addonAt(v,users), floorU=users?v.a_floor/users:0;
+        var cu=revU-azure-addon, costU=azure+addon+floorU, net=cu-floorU;
+        var rev=users*revU, cost=users*(azure+addon)+v.a_floor;
+        return {users:users,H:H,packs:packs,tops:users*packs,revU:revU,azure:azure,addon:addon,floorU:floorU,cu:cu,costU:costU,net:net,rev:rev,cost:cost,profit:rev-cost,
+            cph:H>0?costU/H:0, mh:v.a_tph>0?v.a_tp/v.a_tph-v.a_rate:0};
     }
+    function usersBE(v,H){ if(v.a_floor<=0) return 0; for(var u=1;u<=200000;u++){ var c=appCalc(v,u,H); if(c.cu>0&&u*c.cu>=v.a_floor) return u; if(c.cu<=0&&u>=500) return null; } return null; }
     var app, appf;
     function appUpdate(){
         var v=app.vals, r=appCalc(v);
         setV('a-profit',moneyK(r.profit));
         setV('a-rev',moneyK(r.rev)); setV('a-cost',moneyK(r.cost));
         setV('a-margin',r.rev>0?pct(r.profit/r.rev*100,1):'–',r.rev>0?Math.sign(r.profit):0);
-        setV('a-cu',money(r.cu,2),Math.sign(r.cu)); setV('a-ct',money(r.ct,2),Math.sign(r.ct));
-        setV('a-arpu',money(r.users?r.rev/r.users:0,2));
-        var attBE = r.ct>0 ? (r.cu>=0?0:-r.cu/r.ct) : null;
-        setV('a-attbe', attBE==null?'n/a':(attBE>1?'>100%':pct(attBE*100,1)), attBE==null?0:(attBE>1?-1:(attBE===0?1:0)));
-        var uBE = r.cPer>0 ? v.a_fixs/r.cPer : null;
-        setV('a-usersbe', uBE==null?'never':(v.a_fixs>0?num(Math.ceil(uBE)):'any'), uBE==null?-1:1);
+        setV('a-cph',money(r.cph,2)); $('a-cph-sub').textContent='Azure '+money(v.a_rate,2)+' + add-ons '+money(r.H?r.addon/r.H:0,2)+' + floor '+money(r.H?r.floorU/r.H:0,2)+' per hour at '+num(r.H,1)+' hrs';
+        setV('a-cpu',money(r.costU,2)); $('a-cpu-sub').textContent='at '+num(r.H,1)+' hrs, incl. '+money(r.floorU,2)+' floor share at '+num(r.users)+' users';
+        setV('a-cu',money(r.cu,2),Math.sign(r.cu));
+        setV('a-mh',money(r.mh,2),Math.sign(r.mh)); $('a-mh-sub').textContent=money(v.a_tph?v.a_tp/v.a_tph:0,2)+' per top-up hour − '+money(v.a_rate,2)+' Azure';
+        var uBE=usersBE(v,r.H);
+        setV('a-usersbe', uBE==null?'never':(uBE===0?'any':num(uBE)), uBE==null?-1:1);
         // per-user unit economics
-        var tprev=r.a*v.a_tp, tpcost=r.a*v.a_tc, pool=r.users?v.a_fixs/r.users:0, net=r.cPer-pool;
         function cell(id,val,sign){ var el=$(id); el.textContent=money(val,2); el.className=sign?signCls(val):''; }
-        cell('u-base',v.a_base); cell('u-var',-v.a_var); cell('u-fixu',-v.a_fixu); cell('u-cu',r.cu,true);
-        cell('u-tprev',tprev); cell('u-tpcost',-tpcost); cell('u-cper',r.cPer,true); cell('u-pool',-pool); cell('u-net',net,true);
+        $('u-tprev-l').textContent='Top-up revenue ('+r.packs+' pack'+(r.packs===1?'':'s')+' at '+num(r.H,1)+' hrs)';
+        $('u-var-l').textContent='Azure AI cost ('+num(r.H,1)+' hrs × '+money(v.a_rate,2)+')';
+        $('u-fixu-l').textContent='Fixed add-ons (band: '+(r.users>=500?'500+':(r.users>=100?'100 to 500':'up to 100'))+' users)';
+        $('u-pool-l').textContent='Shared floor ('+money(v.a_floor)+' ÷ '+num(r.users)+' users)';
+        $('u-cph-l').textContent='All-in cost per user-hour ('+money(r.costU,2)+' ÷ '+num(r.H,1)+' hrs)';
+        cell('u-base',v.a_base); cell('u-tprev',r.packs*v.a_tp); cell('u-rev',r.revU); cell('u-var',-r.azure); cell('u-fixu',-r.addon);
+        cell('u-cu',r.cu,true); cell('u-pool',-r.floorU); cell('u-net',r.net,true); cell('u-cph',r.cph);
+        var baseOnly=appCalc(v,r.users,v.a_hours);
         var un=$('a-unit-note');
-        if(r.cu<0){ un.className='callout warn'; un.innerHTML='<b>The base plan alone does not cover its own cost.</b> A user who only uses the hours in their subscription loses Arvi '+money(-r.cu,2)+' a month. Every top-up returns '+money(r.ct,2)+', so the direct-to-user model only makes money once about <b>'+(attBE==null?'a positive top-up margin exists':pct(attBE*100,0)+' of users buy a top-up each month')+'</b>. That is the reason the engine model below must be priced to profit from the first second.'; }
-        else { un.className='callout'; un.innerHTML='<b>The base plan covers its own cost.</b> Each subscription contributes '+money(r.cu,2)+' before any top-up, and every top-up adds '+money(r.ct,2)+'.'; }
+        un.className='callout'+(baseOnly.cu<0?' warn':'');
+        un.innerHTML='<b>A user who only uses the '+num(v.a_hours)+' included hours '+(baseOnly.cu<0?'loses':'earns')+' Arvi '+money(Math.abs(baseOnly.cu),2)+'</b> before the floor ('+money(v.a_base,2)+' against '+money(baseOnly.azure+baseOnly.addon,2)+' of Azure and add-ons). At '+num(r.H,1)+' hrs the same user pays '+money(r.revU,2)+' and costs '+money(r.azure+r.addon,2)+', so contributes '+money(r.cu,2)+'. Each top-up hour earns '+money(v.a_tph?v.a_tp/v.a_tph:0,2)+' against '+money(v.a_rate,2)+' of Azure, a margin of '+money(r.mh,2)+' per hour, which is what the direct-to-user model runs on.';
         var vd=$('a-verdict');
-        if(r.cPer<=0){ vd.className='callout warn'; vd.innerHTML='<b>Unit margin is negative at the current attach rate.</b> Each user contributes '+money(r.cPer,2)+' a month after top-ups. Adding users scales the loss. To break even you need roughly <b>'+(attBE==null?'a positive top-up margin':pct(attBE*100,0)+' of users buying one top-up')+'</b>, a lower cost per user, or a higher base price of at least <b>'+money(v.a_var+v.a_fixu-r.a*r.ct,2)+'</b>.'; }
-        else { vd.className='callout'; vd.innerHTML='<b>Unit margin is positive.</b> Each user contributes <b>'+money(r.cPer,2)+'</b> a month after top-ups'+(v.a_fixs>0?', so the shared pool of '+money(v.a_fixs)+' is covered at <b>'+num(Math.ceil(uBE))+' users</b>.':'. With no shared fixed cost, every user is profitable from the first month.')+' At '+num(r.users)+' users that is <b>'+money(r.profit)+'</b> a month, or <b>'+moneyK(r.profit*12)+'</b> a year.'; }
+        if(r.cu<=0){ vd.className='callout warn'; vd.innerHTML='<b>Unit margin is negative at '+num(r.H,1)+' hrs per user.</b> Each user costs '+money(r.azure+r.addon,2)+' before the floor and pays '+money(r.revU,2)+', a loss of '+money(-r.cu,2)+' that grows with every user added. Only price, pack size, usage or the Azure rate change that.'; }
+        else { vd.className='callout'; vd.innerHTML='<b>Unit margin is positive at '+num(r.H,1)+' hrs per user.</b> Each user contributes <b>'+money(r.cu,2)+'</b> before the floor, so the '+money(v.a_floor)+' floor is covered at <b>'+(uBE==null?'–':num(uBE))+' users</b>. At '+num(r.users)+' users the month comes to <b>'+money(r.profit)+'</b>, or <b>'+moneyK(r.profit*12)+'</b> a year, and every extra user adds about '+money(r.cu,2)+'.'; }
 
-        // break-even chart
-        var maxU=Math.max(r.users*2,200); var pts=[]; for(var i=0;i<=20;i++) pts.push(Math.round(maxU*i/20));
-        var rates=[{a:0,c:'var(--c1)',n:'0% attach'},{a:.25,c:'var(--c2)',n:'25%'},{a:.5,c:'var(--c3)',n:'50%'},{a:1,c:'var(--c4)',n:'100%'}];
-        var series=rates.map(function(rt){ return {name:rt.n,color:rt.c,type:'line',data:pts.map(function(u){ return {x:u,y:u*(r.cu+rt.a*r.ct)-v.a_fixs}; })}; });
+        // break-even chart: profit vs users at four usage levels
+        var maxU=Math.max(r.users*2,Math.min(4000,(uBE||0)*1.6),400); var pts=[]; for(var i=0;i<=40;i++) pts.push(Math.round(maxU*i/40));
+        var levels=[{H:v.a_hours,c:'var(--c1)'},{H:r.H,c:'var(--c2)'},{H:r.H+8,c:'var(--c3)'},{H:r.H+18,c:'var(--c4)'}];
+        var series=levels.map(function(l){ return {name:num(l.H,1)+' hrs',color:l.c,type:'line',data:pts.map(function(u){ var c=appCalc(v,Math.max(u,1),l.H); return {x:u,y:u*c.cu-v.a_floor}; })}; });
         drawChart('ch-app-be',{series:series,fmtX:function(x){return num(x);},fmtY:function(y){return moneyK(y);},xLabel:'Active users',yLabel:'Monthly profit',
-            marker:{x:r.users,y:r.profit,label:'now: '+num(r.users)+' users, '+pct(r.a*100,0)+' attach'},tipTitle:function(x){return num(x)+' users';},aria:'Monthly profit against user count at four top-up attach rates'});
+            marker:{x:r.users,y:r.profit,label:'now: '+num(r.users)+' users, '+num(r.H,1)+' hrs'},tipTitle:function(x){return num(x)+' users';},aria:'Monthly profit against user count at four usage levels'});
 
         appForecast(r);
     }
@@ -694,12 +702,12 @@
         var v=app.vals, f=appf.vals, rows=[], cum=0, be=null, cbe=null, wasNeg=false, u=f.af_start;
         var fc=[], fcum=[];
         for(var m=1;m<=f.af_months;m++){
-            var users=Math.round(u), tops=users*r.a, rev=users*v.a_base+tops*v.a_tp, cost=users*(v.a_var+v.a_fixu)+v.a_fixs+tops*v.a_tc, p=rev-cost; cum+=p;
+            var users=Math.round(u), c=appCalc(v,users), p=c.profit; cum+=p;
             if(be==null&&p>=0) be=m; if(p<0) wasNeg=true; if(cbe==null&&wasNeg&&cum>=0) cbe=m;
-            rows.push({be:m===be||m===cbe,cells:[{t:'M'+m},{t:num(users)},{t:num(tops,1)},{t:money(rev)},{t:money(cost)},{t:money(p),cls:signCls(p)},{t:money(cum),cls:signCls(cum)}]});
+            rows.push({be:m===be||m===cbe,cells:[{t:'M'+m},{t:num(users)},{t:num(c.tops)},{t:money(c.rev)},{t:money(c.cost)},{t:money(p),cls:signCls(p)},{t:money(cum),cls:signCls(cum)}]});
             fc.push({x:m,y:p}); fcum.push({x:m,y:cum}); u*=1+f.af_growth/100;
         }
-        var never=r.cPer<=0;
+        var never=r.cu<=0;
         setV('af-be', never?'never':(be==null?'beyond horizon':(be===1?'Month 1':'Month '+be)), never?-1:(be==null?-1:1));
         setV('af-cbe', never?'never':(cbe!=null?'Month '+cbe:(be===1&&!wasNeg?'Month 1':'beyond horizon')), never?-1:((cbe!=null||(be===1&&!wasNeg))?1:-1));
         setV('af-users', num(Math.round(u/(1+f.af_growth/100))));
@@ -711,7 +719,7 @@
 
     // ============ ENGINE MODEL ============
     var ENG_DEFS=[
-        {group:'Rate card', id:'e_cost', label:'Our cost per token', note:'fully loaded GCP compute, storage, cache per audio second', value:0.001, min:0, max:0.02, step:0.0001, prefix:'$'},
+        {group:'Rate card', id:'e_cost', label:'Our cost per token', note:'fully loaded compute, storage and cache per audio second; the app planning rate of $3.30 per hour is $0.00092 per second', value:0.001, min:0, max:0.02, step:0.0001, prefix:'$'},
         {id:'e_price', label:'List price per token to partner', note:'per audio second', value:0.005, min:0, max:0.05, step:0.0001, prefix:'$', slider:true},
         {id:'e_floor', label:'Gross margin floor', note:'the rate card never prices below the margin this implies', value:60, min:0, max:95, step:1, suffix:'%', slider:true},
         {group:'Partner volume', id:'e_clin', label:'Clinicians using Arvi via the partner', value:100, min:1, max:2000, hardMax:100000, step:1, slider:true},
@@ -861,7 +869,6 @@
     engf=buildFields('engf-fields',ENGF_DEFS,engUpdate);
     $('app-reset').addEventListener('click',function(){ app.reset(); appf.reset(); engUpdate(); });
     $('eng-reset').addEventListener('click',function(){ eng.reset(); engf.reset(); });
-    $('app-pool').addEventListener('click',function(){ var v=app.vals; if(v.a_fixu>0){ app.set('a_fixs',Math.round(v.a_fixu*v.a_users)); app.set('a_fixu',0); } else if(v.a_fixs>0&&v.a_users>0){ app.set('a_fixu',+(v.a_fixs/v.a_users).toFixed(2)); app.set('a_fixs',0); } saveState(); updateAll(); });
     updateAll();
     window.addEventListener('resize',function(){ clearTimeout(window.__rt); window.__rt=setTimeout(updateAll,150); });
 
