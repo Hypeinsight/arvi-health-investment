@@ -250,7 +250,7 @@
                         <div class="toolbar">
                             <button class="btn" id="app-reset"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Reset defaults</button>
                         </div>
-                        <p class="note">Fixed add-ons per user step with the user band: <b>$15.40</b> up to 100 users, <b>$15.82</b> from 100 and <b>$16.86</b> from 500, covering Redis plus the GCP resources and Pusher capacity needed at that scale. Usage hours drive the Azure cost; top-ups per user drive revenue and are entered directly, so the two can be set independently.</p>
+                        <p class="note">Fixed add-ons per user step with the user band: <b>$15.40</b> up to 100 users, <b>$15.82</b> from 100 and <b>$16.86</b> from 500, covering Redis plus the GCP resources and Pusher capacity needed at that scale. Pick how many doctors top up and how much each group records. The blended average across both groups drives the monthly figures; the defaults (70% topping up, 20 hrs against 10 hrs) give the observed average of 17 hrs per user.</p>
                     </div>
 
                     <div>
@@ -278,7 +278,7 @@
                     <div class="panel glass">
                         <h3>Per-user unit economics <span class="pill">One month</span></h3>
                         <div class="tbl-wrap"><table>
-                            <thead><tr><th>Line</th><th>Per user</th></tr></thead>
+                            <thead><tr><th>Line</th><th>Per user, blended</th></tr></thead>
                             <tbody>
                                 <tr><td>Base subscription</td><td id="u-base">–</td></tr>
                                 <tr><td id="u-tprev-l">Top-up revenue</td><td id="u-tprev">–</td></tr>
@@ -636,8 +636,10 @@
         {id:'a_hours', label:'Audio hours included in base', value:10, min:1, max:100, step:1, suffix:'hrs'},
         {id:'a_tp', label:'Top-up price', note:'one extra pack of hours', value:39.99, min:0, max:200, step:0.01, prefix:'$'},
         {id:'a_tph', label:'Audio hours per top-up', value:10, min:1, max:100, step:1, suffix:'hrs'},
-        {group:'Usage', id:'a_use', label:'Average audio hours per user per month', note:'observed average is about 17; drives the Azure cost', value:17, min:1, max:80, step:0.5, suffix:'hrs', slider:true},
-        {id:'a_packs', label:'Top-ups bought per user per month', note:'average across users; drives top-up revenue (17 hrs needs at least 1 pack)', value:1, min:0, max:10, step:0.1, slider:true},
+        {group:'Usage', id:'a_share', label:'Doctors who top up', note:'share of active users buying at least one pack in the month', value:70, min:0, max:100, step:1, suffix:'%', slider:true},
+        {id:'a_packs', label:'Packs each topping-up doctor buys', note:'per month', value:1, min:0, max:10, step:0.5, slider:true},
+        {id:'a_use_top', label:'Hours used by doctors who top up', note:'per month; drives their Azure cost', value:20, min:1, max:120, step:0.5, suffix:'hrs', slider:true},
+        {id:'a_use_base', label:'Hours used by doctors who do not top up', note:'per month; at most the included hours unless usage goes unbilled', value:10, min:0, max:60, step:0.5, suffix:'hrs', slider:true},
         {group:'Costs', id:'a_rate', label:'Azure AI cost per audio hour', note:'measured $2.33 (June), $2.70 (July), $3.20 (August); $3.33 used as the planning rate', value:3.33, min:0, max:20, step:0.01, prefix:'$'},
         {id:'a_addon', label:'Fixed add-ons per user per month', note:'Redis and per-user services at up to 100 users; steps up by band automatically', value:15.40, min:0, max:200, step:0.01, prefix:'$'},
         {id:'a_floor', label:'Shared monthly floor', note:'fixed infrastructure, spread across all active users', value:2000, min:0, max:50000, hardMax:10000000, step:50, prefix:'$'}
@@ -653,10 +655,12 @@
     // Per-user economics at a given user count, usage level H (audio hours per month) and top-ups per user.
     // With no H given, the entered usage and entered top-ups apply; with an explicit H, top-ups are the packs that usage needs.
     function neededPacks(v,H){ return Math.max(0,Math.ceil((H-v.a_hours)/v.a_tph-1e-9)); }
+    function avgHours(v){ var s=v.a_share/100; return (1-s)*v.a_use_base+s*v.a_use_top; }
+    function avgPacks(v){ return v.a_share/100*v.a_packs; }
     function appCalc(v, users, H, packs){
         users=users!=null?users:v.a_users;
-        if(packs==null) packs=(H==null?v.a_packs:neededPacks(v,H));
-        H=H!=null?H:v.a_use;
+        if(packs==null) packs=(H==null?avgPacks(v):neededPacks(v,H));
+        H=H!=null?H:avgHours(v);
         var revU=v.a_base+packs*v.a_tp, azure=H*v.a_rate, addon=addonAt(v,users), floorU=users?v.a_floor/users:0;
         var cu=revU-azure-addon, costU=azure+addon+floorU, net=cu-floorU;
         var rev=users*revU, cost=users*(azure+addon)+v.a_floor;
@@ -678,18 +682,21 @@
         setV('a-usersbe', uBE==null?'never':(uBE===0?'any':num(uBE)), uBE==null?-1:1);
         // per-user unit economics
         function cell(id,val,sign){ var el=$(id); el.textContent=money(val,2); el.className=sign?signCls(val):''; }
-        $('u-tprev-l').textContent='Top-up revenue ('+num(r.packs,1)+' pack'+(r.packs===1?'':'s')+' × '+money(v.a_tp,2)+')';
+        $('u-tprev-l').textContent='Top-up revenue ('+pct(v.a_share)+' × '+num(v.a_packs,1)+' pack'+(v.a_packs===1?'':'s')+' × '+money(v.a_tp,2)+')';
         $('u-var-l').textContent='Azure AI cost ('+num(r.H,1)+' hrs × '+money(v.a_rate,2)+')';
         $('u-fixu-l').textContent='Fixed add-ons (band: '+(r.users>=500?'500+':(r.users>=100?'100 to 500':'up to 100'))+' users)';
         $('u-pool-l').textContent='Shared floor ('+money(v.a_floor)+' ÷ '+num(r.users)+' users)';
         $('u-cph-l').textContent='All-in cost per user-hour ('+money(r.costU,2)+' ÷ '+num(r.H,1)+' hrs)';
         cell('u-base',v.a_base); cell('u-tprev',r.packs*v.a_tp); cell('u-rev',r.revU); cell('u-var',-r.azure); cell('u-fixu',-r.addon);
         cell('u-cu',r.cu,true); cell('u-pool',-r.floorU); cell('u-net',r.net,true); cell('u-cph',r.cph);
-        var baseOnly=appCalc(v,r.users,v.a_hours);
+        var baseOnly=appCalc(v,r.users,v.a_use_base,0), topper=appCalc(v,r.users,v.a_use_top,v.a_packs);
         var un=$('a-unit-note');
-        un.className='callout'+(baseOnly.cu<0?' warn':'');
-        un.innerHTML='<b>A user who only uses the '+num(v.a_hours)+' included hours '+(baseOnly.cu<0?'loses':'earns')+' Arvi '+money(Math.abs(baseOnly.cu),2)+'</b> before the floor ('+money(v.a_base,2)+' against '+money(baseOnly.azure+baseOnly.addon,2)+' of Azure and add-ons). At '+num(r.H,1)+' hrs and '+num(r.packs,1)+' top-up'+(r.packs===1?'':'s')+' the same user pays '+money(r.revU,2)+' and costs '+money(r.azure+r.addon,2)+', so contributes '+money(r.cu,2)+'. Each top-up hour earns '+money(v.a_tph?v.a_tp/v.a_tph:0,2)+' against '+money(v.a_rate,2)+' of Azure, a margin of '+money(r.mh,2)+' per hour.'+
-            (r.packs<r.needed?' <b>Note:</b> '+num(r.H,1)+' hrs of usage needs at least '+r.needed+' pack'+(r.needed===1?'':'s')+' on top of the '+num(v.a_hours)+' included; fewer top-ups than that means usage the plan is not charging for.':'');
+        un.className='callout'+(r.cu<0?' warn':'');
+        un.innerHTML='<b>Doctors who do not top up</b> ('+pct(100-v.a_share)+' of users) pay '+money(v.a_base,2)+', use '+num(v.a_use_base,1)+' hrs and cost '+money(baseOnly.azure+baseOnly.addon,2)+' before the floor, so each '+(baseOnly.cu<0?'loses':'earns')+' Arvi <b>'+money(Math.abs(baseOnly.cu),2)+'</b>. '+
+            '<b>Doctors who top up</b> ('+pct(v.a_share)+') pay '+money(topper.revU,2)+' for '+num(v.a_packs,1)+' pack'+(v.a_packs===1?'':'s')+', use '+num(v.a_use_top,1)+' hrs and cost '+money(topper.azure+topper.addon,2)+', so each '+(topper.cu<0?'loses':'earns')+' <b>'+money(Math.abs(topper.cu),2)+'</b>. '+
+            'Blended, that is '+num(r.H,1)+' hrs and '+num(r.packs,2)+' packs per user, contributing '+money(r.cu,2)+' before the floor. Each top-up hour earns '+money(v.a_tph?v.a_tp/v.a_tph:0,2)+' against '+money(v.a_rate,2)+' of Azure, a margin of '+money(r.mh,2)+' per hour.'+
+            (v.a_use_base>v.a_hours?' <b>Note:</b> non-topping doctors are using more than the '+num(v.a_hours)+' included hours; that usage is unbilled.':'')+
+            (v.a_use_top>v.a_hours+v.a_packs*v.a_tph?' <b>Note:</b> topping-up doctors use more hours than their packs cover ('+num(v.a_hours+v.a_packs*v.a_tph,1)+' hrs); either they buy more packs or that usage is unbilled.':'');
         var vd=$('a-verdict');
         if(r.cu<=0){ vd.className='callout warn'; vd.innerHTML='<b>Unit margin is negative at '+num(r.H,1)+' hrs per user.</b> Each user costs '+money(r.azure+r.addon,2)+' before the floor and pays '+money(r.revU,2)+', a loss of '+money(-r.cu,2)+' that grows with every user added. Only price, pack size, usage or the Azure rate change that.'; }
         else { vd.className='callout'; vd.innerHTML='<b>Unit margin is positive at '+num(r.H,1)+' hrs per user.</b> Each user contributes <b>'+money(r.cu,2)+'</b> before the floor, so the '+money(v.a_floor)+' floor is covered at <b>'+(uBE==null?'–':num(uBE))+' users</b>. At '+num(r.users)+' users the month comes to <b>'+money(r.profit)+'</b>, or <b>'+moneyK(r.profit*12)+'</b> a year, and every extra user adds about '+money(r.cu,2)+'.'; }
@@ -699,7 +706,7 @@
         var levels=[{H:v.a_hours,c:'var(--c1)'},{H:r.H,c:'var(--c2)'},{H:r.H+8,c:'var(--c3)'},{H:r.H+18,c:'var(--c4)'}];
         var series=levels.map(function(l){ var pk=neededPacks(v,l.H); return {name:num(l.H,1)+' hrs, '+pk+' pack'+(pk===1?'':'s'),color:l.c,type:'line',data:pts.map(function(u){ var c=appCalc(v,Math.max(u,1),l.H); return {x:u,y:u*c.cu-v.a_floor}; })}; });
         drawChart('ch-app-be',{series:series,fmtX:function(x){return num(x);},fmtY:function(y){return moneyK(y);},xLabel:'Active users',yLabel:'Monthly profit',
-            marker:{x:r.users,y:r.profit,label:'now: '+num(r.users)+' users, '+num(r.H,1)+' hrs, '+num(r.packs,1)+' packs'},tipTitle:function(x){return num(x)+' users';},aria:'Monthly profit against user count at four usage levels'});
+            marker:{x:r.users,y:r.profit,label:'now: '+num(r.users)+' users, '+pct(v.a_share)+' topping up'},tipTitle:function(x){return num(x)+' users';},aria:'Monthly profit against user count at four usage levels'});
 
         appForecast(r);
     }
