@@ -133,12 +133,12 @@
     <main><div class="inner">
         <div class="label"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> Application model</div>
         <h1 class="title">What the $30 plan earns, costed on real usage</h1>
-        <p class="subtitle">A doctor pays <b>$29.99 a month for a 10-hour block</b> of recording and <b>$39.99 for every extra block</b>. Tell the calculator how many doctors are on the plan and how many buy one or two extra blocks. It then charges every hour of audio at Arvi's actual Azure cost, taken from the last three invoices, adds the services each doctor consumes and the fixed infrastructure floor, and reports whether the month makes money and how many doctors it takes to break even.</p>
+        <p class="subtitle">A doctor pays <b>$29.99 a month for a block of roughly 10 AI and processing hours</b> and <b>$39.99 for every extra 10-hour block</b>. Tell the calculator how many doctors are on the plan and how many buy one or two extra blocks. It then charges the estimated AI and processing hours at Arvi's actual Azure cost, taken from the last three invoices, adds the services each doctor consumes and the fixed infrastructure floor, and reports whether the month makes money and how many doctors it takes to break even.</p>
 
         <div class="steps">
             <div class="step glass"><div class="sn">1 · REVENUE</div><h4>Blocks sold</h4><p><b>$29.99</b> per doctor for the base block, plus <b>$39.99</b> per extra block. A doctor who tops up once pays $69.98 a month; twice, $109.97.</p></div>
-            <div class="step glass"><div class="sn">2 · HOURS</div><h4>Blocks used in full</h4><p>Base-only doctors record <b>10 hours</b> a month, once-toppers <b>20</b>, twice-toppers <b>30</b>. Those hours are what Azure bills for.</p></div>
-            <div class="step glass"><div class="sn">3 · AZURE</div><h4>Fixed plus per hour</h4><p>The June, July and August invoices fit one line: <b>$80.48 a month plus $1.86 per audio hour</b>. More hours spread the fixed part thinner, so the cost per hour falls as the practice grows.</p></div>
+            <div class="step glass"><div class="sn">2 · HOURS</div><h4>Blocks used in full</h4><p>Each block is roughly <b>10 AI and processing hours</b>. A doctor on the base block uses about 10 a month; with one extra block about 20; with two about 30. Those estimated hours are what Azure bills for.</p></div>
+            <div class="step glass"><div class="sn">3 · AZURE</div><h4>Fixed plus per hour</h4><p>The June, July and August invoices fit one line: <b>$80.48 a month plus $1.86 per AI and processing hour</b>. More hours spread the fixed part thinner, so the cost per hour falls as the practice grows.</p></div>
             <div class="step glass"><div class="sn">4 · OTHER COSTS</div><h4>Services and floor</h4><p><b>$15.40 a month per doctor</b> for Redis, GCP and Pusher, stepping up at 100 and 500 doctors, plus a <b>$2,000 a month floor</b> shared across everyone on the plan.</p></div>
         </div>
 
@@ -146,8 +146,8 @@
             <div class="panel glass">
                 <h3>Your scenario <span class="pill">Type or slide</span></h3>
                 <div class="field"><div class="top"><label for="n">Doctors on the plan</label><div class="in"><input type="number" id="n" min="1" max="100000" step="1"></div></div><input type="range" id="n-r" min="1" max="1000" step="1"></div>
-                <div class="field"><div class="top"><label for="p1">Doctors who top up once<small>20 hours a month, $69.98</small></label><div class="in"><input type="number" id="p1" min="0" max="100" step="1"><span>%</span></div></div><input type="range" id="p1-r" min="0" max="100" step="1"></div>
-                <div class="field"><div class="top"><label for="p2">Doctors who top up twice<small>30 hours a month, $109.97</small></label><div class="in"><input type="number" id="p2" min="0" max="100" step="1"><span>%</span></div></div><input type="range" id="p2-r" min="0" max="100" step="1"><small id="p0-note"></small></div>
+                <div class="field"><div class="top"><label for="p1">Doctors who top up once<small>one extra 10-hour block, about 20 AI and processing hours, $69.98</small></label><div class="in"><input type="number" id="p1" min="0" max="100" step="1"><span>%</span></div></div><input type="range" id="p1-r" min="0" max="100" step="1"></div>
+                <div class="field"><div class="top"><label for="p2">Doctors who top up twice<small>two extra 10-hour blocks, about 30 AI and processing hours, $109.97</small></label><div class="in"><input type="number" id="p2" min="0" max="100" step="1"><span>%</span></div></div><input type="range" id="p2-r" min="0" max="100" step="1"><small id="p0-note"></small></div>
             </div>
             <div>
                 <div class="outs">
@@ -166,11 +166,11 @@
             <div class="panel glass">
                 <h3>Azure cost per hour <span class="pill">Moves with the hours</span></h3>
                 <div class="azbox">
-                    <div class="azbig"><div class="v" id="az-rate">–</div><div class="l">per audio hour at <b id="az-hours">–</b> this month</div></div>
+                    <div class="azbig"><div class="v" id="az-rate">–</div><div class="l">per AI and processing hour at roughly <b id="az-hours">–</b> this month</div></div>
                     <div class="azmath" id="az-math"></div>
                 </div>
                 <div class="chart-wrap" id="az-chart" style="margin-top:1rem"></div>
-                <p class="note">The curve is the invoice fit: fixed $80.48 divided over more hours, plus $1.86 for each hour. The three dots are the months invoiced. The marked point is your scenario.</p>
+                <p class="note">The curve is the invoice fit: fixed $80.48 divided over more hours, plus $1.86 for each AI and processing hour. The three dots are the months invoiced. The marked point is your scenario, at its estimated hours.</p>
             </div>
             <div class="panel glass">
                 <h3>Profit as doctors grow <span class="pill">Same top-up mix</span></h3>
@@ -208,7 +208,7 @@
         <details class="glass">
             <summary><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Assumptions, and how to change them</summary>
             <div class="basis">
-                <b>Azure.</b> The three invoices were June $396.00 for 169.89 hours, July $257.30 for 92.65 hours and August $185.26 for 57.69 hours. A straight line through them, $80.48 a month plus $1.8646 per hour, lands within $4 of each invoice. That line is what the calculator charges. It is the pay-as-you-go rate; a commitment tier would lower the per-hour figure further at volume.
+                <b>Azure.</b> The three invoices were June $396.00 for 169.89 hours, July $257.30 for 92.65 hours and August $185.26 for 57.69 hours. A straight line through them, $80.48 a month plus $1.8646 per AI and processing hour, lands within $4 of each invoice. That line is what the calculator charges. It is the pay-as-you-go rate; a commitment tier would lower the per-hour figure further at volume.
                 <b>Services.</b> $15.40 a month per doctor up to 100 doctors, $15.82 from 100, $16.86 from 500, covering Redis and the GCP and Pusher capacity that scale needs.
                 <b>Floor.</b> $2,000 a month of fixed infrastructure, divided across every doctor on the plan.
             </div>
@@ -225,11 +225,11 @@
     var D={base:29.99,top:39.99,blk:10,azFix:80.48,azHr:1.8646,addon:15.40,floor:2000};
     var INV=[{m:'June',h:169.89,c:396.00},{m:'July',h:92.65,c:257.30},{m:'August',h:57.69,c:185.26}];
     var ADV=[
-        {id:'base',label:'Base block price',pre:'$',step:0.01,note:'per doctor per month, includes 10 hours'},
+        {id:'base',label:'Base block price',pre:'$',step:0.01,note:'per doctor per month, includes one block'},
         {id:'top',label:'Extra block price',pre:'$',step:0.01},
-        {id:'blk',label:'Hours per block',suf:'hrs',step:1},
+        {id:'blk',label:'AI and processing hours per block',suf:'hrs',step:1,note:'an estimate; blocks are roughly 10 hours'},
         {id:'azFix',label:'Azure fixed per month',pre:'$',step:0.01,note:'from the invoice fit'},
-        {id:'azHr',label:'Azure per audio hour',pre:'$',step:0.0001,note:'from the invoice fit'},
+        {id:'azHr',label:'Azure per AI and processing hour',pre:'$',step:0.0001,note:'from the invoice fit'},
         {id:'addon',label:'Services per doctor',pre:'$',step:0.01,note:'up to 100 doctors; band steps added on top'},
         {id:'floor',label:'Floor per month',pre:'$',step:10}
     ];
@@ -287,7 +287,7 @@
 
     function update(){
         ['n','p1','p2'].forEach(function(k){ $(k).value=S[k]; $(k+'-r').value=Math.min(S[k],+$(k+'-r').max); });
-        $('p0-note').textContent='The other '+(100-S.p1-S.p2)+'% stay on the base block: 10 hours, $29.99.';
+        $('p0-note').textContent='The other '+(100-S.p1-S.p2)+'% stay on the base block: roughly 10 AI and processing hours, $29.99.';
         var r=calc(S.n,S.p1,S.p2), be=breakEven(S.p1,S.p2);
         setV('o-profit',moneyK(r.profit)); setV('o-rev',moneyK(r.rev)); setV('o-cost',moneyK(r.cost));
         $('o-cost-sub').textContent='Azure '+moneyK(r.azure)+' · services '+moneyK(r.addons)+' · floor '+moneyK(r.floor);
@@ -298,22 +298,22 @@
         if(r.profit>=0){ v.className='callout'; v.innerHTML='<b>This month makes '+money(r.profit)+'.</b> '+num(S.n)+' doctors pay '+money(r.rev)+' and cost '+money(r.cost)+'. Break-even was '+(be||'–')+' doctors with this mix; every doctor beyond that adds about '+money(r.revDoc-r.azDoc-r.addDoc,2)+' a month, and the year comes to '+moneyK(r.profit*12)+'.'; }
         else { v.className='callout warn'; v.innerHTML='<b>This month loses '+money(-r.profit)+'.</b> '+num(S.n)+' doctors pay '+money(r.rev)+' and cost '+money(r.cost)+'. '+(be==null?'With this top-up mix the plan never breaks even: each doctor costs more in Azure and services than they pay, before the floor is counted.':'The plan breaks even at <b>'+num(be)+' doctors</b> with this mix, because the $2,000 floor and the fixed Azure charge are spread over more doctors while each one still brings about '+money(r.revDoc-r.azDoc-r.addDoc,2)+' a month after their own costs.'); }
         // azure box
-        setV('az-rate',money(r.azHr,2)); $('az-hours').textContent=num(r.hours)+' hours';
-        $('az-math').innerHTML='<b>'+money(A.azFix,2)+'</b> fixed + <b>'+num(r.hours)+' hrs × '+money(A.azHr,2)+'</b> = <b>'+money(r.azure,2)+'</b> for the month<br>'+money(r.azure,2)+' ÷ '+num(r.hours)+' hrs = <b>'+money(r.azHr,2)+' per hour</b><br>'+num(S.n)+' doctors × '+num(r.hrsPer,1)+' hrs each = '+num(r.hours)+' hrs';
+        setV('az-rate',money(r.azHr,2)); $('az-hours').textContent=num(r.hours)+' estimated hours';
+        $('az-math').innerHTML='<b>'+money(A.azFix,2)+'</b> fixed + <b>about '+num(r.hours)+' hrs × '+money(A.azHr,2)+'</b> = <b>'+money(r.azure,2)+'</b> for the month<br>'+money(r.azure,2)+' ÷ about '+num(r.hours)+' hrs = <b>'+money(r.azHr,2)+' per AI and processing hour</b><br>'+num(S.n)+' doctors × roughly '+num(r.hrsPer)+' hrs each = about '+num(r.hours)+' hrs';
         var hmax=Math.max(r.hours*1.6,600); var pts=[]; for(var i=1;i<=48;i++){ var h=Math.round(hmax*i/48); pts.push({x:h,y:azRate(h)}); }
-        draw('az-chart',{data:pts,name:'Azure per hour',fy:function(y){return '$'+y.toFixed(2);},xLabel:'Audio hours in the month',tipX:function(x){return num(x)+' hours';},tipY:function(y){return money(y,2)+' / hr';},
-            dots:INV.map(function(m){ return {x:m.h,y:m.c/m.h,label:m.m+' '+money(m.c/m.h,2)}; }),marker:{x:r.hours,y:r.azHr,label:'now '+money(r.azHr,2)+' / hr'},aria:'Azure cost per audio hour against monthly hours'});
+        draw('az-chart',{data:pts,name:'Azure per hour',fy:function(y){return '$'+y.toFixed(2);},xLabel:'Estimated AI and processing hours in the month',tipX:function(x){return 'about '+num(x)+' hours';},tipY:function(y){return money(y,2)+' / hr';},
+            dots:INV.map(function(m){ return {x:m.h,y:m.c/m.h,label:m.m+' '+money(m.c/m.h,2)}; }),marker:{x:r.hours,y:r.azHr,label:'now '+money(r.azHr,2)+' / hr'},aria:'Azure cost per AI and processing hour against monthly estimated hours'});
         // per-doctor table
         function cell(id,val,sign){ var e=$(id); e.textContent=money(val,2); e.className=sign?sc(val):''; }
         $('t-top-l').textContent='Extra blocks ('+num(r.packsPer,2)+' per doctor on average × '+money(A.top,2)+')';
-        $('t-az-l').textContent='Azure ('+num(r.hrsPer,1)+' hrs × '+money(r.azHr,2)+')';
+        $('t-az-l').textContent='Azure (about '+num(r.hrsPer)+' AI and processing hrs × '+money(r.azHr,2)+')';
         $('t-add-l').textContent='Services (Redis, GCP, Pusher; '+(S.n>=500?'500+':(S.n>=100?'100 to 500':'up to 100'))+' band)';
         $('t-floor-l').textContent='Share of the floor ('+money(A.floor)+' ÷ '+num(S.n)+')';
         cell('t-base',A.base); cell('t-top',r.packsPer*A.top); cell('t-rev',r.revDoc); cell('t-az',-r.azDoc); cell('t-add',-r.addDoc); cell('t-floor',-r.floorDoc); cell('t-profit',r.perDoc,true);
         // scale table
         var rows=[25,50,100,250,500,1000]; if(rows.indexOf(S.n)<0){ rows.push(S.n); rows.sort(function(a,b){return a-b;}); }
         $('scale').querySelector('tbody').innerHTML=rows.map(function(u){ var c=calc(u,S.p1,S.p2); return '<tr'+(u===S.n?' class="now"':'')+'><td>'+num(u)+(u===S.n?' (now)':'')+'</td><td>'+money(c.rev)+'</td><td>'+money(c.cost)+'</td><td class="'+sc(c.profit)+'">'+money(c.profit)+'</td><td class="'+sc(c.perDoc)+'">'+money(c.perDoc,2)+'</td></tr>'; }).join('');
-        var c1k=calc(1000,S.p1,S.p2); $('scale-note').innerHTML='Profit per doctor rises with scale because the floor and the fixed Azure charge are shared by more doctors. At 1,000 doctors Azure costs '+money(c1k.azHr,2)+' an hour and each doctor is worth '+money(c1k.perDoc,2)+' a month.';
+        var c1k=calc(1000,S.p1,S.p2); $('scale-note').innerHTML='Profit per doctor rises with scale because the floor and the fixed Azure charge are shared by more doctors. At 1,000 doctors Azure costs '+money(c1k.azHr,2)+' per AI and processing hour and each doctor is worth '+money(c1k.perDoc,2)+' a month.';
         // profit chart
         var maxU=Math.min(Math.max(S.n*2,(be||0)*1.5,200),5000); var pp=[]; for(var j=0;j<=40;j++){ var u=Math.round(maxU*j/40); pp.push({x:u,y:calc(Math.max(u,1),S.p1,S.p2).profit}); }
         draw('chart',{data:pp,name:'Profit per month',zeroBase:true,fy:function(y){return moneyK(y);},xLabel:'Doctors on the plan',tipX:function(x){return num(x)+' doctors';},tipY:function(y){return money(y);},marker:{x:S.n,y:r.profit,label:'now: '+num(S.n)+' doctors'},aria:'Monthly profit against number of doctors'});
