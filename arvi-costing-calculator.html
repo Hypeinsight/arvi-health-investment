@@ -143,10 +143,10 @@
     <main><div class="inner">
         <div class="label"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> Application model</div>
         <h1 class="title">What the $30 plan earns, doctor by doctor</h1>
-        <p class="subtitle">Doctors do not use Arvi evenly. At Sydney Gut Clinic two doctors record around 30 hours a month, one around 8, and two under 5. So the calculator models <b>three kinds of doctor</b>, Low, Mid and Heavy, each with its own count and average AI and processing hours. Every doctor pays <b>$29.99 for a block of roughly 10 hours</b> and <b>$39.99 for each extra block</b>. Azure is charged at the rate fitted from Arvi's invoices, per-doctor services and the shared floor are added, and the page shows which kind of doctor makes money and which does not.</p>
+        <p class="subtitle">Doctors do not use Arvi evenly. At Sydney Gut Clinic two doctors record around 30 hours a month, one around 8, and two around 3 or less. So the calculator models <b>three kinds of doctor</b>, Low, Mid and Heavy, each at a single average number of AI and processing hours, because a range hides the difference between a 5-hour doctor and a 19-hour one. Every doctor pays <b>$29.99 for a block of roughly 10 hours</b> and <b>$39.99 for each extra block</b>. Azure is charged at the rate fitted from Arvi's invoices, per-doctor services and the shared floor are added, and the page shows which kind of doctor makes money and which does not.</p>
 
         <div class="steps">
-            <div class="step glass"><div class="sn">1 · DOCTORS</div><h4>Three usage profiles</h4><p>Real usage is skewed: <b>Low</b> doctors use a fraction of their block, <b>Mid</b> doctors use most of it, <b>Heavy</b> doctors go well past it. Set how many of each and their average hours.</p></div>
+            <div class="step glass"><div class="sn">1 · DOCTORS</div><h4>Three usage profiles</h4><p>Real usage is skewed: <b>Low</b> doctors use a fraction of their block, <b>Mid</b> doctors use most of it, <b>Heavy</b> doctors go well past it. Each profile is one average, not a range: set how many of each and the hours they average.</p></div>
             <div class="step glass"><div class="sn">2 · REVENUE</div><h4>Blocks bought</h4><p><b>$29.99</b> buys the first block. Hours beyond it are bought as whole extra blocks at <b>$39.99</b>. Hours paid for but not used are pure margin.</p></div>
             <div class="step glass"><div class="sn">3 · AZURE</div><h4>Charged on hours actually used</h4><p>Invoices from June to August fit one line: <b>$80.48 a month plus $1.86 per AI and processing hour</b>. Unused hours cost nothing.</p></div>
             <div class="step glass"><div class="sn">4 · OTHER COSTS</div><h4>Services and floor</h4><p><b>$15.40 a month per doctor</b> for Redis, GCP and Pusher, stepping up at 100 and 500 doctors, plus a <b>$2,000 a month floor</b> shared across everyone on the plan.</p></div>
@@ -219,7 +219,7 @@
         <details class="glass">
             <summary><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Assumptions, and how to change them</summary>
             <div class="basis">
-                <b>Profiles.</b> Low is under about 5 hours a month, Mid about 5 to 20, Heavy above 20. The averages used for each are inputs above; the Sydney Gut Clinic figures suggest 3, 12.5 and 30 as starting points.
+                <b>Profiles.</b> Each profile is modelled at one average, not a range: Low about 3 hours a month, Mid about 12.5, Heavy about 30, taken from the Sydney Gut Clinic figures. Change the averages above to test other profiles; the trough chart shows what any single usage level earns.
                 <b>Azure.</b> The three invoices were June $396.00 for 169.89 hours, July $257.30 for 92.65 hours and August $185.26 for 57.69 hours. A straight line through them, $80.48 a month plus $1.8646 per AI and processing hour, lands within $4 of each invoice. That is pay-as-you-go; a commitment tier would lower the per-hour figure at volume.
                 <b>Services.</b> $15.40 a month per doctor up to 100 doctors, $15.82 from 100, $16.86 from 500.
                 <b>Floor.</b> $2,000 a month of fixed infrastructure, divided across every doctor on the plan.
@@ -246,7 +246,7 @@
         {id:'addon',label:'Services per doctor',pre:'$',step:0.01,note:'up to 100 doctors; band steps added on top'},
         {id:'floor',label:'Floor per month',pre:'$',step:10}
     ];
-    var SEGS=[{k:'L',name:'Low users',desc:'under about 5 hours a month',color:'var(--c3)'},{k:'M',name:'Mid users',desc:'about 5 to 20 hours a month',color:'var(--c2)'},{k:'H',name:'Heavy users',desc:'more than 20 hours a month',color:'var(--c1)'}];
+    var SEGS=[{k:'L',name:'Low users',color:'var(--c3)'},{k:'M',name:'Mid users',color:'var(--c2)'},{k:'H',name:'Heavy users',color:'var(--c1)'}];
     var PRESETS={ten:{nL:4,hL:3,nM:4,hM:12.5,nH:2,hH:30},sgc:{nL:2,hL:3,nM:1,hM:8,nH:2,hH:30},hundred:{nL:40,hL:3,nM:40,hM:12.5,nH:20,hH:30}};
     var st=load(); var A={}; ADV.forEach(function(f){ A[f.id]=isFinite(st[f.id])?st[f.id]:D[f.id]; });
     var S={}; ['nL','hL','nM','hM','nH','hH'].forEach(function(k){ S[k]=isFinite(st[k])?st[k]:PRESETS.ten[k]; });
@@ -307,7 +307,7 @@
     }
 
     function update(){
-        SEGS.forEach(function(g){ $('n'+g.k).value=S['n'+g.k]; $('n'+g.k+'-r').value=Math.min(S['n'+g.k],500); $('h'+g.k).value=S['h'+g.k]; $('h'+g.k+'-r').value=Math.min(S['h'+g.k],60); });
+        SEGS.forEach(function(g){ $('n'+g.k).value=S['n'+g.k]; $('n'+g.k+'-r').value=Math.min(S['n'+g.k],500); $('h'+g.k).value=S['h'+g.k]; $('h'+g.k+'-r').value=Math.min(S['h'+g.k],60); $('d'+g.k).textContent='modelled at about '+num(S['h'+g.k],1)+' hrs a month each'; });
         var t=model(S.nL,S.hL,S.nM,S.hM,S.nH,S.hH), be=breakEven(), N=t.N;
         setV('o-profit',moneyK(t.profit)); setV('o-rev',moneyK(t.rev)); $('o-rev-sub').textContent='plans '+moneyK(t.subRev)+' · top-ups '+moneyK(t.topRev);
         setV('o-cost',moneyK(t.cost)); $('o-cost-sub').textContent='Azure '+moneyK(t.azure)+' · services '+moneyK(t.addons)+' · floor '+moneyK(t.floor);
@@ -353,9 +353,9 @@
     var segsBox=$('segs');
     SEGS.forEach(function(g){
         var d=document.createElement('div'); d.className='seg';
-        d.innerHTML='<div class="sh"><b><i style="background:'+g.color+'"></i>'+g.name+'</b><span>'+g.desc+'</span></div>'+
+        d.innerHTML='<div class="sh"><b><i style="background:'+g.color+'"></i>'+g.name+'</b><span id="d'+g.k+'"></span></div>'+
             '<div class="field"><div class="top"><label for="n'+g.k+'">Doctors</label><div class="in"><input type="number" id="n'+g.k+'" min="0" max="100000" step="1"></div></div><input type="range" id="n'+g.k+'-r" min="0" max="500" step="1"></div>'+
-            '<div class="field"><div class="top"><label for="h'+g.k+'">Average hours each, roughly</label><div class="in"><input type="number" id="h'+g.k+'" min="0" max="500" step="0.5"><span>hrs</span></div></div><input type="range" id="h'+g.k+'-r" min="0" max="60" step="0.5"></div>';
+            '<div class="field"><div class="top"><label for="h'+g.k+'">Average hours each</label><div class="in"><input type="number" id="h'+g.k+'" min="0" max="500" step="0.5"><span>hrs</span></div></div><input type="range" id="h'+g.k+'-r" min="0" max="60" step="0.5"></div>';
         segsBox.appendChild(d);
         [['n',0,100000,1],['h',0,500,0.5]].forEach(function(c){ var key=c[0]+g.k;
             function set(val){ if(!isFinite(val)) return; val=Math.max(c[1],Math.min(c[2],val)); if(c[0]==='n') val=Math.round(val); S[key]=val; update(); }
