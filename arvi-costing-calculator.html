@@ -17,7 +17,7 @@
             --glass:rgba(255,255,255,.72); --glass-border:rgba(255,255,255,.65);
             --s-sm:0 4px 16px rgba(4,55,98,.06); --s-md:0 16px 44px -12px rgba(4,55,98,.20);
             --r-lg:clamp(16px,1.4vw,26px); --r-md:clamp(12px,1vw,18px); --r-sm:10px;
-            --c1:#0455A3; --neg:#b42318; --pos:#0f766e;
+            --c1:#0455A3; --c2:#b45309; --c3:#0d9488; --neg:#b42318; --pos:#0f766e;
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
@@ -32,11 +32,11 @@
         .nav-tag{font-size:clamp(.6rem,1vw,.76rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
         .nav-tag b{color:var(--primary)}
         main{position:relative;z-index:1;padding:clamp(1.5rem,4vh,3rem) clamp(1.1rem,5vw,4.6rem) 3rem}
-        .inner{max-width:1180px;margin:auto}
+        .inner{max-width:1200px;margin:auto}
         .label{display:inline-flex;align-items:center;gap:.5rem;font-size:clamp(.66rem,1vw,.8rem);font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--accent);margin-bottom:.7rem}
         .label svg{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none}
         h1.title{font-size:clamp(1.7rem,3.4vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.022em;background:linear-gradient(118deg,var(--primary-dark) 0%,var(--primary) 50%,var(--accent) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-        .subtitle{font-size:clamp(.95rem,1.2vw,1.1rem);color:var(--muted);line-height:1.6;margin-top:.8rem;max-width:76ch}
+        .subtitle{font-size:clamp(.95rem,1.2vw,1.1rem);color:var(--muted);line-height:1.6;margin-top:.8rem;max-width:78ch}
         .subtitle b{color:var(--primary-dark)}
         .glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--r-lg);box-shadow:var(--s-sm)}
         .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.7rem,1.4vw,1.1rem);margin-top:clamp(1.2rem,3vh,2rem)}
@@ -47,28 +47,41 @@
         .step h4{font-size:.95rem;color:var(--primary-dark)}
         .step p{font-size:.8rem;color:var(--muted);line-height:1.5}
         .step p b{color:var(--primary-dark)}
-        .grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:clamp(1rem,2.4vw,2rem);align-items:start;margin-top:clamp(1.2rem,3vh,2rem)}
+        .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(1rem,2.4vw,2rem);align-items:start;margin-top:clamp(1.2rem,3vh,2rem)}
         @media (max-width:940px){.grid{grid-template-columns:1fr}}
         .panel{padding:clamp(1.1rem,1.8vw,1.6rem)}
         .panel h3{font-size:clamp(.95rem,1.15vw,1.1rem);color:var(--primary-dark);font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.9rem}
         .pill{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--accent);background:rgba(105,26,106,.08);padding:.28rem .6rem;border-radius:20px;white-space:nowrap}
-        .field{padding:.55rem 0}
-        .field .top{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-bottom:.45rem}
-        .field label{font-size:clamp(.86rem,1vw,.95rem);font-weight:600;color:var(--primary-dark);line-height:1.3}
-        .field small{display:block;font-size:.74rem;color:var(--muted);font-weight:500;margin-top:.3rem;line-height:1.4}
+        .seg{padding:.7rem 0 .4rem;border-top:1px solid var(--line)}
+        .seg:first-of-type{border-top:none;padding-top:0}
+        .seg .sh{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;margin-bottom:.35rem}
+        .seg .sh b{font-size:.92rem;color:var(--primary-dark)}
+        .seg .sh span{font-size:.72rem;color:var(--muted)}
+        .seg .sh i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:.4rem;vertical-align:-1px}
+        .field{padding:.3rem 0}
+        .field .top{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-bottom:.3rem}
+        .field label{font-size:.82rem;font-weight:600;color:var(--primary-dark)}
         .field .in{display:inline-flex;align-items:center;border:1px solid rgba(4,55,98,.16);border-radius:var(--r-sm);background:#fff;overflow:hidden;flex-shrink:0}
         .field .in:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px rgba(4,85,163,.14)}
-        .field .in span{font-size:.78rem;font-weight:700;color:var(--muted);padding:0 .5rem;background:rgba(4,55,98,.04);align-self:stretch;display:flex;align-items:center;border-left:1px solid rgba(4,55,98,.08)}
-        .field input[type=number]{width:5.4rem;border:none;outline:none;font:inherit;font-weight:800;font-size:1rem;color:var(--accent);padding:.4rem .55rem;background:transparent;text-align:right;-moz-appearance:textfield;font-variant-numeric:tabular-nums}
+        .field .in span{font-size:.74rem;font-weight:700;color:var(--muted);padding:0 .45rem;background:rgba(4,55,98,.04);align-self:stretch;display:flex;align-items:center;border-left:1px solid rgba(4,55,98,.08)}
+        .field input[type=number]{width:4.6rem;border:none;outline:none;font:inherit;font-weight:800;font-size:.95rem;color:var(--accent);padding:.32rem .5rem;background:transparent;text-align:right;-moz-appearance:textfield;font-variant-numeric:tabular-nums}
         .field input[type=number]::-webkit-outer-spin-button,.field input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-        .field input[type=range]{width:100%;accent-color:var(--primary);height:6px;cursor:pointer}
+        .field input[type=range]{width:100%;accent-color:var(--primary);height:5px;cursor:pointer}
+        .toggle{display:flex;gap:.35rem;background:rgba(4,55,98,.06);padding:.3rem;border-radius:30px;margin-top:.4rem}
+        .toggle button{flex:1;border:none;background:transparent;font:inherit;font-size:.76rem;font-weight:700;color:var(--muted);padding:.48rem .5rem;border-radius:24px;cursor:pointer;transition:all .25s}
+        .toggle button.on{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 6px 16px rgba(4,85,163,.28)}
+        .presets{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.9rem}
+        .btn{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .9rem;border-radius:30px;border:1px solid rgba(4,55,98,.16);background:#fff;font:inherit;font-size:.74rem;font-weight:700;color:var(--primary-dark);cursor:pointer}
+        .btn:hover{border-color:var(--primary)}
+        .note{font-size:.8rem;color:var(--muted);line-height:1.55;margin-top:.7rem}
+        .note b{color:var(--primary-dark)}
         .outs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.4vw,1rem)}
         @media (max-width:620px){.outs{grid-template-columns:1fr 1fr}}
-        .out{padding:clamp(.95rem,1.5vw,1.3rem);min-height:112px;display:flex;flex-direction:column;justify-content:center}
-        .out .v{font-size:clamp(1.4rem,2.3vw,2rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .out{padding:clamp(.95rem,1.5vw,1.3rem);min-height:108px;display:flex;flex-direction:column;justify-content:center}
+        .out .v{font-size:clamp(1.35rem,2.2vw,1.9rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
         .out .v.neg{background-image:linear-gradient(118deg,#9f1d15,#d64545)}
         .out .v.pos{background-image:linear-gradient(118deg,#0b5c53,#16a394)}
-        .out .l{font-size:.76rem;color:var(--muted);margin-top:.4rem;line-height:1.35}
+        .out .l{font-size:.75rem;color:var(--muted);margin-top:.4rem;line-height:1.35}
         .out .l b{color:var(--primary-dark)}
         .out.hi{background:linear-gradient(150deg,var(--primary-dark),var(--primary));border-color:transparent}
         .out.hi .v{background:linear-gradient(118deg,#fff,#c8e8ff);-webkit-background-clip:text;background-clip:text}
@@ -80,16 +93,15 @@
         .row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.4vw,2rem);margin-top:clamp(1rem,2.4vw,2rem)}
         @media (max-width:940px){.row{grid-template-columns:1fr}}
         .tbl-wrap{overflow-x:auto;border-radius:var(--r-md);border:1px solid var(--glass-border)}
-        table{width:100%;border-collapse:collapse;font-size:.82rem;font-variant-numeric:tabular-nums}
-        thead th{background:var(--primary-dark);color:#fff;font-weight:700;text-align:right;padding:.6rem .75rem;white-space:nowrap;font-size:.74rem}
+        table{width:100%;border-collapse:collapse;font-size:.8rem;font-variant-numeric:tabular-nums}
+        thead th{background:var(--primary-dark);color:#fff;font-weight:700;text-align:right;padding:.55rem .7rem;white-space:nowrap;font-size:.72rem}
         thead th:first-child,tbody td:first-child{text-align:left}
-        tbody td{padding:.5rem .75rem;text-align:right;border-top:1px solid rgba(4,55,98,.07);color:#334155;white-space:nowrap}
+        tbody td{padding:.48rem .7rem;text-align:right;border-top:1px solid rgba(4,55,98,.07);color:#334155;white-space:nowrap}
         tbody td:first-child{font-weight:600;color:var(--primary-dark);white-space:normal}
         tbody tr.be td{background:rgba(200,232,255,.45);font-weight:700}
         tbody tr.now td{background:rgba(105,26,106,.07);font-weight:700}
+        tbody tr.trough td{background:rgba(255,241,220,.8)}
         td.neg{color:var(--neg)}td.pos{color:var(--pos)}
-        .note{font-size:.8rem;color:var(--muted);line-height:1.55;margin-top:.7rem}
-        .note b{color:var(--primary-dark)}
         .chart{width:100%;height:auto;display:block;overflow:visible}
         .chart .grid{stroke:rgba(4,55,98,.09)} .chart .axis{stroke:rgba(4,55,98,.28)} .chart .zero{stroke:rgba(4,55,98,.45);stroke-dasharray:3 3}
         .chart .tick{font-size:10px;fill:var(--muted);font-family:Inter,sans-serif} .chart .alabel{font-size:10px;fill:var(--muted);font-weight:600;font-family:Inter,sans-serif}
@@ -100,17 +112,17 @@
         .tip .r{display:flex;justify-content:space-between;gap:.8rem}
         .azbox{display:grid;grid-template-columns:auto 1fr;gap:1rem 1.4rem;align-items:center}
         @media (max-width:620px){.azbox{grid-template-columns:1fr}}
-        .azbig .v{font-size:clamp(2rem,3.6vw,3rem);font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-        .azbig .l{font-size:.78rem;color:var(--muted);margin-top:.45rem;line-height:1.4;max-width:24ch}
+        .azbig .v{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:linear-gradient(118deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .azbig .l{font-size:.76rem;color:var(--muted);margin-top:.45rem;line-height:1.4;max-width:24ch}
         .azbig .l b{color:var(--primary-dark)}
-        .azmath{font-size:.84rem;color:#334155;line-height:1.7;padding:.9rem 1.1rem;border-radius:var(--r-md);background:rgba(200,232,255,.3);border:1px solid rgba(4,85,163,.15);font-variant-numeric:tabular-nums}
+        .azmath{font-size:.82rem;color:#334155;line-height:1.7;padding:.8rem 1rem;border-radius:var(--r-md);background:rgba(200,232,255,.3);border:1px solid rgba(4,85,163,.15);font-variant-numeric:tabular-nums}
         .azmath b{color:var(--primary-dark)}
         details{margin-top:clamp(1rem,2.4vw,2rem)}
         details summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.6rem;font-size:.9rem;font-weight:700;color:var(--primary-dark);padding:1rem 1.3rem}
         details summary::-webkit-details-marker{display:none}
         details summary svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.2;fill:none;transition:transform .25s}
         details[open] summary svg{transform:rotate(90deg)}
-        .adv{padding:0 1.3rem 1.3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.6rem 1.4rem}
+        .adv{padding:0 1.3rem 1.3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.6rem 1.4rem}
         .adv .f label{display:block;font-size:.78rem;font-weight:600;color:var(--primary-dark);margin-bottom:.3rem}
         .adv .f small{display:block;font-size:.7rem;color:var(--muted);margin-top:.2rem;line-height:1.35}
         .adv .in{display:inline-flex;align-items:center;border:1px solid rgba(4,55,98,.16);border-radius:var(--r-sm);background:#fff;overflow:hidden}
@@ -118,8 +130,6 @@
         .adv .in span{font-size:.76rem;font-weight:700;color:var(--muted);padding:0 .45rem;background:rgba(4,55,98,.04);align-self:stretch;display:flex;align-items:center}
         .adv input[type=number]{width:6.5rem;border:none;outline:none;font:inherit;font-weight:700;font-size:.88rem;color:var(--primary-dark);padding:.42rem .55rem;background:transparent;text-align:right;-moz-appearance:textfield}
         .adv input[type=number]::-webkit-outer-spin-button,.adv input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-        .btn{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem 1rem;border-radius:30px;border:1px solid rgba(4,55,98,.16);background:#fff;font:inherit;font-size:.76rem;font-weight:700;color:var(--primary-dark);cursor:pointer}
-        .btn:hover{border-color:var(--primary)}
         .basis{padding:0 1.3rem 1rem;font-size:.82rem;color:var(--muted);line-height:1.65}
         .basis b{color:var(--primary-dark)}
         footer{position:relative;z-index:1;text-align:center;padding:1rem 1rem 2rem;font-size:.72rem;color:var(--muted)}
@@ -132,31 +142,38 @@
     </nav>
     <main><div class="inner">
         <div class="label"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> Application model</div>
-        <h1 class="title">What the $30 plan earns, costed on real usage</h1>
-        <p class="subtitle">A doctor pays <b>$29.99 a month for a block of roughly 10 AI and processing hours</b> and <b>$39.99 for every extra 10-hour block</b>. Tell the calculator how many doctors are on the plan and how many buy one or two extra blocks. It then charges the estimated AI and processing hours at Arvi's actual Azure cost, taken from the last three invoices, adds the services each doctor consumes and the fixed infrastructure floor, and reports whether the month makes money and how many doctors it takes to break even.</p>
+        <h1 class="title">What the $30 plan earns, doctor by doctor</h1>
+        <p class="subtitle">Doctors do not use Arvi evenly. At Sydney Gut Clinic two doctors record around 30 hours a month, one around 8, and two under 5. So the calculator models <b>three kinds of doctor</b>, Low, Mid and Heavy, each with its own count and average AI and processing hours. Every doctor pays <b>$29.99 for a block of roughly 10 hours</b> and <b>$39.99 for each extra block</b>. Azure is charged at the rate fitted from Arvi's invoices, per-doctor services and the shared floor are added, and the page shows which kind of doctor makes money and which does not.</p>
 
         <div class="steps">
-            <div class="step glass"><div class="sn">1 · REVENUE</div><h4>Blocks sold</h4><p><b>$29.99</b> per doctor for the base block, plus <b>$39.99</b> per extra block. A doctor who tops up once pays $69.98 a month; twice, $109.97.</p></div>
-            <div class="step glass"><div class="sn">2 · HOURS</div><h4>Blocks used in full</h4><p>Each block is roughly <b>10 AI and processing hours</b>. A doctor on the base block uses about 10 a month; with one extra block about 20; with two about 30. Those estimated hours are what Azure bills for.</p></div>
-            <div class="step glass"><div class="sn">3 · AZURE</div><h4>Fixed plus per hour</h4><p>The June, July and August invoices fit one line: <b>$80.48 a month plus $1.86 per AI and processing hour</b>. More hours spread the fixed part thinner, so the cost per hour falls as the practice grows.</p></div>
+            <div class="step glass"><div class="sn">1 · DOCTORS</div><h4>Three usage profiles</h4><p>Real usage is skewed: <b>Low</b> doctors use a fraction of their block, <b>Mid</b> doctors use most of it, <b>Heavy</b> doctors go well past it. Set how many of each and their average hours.</p></div>
+            <div class="step glass"><div class="sn">2 · REVENUE</div><h4>Blocks bought</h4><p><b>$29.99</b> buys the first block. Hours beyond it are bought as extra blocks at <b>$39.99</b>, either whole blocks or, as a test, priced per hour. Hours paid for but not used are pure margin.</p></div>
+            <div class="step glass"><div class="sn">3 · AZURE</div><h4>Charged on hours actually used</h4><p>Invoices from June to August fit one line: <b>$80.48 a month plus $1.86 per AI and processing hour</b>. Unused hours cost nothing.</p></div>
             <div class="step glass"><div class="sn">4 · OTHER COSTS</div><h4>Services and floor</h4><p><b>$15.40 a month per doctor</b> for Redis, GCP and Pusher, stepping up at 100 and 500 doctors, plus a <b>$2,000 a month floor</b> shared across everyone on the plan.</p></div>
         </div>
 
         <div class="grid">
             <div class="panel glass">
-                <h3>Your scenario <span class="pill">Type or slide</span></h3>
-                <div class="field"><div class="top"><label for="n">Doctors on the plan</label><div class="in"><input type="number" id="n" min="1" max="100000" step="1"></div></div><input type="range" id="n-r" min="1" max="1000" step="1"></div>
-                <div class="field"><div class="top"><label for="p1">Doctors who top up once<small>one extra 10-hour block, about 20 AI and processing hours, $69.98</small></label><div class="in"><input type="number" id="p1" min="0" max="100" step="1"><span>%</span></div></div><input type="range" id="p1-r" min="0" max="100" step="1"></div>
-                <div class="field"><div class="top"><label for="p2">Doctors who top up twice<small>two extra 10-hour blocks, about 30 AI and processing hours, $109.97</small></label><div class="in"><input type="number" id="p2" min="0" max="100" step="1"><span>%</span></div></div><input type="range" id="p2-r" min="0" max="100" step="1"><small id="p0-note"></small></div>
+                <h3>Your doctors <span class="pill">Type or slide</span></h3>
+                <div id="segs"></div>
+                <div class="field" style="margin-top:.6rem"><label>How extra hours are bought</label>
+                    <div class="toggle"><button id="rule-block" class="on">Whole 10-hour blocks</button><button id="rule-hour">Priced per hour</button></div>
+                    <p class="note" id="rule-note" style="margin-top:.45rem"></p>
+                </div>
+                <div class="presets">
+                    <button class="btn" data-preset="sgc">Sydney Gut Clinic today</button>
+                    <button class="btn" data-preset="ten">10-doctor practice</button>
+                    <button class="btn" data-preset="hundred">100 doctors, same mix</button>
+                </div>
             </div>
             <div>
                 <div class="outs">
                     <div class="out glass hi"><div class="v" id="o-profit">–</div><div class="l">Profit this month <b>(after every cost)</b></div></div>
-                    <div class="out glass"><div class="v" id="o-rev">–</div><div class="l">Revenue this month</div></div>
+                    <div class="out glass"><div class="v" id="o-rev">–</div><div class="l">Revenue this month <b id="o-rev-sub"></b></div></div>
                     <div class="out glass"><div class="v" id="o-cost">–</div><div class="l">Cost this month <b id="o-cost-sub"></b></div></div>
-                    <div class="out glass"><div class="v" id="o-pd">–</div><div class="l">Profit per doctor per month</div></div>
-                    <div class="out glass"><div class="v" id="o-be">–</div><div class="l">Doctors needed to break even <b>(with this top-up mix)</b></div></div>
-                    <div class="out glass"><div class="v" id="o-blk">–</div><div class="l">All-in cost of one 10-hour block <b id="o-blk-sub"></b></div></div>
+                    <div class="out glass"><div class="v" id="o-margin">–</div><div class="l">Gross margin</div></div>
+                    <div class="out glass"><div class="v" id="o-be">–</div><div class="l">Doctors needed to break even <b>(same mix, scaled up)</b></div></div>
+                    <div class="out glass"><div class="v" id="o-unused">–</div><div class="l">Hours paid for but not used <b id="o-unused-sub"></b></div></div>
                 </div>
                 <div class="callout" id="verdict"></div>
             </div>
@@ -164,52 +181,50 @@
 
         <div class="row">
             <div class="panel glass">
+                <h3>Usage and revenue <span class="pill">This month</span></h3>
+                <div class="tbl-wrap"><table>
+                    <thead><tr><th>Line</th><th>Total</th><th>Per doctor</th></tr></thead>
+                    <tbody id="usage"></tbody>
+                </table></div>
+            </div>
+            <div class="panel glass">
+                <h3>Where the trough is <span class="pill">Profit per doctor by hours used</span></h3>
+                <div class="chart-wrap" id="chart"></div>
+                <p class="note" id="trough-note"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="panel glass">
+                <h3>Each kind of doctor <span class="pill">Before shared costs</span></h3>
+                <div class="tbl-wrap"><table>
+                    <thead><tr><th>Profile</th><th>Doctors</th><th>Hours each</th><th>Extra blocks</th><th>Pays</th><th>Azure</th><th>Services</th><th>Profit each</th><th>Profit total</th></tr></thead>
+                    <tbody id="segtbl"></tbody>
+                </table></div>
+                <p class="note">Shared costs, the $2,000 floor and the fixed $80.48 of Azure, are not in this table; they are spread across every doctor in the monthly figures above. The shaded row is the least profitable profile.</p>
+                <div class="tbl-wrap" style="margin-top:1rem"><table id="scale">
+                    <thead><tr><th>Doctors, same mix</th><th>Revenue</th><th>Cost</th><th>Profit</th><th>Per doctor</th></tr></thead>
+                    <tbody></tbody>
+                </table></div>
+            </div>
+            <div class="panel glass">
                 <h3>Azure cost per hour <span class="pill">Moves with the hours</span></h3>
                 <div class="azbox">
                     <div class="azbig"><div class="v" id="az-rate">–</div><div class="l">per AI and processing hour at roughly <b id="az-hours">–</b> this month</div></div>
                     <div class="azmath" id="az-math"></div>
                 </div>
                 <div class="chart-wrap" id="az-chart" style="margin-top:1rem"></div>
-                <p class="note">The curve is the invoice fit: fixed $80.48 divided over more hours, plus $1.86 for each AI and processing hour. The three dots are the months invoiced. The marked point is your scenario, at its estimated hours.</p>
-            </div>
-            <div class="panel glass">
-                <h3>Profit as doctors grow <span class="pill">Same top-up mix</span></h3>
-                <div class="chart-wrap" id="chart"></div>
-                <p class="note">Every doctor added brings their revenue and their Azure hours; the floor and the fixed Azure charge do not grow. Where the line crosses zero is break-even. The small steps at 100 and 500 doctors are the services bands.</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="panel glass">
-                <h3>One doctor, one month <span class="pill">Average across the mix</span></h3>
-                <div class="tbl-wrap"><table>
-                    <thead><tr><th>Line</th><th>Per doctor</th></tr></thead>
-                    <tbody>
-                        <tr><td>Base block</td><td id="t-base">–</td></tr>
-                        <tr><td id="t-top-l">Extra blocks</td><td id="t-top">–</td></tr>
-                        <tr class="be"><td>Revenue</td><td id="t-rev">–</td></tr>
-                        <tr><td id="t-az-l">Azure</td><td id="t-az">–</td></tr>
-                        <tr><td id="t-add-l">Services</td><td id="t-add">–</td></tr>
-                        <tr><td id="t-floor-l">Share of the floor</td><td id="t-floor">–</td></tr>
-                        <tr class="be"><td>Profit</td><td id="t-profit">–</td></tr>
-                    </tbody>
-                </table></div>
-            </div>
-            <div class="panel glass">
-                <h3>The same mix at scale <span class="pill">Per month</span></h3>
-                <div class="tbl-wrap"><table id="scale">
-                    <thead><tr><th>Doctors</th><th>Revenue</th><th>Cost</th><th>Profit</th><th>Per doctor</th></tr></thead>
-                    <tbody></tbody>
-                </table></div>
-                <p class="note" id="scale-note"></p>
+                <p class="note">The curve is the invoice fit: $80.48 fixed divided over more hours, plus $1.86 for each AI and processing hour. The dots are the invoiced months; the marked point is your scenario.</p>
+                <div class="callout" style="margin-top:1rem"><b>Benchmark, Sydney Gut Clinic.</b> On a shared 50-hour plan, the clinic used about 73 hours a month from March to August 2026, about 147% of its allowance, or roughly 23 hours over each month. That is about 15 hours per active doctor, but spread from under 1 hour to about 34. Monthly totals ran from about 50 hours (August) to about 90 (June).</div>
             </div>
         </div>
 
         <details class="glass">
             <summary><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Assumptions, and how to change them</summary>
             <div class="basis">
-                <b>Azure.</b> The three invoices were June $396.00 for 169.89 hours, July $257.30 for 92.65 hours and August $185.26 for 57.69 hours. A straight line through them, $80.48 a month plus $1.8646 per AI and processing hour, lands within $4 of each invoice. That line is what the calculator charges. It is the pay-as-you-go rate; a commitment tier would lower the per-hour figure further at volume.
-                <b>Services.</b> $15.40 a month per doctor up to 100 doctors, $15.82 from 100, $16.86 from 500, covering Redis and the GCP and Pusher capacity that scale needs.
+                <b>Profiles.</b> Low is under about 5 hours a month, Mid about 5 to 20, Heavy above 20. The averages used for each are inputs above; the Sydney Gut Clinic figures suggest 3, 12.5 and 30 as starting points.
+                <b>Azure.</b> The three invoices were June $396.00 for 169.89 hours, July $257.30 for 92.65 hours and August $185.26 for 57.69 hours. A straight line through them, $80.48 a month plus $1.8646 per AI and processing hour, lands within $4 of each invoice. That is pay-as-you-go; a commitment tier would lower the per-hour figure at volume.
+                <b>Services.</b> $15.40 a month per doctor up to 100 doctors, $15.82 from 100, $16.86 from 500.
                 <b>Floor.</b> $2,000 a month of fixed infrastructure, divided across every doctor on the plan.
             </div>
             <div class="adv" id="adv"></div>
@@ -221,50 +236,63 @@
 <script>
 (function(){
     'use strict';
-    var LS='arvi-simple-v2';
-    var D={base:29.99,top:39.99,blk:10,azFix:80.48,azHr:1.8646,addon:15.40,floor:2000};
+    var LS='arvi-simple-v3';
+    var D={base:29.99,inc:10,top:39.99,blk:10,azFix:80.48,azHr:1.8646,addon:15.40,floor:2000};
     var INV=[{m:'June',h:169.89,c:396.00},{m:'July',h:92.65,c:257.30},{m:'August',h:57.69,c:185.26}];
     var ADV=[
-        {id:'base',label:'Base block price',pre:'$',step:0.01,note:'per doctor per month, includes one block'},
+        {id:'base',label:'Base plan price',pre:'$',step:0.01,note:'per doctor per month, includes the first block'},
+        {id:'inc',label:'Hours in the base plan',suf:'hrs',step:0.5,note:'roughly 10 AI and processing hours'},
         {id:'top',label:'Extra block price',pre:'$',step:0.01},
-        {id:'blk',label:'AI and processing hours per block',suf:'hrs',step:1,note:'an estimate; blocks are roughly 10 hours'},
+        {id:'blk',label:'Hours per extra block',suf:'hrs',step:0.5},
         {id:'azFix',label:'Azure fixed per month',pre:'$',step:0.01,note:'from the invoice fit'},
         {id:'azHr',label:'Azure per AI and processing hour',pre:'$',step:0.0001,note:'from the invoice fit'},
         {id:'addon',label:'Services per doctor',pre:'$',step:0.01,note:'up to 100 doctors; band steps added on top'},
         {id:'floor',label:'Floor per month',pre:'$',step:10}
     ];
+    var SEGS=[{k:'L',name:'Low users',desc:'under about 5 hours a month',color:'var(--c3)'},{k:'M',name:'Mid users',desc:'about 5 to 20 hours a month',color:'var(--c2)'},{k:'H',name:'Heavy users',desc:'more than 20 hours a month',color:'var(--c1)'}];
+    var PRESETS={ten:{nL:4,hL:3,nM:4,hM:12.5,nH:2,hH:30},sgc:{nL:2,hL:3,nM:1,hM:8,nH:2,hH:30},hundred:{nL:40,hL:3,nM:40,hM:12.5,nH:20,hH:30}};
     var st=load(); var A={}; ADV.forEach(function(f){ A[f.id]=isFinite(st[f.id])?st[f.id]:D[f.id]; });
-    var S={n:isFinite(st.n)?st.n:100,p1:isFinite(st.p1)?st.p1:50,p2:isFinite(st.p2)?st.p2:20};
+    var S={}; ['nL','hL','nM','hM','nH','hH'].forEach(function(k){ S[k]=isFinite(st[k])?st[k]:PRESETS.ten[k]; }); S.rule=st.rule==='hour'?'hour':'block';
     function load(){ try{ return JSON.parse(localStorage.getItem(LS)||'{}'); }catch(e){ return {}; } }
-    function save(){ try{ var o={}; for(var k in A) o[k]=A[k]; o.n=S.n;o.p1=S.p1;o.p2=S.p2; localStorage.setItem(LS,JSON.stringify(o)); }catch(e){} }
+    function save(){ try{ var o={}; for(var k in A) o[k]=A[k]; for(var j in S) o[j]=S[j]; localStorage.setItem(LS,JSON.stringify(o)); }catch(e){} }
     function $(id){ return document.getElementById(id); }
     function money(x,d){ if(!isFinite(x)) return '–'; var dd=d!=null?d:(Math.abs(x)<10?2:0); return (x<0?'−$':'$')+Math.abs(x).toLocaleString('en-AU',{minimumFractionDigits:dd,maximumFractionDigits:dd}); }
     function moneyK(x){ if(!isFinite(x)) return '–'; var a=Math.abs(x),s; if(a>=1e6) s='$'+(a/1e6).toFixed(2)+'M'; else if(a>=1e4) s='$'+Math.round(a/1e3)+'k'; else if(a>=1e3) s='$'+(a/1e3).toFixed(1)+'k'; else s='$'+Math.round(a); return (x<0?'−':'')+s; }
     function num(x,d){ return x.toLocaleString('en-AU',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); }
+    function pct(x){ return isFinite(x)?x.toFixed(0)+'%':'–'; }
     function sc(v){ return v<0?'neg':(v>0?'pos':''); }
     function setV(id,t,sign){ var e=$(id); e.textContent=t; e.classList.remove('neg','pos'); if(sign<0) e.classList.add('neg'); else if(sign>0) e.classList.add('pos'); }
     function addonAt(n){ return A.addon+(n>=500?1.46:(n>=100?0.42:0)); }
     function azRate(hours){ return hours>0?(A.azFix+A.azHr*hours)/hours:0; }
 
-    function calc(n,p1,p2){
-        var f1=p1/100,f2=p2/100,f0=Math.max(0,1-f1-f2);
-        var hrsPer=A.blk*(1+f1+2*f2), hours=n*hrsPer, packsPer=f1+2*f2;
-        var azure=A.azFix+A.azHr*hours, addons=n*addonAt(n), floor=A.floor;
-        var rev=n*(A.base+packsPer*A.top), cost=azure+addons+floor, profit=rev-cost;
-        return {n:n,f0:f0,hrsPer:hrsPer,hours:hours,packsPer:packsPer,azure:azure,addons:addons,floor:floor,rev:rev,cost:cost,profit:profit,
-            azHr:azRate(hours), perDoc:n?profit/n:0, revDoc:n?rev/n:0, azDoc:n?azure/n:0, addDoc:addonAt(n), floorDoc:n?floor/n:0, costDoc:n?cost/n:0, blocksPer:hrsPer/A.blk};
+    // one doctor using h hours, in a plan with N doctors, before shared costs
+    function doc(h,N,rule){
+        var extra=Math.max(0,h-A.inc), blocks, topHrs, topRev;
+        if(rule==='hour'){ blocks=A.blk>0?extra/A.blk:0; topHrs=extra; topRev=A.blk>0?extra*A.top/A.blk:0; }
+        else { blocks=A.blk>0?Math.max(0,Math.ceil(extra/A.blk-1e-9)):0; topHrs=blocks*A.blk; topRev=blocks*A.top; }
+        var rev=A.base+topRev, paid=A.inc+topHrs, unused=Math.max(0,paid-h), az=h*A.azHr, add=addonAt(N);
+        return {h:h,blocks:blocks,topHrs:topHrs,topRev:topRev,rev:rev,paid:paid,unused:unused,az:az,add:add,contrib:rev-az-add};
     }
-    function breakEven(p1,p2){ for(var u=1;u<=100000;u++){ if(calc(u,p1,p2).profit>=0) return u; } return null; }
+    function model(nL,hL,nM,hM,nH,hH,rule){
+        var N=nL+nM+nH; var segs=[{s:SEGS[0],n:nL,d:doc(hL,N,rule)},{s:SEGS[1],n:nM,d:doc(hM,N,rule)},{s:SEGS[2],n:nH,d:doc(hH,N,rule)}];
+        var t={N:N,used:0,inc:N*A.inc,topHrs:0,paid:0,unused:0,subRev:N*A.base,topRev:0,addons:N*addonAt(N),floor:A.floor,segs:segs};
+        segs.forEach(function(g){ t.used+=g.n*g.d.h; t.topHrs+=g.n*g.d.topHrs; t.paid+=g.n*g.d.paid; t.unused+=g.n*g.d.unused; t.topRev+=g.n*g.d.topRev; });
+        t.rev=t.subRev+t.topRev; t.azure=N>0?A.azFix+A.azHr*t.used:0; t.cost=t.azure+t.addons+t.floor; t.profit=t.rev-t.cost;
+        t.margin=t.rev>0?t.profit/t.rev*100:NaN; t.azHr=azRate(t.used); t.perDoc=N?t.profit/N:0; t.sharedPerDoc=N?(A.floor+A.azFix)/N:0;
+        return t;
+    }
+    function scaled(N){ var tot=S.nL+S.nM+S.nH; if(tot<=0) return model(0,S.hL,0,S.hM,0,S.hH,S.rule); var f=N/tot; return model(S.nL*f,S.hL,S.nM*f,S.hM,S.nH*f,S.hH,S.rule); }
+    function breakEven(){ for(var u=1;u<=100000;u++){ if(scaled(u).profit>=0) return u; } return null; }
 
-    // generic line chart
-    var W=640,H=260,P={l:56,r:16,t:16,b:34};
+    // charts
+    var W=640,H=250,P={l:56,r:16,t:16,b:34};
     function ticks(min,max,k){ if(max===min) max=min+1; var span=max-min,raw=span/k,mag=Math.pow(10,Math.floor(Math.log10(raw))),nm=raw/mag,step=(nm<1.5?1:nm<3?2:nm<7?5:10)*mag; var t=[],s=Math.floor(min/step)*step; for(var v=s;v<=max+step*.001;v+=step) t.push(+v.toFixed(8)); return t; }
     function el(tag,at){ var e=document.createElementNS('http://www.w3.org/2000/svg',tag); for(var k in at) e.setAttribute(k,at[k]); return e; }
     function draw(id,o){
         var box=$(id); box.innerHTML='';
         var svg=el('svg',{viewBox:'0 0 '+W+' '+H,class:'chart',role:'img','aria-label':o.aria||''}); box.appendChild(svg);
         var tip=document.createElement('div'); tip.className='tip'; box.appendChild(tip);
-        var ys=o.data.map(function(p){return p.y;}).concat([o.marker.y]); (o.dots||[]).forEach(function(d){ ys.push(d.y); });
+        var ys=o.data.map(function(p){return p.y;}); (o.dots||[]).forEach(function(d){ ys.push(d.y); });
         var xmin=0,xmax=Math.max.apply(null,o.data.map(function(p){return p.x;}));
         var ylo=o.zeroBase?Math.min(0,Math.min.apply(null,ys)):Math.min.apply(null,ys)*0.9, yhi=Math.max(0,Math.max.apply(null,ys));
         var yt=ticks(ylo,yhi,5), ymin=o.zeroBase?yt[0]:Math.max(0,yt[0]), ymax=yt[yt.length-1];
@@ -274,65 +302,79 @@
         svg.appendChild(el('line',{x1:P.l,x2:P.l,y1:P.t,y2:H-P.b,class:'axis'}));
         var xl=el('text',{x:P.l+iw/2,y:H-3,'text-anchor':'middle',class:'alabel'}); xl.textContent=o.xLabel; svg.appendChild(xl);
         var d=''; o.data.forEach(function(p,i){ d+=(i?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.y).toFixed(1)+' '; }); svg.appendChild(el('path',{d:d,fill:'none',stroke:'var(--c1)','stroke-width':2.2,'stroke-linejoin':'round'}));
-        (o.dots||[]).forEach(function(dt){ svg.appendChild(el('circle',{cx:X(dt.x),cy:Y(dt.y),r:5,fill:'var(--c1)',stroke:'#fff','stroke-width':2})); var t=el('text',{x:X(dt.x)+8,y:Y(dt.y)+4,class:'dlab'}); t.textContent=dt.label; svg.appendChild(t); });
-        svg.appendChild(el('circle',{cx:X(o.marker.x),cy:Y(o.marker.y),r:6.5,fill:'#fff',stroke:'var(--accent)','stroke-width':2.5}));
-        var mt=el('text',{x:X(o.marker.x)+10,y:Y(o.marker.y)-9,class:'dlab'}); mt.textContent=o.marker.label; svg.appendChild(mt);
+        (o.dots||[]).forEach(function(dt,i){ svg.appendChild(el('circle',{cx:X(dt.x),cy:Y(dt.y),r:6,fill:dt.color||'var(--c1)',stroke:'#fff','stroke-width':2})); var above=dt.above!=null?dt.above:(i%2===0); var t=el('text',{x:X(dt.x)+(dt.dx||8),y:Y(dt.y)+(above?-9:16),class:'dlab','text-anchor':dt.anchor||'start'}); t.textContent=dt.label; svg.appendChild(t); });
         var xh=el('line',{y1:P.t,y2:H-P.b,stroke:'rgba(4,55,98,.4)','stroke-dasharray':'2 3',visibility:'hidden'}); svg.appendChild(xh);
         var hd=el('circle',{r:4.5,fill:'var(--c1)',stroke:'#fff','stroke-width':2,visibility:'hidden'}); svg.appendChild(hd);
         svg.addEventListener('mousemove',function(ev){ var r=svg.getBoundingClientRect(); var px=(ev.clientX-r.left)/r.width*W; var xv=xmin+(px-P.l)/iw*(xmax-xmin); var b=0,bd=Infinity; o.data.forEach(function(p,i){ var dd=Math.abs(p.x-xv); if(dd<bd){bd=dd;b=i;} }); var p=o.data[b];
             xh.setAttribute('x1',X(p.x)); xh.setAttribute('x2',X(p.x)); xh.setAttribute('visibility','visible'); hd.setAttribute('cx',X(p.x)); hd.setAttribute('cy',Y(p.y)); hd.setAttribute('visibility','visible');
-            tip.innerHTML='<b>'+o.tipX(p.x)+'</b><div class="r"><span>'+o.name+'</span><span>'+o.tipY(p.y)+'</span></div>'; tip.style.display='block'; var cx=ev.clientX-r.left, left=cx+14; if(left+170>r.width) left=cx-184; tip.style.left=left+'px'; tip.style.top=Math.max(0,(ev.clientY-r.top)-10)+'px'; });
+            tip.innerHTML='<b>'+o.tipX(p.x)+'</b><div class="r"><span>'+o.name+'</span><span>'+o.tipY(p.y)+'</span></div>'+(o.tipExtra?o.tipExtra(p):''); tip.style.display='block'; var cx=ev.clientX-r.left, left=cx+14; if(left+170>r.width) left=cx-184; tip.style.left=left+'px'; tip.style.top=Math.max(0,(ev.clientY-r.top)-10)+'px'; });
         svg.addEventListener('mouseleave',function(){ tip.style.display='none'; xh.setAttribute('visibility','hidden'); hd.setAttribute('visibility','hidden'); });
     }
 
     function update(){
-        ['n','p1','p2'].forEach(function(k){ $(k).value=S[k]; $(k+'-r').value=Math.min(S[k],+$(k+'-r').max); });
-        $('p0-note').textContent='The other '+(100-S.p1-S.p2)+'% stay on the base block: roughly 10 AI and processing hours, $29.99.';
-        var r=calc(S.n,S.p1,S.p2), be=breakEven(S.p1,S.p2);
-        setV('o-profit',moneyK(r.profit)); setV('o-rev',moneyK(r.rev)); setV('o-cost',moneyK(r.cost));
-        $('o-cost-sub').textContent='Azure '+moneyK(r.azure)+' · services '+moneyK(r.addons)+' · floor '+moneyK(r.floor);
-        setV('o-pd',money(r.perDoc,2),Math.sign(r.perDoc));
-        setV('o-be',be==null?'never':num(be),be==null?-1:(S.n>=be?1:0));
-        setV('o-blk',money(r.costDoc/r.blocksPer,2)); $('o-blk-sub').textContent='against $'+A.base.toFixed(2)+' for the base block and $'+A.top.toFixed(2)+' for an extra one';
+        SEGS.forEach(function(g){ $('n'+g.k).value=S['n'+g.k]; $('n'+g.k+'-r').value=Math.min(S['n'+g.k],500); $('h'+g.k).value=S['h'+g.k]; $('h'+g.k+'-r').value=Math.min(S['h'+g.k],60); });
+        $('rule-block').classList.toggle('on',S.rule==='block'); $('rule-hour').classList.toggle('on',S.rule==='hour');
+        $('rule-note').textContent=S.rule==='block'?'A doctor who goes past their hours buys the next whole block, so unused hours in that block are still paid for. This is how the plan works today.':'Extra hours are charged pro rata at '+money(A.blk?A.top/A.blk:0,2)+' an hour. A test of what happens if doctors could buy only what they use.';
+        var t=model(S.nL,S.hL,S.nM,S.hM,S.nH,S.hH,S.rule), be=breakEven(), N=t.N;
+        setV('o-profit',moneyK(t.profit)); setV('o-rev',moneyK(t.rev)); $('o-rev-sub').textContent='plans '+moneyK(t.subRev)+' · top-ups '+moneyK(t.topRev);
+        setV('o-cost',moneyK(t.cost)); $('o-cost-sub').textContent='Azure '+moneyK(t.azure)+' · services '+moneyK(t.addons)+' · floor '+moneyK(t.floor);
+        setV('o-margin',pct(t.margin),isFinite(t.margin)?Math.sign(t.margin):0);
+        setV('o-be',be==null?'never':num(be),be==null?-1:(N>=be?1:0));
+        setV('o-unused',num(t.unused)+' hrs'); $('o-unused-sub').textContent='of '+num(t.paid)+' hrs paid for; '+num(t.used)+' hrs used';
+        // verdict
+        var segsSorted=t.segs.slice().sort(function(a,b){ return a.d.contrib-b.d.contrib; }); var worst=segsSorted[0], best=segsSorted[segsSorted.length-1];
         var v=$('verdict');
-        if(r.profit>=0){ v.className='callout'; v.innerHTML='<b>This month makes '+money(r.profit)+'.</b> '+num(S.n)+' doctors pay '+money(r.rev)+' and cost '+money(r.cost)+'. Break-even was '+(be||'–')+' doctors with this mix; every doctor beyond that adds about '+money(r.revDoc-r.azDoc-r.addDoc,2)+' a month, and the year comes to '+moneyK(r.profit*12)+'.'; }
-        else { v.className='callout warn'; v.innerHTML='<b>This month loses '+money(-r.profit)+'.</b> '+num(S.n)+' doctors pay '+money(r.rev)+' and cost '+money(r.cost)+'. '+(be==null?'With this top-up mix the plan never breaks even: each doctor costs more in Azure and services than they pay, before the floor is counted.':'The plan breaks even at <b>'+num(be)+' doctors</b> with this mix, because the $2,000 floor and the fixed Azure charge are spread over more doctors while each one still brings about '+money(r.revDoc-r.azDoc-r.addDoc,2)+' a month after their own costs.'); }
-        // azure box
-        setV('az-rate',money(r.azHr,2)); $('az-hours').textContent=num(r.hours)+' estimated hours';
-        $('az-math').innerHTML='<b>'+money(A.azFix,2)+'</b> fixed + <b>about '+num(r.hours)+' hrs × '+money(A.azHr,2)+'</b> = <b>'+money(r.azure,2)+'</b> for the month<br>'+money(r.azure,2)+' ÷ about '+num(r.hours)+' hrs = <b>'+money(r.azHr,2)+' per AI and processing hour</b><br>'+num(S.n)+' doctors × roughly '+num(r.hrsPer)+' hrs each = about '+num(r.hours)+' hrs';
-        var hmax=Math.max(r.hours*1.6,600); var pts=[]; for(var i=1;i<=48;i++){ var h=Math.round(hmax*i/48); pts.push({x:h,y:azRate(h)}); }
-        draw('az-chart',{data:pts,name:'Azure per hour',fy:function(y){return '$'+y.toFixed(2);},xLabel:'Estimated AI and processing hours in the month',tipX:function(x){return 'about '+num(x)+' hours';},tipY:function(y){return money(y,2)+' / hr';},
-            dots:INV.map(function(m){ return {x:m.h,y:m.c/m.h,label:m.m+' '+money(m.c/m.h,2)}; }),marker:{x:r.hours,y:r.azHr,label:'now '+money(r.azHr,2)+' / hr'},aria:'Azure cost per AI and processing hour against monthly estimated hours'});
-        // per-doctor table
-        function cell(id,val,sign){ var e=$(id); e.textContent=money(val,2); e.className=sign?sc(val):''; }
-        $('t-top-l').textContent='Extra blocks ('+num(r.packsPer,2)+' per doctor on average × '+money(A.top,2)+')';
-        $('t-az-l').textContent='Azure (about '+num(r.hrsPer)+' AI and processing hrs × '+money(r.azHr,2)+')';
-        $('t-add-l').textContent='Services (Redis, GCP, Pusher; '+(S.n>=500?'500+':(S.n>=100?'100 to 500':'up to 100'))+' band)';
-        $('t-floor-l').textContent='Share of the floor ('+money(A.floor)+' ÷ '+num(S.n)+')';
-        cell('t-base',A.base); cell('t-top',r.packsPer*A.top); cell('t-rev',r.revDoc); cell('t-az',-r.azDoc); cell('t-add',-r.addDoc); cell('t-floor',-r.floorDoc); cell('t-profit',r.perDoc,true);
+        var mixTxt=num(S.nL)+' low, '+num(S.nM)+' mid and '+num(S.nH)+' heavy';
+        if(N===0){ v.className='callout'; v.innerHTML='Add some doctors.'; }
+        else if(t.profit>=0){ v.className='callout'; v.innerHTML='<b>This month makes '+money(t.profit)+'.</b> '+num(N)+' doctors ('+mixTxt+') pay '+money(t.rev)+' and cost '+money(t.cost)+'. Break-even was '+(be||'–')+' doctors with this mix. '+best.s.name+' earn the most, '+money(best.d.contrib,2)+' each before shared costs; '+worst.s.name.toLowerCase()+' earn the least at '+money(worst.d.contrib,2)+'.'; }
+        else { v.className='callout warn'; v.innerHTML='<b>This month loses '+money(-t.profit)+'.</b> '+num(N)+' doctors ('+mixTxt+') pay '+money(t.rev)+' and cost '+money(t.cost)+', of which '+money(A.floor+A.azFix)+' is the shared floor and fixed Azure. '+(be==null?'With this mix the plan never breaks even: doctors cost more than they pay before shared costs are counted.':'The same mix breaks even at <b>'+num(be)+' doctors</b>, because the shared costs are spread thinner while each doctor still contributes about '+money((t.rev-t.azure+A.azFix-t.addons)/N,2)+' a month.')+' '+best.s.name+' are the profitable ones at '+money(best.d.contrib,2)+' each before shared costs; '+worst.s.name.toLowerCase()+(worst.d.contrib<0?' are the trough, losing '+money(-worst.d.contrib,2)+' each.':' earn the least at '+money(worst.d.contrib,2)+'.'); }
+        // usage & revenue table
+        var per=function(x){ return N?money(x/N,2):'–'; };
+        var rows=[['Doctors on the plan',num(N),''],['AI and processing hours used, roughly',num(t.used)+' hrs',N?num(t.used/N,1)+' hrs':'–'],['Hours included in the base plans',num(t.inc)+' hrs',num(A.inc)+' hrs'],['Top-up hours bought',num(t.topHrs)+' hrs',N?num(t.topHrs/N,1)+' hrs':'–'],['Hours paid for but not used',num(t.unused)+' hrs',N?num(t.unused/N,1)+' hrs':'–'],
+            ['Plan revenue',money(t.subRev),per(t.subRev)],['Top-up revenue',money(t.topRev),per(t.topRev)],['<b>Total revenue</b>',money(t.rev),per(t.rev)],
+            ['Azure ('+money(A.azFix,2)+' fixed + '+num(t.used)+' hrs × '+money(A.azHr,2)+')',money(t.azure),per(t.azure)],['Services (Redis, GCP, Pusher)',money(t.addons),per(t.addons)],['Shared floor',money(t.floor),per(t.floor)],['<b>Total cost</b>',money(t.cost),per(t.cost)],
+            ['<b>Gross profit</b>',money(t.profit),per(t.profit)],['<b>Gross margin</b>',pct(t.margin),'']];
+        $('usage').innerHTML=rows.map(function(r,i){ var be2=[7,11,12].indexOf(i)>=0; return '<tr'+(be2?' class="be"':'')+'><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>'; }).join('');
+        // segment table
+        $('segtbl').innerHTML=t.segs.map(function(g){ var d=g.d; return '<tr'+(g===worst&&N>0?' class="trough"':'')+'><td><i style="display:inline-block;width:9px;height:9px;border-radius:3px;background:'+g.s.color+';margin-right:.4rem"></i>'+g.s.name+'</td><td>'+num(g.n)+'</td><td>'+num(d.h,1)+'</td><td>'+num(d.blocks,S.rule==='hour'?2:0)+'</td><td>'+money(d.rev,2)+'</td><td>−'+money(d.az,2)+'</td><td>−'+money(d.add,2)+'</td><td class="'+sc(d.contrib)+'">'+money(d.contrib,2)+'</td><td class="'+sc(d.contrib*g.n)+'">'+money(d.contrib*g.n)+'</td></tr>'; }).join('');
         // scale table
-        var rows=[25,50,100,250,500,1000]; if(rows.indexOf(S.n)<0){ rows.push(S.n); rows.sort(function(a,b){return a-b;}); }
-        $('scale').querySelector('tbody').innerHTML=rows.map(function(u){ var c=calc(u,S.p1,S.p2); return '<tr'+(u===S.n?' class="now"':'')+'><td>'+num(u)+(u===S.n?' (now)':'')+'</td><td>'+money(c.rev)+'</td><td>'+money(c.cost)+'</td><td class="'+sc(c.profit)+'">'+money(c.profit)+'</td><td class="'+sc(c.perDoc)+'">'+money(c.perDoc,2)+'</td></tr>'; }).join('');
-        var c1k=calc(1000,S.p1,S.p2); $('scale-note').innerHTML='Profit per doctor rises with scale because the floor and the fixed Azure charge are shared by more doctors. At 1,000 doctors Azure costs '+money(c1k.azHr,2)+' per AI and processing hour and each doctor is worth '+money(c1k.perDoc,2)+' a month.';
-        // profit chart
-        var maxU=Math.min(Math.max(S.n*2,(be||0)*1.5,200),5000); var pp=[]; for(var j=0;j<=40;j++){ var u=Math.round(maxU*j/40); pp.push({x:u,y:calc(Math.max(u,1),S.p1,S.p2).profit}); }
-        draw('chart',{data:pp,name:'Profit per month',zeroBase:true,fy:function(y){return moneyK(y);},xLabel:'Doctors on the plan',tipX:function(x){return num(x)+' doctors';},tipY:function(y){return money(y);},marker:{x:S.n,y:r.profit,label:'now: '+num(S.n)+' doctors'},aria:'Monthly profit against number of doctors'});
+        var sizes=[5,10,25,50,100,250,500,1000]; if(N>0&&sizes.indexOf(N)<0){ sizes.push(N); sizes.sort(function(a,b){return a-b;}); }
+        $('scale').querySelector('tbody').innerHTML=sizes.map(function(u){ var c=scaled(u); return '<tr'+(u===N?' class="now"':'')+'><td>'+num(u)+(u===N?' (now)':'')+'</td><td>'+money(c.rev)+'</td><td>'+money(c.cost)+'</td><td class="'+sc(c.profit)+'">'+money(c.profit)+'</td><td class="'+sc(c.perDoc)+'">'+money(c.perDoc,2)+'</td></tr>'; }).join('');
+        // trough chart: contribution per doctor vs hours used
+        var hmax=Math.max(40,Math.ceil((Math.max(S.hL,S.hM,S.hH)+10)/10)*10); var pts=[]; var minP=null;
+        for(var i=0;i<=hmax*4;i++){ var h=i/4; var dd=doc(h,Math.max(N,1),S.rule); pts.push({x:h,y:dd.contrib,d:dd}); if(minP==null||dd.contrib<minP.y) minP={x:h,y:dd.contrib}; }
+        var dots=t.segs.map(function(g,i){ return {x:g.d.h,y:g.d.contrib,color:g.s.color,label:g.s.name.replace(' users','')+' '+num(g.d.h,1)+' hrs: '+money(g.d.contrib,2),above:g.d.contrib>=0,anchor:g.d.h>hmax*0.7?'end':'start',dx:g.d.h>hmax*0.7?-8:8}; });
+        draw('chart',{data:pts,name:'Profit per doctor',zeroBase:true,fy:function(y){return money(y);},xLabel:'AI and processing hours used in the month, roughly',tipX:function(x){return 'about '+num(x,1)+' hours';},tipY:function(y){return money(y,2)+' / month';},tipExtra:function(p){ return '<div class="r" style="color:var(--muted)"><span>pays '+money(p.d.rev,2)+'</span><span>'+num(p.d.blocks,S.rule==='hour'?1:0)+' extra block'+(p.d.blocks===1?'':'s')+'</span></div>'; },dots:dots,aria:'Profit per doctor before shared costs against hours used'});
+        var trough=pts.filter(function(p){return p.y<0;}); var tn=$('trough-note');
+        if(S.rule==='block'){ tn.innerHTML='Under whole blocks the line saws: it jumps every time a doctor buys a block and slides down as they use it. The lowest point is <b>about '+num(minP.x,1)+' hours, '+money(minP.y,2)+' a month</b>: a doctor who uses their included hours to the edge but never buys a top-up.'+(trough.length?' Doctors between about '+num(trough[0].x,1)+' and '+num(trough[trough.length-1].x,1)+' hours lose money before shared costs.':' No usage level loses money before shared costs.')+' Light users profit from hours they do not use; heavy users profit from the extra blocks they buy.'; }
+        else { tn.innerHTML='Priced per hour the line is smooth: each extra hour earns '+money(A.blk?A.top/A.blk-A.azHr:0,2)+' over its Azure cost. The lowest point is <b>about '+num(minP.x,1)+' hours, '+money(minP.y,2)+' a month</b>.'+(trough.length?' Doctors between about '+num(trough[0].x,1)+' and '+num(trough[trough.length-1].x,1)+' hours lose money before shared costs.':' No usage level loses money before shared costs.'); }
+        // azure box
+        setV('az-rate',money(t.azHr,2)); $('az-hours').textContent=num(t.used)+' estimated hours';
+        $('az-math').innerHTML='<b>'+money(A.azFix,2)+'</b> fixed + <b>about '+num(t.used)+' hrs × '+money(A.azHr,2)+'</b> = <b>'+money(t.azure,2)+'</b> for the month<br>'+money(t.azure,2)+' ÷ about '+num(t.used)+' hrs = <b>'+money(t.azHr,2)+' per AI and processing hour</b>';
+        var hm=Math.max(t.used*1.6,600); var ap=[]; for(var j=1;j<=48;j++){ var hh=Math.round(hm*j/48); ap.push({x:hh,y:azRate(hh)}); }
+        draw('az-chart',{data:ap,name:'Azure per hour',fy:function(y){return '$'+y.toFixed(2);},xLabel:'Estimated AI and processing hours in the month',tipX:function(x){return 'about '+num(x)+' hours';},tipY:function(y){return money(y,2)+' / hr';},
+            dots:INV.map(function(m,i){ return {x:m.h,y:m.c/m.h,label:m.m+' '+money(m.c/m.h,2),above:false}; }).concat([{x:t.used,y:t.azHr,label:'now '+money(t.azHr,2)+' / hr',color:'var(--accent)',above:true}]),aria:'Azure cost per AI and processing hour against monthly hours'});
         save();
     }
 
-    function setInput(k,val,from){
-        if(!isFinite(val)) return; val=Math.round(val);
-        if(k==='n') val=Math.max(1,Math.min(100000,val)); else val=Math.max(0,Math.min(100,val));
-        S[k]=val;
-        if(k==='p1'&&S.p1+S.p2>100) S.p2=100-S.p1;
-        if(k==='p2'&&S.p1+S.p2>100) S.p1=100-S.p2;
-        update();
-    }
-    ['n','p1','p2'].forEach(function(k){
-        $(k).addEventListener('input',function(){ if($(k).value!=='') setInput(k,parseFloat($(k).value)); });
-        $(k).addEventListener('blur',function(){ $(k).value=S[k]; });
-        $(k+'-r').addEventListener('input',function(){ setInput(k,parseFloat($(k+'-r').value)); });
+    // build segment inputs
+    var segsBox=$('segs');
+    SEGS.forEach(function(g){
+        var d=document.createElement('div'); d.className='seg';
+        d.innerHTML='<div class="sh"><b><i style="background:'+g.color+'"></i>'+g.name+'</b><span>'+g.desc+'</span></div>'+
+            '<div class="field"><div class="top"><label for="n'+g.k+'">Doctors</label><div class="in"><input type="number" id="n'+g.k+'" min="0" max="100000" step="1"></div></div><input type="range" id="n'+g.k+'-r" min="0" max="500" step="1"></div>'+
+            '<div class="field"><div class="top"><label for="h'+g.k+'">Average hours each, roughly</label><div class="in"><input type="number" id="h'+g.k+'" min="0" max="500" step="0.5"><span>hrs</span></div></div><input type="range" id="h'+g.k+'-r" min="0" max="60" step="0.5"></div>';
+        segsBox.appendChild(d);
+        [['n',0,100000,1],['h',0,500,0.5]].forEach(function(c){ var key=c[0]+g.k;
+            function set(val){ if(!isFinite(val)) return; val=Math.max(c[1],Math.min(c[2],val)); if(c[0]==='n') val=Math.round(val); S[key]=val; update(); }
+            $(key).addEventListener('input',function(){ if($(key).value!=='') set(parseFloat($(key).value)); });
+            $(key).addEventListener('blur',function(){ $(key).value=S[key]; });
+            $(key+'-r').addEventListener('input',function(){ set(parseFloat($(key+'-r').value)); });
+        });
     });
+    $('rule-block').addEventListener('click',function(){ S.rule='block'; update(); });
+    $('rule-hour').addEventListener('click',function(){ S.rule='hour'; update(); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-preset]'),function(b){ b.addEventListener('click',function(){ var p=PRESETS[b.getAttribute('data-preset')]; for(var k in p) S[k]=p[k]; update(); }); });
     var adv=$('adv'); ADV.forEach(function(f){ var d=document.createElement('div'); d.className='f'; d.innerHTML='<label for="adv-'+f.id+'">'+f.label+'</label><div class="in">'+(f.pre?'<span>'+f.pre+'</span>':'')+'<input type="number" id="adv-'+f.id+'" step="'+f.step+'" min="0">'+(f.suf?'<span>'+f.suf+'</span>':'')+'</div>'+(f.note?'<small>'+f.note+'</small>':''); adv.appendChild(d); var inp=d.querySelector('input'); inp.value=A[f.id]; inp.addEventListener('input',function(){ var x=parseFloat(inp.value); if(isFinite(x)&&x>=0){ A[f.id]=x; update(); } }); });
     $('reset').addEventListener('click',function(){ ADV.forEach(function(f){ A[f.id]=D[f.id]; $('adv-'+f.id).value=D[f.id]; }); update(); });
     update();

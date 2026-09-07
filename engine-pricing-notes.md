@@ -85,3 +85,11 @@ The AUD 80/month fixed component is not a published Speech or OpenAI fee; it is 
 Levers visible in public pricing: (1) fast or batch transcription for recorded consults, roughly 3x to 5x cheaper per hour than real-time; (2) the 2,000-hour commitment tier once monthly volume passes about 1,600 hours (about 95 users at 17 hrs), 20% off; (3) commitment tiers at 50,000 hours halve the rate.
 
 Sources: Azure Speech pricing page (prices render per region, verified structure and free tier), Microsoft Q&A on commitment tiers covering all modes, third-party summaries of the $1 / $0.36 / $0.18 rates and the $1,600 for 2,000 hours tier, CloudZero and Finout for Azure OpenAI token prices.
+
+## Sydney Gut Clinic usage benchmark (added 6 September 2026)
+
+SGC is on a shared 50-hour monthly plan. March to August 2026: 79.78, 71.87, 77.94, 90.47, 69.91, 49.77 hours; total about 439.7, average 73.3 hours a month, about 147% of the allowance (about 23.3 hours over). About 14.7 hours per active doctor, but skewed: Suhirdan about 33.6, Andrew 27.3, Nicholas 8.0, Antoinette 3.4, Beatrice 0.9.
+
+Modelling profiles: Low 0-5 hrs (use 3), Mid 5-20 hrs (use 12.5), Heavy 20+ hrs (use 30). The calculator now takes a count and average hours per profile, a whole-block or per-hour top-up rule, and reports usage, included hours, unused hours, top-up hours, plan and top-up revenue, cost, profit and margin, plus profit per doctor by hours used to locate the trough.
+
+Finding at current prices ($29.99 for ~10 hrs, $39.99 per extra 10-hr block, Azure $1.86/hr marginal, $15.40 services): under whole blocks the trough is a doctor using close to 10 hours who never tops up (about -$4 a month before shared costs); a 12.5-hour doctor who buys a whole extra block is actually one of the most profitable (+$31). Priced per hour instead, the trough widens to roughly 8 to 12 hours. Low users earn about +$9 from unused hours; heavy users about +$39 from top-ups. Shared costs (floor 2,000 plus Azure fixed 80) dominate at small practice sizes; the 10-doctor default mix breaks even at about 88 doctors.
