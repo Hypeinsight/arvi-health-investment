@@ -438,7 +438,7 @@ async function load(){
     }
   }catch(e){}
   if(!fromFile){
-    try{const r=await window.storage.get(KEY); if(r&&r.value) items=JSON.parse(r.value);}catch(e){}
+    try{const r=localStorage.getItem(KEY); if(r) items=JSON.parse(r);}catch(e){}
     render();
     if(!fileHandle)setStatus('', FS_OK?'No file connected. Create or open a .txt file.'
                                      :'Browser cannot write files. Use Download a copy.');
@@ -446,7 +446,7 @@ async function load(){
 }
 async function persist(){
   stamp();
-  try{await window.storage.set(KEY,JSON.stringify(items));}catch(e){}
+  try{localStorage.setItem(KEY,JSON.stringify(items));}catch(e){}
   scheduleSave();
 }
 function stamp(){
