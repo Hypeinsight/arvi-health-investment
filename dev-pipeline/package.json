@@ -1,0 +1,12 @@
+{
+  "name": "arvi-dev-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arvi dev-pipeline shared feature-status board",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

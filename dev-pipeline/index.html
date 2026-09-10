@@ -201,13 +201,8 @@ footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:v
 
   <div class="tools">
     <button class="primary" id="add">Add a feature</button>
-    <button id="openDb">Open .txt file</button>
-    <button id="newDb">Create .txt file</button>
-    <button id="relink" hidden>Reconnect file</button>
-    <button id="export">Save .txt file</button>
-    <button id="import">Load from .txt file</button>
+    <button id="export">Download .txt</button>
     <button id="reset">Reset to plan</button>
-    <input type="file" id="file" accept=".txt,text/plain" hidden>
     <span class="dbstat" id="dbstat"><span class="dot"></span><span id="dbtext">Checking file...</span></span>
   </div>
 
@@ -332,7 +327,7 @@ function setStatus(state,text){
   const el=document.getElementById('dbstat');
   el.className='dbstat '+(state||'');
   document.getElementById('dbtext').textContent=text;
-  document.getElementById('relink').hidden = state!=='warn';
+  var _rl=document.getElementById('relink'); if(_rl)_rl.hidden = state!=='warn';
 }
 function savedNote(){
   return 'Saved to '+(fileHandle?fileHandle.name:'file')+' at '+
@@ -419,35 +414,80 @@ function noFsNotice(){
   alert('This browser cannot write straight to a file. Open this page in Chrome or Edge on your Mac, '+
         'or keep using Download a copy and Load from .txt file.');
 }
-document.getElementById('openDb').onclick=openDb;
-document.getElementById('newDb').onclick=newDb;
-document.getElementById('relink').onclick=async()=>{
-  if(fileHandle && await hasPerm(fileHandle,true)){
-    try{await readFromHandle();}catch(e){await writeFile();}
-  }
-};
+/* file-picker buttons removed: the board now saves to the shared server automatically */
+
+/* ---------- shared board: read/write via the server API ---------- */
+const API='api/board';
+let serverVersion=0, saving2=false, pendingSave=false, dirtyLocal=false, saveTimer2=null, polling=false;
 
 async function load(){
-  let fromFile=false;
   try{
-    const h=await idbGet('handle');
-    if(h){
-      fileHandle=h;
-      if(await hasPerm(h,false)){ await readFromHandle(); fromFile=true; }
-      else{ setStatus('warn','Reconnect '+h.name+' to keep saving to it.'); }
-    }
-  }catch(e){}
-  if(!fromFile){
-    try{const r=localStorage.getItem(KEY); if(r) items=JSON.parse(r);}catch(e){}
-    render();
-    if(!fileHandle)setStatus('', FS_OK?'No file connected. Create or open a .txt file.'
-                                     :'Browser cannot write files. Use Download a copy.');
+    const r=await fetch(API,{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(Array.isArray(d.items))items=d.items;
+    serverVersion=d.updatedAt||0;
+    try{localStorage.setItem(KEY,JSON.stringify(items));}catch(e){}
+    setStatus('live','Shared board - synced');
+  }catch(e){
+    try{const c=localStorage.getItem(KEY); if(c)items=JSON.parse(c);}catch(_){}
+    setStatus('bad','Offline - edits are not being shared');
   }
+  render();
+  startPolling();
 }
+
 async function persist(){
   stamp();
+  dirtyLocal=true;
   try{localStorage.setItem(KEY,JSON.stringify(items));}catch(e){}
-  scheduleSave();
+  clearTimeout(saveTimer2);
+  setStatus('','Saving...');
+  saveTimer2=setTimeout(saveToServer,400);
+}
+
+async function saveToServer(){
+  if(saving2){pendingSave=true;return;}
+  saving2=true;
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text:buildText()})});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(d&&d.updatedAt)serverVersion=d.updatedAt;
+    dirtyLocal=false;
+    setStatus('live','Saved for everyone'+(d&&d.updatedAt?' at '+new Date(d.updatedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):''));
+  }catch(e){
+    setStatus('bad','Could not save to the server - retrying');
+    pendingSave=true;
+  }finally{
+    saving2=false;
+    if(pendingSave){pendingSave=false;clearTimeout(saveTimer2);saveTimer2=setTimeout(saveToServer,1200);}
+  }
+}
+
+function anyDialogOpen(){
+  try{ if(typeof dlg!=='undefined'&&dlg.open)return true; }catch(e){}
+  try{ if(typeof dueDlg!=='undefined'&&dueDlg.open)return true; }catch(e){}
+  return false;
+}
+function startPolling(){
+  if(polling)return; polling=true;
+  setInterval(async()=>{
+    if(document.hidden||saving2||dirtyLocal||anyDialogOpen())return;
+    try{
+      const r=await fetch(API,{cache:'no-store'});
+      if(!r.ok)return;
+      const d=await r.json();
+      if(d&&d.updatedAt&&d.updatedAt!==serverVersion){
+        if(Array.isArray(d.items))items=d.items;
+        serverVersion=d.updatedAt;
+        try{localStorage.setItem(KEY,JSON.stringify(items));}catch(e){}
+        render();
+        setStatus('live','Updated with team changes');
+      }
+    }catch(e){}
+  },5000);
 }
 function stamp(){
   document.getElementById('stamp').textContent='Updated '+new Date().toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
@@ -688,14 +728,7 @@ function buildText(){
   L.push(JSON.stringify(items));
   return L.join('\r\n');
 }
-let _dl; /* memoized downloads namespace: undefined=unknown, null=unavailable, obj=ready */
-async function getDownloads(){
-  if(_dl!==undefined)return _dl;
-  try{ _dl = (window.claude && claude.use) ? await claude.use('downloads') : null; }
-  catch(e){ _dl=null; }
-  return _dl;
-}
-function exportBlob(){
+document.getElementById('export').onclick=()=>{
   const blob=new Blob([buildText()],{type:'text/plain;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
@@ -703,37 +736,6 @@ function exportBlob(){
   a.download='arvi-feature-status-'+new Date().toISOString().slice(0,10)+'.txt';
   document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
-document.getElementById('export').onclick=async()=>{
-  const name='arvi-feature-status-'+new Date().toISOString().slice(0,10)+'.txt';
-  const dl=await getDownloads();
-  if(dl){
-    try{
-      await dl.save({filename:name,data:buildText()});
-      setStatus('live','Saved '+name);
-      return;
-    }catch(e){
-      if(e&&e.code==='declined')return;
-    }
-  }
-  exportBlob();
-};
-document.getElementById('import').onclick=()=>document.getElementById('file').click();
-document.getElementById('file').onchange=ev=>{
-  const f=ev.target.files&&ev.target.files[0];
-  if(!f)return;
-  const rd=new FileReader();
-  rd.onload=()=>{
-    const txt=String(rd.result);
-    const at=txt.indexOf(MARK);
-    if(at<0){alert('That file has no board data in it. Load a .txt file saved from this board.');return;}
-    try{
-      items=parseText(txt);
-      render();persist();
-    }catch(e){alert('The board data in that file could not be read.');}
-  };
-  rd.readAsText(f);
-  ev.target.value='';
 };
 stamp();load();
 </script>

@@ -1,0 +1,80 @@
+ARVI HEALTH - FEATURE STATUS
+Saved: Sep 8, 2026 12:57:34 PM
+Delivered: 31% (4 of 13)
+
+DONE (4)
+------------------------------------------------------------
+  1. Global recording
+     Owner: Sachithra
+     Deadline: not set
+     Recording keeps running in the background as users move between pages and tabs.
+  2. Global dictation
+     Owner: Oshan
+     Deadline: not set
+     A keyboard shortcut turns speech into text in whichever field is active.
+  3. Tour guide
+     Owner: To be assigned
+     Deadline: not set
+     In-app prompts explain what has changed after each platform update.
+  4. Dark mode
+     Owner: Oshan
+     Deadline: not set
+     A low-light theme applied consistently across every screen.
+
+NEXT DEPLOYMENT (3)
+------------------------------------------------------------
+  1. Patient summary
+     Owner: Sachithra
+     Deadline: not set
+     Key patient details brought together in one place inside patient details.
+  2. Practice mode
+     Owner: To be assigned
+     Deadline: not set
+     New users learn the system with sample data before working on real records.
+  3. Bug Fixes
+     Owner: To be assigned
+     Deadline: not set
+     1. Letter name chnages
+2. UI implementaion - Notifications pop up fixsing
+3. Marked as action issue
+
+UNDER QA (1)
+------------------------------------------------------------
+  1. Bug Fixes and Client requests
+     Owner: To be assigned
+     Deadline: not set
+     1. Letter name chnages
+2. UI implementaion - Notifications pop up fixsing
+3. Marked as action issue
+4. Adding Buttons for global recording
+
+UNDER DEVELOPMENT (1)
+------------------------------------------------------------
+  1. Practice mode
+     Owner: Oshan
+     Deadline: Sep 10, 2026
+     New users learn the system with sample data before working on real records.
+
+COMING NEXT (2)
+------------------------------------------------------------
+  1. Letter memory
+     Owner: Shan
+     Deadline: not set
+     Pulls relevant content from past letters when a new one is drafted.
+  2. Voice assistance
+     Owner: To be assigned
+     Deadline: not set
+     Spoken commands and requests that go beyond dictation, hands-free.
+
+UNDER RESEARCH (2)
+------------------------------------------------------------
+  1. Live letter generation
+     Owner: Sachithra
+     Deadline: not set
+     The letter is written on screen as it is produced, instead of a loading screen.
+  2. Load testing for system
+     Owner: Hashanthi
+     Deadline: not set
+
+=== BOARD DATA (needed to load this file back, please do not edit) ===
+[{"due":"","id":1,"col":"done","name":"Global recording","icon":"recording","desc":"Recording keeps running in the background as users move between pages and tabs.","owner":"Sachithra"},{"due":"","id":2,"col":"done","name":"Global dictation","icon":"dictation","desc":"A keyboard shortcut turns speech into text in whichever field is active.","owner":"Oshan"},{"due":"","id":3,"col":"done","name":"Tour guide","icon":"tour","desc":"In-app prompts explain what has changed after each platform update.","owner":"To be assigned"},{"due":"","id":4,"col":"done","name":"Dark mode","icon":"dark","desc":"A low-light theme applied consistently across every screen.","owner":"Oshan"},{"due":"","id":6,"col":"next","name":"Letter memory","icon":"memory","desc":"Pulls relevant content from past letters when a new one is drafted.","owner":"Shan"},{"due":"2026-09-10","id":9,"col":"dev","name":"Practice mode","icon":"practice","desc":"New users learn the system with sample data before working on real records.","owner":"Oshan"},{"due":"","id":8,"col":"research","name":"Live letter generation","icon":"letter","desc":"The letter is written on screen as it is produced, instead of a loading screen.","owner":"Sachithra"},{"due":"","id":5,"col":"deploy","name":"Patient summary","icon":"summary","desc":"Key patient details brought together in one place inside patient details.","owner":"Sachithra"},{"due":"","id":1788851242722,"col":"deploy","name":"Practice mode","icon":"practice","desc":"New users learn the system with sample data before working on real records.","owner":"To be assigned"},{"due":"","id":1788851339264,"name":"Bug Fixes","desc":"1. Letter name chnages\n2. UI implementaion - Notifications pop up fixsing\n3. Marked as action issue","owner":"To be assigned","icon":"memory","col":"deploy"},{"due":"","id":1788851562760,"name":"Load testing for system","desc":"","owner":"Hashanthi","icon":"practice","col":"research"},{"due":"","id":1788851692607,"name":"Bug Fixes and Client requests","desc":"1. Letter name chnages\n2. UI implementaion - Notifications pop up fixsing\n3. Marked as action issue\n4. Adding Buttons for global recording","owner":"To be assigned","icon":"memory","col":"qa"},{"due":"","id":7,"col":"next","name":"Voice assistance","icon":"voice","desc":"Spoken commands and requests that go beyond dictation, hands-free.","owner":"To be assigned"}]
