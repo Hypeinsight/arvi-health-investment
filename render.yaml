@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: arvi-dev-pipeline
+    runtime: node
+    rootDir: dev-pipeline
+    plan: starter          # paid tier (~$7/mo) — required for the persistent disk
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    disk:
+      name: data
+      mountPath: /var/data # server.js writes arvi-feature-status.txt here
+      sizeGB: 1
