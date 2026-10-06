@@ -489,7 +489,7 @@
 (function(){
     'use strict';
     // ---------- helpers ----------
-    var LS='arvi-costing-v1';
+    var LS='arvi-costing-v2';
     var state=loadState();
     function loadState(){ try{ return JSON.parse(localStorage.getItem(LS)||'{}'); }catch(e){ return {}; } }
     function saveState(){ try{ localStorage.setItem(LS,JSON.stringify(state)); }catch(e){} }
@@ -643,8 +643,8 @@
     // ============ APPLICATION MODEL ============
     var APP_DEFS=[
         {group:'Users & plan', id:'a_users', label:'Active paying users', note:'paying subscriptions in the month', value:100, min:1, max:2000, hardMax:100000, step:1, slider:true},
-        {id:'a_base', label:'Base subscription', note:'per user per month', value:29.99, min:0, max:200, step:0.01, prefix:'$'},
-        {id:'a_hours', label:'Audio hours included in base', value:10, min:1, max:100, step:1, suffix:'hrs'},
+        {id:'a_base', label:'Base subscription', note:'per user per month', value:49.99, min:0, max:200, step:0.01, prefix:'$'},
+        {id:'a_hours', label:'Audio hours included in base', value:15, min:1, max:100, step:1, suffix:'hrs'},
         {id:'a_tp', label:'Top-up price', note:'one extra pack of hours', value:39.99, min:0, max:200, step:0.01, prefix:'$'},
         {id:'a_tph', label:'Audio hours per top-up', value:10, min:1, max:100, step:1, suffix:'hrs'},
         {group:'Usage', id:'a_share', label:'Doctors who top up', note:'share of active users buying at least one pack in the month', value:70, min:0, max:100, step:1, suffix:'%', slider:true},
@@ -905,6 +905,29 @@
     engf=buildFields('engf-fields',ENGF_DEFS,engUpdate);
     $('app-reset').addEventListener('click',function(){ app.reset(); appf.reset(); engUpdate(); });
     $('eng-reset').addEventListener('click',function(){ eng.reset(); engf.reset(); });
+
+    // ---- pricing plan toggle for the application model ----
+    (function(){
+        var PRICING={ 'new':{a_base:49.99,a_hours:15,a_tp:39.99,a_tph:10}, 'prev':{a_base:29.99,a_hours:10,a_tp:39.99,a_tph:10} };
+        var s=document.createElement('style');
+        s.textContent='.pricing-toggle{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:0 0 1rem}'+
+            '.pricing-toggle .pt-label{font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.65;margin-right:.2rem}'+
+            '.pricing-toggle button{padding:.5rem .85rem;border-radius:10px;border:1px solid rgba(120,160,200,.3);background:rgba(255,255,255,.04);color:inherit;cursor:pointer;font:inherit;font-size:.88rem}'+
+            '.pricing-toggle button.on{background:#0562BE;border-color:#0562BE;color:#fff;font-weight:600}'+
+            '.pricing-toggle .pt-note{opacity:.7;font-size:.8rem;margin-left:.3rem}';
+        document.head.appendChild(s);
+        function curMode(){ return (app.vals.a_base===PRICING.prev.a_base && app.vals.a_hours===PRICING.prev.a_hours) ? 'prev' : 'new'; }
+        var tog=document.createElement('div'); tog.className='pricing-toggle';
+        tog.innerHTML='<span class="pt-label">Pricing plan</span>'+
+            '<button type="button" data-mode="new">New · $49.99 / 15 hrs</button>'+
+            '<button type="button" data-mode="prev">Previous · $29.99 / 10 hrs</button>'+
+            '<small class="pt-note"></small>';
+        var af=$('app-fields'); if(af&&af.parentNode) af.parentNode.insertBefore(tog, af);
+        function paint(){ var m=curMode(); Array.prototype.forEach.call(tog.querySelectorAll('button'),function(b){ b.classList.toggle('on', b.getAttribute('data-mode')===m); }); tog.querySelector('.pt-note').textContent=(m==='prev'?'Showing previous pricing':''); }
+        Array.prototype.forEach.call(tog.querySelectorAll('button'),function(b){ b.addEventListener('click',function(){ var p=PRICING[b.getAttribute('data-mode')]; for(var k in p) app.set(k,p[k]); saveState(); paint(); updateAll(); }); });
+        paint();
+    })();
+
     updateAll();
     window.addEventListener('resize',function(){ clearTimeout(window.__rt); window.__rt=setTimeout(updateAll,150); });
 
